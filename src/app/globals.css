@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+	font-family: Inter;
+	font-style: normal;
+	font-display: swap;
+	src: url("/public/fonts/Inter-VariableFont.ttf") format("truetype");
+}
+
 :root {
 	--background: oklch(0.9856 0.0084 56.3169);
 	--foreground: oklch(0.3353 0.0132 2.7676);
