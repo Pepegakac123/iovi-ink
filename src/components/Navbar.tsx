@@ -139,7 +139,7 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className="fixed top-10 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-[1240px] mx-auto px-4"
+      className="fixed bottom-10  lg:top-10 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-[1240px] mx-auto px-4"
       variants={containerVariants}
       initial="hidden"
       animate="visible"

@@ -1,25 +1,12 @@
-import { getAllPosts } from "@/lib/wordpress";
-import Link from "next/link";
-import Image from "next/image";
-import { getAllServices } from "@/lib/jetApi";
-
+import Hero from "@/components/Hero";
+import images from "@/Assets/images";
 export default async function Home() {
-	const data = await getAllServices();
 	return (
-		<main className="text-center pt-16 px-5 bg-foreground font-text">
-			<h1 className="text-4xl md:text-5xl  mb-7 text-primary font-primary">All posts</h1>
-			<ul className="space-y-2">
-				{data.length > 0 ? (
-					data.map((post) => (
-						<li key={post.id}>
-							<h2>{post.title.rendered}</h2>
-						</li>
-						
-					))
-				) : (
-					<h2>Nie ma postów</h2>
-				)}
-			</ul>
-		</main>
+		<Hero
+			subTitle="Od minimalistycznych lini po złożone kompozycje"
+			title="Tatuaże z charakterem i głową"
+			description="W studio Lewus Ink każdy projekt to autorska kompozycja, nie kopia z Pinterest. Moje tatuaże to przemyślane dzieła dostosowane do Twojej anatomii, stylu i tego, jak chcesz się czuć ze swoim tatuażem przez następne lata."
+			image={images.hero}
+		/>
 	);
 }
