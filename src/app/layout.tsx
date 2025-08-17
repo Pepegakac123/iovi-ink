@@ -9,7 +9,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
-      <body
+      <body className="bg-background"
       >
         {/* <Navbar /> */}
         {children}

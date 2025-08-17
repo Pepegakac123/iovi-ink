@@ -3,7 +3,7 @@ import * as motion from 'motion/react-client';
 const Subheadline = ({title}: {title: string}) => {
   return (
     <motion.div 
-      className="bg-secondary border-1 border-foreground rounded-md px-2 py-2 sm:px-4 lg:py-4 lg:px-8 text-foreground flex align-center justify-center"
+      className="bg-secondary border-1 border-foreground rounded-md px-2 py-2 sm:px-4 lg:py-4 lg:px-8 text-foreground flex align-center justify-center w-fit"
       initial={{ opacity: 0, scale: 0.8, y: -20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ 

@@ -27,6 +27,9 @@ async function jetEngineFetch<T>(
     : "";
   const url = `${baseUrl}${path}${queryString}`;
   
+  // console.log("🔍 Fetching URL:", url); // DODANE DEBUGOWANIE
+  // console.log("🔍 Query params:", query); // DODANE DEBUGOWANIE
+  
   const userAgent = "Next.js JET Engine Client";
 
   const response = await fetch(url, {
@@ -39,6 +42,9 @@ async function jetEngineFetch<T>(
     },
   });
 
+  // console.log("🔍 Response status:", response.status); // DODANE DEBUGOWANIE
+  // console.log("🔍 Response OK:", response.ok); // DODANE DEBUGOWANIE
+
   if (!response.ok) {
     throw new JETEngineAPIError(
       `JET Engine API request failed: ${response.statusText}`,
@@ -47,7 +53,9 @@ async function jetEngineFetch<T>(
     );
   }
 
-  return response.json();
+  const data = await response.json();
+  // console.log("🔍 Response data:", data); // DODANE DEBUGOWANIE
+  return data;
 }
 
 // Get all services with limited fields
@@ -106,13 +114,18 @@ export function getServiceSEO(service: JetEngineUsluga) {
   };
 }
 
-export async function getImageCarouselBySlug(slug:"tatuaze" | "modele-3D"): Promise<Carousel>{
-   const images = await jetEngineFetch<Carousel>(`/wp-json/wp/v2/karuzela`, {
+export async function getImageCarouselBySlug(slug: "tatuaze" | "modele-3D"): Promise<Carousel> {
+  const images = await jetEngineFetch<Carousel[]>(`wp-json/wp/v2/karuzela`, {
     slug: slug,
     _fields: "meta"
   });
 
-  return images;
+  // Dodaj sprawdzenie czy tablica nie jest pusta
+  if (!images || images.length === 0) {
+    throw new JETEngineAPIError(`Carousel with slug "${slug}" not found`, 404, `/wp-json/wp/v2/karuzela?slug=${slug}`);
+  }
+
+  return images[0]; // Zwróć pierwszy element tablicy
 }
 
 export async function getAllTattooImages(): Promise<GroupedTattooImages> {
@@ -143,4 +156,44 @@ export async function getTattooImagesBySlug(slug: string): Promise<string[]> {
   });
 
   return portfolio[0].meta.zdjecia;
+}
+
+// Funkcja do pobierania alt text z WordPress Media API
+export async function getImageWithAltText(imageUrl: string): Promise<{src: string, alt: string}> {
+  try {
+    // Wyciągnij ID attachmentu z URL (jeśli możliwe)
+    const urlParts = imageUrl.split('/');
+    const fileName = urlParts.pop()?.split('.')[0];
+    
+    // Szukaj w media library po nazwie pliku
+    const mediaResponse = await jetEngineFetch<any[]>('/wp-json/wp/v2/media', {
+      search: fileName,
+      per_page: 1
+    });
+    
+    if (mediaResponse && mediaResponse.length > 0) {
+      return {
+        src: imageUrl,
+        alt: mediaResponse[0].alt_text || mediaResponse[0].title?.rendered || `Tatuaż ${fileName}`
+      };
+    }
+    
+    // Fallback do nazwy pliku
+    return {
+      src: imageUrl,
+      alt: fileName?.replace(/-/g, ' ') || 'Tatuaż'
+    };
+  } catch (error) {
+    console.warn('Failed to fetch alt text for:', imageUrl);
+    return {
+      src: imageUrl,
+      alt: 'Tatuaż'
+    };
+  }
+}
+
+// Funkcja do mapowania wszystkich obrazów z alt text
+export async function mapImagesWithWordPressAlt(imageUrls: string[]): Promise<Array<{src: string, alt: string}>> {
+  const promises = imageUrls.map(url => getImageWithAltText(url));
+  return Promise.all(promises);
 }
