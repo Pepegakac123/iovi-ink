@@ -34,14 +34,48 @@ interface UslugiMeta {
   hero_subheadline: string;
   hero_h1: string;
   hero_intro: string;
+  
+  // Dla kogo section
+  dla_kogo_subheadline: string;
+  dla_kogo_h2: string;
   dla_kogo: ContentSection[]; // Target audience sections
+  
+  // Rola usługi section
+  rola_uslugi_subheadline: string;
+  rola_uslugi_h2: string;
   rola_uslugi: ContentSection[]; // Service role sections
+  
+  // Korzyści section
+  korzysci_subheadline: string;
+  korzysci_h2: string;
   korzysci: BenefitSection[]; // Benefits with icons
+  
+  // Wyróżnienie section
+  wyroznienie_subheadline: string;
+  wyroznienie_h2: string;
   wyroznienie: ContentSection[]; // Distinguishing features
+  
+  // Specjalizacja section
+  specjalizacja_subheadline: string;
+  specjalizacja_h2: string;
   specjalizacja_1: ContentSection[]; // Specialization sections
+  
+  // Proces section
+  proces_subheadline: string;
+  proces_h2: string;
   proces: ProcessSection[]; // Process steps with numbering
+  
+  // Dlaczego ja section
+  dlaczego_ja_subheadline: string;
+  dlaczego_ja_h2: string;
   dlaczego_ja: ContentSection[]; // Why me sections
+  
+  // CTA section
+  cta_subheadline: string;
+  cta_h2: string;
   cta: ContentSection[]; // Call to action sections
+  
+  // Images
   image_1: string; // Image URL
   image_2: string;
   image_3: string;
@@ -75,3 +109,26 @@ export type ServiceContentSections =
   | 'dlaczego_ja' 
   | 'cta';
 
+
+export type TattooTypes = "geometryczne" | "minimalistyczne";
+
+export interface Carousel {
+  meta: {
+    zdjecia: string[];
+  };
+  
+}
+export interface TattooPortfolio{
+  slug:string,
+  title:RenderedTitle,
+  meta: {
+    zdjecia: string[];
+    tattoo_type: TattooTypes
+  };
+}
+
+export interface GroupedTattooImages {
+  allImages: string[];
+  geometryczne: string[];
+  minimalistyczne: string[];
+}

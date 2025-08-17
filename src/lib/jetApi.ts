@@ -1,4 +1,4 @@
-import { JetEngineUsluga, JetEngineUslugiResponse } from "./jetUslugi";
+import { Carousel, GroupedTattooImages, JetEngineUsluga, JetEngineUslugiResponse, TattooPortfolio } from "./jetPostTypes";
 
 // API Functions for JET Engine Services
 const baseUrl = process.env.WORDPRESS_URL;
@@ -78,6 +78,8 @@ export async function getServiceBySlug(slug: string): Promise<JetEngineUsluga> {
   return services[0];
 }
 
+
+
 // Utility functions
 export function getServiceTitle(service: JetEngineUsluga): string {
   return service.title.rendered;
@@ -102,4 +104,43 @@ export function getServiceSEO(service: JetEngineUsluga) {
     description: meta.seo_description,
     keyword: meta.seo_keyword
   };
+}
+
+export async function getImageCarouselBySlug(slug:"tatuaze" | "modele-3D"): Promise<Carousel>{
+   const images = await jetEngineFetch<Carousel>(`/wp-json/wp/v2/karuzela`, {
+    slug: slug,
+    _fields: "meta"
+  });
+
+  return images;
+}
+
+export async function getAllTattooImages(): Promise<GroupedTattooImages> {
+  const portfolios = await jetEngineFetch<TattooPortfolio[]>(`/wp-json/wp/v2/tatuaze-portfolio`, {
+    _fields: "meta,slug,title"
+  });
+
+  const allImages = portfolios.flatMap(portfolio => portfolio.meta.zdjecia);
+  
+  const result: GroupedTattooImages = {
+    allImages,
+    geometryczne: [],
+    minimalistyczne: []
+  };
+
+  portfolios.forEach(portfolio => {
+    const type = portfolio.meta.tattoo_type;
+    result[type].push(...portfolio.meta.zdjecia);
+  });
+
+  return result;
+}
+
+export async function getTattooImagesBySlug(slug: string): Promise<string[]> {
+  const portfolio = await jetEngineFetch<TattooPortfolio[]>(`/wp-json/wp/v2/tatuaze-portfolio`, {
+    slug: slug,
+    _fields: "meta"
+  });
+
+  return portfolio[0].meta.zdjecia;
 }
