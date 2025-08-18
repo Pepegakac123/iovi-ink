@@ -3,6 +3,8 @@ import images from "@/Assets/images";
 import CarouselSections from "@/components/Sections/CarouselSections";
 import AboutMe from "@/components/Sections/AboutMe";
 import Services from "@/components/Sections/Services";
+import TargetAudienceSection from "@/components/Sections/TargetAudienceSection";
+import Process from "@/components/Sections/Process";
 export default async function Home() {
 	return (
 		<>
@@ -18,6 +20,12 @@ export default async function Home() {
 			</section>
 			<section className="bg-foreground mt-16">
 				<Services />
+			</section>
+			<section className="bg-primary-foreground">
+				<TargetAudienceSection />
+			</section>
+			<section>
+				<Process />
 			</section>
 		</>
 	);

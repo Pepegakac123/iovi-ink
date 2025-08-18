@@ -9,16 +9,6 @@ import ServicesCard from "../ServicesCard";
 
 const Services = async () => {
 	const services = await getFeaturedServicesWithAltText();
-	console.log(
-		"Service images:",
-		services.map((s) => ({
-			id: s.id,
-			image_1: s.meta.image_1,
-			title: s.title.rendered,
-			src: s.imageWithAlt.src,
-			alt: s.imageWithAlt.alt,
-		})),
-	);
 
 	const containerVariants = {
 		hidden: { opacity: 0 },
@@ -77,7 +67,7 @@ const Services = async () => {
 
 			{/* Cards container */}
 			<motion.div
-				className="flex flex-wrap gap-6 w-full justify-center"
+				className="flex flex-wrap gap-4 sm:gap-6 w-full justify-center"
 				variants={containerVariants}
 			>
 				{services.map((service, index) => (
@@ -90,7 +80,12 @@ const Services = async () => {
 				whileInView="visible"
 				viewport={{ once: true }}
 			>
-				<SecondaryBtn text="Zobacz wszystkie rodzaje tatuaży" link="/uslugi" />
+				<div className="mt-8">
+					<SecondaryBtn
+						text="Zobacz wszystkie rodzaje tatuaży"
+						link="/uslugi"
+					/>
+				</div>
 			</motion.div>
 		</motion.div>
 	);
