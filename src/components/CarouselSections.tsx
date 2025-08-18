@@ -1,6 +1,7 @@
 import { getImageCarouselBySlug, mapImagesWithWordPressAlt } from "@/lib/jetApi";
 import Subheadline from "./Subheadline"
 import { CardCarousel } from "@/components/ui/card-carousel"
+import CTASection from "./CTASection";
 
 export default async function CarouselSections() {
   const rawImages = await getImageCarouselBySlug("tatuaze");
@@ -17,7 +18,8 @@ export default async function CarouselSections() {
         images={images}
         autoplayDelay={2000}
         showPagination={true}
-      />
+        />
+        <CTASection/>
     </div>
   )
 }
