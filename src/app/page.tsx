@@ -2,6 +2,7 @@ import Hero from "@/components/Sections/Hero";
 import images from "@/Assets/images";
 import CarouselSections from "@/components/Sections/CarouselSections";
 import AboutMe from "@/components/Sections/AboutMe";
+import Services from "@/components/Sections/Services";
 export default async function Home() {
 	return (
 		<>
@@ -12,7 +13,12 @@ export default async function Home() {
 				image={images.hero}
 			/>
 			<CarouselSections />
-			<AboutMe />
+			<section>
+				<AboutMe />
+			</section>
+			<section className="bg-foreground mt-16">
+				<Services />
+			</section>
 		</>
 	);
 }

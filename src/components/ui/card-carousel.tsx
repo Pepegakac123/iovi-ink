@@ -1,40 +1,36 @@
-"use client"
+"use client";
 
-import React from "react"
-import Image from "next/image"
-import { Swiper, SwiperSlide } from "swiper/react"
+import React from "react";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import "swiper/css"
-import "swiper/css/effect-coverflow"
-import "swiper/css/pagination"
-import {
-  Autoplay,
-  EffectCoverflow,
-  Pagination,
-} from "swiper/modules"
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
 
 interface CarouselProps {
-  images: { src: string; alt: string }[]
-  autoplayDelay?: number
-  showPagination?: boolean
+	images: { src: string; alt: string }[];
+	autoplayDelay?: number;
+	showPagination?: boolean;
 }
 
 export const CardCarousel: React.FC<CarouselProps> = ({
-  images,
-  autoplayDelay = 3000,
-  showPagination = true,
+	images,
+	autoplayDelay = 3000,
+	showPagination = true,
 }) => {
-  // Duplikowanie slajdów jeśli jest ich mało - zabezpieczenie przed bugami loop
-  const extendedImages = React.useMemo(() => {
-    if (images.length < 8) {
-      // Jeśli mamy mniej niż 8 slajdów, duplikujemy je
-      const duplicated = [...images, ...images, ...images];
-      return duplicated.slice(0, Math.max(8, images.length * 2));
-    }
-    return images;
-  }, [images]);
+	// Duplikowanie slajdów jeśli jest ich mało - zabezpieczenie przed bugami loop
+	const extendedImages = React.useMemo(() => {
+		if (images.length < 8) {
+			// Jeśli mamy mniej niż 8 slajdów, duplikujemy je
+			const duplicated = [...images, ...images, ...images];
+			return duplicated.slice(0, Math.max(8, images.length * 2));
+		}
+		return images;
+	}, [images]);
 
-  const css = `
+	const css = `
   .full-width-carousel {
     width: 100vw;
     max-width: 100%;
@@ -203,134 +199,132 @@ export const CardCarousel: React.FC<CarouselProps> = ({
   .swiper-3d .swiper-slide-shadow-right {
     background-image: none !important;
   }
-  `
-  
-  return (
-    <>
-      <style>{css}</style>
-      <section className="w-full">
-        <div className="full-width-carousel">
-          <Swiper
-            className="carousel-swiper"
-            modules={[Autoplay, EffectCoverflow, Pagination]}
-            
-            // Coverflow effect settings - dostosowane dla 4 slajdów
-            effect="coverflow"
-            coverflowEffect={{
-              rotate: 0,
-              stretch: 0,
-              depth: 100, // Zmniejszone dla lepszego efektu z 4 slajdami
-              modifier: 2.5, // Dostosowane dla 4 slajdów
-              slideShadows: false,
-            }}
-            
-            // Core settings - 4 slajdy na desktop
-            slidesPerView={4}
-            centeredSlides={true}
-            spaceBetween={32}
-            
-            // Loop settings - ulepszone dla stabilności
-            loop={extendedImages.length >= 8} // Włączamy loop tylko gdy mamy wystarczająco slajdów
-            loopAdditionalSlides={1} // Dodatkowe slajdy dla płynnego loop
-            grabCursor={true}
-            
-            // Responsive breakpoints
-            breakpoints={{
-              320: {
-                slidesPerView: 1.5,
-                spaceBetween: 20,
-                coverflowEffect: {
-                  modifier: 1.2,
-                  depth: 60,
-                },
-              },
-              640: {
-                slidesPerView: 2.5,
-                spaceBetween: 25,
-                coverflowEffect: {
-                  modifier: 1.8,
-                  depth: 80,
-                },
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 28,
-                coverflowEffect: {
-                  modifier: 2.2,
-                  depth: 90,
-                },
-              },
-              1024: {
-                slidesPerView: 3, 
-                spaceBetween: 32,
-                coverflowEffect: {
-                  modifier: 2.5,
-                  depth: 100,
-                },
-              },
-              1400: {
-                slidesPerView: 4, // 4 slajdy na desktop
-                spaceBetween: 32,
-                coverflowEffect: {
-                  modifier: 2.5,
-                  depth: 100,
-                },
-              }
-            }}
-            
-            // Autoplay settings
-            autoplay={autoplayDelay > 0 ? {
-              delay: autoplayDelay,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-              reverseDirection: false,
-            } : false}
-            
-            // Navigation and pagination
-            navigation={false}
-            pagination={showPagination ? {
-              clickable: true,
-              dynamicBullets: false,
-            } : false}
-            
-            // Performance optimizations
-            watchSlidesProgress={true}
-            watchOverflow={true}
-            
-            // Smooth transitions
-            speed={600}
-            
-            // Events
-            onSlideChange={(swiper) => {
-              // Optional: track slide changes
-            }}
-            
-            onSwiper={(swiper) => {
-              // Force autoplay start
-              if (autoplayDelay > 0 && swiper.autoplay) {
-                swiper.autoplay.start();
-              }
-            }}
-          >
-            {extendedImages.map((image, index) => (
-              <SwiperSlide key={`${image.src}-${index}`}>
-                <div className="w-full h-full">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    width={280}
-                    height={500}
-                    className="w-full h-full object-cover"
-                    sizes="(max-width: 640px) 250px, (max-width: 768px) 280px, 280px"
-                    priority={index < 6} // Load first 6 images with priority
-                    loading={index < 6 ? "eager" : "lazy"}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </section>
-    </>
-  )
-}
+  `;
+
+	return (
+		<>
+			<style>{css}</style>
+			<div className="w-full">
+				<div className="full-width-carousel">
+					<Swiper
+						className="carousel-swiper"
+						modules={[Autoplay, EffectCoverflow, Pagination]}
+						// Coverflow effect settings - dostosowane dla 4 slajdów
+						effect="coverflow"
+						coverflowEffect={{
+							rotate: 0,
+							stretch: 0,
+							depth: 100, // Zmniejszone dla lepszego efektu z 4 slajdami
+							modifier: 2.5, // Dostosowane dla 4 slajdów
+							slideShadows: false,
+						}}
+						// Core settings - 4 slajdy na desktop
+						slidesPerView={4}
+						centeredSlides={true}
+						spaceBetween={32}
+						// Loop settings - ulepszone dla stabilności
+						loop={extendedImages.length >= 8} // Włączamy loop tylko gdy mamy wystarczająco slajdów
+						loopAdditionalSlides={1} // Dodatkowe slajdy dla płynnego loop
+						grabCursor={true}
+						// Responsive breakpoints
+						breakpoints={{
+							320: {
+								slidesPerView: 1.5,
+								spaceBetween: 20,
+								coverflowEffect: {
+									modifier: 1.2,
+									depth: 60,
+								},
+							},
+							640: {
+								slidesPerView: 2.5,
+								spaceBetween: 25,
+								coverflowEffect: {
+									modifier: 1.8,
+									depth: 80,
+								},
+							},
+							768: {
+								slidesPerView: 3,
+								spaceBetween: 28,
+								coverflowEffect: {
+									modifier: 2.2,
+									depth: 90,
+								},
+							},
+							1024: {
+								slidesPerView: 3,
+								spaceBetween: 32,
+								coverflowEffect: {
+									modifier: 2.5,
+									depth: 100,
+								},
+							},
+							1400: {
+								slidesPerView: 4, // 4 slajdy na desktop
+								spaceBetween: 32,
+								coverflowEffect: {
+									modifier: 2.5,
+									depth: 100,
+								},
+							},
+						}}
+						// Autoplay settings
+						autoplay={
+							autoplayDelay > 0
+								? {
+										delay: autoplayDelay,
+										disableOnInteraction: false,
+										pauseOnMouseEnter: true,
+										reverseDirection: false,
+									}
+								: false
+						}
+						// Navigation and pagination
+						navigation={false}
+						pagination={
+							showPagination
+								? {
+										clickable: true,
+										dynamicBullets: false,
+									}
+								: false
+						}
+						// Performance optimizations
+						watchSlidesProgress={true}
+						watchOverflow={true}
+						// Smooth transitions
+						speed={600}
+						// Events
+						onSlideChange={(swiper) => {
+							// Optional: track slide changes
+						}}
+						onSwiper={(swiper) => {
+							// Force autoplay start
+							if (autoplayDelay > 0 && swiper.autoplay) {
+								swiper.autoplay.start();
+							}
+						}}
+					>
+						{extendedImages.map((image, index) => (
+							<SwiperSlide key={`${image.src}-${index}`}>
+								<div className="w-full h-full">
+									<Image
+										src={image.src}
+										alt={image.alt}
+										width={280}
+										height={500}
+										className="w-full h-full object-cover"
+										sizes="(max-width: 640px) 250px, (max-width: 768px) 280px, 280px"
+										priority={index < 6} // Load first 6 images with priority
+										loading={index < 6 ? "eager" : "lazy"}
+									/>
+								</div>
+							</SwiperSlide>
+						))}
+					</Swiper>
+				</div>
+			</div>
+		</>
+	);
+};
