@@ -5,6 +5,7 @@ import AboutMe from "@/components/Sections/AboutMe";
 import Services from "@/components/Sections/Services";
 import TargetAudienceSection from "@/components/Sections/TargetAudienceSection";
 import Process from "@/components/Sections/Process";
+import WhyMe from "@/components/Sections/WhyMe";
 export default async function Home() {
 	return (
 		<>
@@ -26,6 +27,9 @@ export default async function Home() {
 			</section>
 			<section>
 				<Process />
+			</section>
+			<section className="bg-foreground mt-16">
+				<WhyMe />
 			</section>
 		</>
 	);
