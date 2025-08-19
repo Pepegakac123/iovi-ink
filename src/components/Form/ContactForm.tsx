@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/file-upload";
 import { useRecaptcha } from "@/hooks/useRecaptcha"; // ← DODANE
 import SecondaryBtn from "../buttons/SecondaryBtn";
+import { DropzoneOptions } from "react-dropzone";
 
 // ✅ SCHEMAT BEZ recaptcha field (v3 działa w tle)
 const formSchema = z.object({
@@ -46,9 +47,17 @@ export default function MyForm() {
 
 	const dropZoneConfig = {
 		maxFiles: 5,
-		maxSize: 1024 * 1024 * 4,
+		maxSize: 1024 * 1024 * 10,
 		multiple: true,
-	};
+		accept: {
+			"image/jpeg": [".jpg", ".jpeg"],
+			"image/png": [".png"],
+			"image/webp": [".webp"],
+			"image/tiff": [".tiff", ".tif"],
+			"image/bmp": [".bmp"],
+			"application/pdf": [".pdf"],
+		},
+	} satisfies DropzoneOptions;
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
