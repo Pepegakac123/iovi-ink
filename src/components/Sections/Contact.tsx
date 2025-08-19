@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Subheadline from "../Subheadline";
-import images from "@/Assets/images";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
 import ContactForm from "../Form/ContactForm";
@@ -24,19 +22,6 @@ const Contact = () => {
 			y: 0,
 			transition: {
 				duration: 0.6,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
-	const imageVariants = {
-		hidden: { opacity: 0, scale: 0.9, x: 20 },
-		visible: {
-			opacity: 1,
-			scale: 1,
-			x: 0,
-			transition: {
-				duration: 0.8,
 				ease: "easeOut",
 			},
 		},
@@ -78,48 +63,22 @@ const Contact = () => {
 					<motion.div variants={paragraphVariants}>
 						<Subheadline title="Napisz – pogadamy o szczegółach" />
 					</motion.div>
-
-					<motion.h2
-						className="text-2xl md:text-4xl text-foreground font-primary capitalize"
+					<motion.div
+						className="flex flex-col gap-4"
 						variants={paragraphVariants}
 						whileHover={{
 							scale: 1.02,
 							transition: { duration: 0.2 },
 						}}
 					>
-						Gotowy na Rozmowę o Twoim Projekcie?
-					</motion.h2>
-
-					<motion.p
-						className="text-base text-foreground max-w-[600px]"
-						variants={paragraphVariants}
-					>
-						Marzysz o unikalnym tatuażu? Jestem tutaj, żeby tchnąć życie w Twoje
-						pomysły. Pierwsza rozmowa jest zawsze bezpłatna. Opowiesz mi o
-						swojej wizji, ja pokażę swoje prace i ustalimy, czy to ma sens.
-					</motion.p>
-
-					{/* Mobile Image - positioned at bottom right */}
-					<motion.div
-						className="flex justify-end lg:hidden"
-						variants={imageVariants}
-					>
-						<motion.div
-							whileHover={{
-								scale: 1.05,
-								rotate: 1,
-								transition: { duration: 0.3 },
-							}}
-							whileTap={{ scale: 0.98 }}
-						>
-							<Image
-								src={images.about}
-								alt="Jowita - Artystka Tatuażu"
-								width={189}
-								height={189}
-								className="object-cover rounded-md"
-							/>
-						</motion.div>
+						<motion.h2 className="text-2xl md:text-4xl text-foreground font-primary capitalize">
+							Gotowy na Rozmowę o Twoim Projekcie?
+						</motion.h2>
+						<motion.p className="text-base text-foreground max-w-[600px]">
+							Marzysz o unikalnym tatuażu? Jestem tutaj, żeby tchnąć życie w
+							Twoje pomysły. Pierwsza rozmowa jest zawsze bezpłatna. Opowiesz mi
+							o swojej wizji, ja pokażę swoje prace i ustalimy, czy to ma sens.
+						</motion.p>
 					</motion.div>
 				</motion.div>
 

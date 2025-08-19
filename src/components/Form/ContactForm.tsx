@@ -26,6 +26,7 @@ import {
 	FileUploaderItem,
 } from "@/components/ui/file-upload";
 import { useRecaptcha } from "@/hooks/useRecaptcha"; // ← DODANE
+import SecondaryBtn from "../buttons/SecondaryBtn";
 
 // ✅ SCHEMAT BEZ recaptcha field (v3 działa w tle)
 const formSchema = z.object({
@@ -133,7 +134,7 @@ export default function MyForm() {
 				className="space-y-8 max-w-3xl mx-auto py-10"
 			>
 				<div className="grid grid-cols-12 gap-4">
-					<div className="col-span-4">
+					<div className="col-span-12 md:col-span-4">
 						<FormField
 							control={form.control}
 							name="name_surname"
@@ -150,7 +151,7 @@ export default function MyForm() {
 						/>
 					</div>
 
-					<div className="col-span-4">
+					<div className="col-span-12 md:col-span-4">
 						<FormField
 							control={form.control}
 							name="email"
@@ -167,7 +168,7 @@ export default function MyForm() {
 						/>
 					</div>
 
-					<div className="col-span-4">
+					<div className="col-span-12 md:col-span-4">
 						<FormField
 							control={form.control}
 							name="phone_number"
@@ -234,7 +235,7 @@ export default function MyForm() {
 												&nbsp; lub przeciągnij i upuść
 											</p>
 											<p className="text-xs text-gray-500 dark:text-gray-400">
-												SVG, PNG, JPG or GIF
+												SVG, PNG, JPG lub PDF. Maksymalny rozmiar pliku 10 MB
 											</p>
 										</div>
 									</FileInput>
@@ -242,7 +243,7 @@ export default function MyForm() {
 										{files &&
 											files.length > 0 &&
 											files.map((file, i) => (
-												<FileUploaderItem key={i} index={i}>
+												<FileUploaderItem key={file.name} index={i}>
 													<Paperclip className="h-4 w-4 stroke-current" />
 													<span>{file.name}</span>
 												</FileUploaderItem>
@@ -257,9 +258,22 @@ export default function MyForm() {
 				/>
 
 				{/* ✅ ZMODYFIKOWANY BUTTON z loading state */}
-				<Button type="submit" disabled={isSubmitting} className="w-full">
-					{isSubmitting ? "Wysyłanie..." : "Wyślij Wiadomość"}
-				</Button>
+				<div className="flex gap-8 flex-col md:flex-row w-full items-center justify-center">
+					<Button
+						type="submit"
+						disabled={isSubmitting}
+						className="bg-primary text-background font-primary text-base w-full md:w-fit px-4 md:px-8 py-3 md:py-4 uppercase border-1 border-foreground rounded-md cursor-pointer hover:bg-accent transition-colors duration-200"
+					>
+						{isSubmitting ? "Wysyłanie..." : "Wyślij Wiadomość"}
+					</Button>
+					<span className="text-foreground uppercase text-2xl font-primary">
+						LUB
+					</span>
+					<SecondaryBtn
+						text="Skontaktuj się przez instagrama"
+						link="https://www.instagram.com/iovi.ink/"
+					/>
+				</div>
 			</form>
 		</Form>
 	);
