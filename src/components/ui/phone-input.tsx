@@ -33,26 +33,28 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
 	React.forwardRef<React.ElementRef<typeof RPNInput.default>, PhoneInputProps>(
 		({ className, onChange, value, ...props }, ref) => {
 			return (
-				<RPNInput.default
-					ref={ref}
-					className={cn("flex", className)}
-					flagComponent={FlagComponent}
-					countrySelectComponent={CountrySelect}
-					inputComponent={InputComponent}
-					smartCaret={false}
-					value={value || undefined}
-					/**
-					 * Handles the onChange event.
-					 *
-					 * react-phone-number-input might trigger the onChange event as undefined
-					 * when a valid phone number is not entered. To prevent this,
-					 * the value is coerced to an empty string.
-					 *
-					 * @param {E164Number | undefined} value - The entered value
-					 */
-					onChange={(value) => onChange?.(value || ("" as RPNInput.Value))}
-					{...props}
-				/>
+				<div className="group relative w-full overflow-visible isolation">
+					<RPNInput.default
+						ref={ref}
+						className={cn(
+							"flex w-full transition-all duration-200",
+							// Group hover effects - jednolity shadow i transform dla całego komponentu
+
+							// Group focus-within effects
+							" group-focus-within:translate-x-[-2px] group-focus-within:translate-y-[-2px] group-focus-within:z-10",
+							// Group hover dla poszczególnych elementów
+							"[&:hover_.country-selector]:border-accent [&:hover_.phone-input]:border-accent",
+							className,
+						)}
+						flagComponent={FlagComponent}
+						countrySelectComponent={CountrySelect}
+						inputComponent={InputComponent}
+						smartCaret={false}
+						value={value || undefined}
+						onChange={(value) => onChange?.(value || ("" as RPNInput.Value))}
+						{...props}
+					/>
+				</div>
 			);
 		},
 	);
@@ -63,7 +65,21 @@ const InputComponent = React.forwardRef<
 	React.ComponentProps<"input">
 >(({ className, ...props }, ref) => (
 	<Input
-		className={cn("rounded-e-lg rounded-s-none", className)}
+		className={cn(
+			// Bazowe style
+			"phone-input rounded-e-md rounded-s-none bg-background h-12 px-4 py-3",
+			"border-2 border-l-0 border-foreground",
+			// Wyłączone wszystkie indywidualne hover/focus animacje
+			"hover:translate-x-0 hover:translate-y-0 hover:shadow-none hover:bg-background",
+			"focus:translate-x-0 focus:translate-y-0 focus:shadow-none",
+			// Focus state
+			"focus:border-primary focus:ring-2 focus:ring-primary/50",
+			// Border connection na focus
+			"group-focus-within:border-l-2 group-focus-within:border-primary",
+			// Typography
+			"font-text text-base placeholder:text-muted-foreground",
+			className,
+		)}
 		{...props}
 		ref={ref}
 	/>
@@ -102,7 +118,18 @@ const CountrySelect = ({
 				<Button
 					type="button"
 					variant="outline"
-					className="flex gap-1 rounded-e-none rounded-s-lg border-r-0 px-3 focus:z-10"
+					className={cn(
+						// Bazowe style identyczne jak Input
+						"country-selector flex gap-1 rounded-e-none rounded-s-md bg-background px-3 h-12",
+						"border-2 border-r-0 border-foreground",
+						// Wyłączone wszystkie indywidualne hover/focus animacje
+						"hover:translate-x-0 hover:translate-y-0 hover:shadow-none hover:bg-background",
+						"focus:translate-x-0 focus:translate-y-0 focus:shadow-none focus:bg-background",
+						// Focus state
+						"focus:border-primary focus:ring-2 focus:ring-primary/50",
+						"transition-all duration-200",
+						disabled && "opacity-50 cursor-not-allowed",
+					)}
 					disabled={disabled}
 				>
 					<FlagComponent
@@ -111,14 +138,14 @@ const CountrySelect = ({
 					/>
 					<ChevronsUpDown
 						className={cn(
-							"-mr-2 size-4 opacity-50",
+							"-mr-2 size-4 opacity-70",
 							disabled ? "hidden" : "opacity-100",
 						)}
 					/>
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-[300px] p-0">
-				<Command>
+			<PopoverContent className="w-[300px] p-0 border-2 border-foreground rounded-md shadow-[4px_4px_0px_0px_theme(colors.foreground)] bg-background">
+				<Command className="bg-background border-0">
 					<CommandInput
 						value={searchValue}
 						onValueChange={(value) => {
@@ -134,11 +161,14 @@ const CountrySelect = ({
 								}
 							}, 0);
 						}}
-						placeholder="Search country..."
+						placeholder="Szukaj kraju..."
+						className="border-b-2 border-foreground rounded-none font-text bg-background"
 					/>
 					<CommandList>
 						<ScrollArea ref={scrollAreaRef} className="h-72">
-							<CommandEmpty>No country found.</CommandEmpty>
+							<CommandEmpty className="py-6 text-center text-sm font-text">
+								Nie znaleziono kraju.
+							</CommandEmpty>
 							<CommandGroup>
 								{countryList.map(({ value, label }) =>
 									value ? (
@@ -180,12 +210,15 @@ const CountrySelectOption = ({
 	};
 
 	return (
-		<CommandItem className="gap-2" onSelect={handleSelect}>
+		<CommandItem
+			className="gap-2 font-text hover:bg-accent transition-colors cursor-pointer"
+			onSelect={handleSelect}
+		>
 			<FlagComponent country={country} countryName={countryName} />
 			<span className="flex-1 text-sm">{countryName}</span>
 			<span className="text-sm text-foreground/50">{`+${RPNInput.getCountryCallingCode(country)}`}</span>
 			<CheckIcon
-				className={`ml-auto size-4 ${country === selectedCountry ? "opacity-100" : "opacity-0"}`}
+				className={`ml-auto size-4 ${country === selectedCountry ? "opacity-100 text-primary" : "opacity-0"}`}
 			/>
 		</CommandItem>
 	);
@@ -195,7 +228,7 @@ const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
 	const Flag = flags[country];
 
 	return (
-		<span className="flex h-4 w-6 overflow-hidden rounded-sm bg-foreground/20 [&_svg:not([class*='size-'])]:size-full">
+		<span className="flex h-4 w-6 overflow-hidden rounded-sm bg-muted border border-foreground/50 [&_svg:not([class*='size-'])]:size-full">
 			{Flag && <Flag title={countryName} />}
 		</span>
 	);

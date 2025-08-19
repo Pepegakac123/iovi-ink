@@ -48,7 +48,7 @@ const Contact = () => {
 			variants={containerVariants}
 		>
 			<motion.div
-				className="bg-transparent border-1 border-foreground rounded-md px-4 pt-4 lg:py-8 lg:px-8 flex flex-col lg:flex-row gap-4 w-full lg:items-center relative overflow-hidden"
+				className="bg-transparent border-1 border-foreground rounded-md px-4 py-8 lg:py-8 lg:px-8 flex flex-col lg:flex-row gap-8 w-full lg:items-center relative overflow-hidden"
 				whileHover={{
 					boxShadow: "6px 6px 0px 0px var(--foreground)",
 					transition: { duration: 0.3 },
@@ -71,7 +71,7 @@ const Contact = () => {
 							transition: { duration: 0.2 },
 						}}
 					>
-						<motion.h2 className="text-2xl md:text-4xl text-foreground font-primary capitalize">
+						<motion.h2 className="text-2xl md:text-4xl text-foreground font-primary capitalize max-w-[600px]">
 							Gotowy na Rozmowę o Twoim Projekcie?
 						</motion.h2>
 						<motion.p className="text-base text-foreground max-w-[600px]">
