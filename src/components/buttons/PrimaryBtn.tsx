@@ -7,6 +7,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import ContactForm from "../Form/ContactForm";
 
 const PrimaryBtn = () => {
 	return (
@@ -34,13 +35,7 @@ const PrimaryBtn = () => {
 				</motion.button>
 			</DialogTrigger>
 			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>Are you absolutely sure?</DialogTitle>
-					<DialogDescription>
-						This action cannot be undone. This will permanently delete your
-						account and remove your data from our servers.
-					</DialogDescription>
-				</DialogHeader>
+				<ContactForm />
 			</DialogContent>
 		</Dialog>
 	);
