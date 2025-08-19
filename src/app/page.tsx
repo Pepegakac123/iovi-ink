@@ -7,6 +7,8 @@ import TargetAudienceSection from "@/components/Sections/TargetAudienceSection";
 import Process from "@/components/Sections/Process";
 import WhyMe from "@/components/Sections/WhyMe";
 import Faq from "@/components/Sections/Faq";
+import Contact from "@/components/Sections/Contact";
+
 export default async function Home() {
 	return (
 		<>
@@ -34,6 +36,9 @@ export default async function Home() {
 			</section>
 			<section>
 				<Faq />
+			</section>
+			<section>
+				<Contact />
 			</section>
 		</>
 	);
