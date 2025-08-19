@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { z } from "zod";
 import sharp from "sharp";
 import { uploadToWordPress } from "@/lib/wordpressUpload";
+import { convertFileToWebP } from "@/lib/fileUtils";
 
 // Inicjalizacja Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -51,25 +52,6 @@ async function verifyRecaptcha(
 }
 
 // Konwersja plików na WebP
-async function convertFileToWebP(
-	file: File,
-	email: string,
-): Promise<{ buffer: Buffer; filename: string }> {
-	const arrayBuffer = await file.arrayBuffer();
-	const buffer = Buffer.from(arrayBuffer);
-
-	const webpBuffer = await sharp(buffer)
-		.webp({ quality: 80 })
-		.resize(1920, 1080, { fit: "inside", withoutEnlargement: true })
-		.toBuffer();
-
-	const timestamp = new Date().toISOString().slice(0, 16).replace(/[:.]/g, "-");
-	const safeEmail = email.replace(/[^a-zA-Z0-9]/g, "-");
-	const originalName = file.name.split(".")[0];
-	const filename = `client-${timestamp}-${safeEmail}-${originalName}.webp`;
-
-	return { buffer: webpBuffer, filename };
-}
 
 export async function POST(request: Request) {
 	try {
