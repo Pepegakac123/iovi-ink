@@ -65,3 +65,29 @@ export const proces = [
 			"Dostajesz instrukcje pielęgnacji i możesz się kontaktować z pytaniami przez cały okres gojenia. To część usługi.",
 	},
 ];
+export const homeFAQ = [
+	{
+		id: 1,
+		question: "Ile czasu zajmuje wykonanie?",
+		answer:
+			"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+	},
+	{
+		id: 2,
+		question: "Czy pierwsza rozmowa jest płatna?",
+		answer:
+			"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+	},
+	{
+		id: 3,
+		question: "Jak przebiega gojenie tatuażu?",
+		answer:
+			"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+	},
+	{
+		id: 4,
+		question: "Czy robisz poprawki starych tatuaży?",
+		answer:
+			"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+	},
+];

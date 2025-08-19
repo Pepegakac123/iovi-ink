@@ -184,6 +184,6 @@
 		@apply mx-auto max-w-[1240px]  w-full;
 	}
 	section {
-		@apply py-20 md:py-24 px-4 md:px-8;
+		@apply py-20 md:py-24 px-4 md:px-8 lg:px-12 xl:px-16;
 	}
 }

@@ -133,8 +133,8 @@ const WhyMe = () => {
 							}}
 						>
 							<img
-								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/bandage_icon.svg"
-								alt="Icon"
+								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Tablet-Graficzny.svg"
+								alt="Ikonka"
 								className="w-5 h-5 lg:w-8 lg:h-8"
 							/>
 						</motion.div>
@@ -183,7 +183,7 @@ const WhyMe = () => {
 							}}
 						>
 							<img
-								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/bandage_icon.svg"
+								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/diamond.svg"
 								alt="Icon"
 								className="w-5 h-5 lg:w-7 lg:h-7"
 							/>
@@ -233,8 +233,8 @@ const WhyMe = () => {
 							}}
 						>
 							<img
-								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/bandage_icon.svg"
-								alt="Icon"
+								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/pallete_brusj.svg"
+								alt="Ikonka"
 								className="w-5 h-5 lg:w-8 lg:h-8"
 							/>
 						</motion.div>
@@ -284,8 +284,8 @@ const WhyMe = () => {
 							}}
 						>
 							<img
-								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/bandage_icon.svg"
-								alt="Icon"
+								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/tattoo_machine.svg"
+								alt="Ikonka"
 								className="w-5 h-5 lg:w-7 lg:h-7"
 							/>
 						</motion.div>
