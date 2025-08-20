@@ -13,8 +13,9 @@ export const SYSTEM_ICONS = {
 	// Ikony kontaktu
 	envelope: `${BASE_URL}/envelope_icon_accent.svg`,
 	instagramAccent: `${BASE_URL}/instagram_icon_accent.svg`,
-	tattooMachine: `${BASE_URL}/tatto_machine_accent.svg`,
-	location: `${BASE_URL}/location_icon_accent.svg`,
+	tattooMachine: `${BASE_URL}/tattoo_machine.svg`,
+	tattooMachineAccent: `${BASE_URL}/tatto_machine_accent.svg`,
+	locationAccent: `${BASE_URL}/location_accent.svg`,
 } as const;
 
 // ===========================================
@@ -34,7 +35,7 @@ export const PROCESS_ICONS = {
 // ===========================================
 
 export const FEATURE_ICONS = {
-	paletteBrush: `${BASE_URL}/pallete_brush_2.svg`,
+	paletteBrush: `${BASE_URL}/pallete_brusj.svg`,
 	tabletGraphic: `${BASE_URL}/tablet_graficzny.svg`,
 	biceps: `${BASE_URL}/Biceps_icon.svg`,
 } as const;
@@ -56,7 +57,8 @@ export const ICONS = {
 	// Kontakt
 	envelope: SYSTEM_ICONS.envelope,
 	tattooMachine: SYSTEM_ICONS.tattooMachine,
-	locationAccent: SYSTEM_ICONS.location,
+	tattooMachineAccent: SYSTEM_ICONS.tattooMachineAccent,
+	locationAccent: SYSTEM_ICONS.locationAccent,
 
 	// Proces
 	chat: PROCESS_ICONS.chat,

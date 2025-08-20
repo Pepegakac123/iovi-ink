@@ -1,6 +1,6 @@
 "use client";
 import Subheadline from "../Subheadline";
-import ContactForm from "../Form/ContactForm";
+import ContactForm from "../forms/ContactForm";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
 import {

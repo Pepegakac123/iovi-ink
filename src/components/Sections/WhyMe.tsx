@@ -143,7 +143,7 @@ const WhyMe = () => {
 									transition={{ duration: 0.2 }}
 								>
 									<Image
-										src={ICONS.careForDetails}
+										src={ICONS.diamond}
 										alt="Precyzja - ikona"
 										width={24}
 										height={24}
