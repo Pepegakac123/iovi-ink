@@ -53,7 +53,7 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 					</motion.h1>
 
 					<motion.p
-						className="text-foreground text-sm lg:text-lg font-text text-center"
+						className="paragraph-hero text-center"
 						variants={descriptionVariants}
 					>
 						{description}

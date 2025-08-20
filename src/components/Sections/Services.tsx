@@ -24,7 +24,7 @@ const Services = async () => {
 			</motion.div>
 
 			<motion.h2
-				className="text-2xl md:text-4xl text-background font-primary text-center"
+				className="heading-primary-inverted-center"
 				variants={itemVariants}
 				whileHover={{
 					scale: 1.02,
@@ -35,7 +35,7 @@ const Services = async () => {
 			</motion.h2>
 
 			<motion.p
-				className="text-base text-background max-w-[525px] text-center"
+				className="paragraph-center-small-constrained"
 				variants={itemVariants}
 			>
 				Nie ma szablonów. Każdy projekt to unikalna realizacja dostosowana do

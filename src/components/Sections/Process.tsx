@@ -40,7 +40,7 @@ const Process = () => {
 				<div className="flex flex-col gap-2 md:gap-4">
 					{/* Animated Title */}
 					<motion.h2
-						className="text-foreground text-2xl md:text-4xl font-primary"
+						className="heading-primary"
 						variants={titleVariants}
 						whileHover={{
 							scale: 1.02,
@@ -52,7 +52,7 @@ const Process = () => {
 
 					{/* Animated Description */}
 					<motion.p
-						className="text-foreground text-base max-w-[600px]"
+						className="paragraph-constrained"
 						variants={descriptionVariants}
 					>
 						Jestem z Tobą na każdym etapie współpracy. Tylko przejrzysty proces

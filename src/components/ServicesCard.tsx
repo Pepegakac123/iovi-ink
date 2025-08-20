@@ -45,7 +45,7 @@ const ServicesCard = ({
 				transition={{ delay: 0.1, duration: 0.4 }}
 			>
 				<motion.h3
-					className="tex-lg sm:text-xl font-primary text-foreground"
+					className="heading-secondary"
 					initial={{ opacity: 0, x: -10 }}
 					whileInView={{ opacity: 1, x: 0 }}
 					viewport={{ once: true }}
@@ -55,7 +55,7 @@ const ServicesCard = ({
 				</motion.h3>
 
 				<motion.p
-					className="text-sm text-muted-foreground flex-grow leading-relaxed"
+					className="paragraph-small-muted flex-grow leading-relaxed"
 					initial={{ opacity: 0 }}
 					whileInView={{ opacity: 1 }}
 					viewport={{ once: true }}

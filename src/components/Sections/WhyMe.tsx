@@ -25,7 +25,7 @@ const WhyMe = () => {
 				{/* Header */}
 				<motion.div className="mb-12 md:mb-16" variants={headerVariants}>
 					<motion.h2
-						className="text-2xl md:text-4xl font-primary text-background"
+						className="heading-primary-inverted"
 						whileHover={{
 							scale: 1.02,
 							transition: { duration: 0.2 },
@@ -153,7 +153,7 @@ const WhyMe = () => {
 						</motion.div>
 						<div>
 							<motion.h3
-								className="text-sm lg:text-xl font-primary text-foreground mb-2 lg:mb-3"
+								className="heading-secondary mb-2 lg:mb-3"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
@@ -162,7 +162,7 @@ const WhyMe = () => {
 								Precyzja na poziomie obsesji
 							</motion.h3>
 							<motion.p
-								className="text-foreground font-text text-xs lg:text-sm"
+								className="paragraph-small"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
@@ -221,7 +221,7 @@ const WhyMe = () => {
 						</motion.div>
 						<div>
 							<motion.h3
-								className="text-sm lg:text-xl font-primary text-foreground mb-2 lg:mb-3"
+								className="heading-secondary mb-2 lg:mb-3"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
@@ -230,7 +230,7 @@ const WhyMe = () => {
 								Studio Lewus Ink jako gwarancja
 							</motion.h3>
 							<motion.p
-								className="text-foreground font-text text-xs lg:text-sm"
+								className="paragraph-small"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
@@ -286,7 +286,7 @@ const WhyMe = () => {
 						</motion.div>
 						<div>
 							<motion.h3
-								className="text-sm lg:text-xl font-primary text-foreground mb-2 lg:mb-3"
+								className="heading-secondary mb-2 lg:mb-3"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
@@ -295,14 +295,14 @@ const WhyMe = () => {
 								Artystyczny fundament
 							</motion.h3>
 							<motion.p
-								className="text-foreground font-text text-xs lg:text-sm"
+								className="paragraph-small"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: 0.4 }}
 							>
 								Pasja do rysowania od dziecka dała mi oko do tego co współgra ze
-								sobą wizualnie.. Po prostu wiem co zrobić aby tatauż prezentował
+								sobą wizualnie. Po prostu wiem co zrobić aby tatauż prezentował
 								się dobrze na skórze
 							</motion.p>
 						</div>

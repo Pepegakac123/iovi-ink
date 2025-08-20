@@ -21,7 +21,7 @@ const TargetAudienceSection = () => {
 				variants={itemVariants}
 			>
 				<motion.h2
-					className="text-2xl md:text-4xl font-primary text-foreground"
+					className="heading-primary"
 					variants={itemVariants}
 					whileHover={{
 						scale: 1.02,
@@ -44,10 +44,10 @@ const TargetAudienceSection = () => {
 							transition: { duration: 0.2 },
 						}}
 					>
-						<motion.h3 className="text-lg md:text-2xl font-primary text-foreground">
+						<motion.h3 className="heading-secondary">
 							Osoby ceniące jakość nad ceną
 						</motion.h3>
-						<motion.p className="text-base font-secondary text-foreground">
+						<motion.p className="paragraph-secondary">
 							Jeśli szukasz najtańszego tatuażu w okolicy – nie jestem dla
 							Ciebie. Jeśli szukasz kogoś, kto zrobi to dobrze i będziesz
 							zadowolony za 5 lat – pogadajmy.
@@ -63,10 +63,10 @@ const TargetAudienceSection = () => {
 							transition: { duration: 0.2 },
 						}}
 					>
-						<motion.h3 className="text-lg md:text-2xl font-primary text-foreground">
+						<motion.h3 className="heading-secondary">
 							Miłośnicy przemyślanego designu
 						</motion.h3>
-						<motion.p className="text-base font-secondary text-foreground">
+						<motion.p className="paragraph-secondary">
 							Fine line, minimalizm, geometria – specjalizuję się w stylach
 							wymagających precyzji. Jeśli lubisz czyste linie i przemyślane
 							proporcje – rozumiemy się.
@@ -82,10 +82,10 @@ const TargetAudienceSection = () => {
 							transition: { duration: 0.2 },
 						}}
 					>
-						<motion.h3 className="text-lg md:text-2xl font-primary text-foreground">
+						<motion.h3 className="heading-secondary">
 							Klienci którzy wiedzą czego chcą
 						</motion.h3>
-						<motion.p className="text-base font-secondary text-foreground">
+						<motion.p className="paragraph-secondary">
 							Nie jestem terapeutą ani doradcą życiowym. Jestem artystką, która
 							realizuje konkretne wizje. Jeśli masz pomysł i potrzebujesz
 							precyzyjnej realizacji – jesteśmy na tak.

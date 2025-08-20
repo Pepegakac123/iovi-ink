@@ -37,7 +37,7 @@ const AboutMe = () => {
 					</motion.div>
 
 					<motion.h2
-						className="text-2xl md:text-4xl text-foreground font-primary"
+						className="heading-primary"
 						variants={paragraphVariants}
 						whileHover={{
 							scale: 1.02,
@@ -47,28 +47,19 @@ const AboutMe = () => {
 						Moje Doświadczenie w Tworzeniu Tatuaży
 					</motion.h2>
 
-					<motion.p
-						className="text-base text-foreground"
-						variants={paragraphVariants}
-					>
+					<motion.p className="paragraph-base" variants={paragraphVariants}>
 						Artystyczne wykształcenie to fundament, ale prawdziwa nauka zaczęła
 						się w studio. Każdy dzień to nowe wyzwania – różne typy skóry, różne
 						oczekiwania klientów, różne techniki
 					</motion.p>
 
-					<motion.p
-						className="text-base text-foreground"
-						variants={paragraphVariants}
-					>
+					<motion.p className="paragraph-base" variants={paragraphVariants}>
 						Studio Lewus Ink pozwala mi oferować tatuaże na najwyższym poziomie.
 						Sterylne środowisko, profesjonalny sprzęt, komfortowe warunki. Mogę
 						skupić się na sztuce, bo wszystko inne jest dopięte
 					</motion.p>
 
-					<motion.p
-						className="text-base text-foreground"
-						variants={paragraphVariants}
-					>
+					<motion.p className="paragraph-base" variants={paragraphVariants}>
 						Każdy tatuaż traktuję jak wyzwanie artystyczne. Nie ma rutyny – jest
 						ciągłe doskonalenie techniki i poszukiwanie najlepszych rozwiązań.
 					</motion.p>

@@ -68,7 +68,7 @@ const Contact = () => {
 								}}
 							>
 								<motion.h2
-									className="text-2xl md:text-4xl text-foreground font-primary capitalize max-w-[600px]"
+									className="heading-primary max-w-[600px] capitalize"
 									initial={{ opacity: 0, y: 30 }}
 									animate={{
 										opacity: 1,

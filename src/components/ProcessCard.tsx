@@ -126,7 +126,7 @@ const ProcessCard = ({
 				<motion.div variants={contentVariants}>
 					{/* Animated Title */}
 					<motion.h3
-						className="text-xl md:text-2xl font-primary text-foreground mb-3 md:mb-4 leading-tight"
+						className="heading-secondary-large mb-3 md:mb-4 leading-tight"
 						initial={{ opacity: 0, y: 10 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
@@ -141,7 +141,7 @@ const ProcessCard = ({
 
 					{/* Animated Description */}
 					<motion.p
-						className="text-sm md:text-base text-foreground/80 leading-relaxed"
+						className="paragraph-process"
 						initial={{ opacity: 0, y: 15 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}

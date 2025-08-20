@@ -34,7 +34,7 @@ export default async function CarouselSections() {
 				</motion.div>
 
 				<motion.h2
-					className="text-2xl md:text-4xl text-foreground font-primary text-center"
+					className="heading-primary-center"
 					variants={itemVariants}
 					whileHover={{
 						scale: 1.02,
@@ -45,7 +45,7 @@ export default async function CarouselSections() {
 				</motion.h2>
 
 				<motion.p
-					className="text-base text-foreground text-center max-w-[800px]"
+					className="paragraph-center-constrained"
 					variants={itemVariants}
 				>
 					W portfolio znajdziesz różnorodność stylów i technik – od delikatnej
