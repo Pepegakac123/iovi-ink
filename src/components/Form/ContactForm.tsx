@@ -124,7 +124,7 @@ export default function ContactForm() {
 				});
 
 				toast.info("Przetwarzanie plików...", {
-					description: `Konwertowanie ${files.length} plików na WebP...`,
+					description: `Konwertowanie ${files.length} plików na mniejszy rozmiar`,
 				});
 			}
 
