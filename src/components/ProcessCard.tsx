@@ -27,7 +27,7 @@ const ProcessCard = ({
 }: ProcessCardProps) => {
 	return (
 		<motion.div
-			className="w-full h-full flex flex-col relative bg-background border-2 border-foreground border-b-4 border-r-4 rounded-lg overflow-hidden group cursor-default"
+			className="w-full h-full flex flex-col relative bg-background border-2 border-foreground border-b-4 border-r-4 rounded-md overflow-hidden group cursor-default"
 			variants={cardVariantsProcess}
 			initial="hidden"
 			whileInView="visible"

@@ -47,7 +47,7 @@ const ServiceDropdown: React.FC<ServiceDropdownProps> = ({
 }) => {
 	return (
 		<motion.div
-			className="absolute bottom-full left-0 mb-2 lg:top-full lg:bottom-auto lg:mt-2 lg:mb-0 w-80 bg-background border-4 border-foreground rounded-lg shadow-[8px_8px_0px_0px_theme(colors.foreground)] z-50"
+			className="absolute bottom-full left-0 mb-2 lg:top-full lg:bottom-auto lg:mt-2 lg:mb-0 w-80 bg-background border-4 border-foreground rounded-md shadow-[8px_8px_0px_0px_theme(colors.foreground)] z-50"
 			variants={dropdownVariants}
 			initial="hidden"
 			animate="visible"

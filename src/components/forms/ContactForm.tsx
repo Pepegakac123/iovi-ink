@@ -114,7 +114,7 @@ export default function ContactForm() {
 										value={files}
 										onValueChange={setFiles}
 										dropzoneOptions={config.files}
-										className="relative bg-secondary border-2 border-dashed hover:border-accent border-foreground rounded-lg"
+										className="relative bg-secondary border-2 border-dashed hover:border-accent border-foreground rounded-md"
 									>
 										{/** biome-ignore lint/correctness/useUniqueElementIds: <explanation> */}
 										<FileInput id="fileInput" className="">

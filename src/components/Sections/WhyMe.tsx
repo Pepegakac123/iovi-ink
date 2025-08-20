@@ -43,7 +43,7 @@ const WhyMe = () => {
 				>
 					{/* Autorskie projekty - row-span-2 on desktop */}
 					<motion.div
-						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-lg p-4 lg:p-8 flex flex-col justify-between hover:bg-muted transition-colors"
+						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-md p-4 lg:p-8 flex flex-col justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
 						whileHover={{
 							scale: 1.02,
@@ -110,7 +110,7 @@ const WhyMe = () => {
 
 					{/* Precyzja na poziomie obsesji */}
 					<motion.div
-						className="col-span-1 bg-primary-foreground rounded-lg p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
+						className="col-span-1 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
 						whileHover={{
 							scale: 1.02,
@@ -178,7 +178,7 @@ const WhyMe = () => {
 
 					{/* Pewność i stabilność */}
 					<motion.div
-						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-lg p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
+						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
 						whileHover={{
 							scale: 1.02,
@@ -243,7 +243,7 @@ const WhyMe = () => {
 						</div>
 					</motion.div>
 					<motion.div
-						className="col-span-1 bg-primary-foreground rounded-lg p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
+						className="col-span-1 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
 						whileHover={{
 							scale: 1.02,

@@ -243,7 +243,7 @@
 
 /* Form container brutal styling */
 .form-container-brutal {
-	@apply bg-background border-2 border-b-4 border-r-4 border-foreground rounded-lg shadow-[4px_4px_0px_0px_theme(colors.foreground)] transition-all duration-200;
+	@apply bg-background border-2 border-b-4 border-r-4 border-foreground rounded-md shadow-[4px_4px_0px_0px_theme(colors.foreground)] transition-all duration-200;
 }
 
 .form-container-brutal:hover {

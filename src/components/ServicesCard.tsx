@@ -17,7 +17,7 @@ const ServicesCard = ({
 	return (
 		<motion.div
 			key={service.id}
-			className="w-full sm:w-[calc(50%-12px)] md:flex-1 md:min-w-[280px] md:max-w-[350px] bg-background border-2 border-foreground rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+			className="w-full sm:w-[calc(50%-12px)] md:flex-1 md:min-w-[280px] md:max-w-[350px] bg-background border-2 border-foreground rounded-md overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
 			variants={cardVariantsFast}
 			whileHover={{
 				scale: 1.02,
