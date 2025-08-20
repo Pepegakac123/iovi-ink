@@ -25,6 +25,7 @@ import {
 	FormSection,
 	AnimatedFieldWrapper,
 } from "@/components/forms/ContactFormField";
+import FloatingElements from "../FloatingElements";
 
 // ===========================================
 // MAIN CONTACT FORM COMPONENT
@@ -55,7 +56,7 @@ export default function ContactForm() {
 	const motionPresets = getFormMotion("main");
 
 	return (
-		<div className="w-full max-w-3xl mx-auto">
+		<div className="w-full  mx-auto">
 			{/* Brutal Design Form Container */}
 			<motion.div
 				className={styles.container}
@@ -285,38 +286,7 @@ export default function ContactForm() {
 				</Form>
 
 				{/* Decorative Elements */}
-				<motion.div
-					className="absolute top-4 right-4 w-3 h-3 bg-accent border-2 border-foreground rounded-full"
-					animate={{
-						x: [0, 8, 0],
-						y: [0, -8, 0],
-						rotate: [0, 180, 360],
-						scale: [1, 1.2, 1],
-					}}
-					transition={{
-						duration: 8,
-						repeat: Infinity,
-						ease: "easeInOut",
-					}}
-					whileHover={{ scale: 1.5 }}
-				/>
-
-				<motion.div
-					className="absolute bottom-4 left-4 w-2 h-2 bg-primary border-2 border-foreground transform rotate-45"
-					animate={{
-						x: [0, -6, 0],
-						y: [0, 6, 0],
-						rotate: [45, 225, 405],
-						scale: [1, 0.8, 1],
-					}}
-					transition={{
-						duration: 6,
-						repeat: Infinity,
-						ease: "easeInOut",
-						delay: 1.5,
-					}}
-					whileHover={{ scale: 1.3 }}
-				/>
+				<FloatingElements variant="card" />
 			</motion.div>
 		</div>
 	);

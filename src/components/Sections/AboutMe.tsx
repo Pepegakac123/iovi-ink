@@ -9,6 +9,7 @@ import {
 	imageVariants,
 	paragraphVariants,
 } from "@/lib/variants";
+import FloatingElements from "../FloatingElements";
 
 const AboutMe = () => {
 	return (
@@ -112,48 +113,7 @@ const AboutMe = () => {
 				</motion.div>
 
 				{/* Decorative floating elements - podobne do Hero */}
-				<motion.div
-					className="absolute top-4 right-4 w-3 h-3 bg-accent border-2 border-foreground rounded-full"
-					animate={{
-						x: [0, 8, 0],
-						y: [0, -8, 0],
-						rotate: [0, 180, 360],
-					}}
-					transition={{
-						duration: 8,
-						repeat: Infinity,
-						ease: "easeInOut",
-					}}
-				/>
-
-				<motion.div
-					className="absolute bottom-4 left-4 w-2 h-2 bg-primary border-2 border-foreground transform rotate-45"
-					animate={{
-						x: [0, -6, 0],
-						y: [0, 6, 0],
-						rotate: [45, 225, 405],
-					}}
-					transition={{
-						duration: 6,
-						repeat: Infinity,
-						ease: "easeInOut",
-						delay: 1.5,
-					}}
-				/>
-
-				<motion.div
-					className="absolute top-1/2 right-8 w-1.5 h-1.5 bg-secondary border-2 border-foreground rounded-full"
-					animate={{
-						scale: [1, 1.4, 1],
-						opacity: [0.6, 1, 0.6],
-					}}
-					transition={{
-						duration: 4,
-						repeat: Infinity,
-						ease: "easeInOut",
-						delay: 0.8,
-					}}
-				/>
+				<FloatingElements variant="card" />
 			</motion.div>
 		</motion.div>
 	);
