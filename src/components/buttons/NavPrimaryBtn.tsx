@@ -7,7 +7,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import PopupForm from "../Form/PopupForm";
+import PopupForm from "../forms/PopupForm";
 
 const NavPrimaryBtn = () => {
 	return (

@@ -1,0 +1,270 @@
+import React from "react";
+import { UseFormReturn } from "react-hook-form";
+import * as motion from "motion/react-client";
+import {
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+	ContactFormData,
+	fieldConfig,
+	FieldName,
+} from "@/lib/schemas/contact-form-schema";
+import { FormVariant, getFormStyles } from "@/lib/config/form-config";
+import {
+	inputVariants,
+	labelVariants,
+	inputVariantsFast,
+	labelVariantsFast,
+} from "@/lib/variants";
+
+// ===========================================
+// TYPES
+// ===========================================
+
+interface BaseFormFieldProps {
+	form: UseFormReturn<ContactFormData>;
+	name: FieldName;
+	variant: FormVariant;
+}
+
+interface TextFormFieldProps extends BaseFormFieldProps {
+	type?: "text" | "email" | "tel";
+	onValueChange?: (value: string) => string; // For phone formatting
+}
+
+interface TextareaFormFieldProps extends BaseFormFieldProps {
+	rows?: number;
+}
+
+// ===========================================
+// TEXT INPUT FIELD
+// ===========================================
+
+export function ContactFormField({
+	form,
+	name,
+	variant,
+	type = "text",
+	onValueChange,
+}: TextFormFieldProps) {
+	const fieldConfigItem = fieldConfig[name];
+	const styles = getFormStyles(variant);
+
+	// Choose variants based on form variant
+	const currentInputVariants =
+		variant === "popup" ? inputVariantsFast : inputVariants;
+	const currentLabelVariants =
+		variant === "popup" ? labelVariantsFast : labelVariants;
+
+	// Safe access to optional properties
+	const inputType = type || (fieldConfigItem as any).type || "text";
+	const maxLength = (fieldConfigItem as any).maxLength;
+
+	return (
+		<FormField
+			control={form.control}
+			name={name}
+			render={({ field }) => (
+				<motion.div initial="rest" whileHover="hover" whileFocus="focus">
+					<FormItem>
+						<motion.div variants={currentLabelVariants}>
+							<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block min-h-[2.5rem] flex items-end">
+								{fieldConfigItem.label}
+								{!fieldConfigItem.required &&
+									(fieldConfigItem as any).helperText && (
+										<span className="text-xs text-muted-foreground font-normal normal-case ml-1">
+											{(fieldConfigItem as any).helperText}
+										</span>
+									)}
+							</FormLabel>
+						</motion.div>
+
+						<FormControl>
+							<motion.div variants={currentInputVariants}>
+								<Input
+									type={inputType}
+									placeholder={fieldConfigItem.placeholder}
+									className={styles.input}
+									maxLength={maxLength}
+									value={field.value || ""}
+									onChange={(e) => {
+										const value = onValueChange
+											? onValueChange(e.target.value)
+											: e.target.value;
+										field.onChange(value);
+									}}
+									onBlur={field.onBlur}
+									name={field.name}
+									ref={field.ref}
+								/>
+							</motion.div>
+						</FormControl>
+
+						<FormMessage />
+					</FormItem>
+				</motion.div>
+			)}
+		/>
+	);
+}
+
+// ===========================================
+// TEXTAREA FIELD
+// ===========================================
+
+export function ContactTextareaField({
+	form,
+	name,
+	variant,
+	rows = 4,
+}: TextareaFormFieldProps) {
+	const fieldConfigItem = fieldConfig[name];
+	const styles = getFormStyles(variant);
+
+	// Choose variants based on form variant
+	const currentInputVariants =
+		variant === "popup" ? inputVariantsFast : inputVariants;
+	const currentLabelVariants =
+		variant === "popup" ? labelVariantsFast : labelVariants;
+
+	// Safe access to optional properties
+	const maxLength = (fieldConfigItem as any).maxLength;
+	const textareaRows = (fieldConfigItem as any).rows || rows;
+
+	return (
+		<FormField
+			control={form.control}
+			name={name}
+			render={({ field }) => (
+				<motion.div initial="rest" whileHover="hover" whileFocus="focus">
+					<FormItem>
+						<motion.div variants={currentLabelVariants}>
+							<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
+								{fieldConfigItem.label}
+							</FormLabel>
+						</motion.div>
+
+						<FormControl>
+							<motion.div variants={currentInputVariants}>
+								<Textarea
+									placeholder={fieldConfigItem.placeholder}
+									className={styles.textarea}
+									rows={textareaRows}
+									maxLength={maxLength}
+									{...field}
+								/>
+							</motion.div>
+						</FormControl>
+
+						<FormMessage />
+
+						{/* Character counter for long text fields */}
+						{maxLength && field.value && (
+							<div className="text-xs text-muted-foreground text-right mt-1">
+								{field.value.length}/{maxLength}
+							</div>
+						)}
+					</FormItem>
+				</motion.div>
+			)}
+		/>
+	);
+}
+
+// ===========================================
+// SPECIALIZED PHONE FIELD
+// ===========================================
+
+interface ContactPhoneFieldProps
+	extends Omit<TextFormFieldProps, "type" | "onValueChange"> {
+	formatPhone: (value: string) => string;
+}
+
+export function ContactPhoneField({
+	form,
+	name,
+	variant,
+	formatPhone,
+}: ContactPhoneFieldProps) {
+	return (
+		<ContactFormField
+			form={form}
+			name={name}
+			variant={variant}
+			type="tel"
+			onValueChange={formatPhone}
+		/>
+	);
+}
+
+// ===========================================
+// FORM SECTION WRAPPER
+// ===========================================
+
+interface FormSectionProps {
+	children: React.ReactNode;
+	variant: FormVariant;
+	className?: string;
+}
+
+export function FormSection({
+	children,
+	variant,
+	className = "",
+}: FormSectionProps) {
+	const styles = getFormStyles(variant);
+
+	return (
+		<motion.div
+			className={`${styles.gridCols} gap-4 ${className}`}
+			variants={variant === "popup" ? inputVariantsFast : inputVariants}
+		>
+			{children}
+		</motion.div>
+	);
+}
+
+// ===========================================
+// FORM FIELD WRAPPER WITH ANIMATIONS
+// ===========================================
+
+interface AnimatedFieldWrapperProps {
+	children: React.ReactNode;
+	variant: FormVariant;
+}
+
+export function AnimatedFieldWrapper({
+	children,
+	variant,
+}: AnimatedFieldWrapperProps) {
+	const itemVariants = variant === "popup" ? inputVariantsFast : inputVariants;
+
+	return <motion.div variants={itemVariants}>{children}</motion.div>;
+}
+
+// ===========================================
+// CONVENIENCE EXPORTS
+// ===========================================
+
+// Pre-configured field components for common use cases
+export const NameField = (props: Omit<TextFormFieldProps, "name">) => (
+	<ContactFormField {...props} name="name_surname" />
+);
+
+export const EmailField = (
+	props: Omit<TextFormFieldProps, "name" | "type">,
+) => <ContactFormField {...props} name="email" type="email" />;
+
+export const PhoneField = (props: Omit<ContactPhoneFieldProps, "name">) => (
+	<ContactPhoneField {...props} name="phone_number" />
+);
+
+export const DescriptionField = (
+	props: Omit<TextareaFormFieldProps, "name">,
+) => <ContactTextareaField {...props} name="project_description" />;
