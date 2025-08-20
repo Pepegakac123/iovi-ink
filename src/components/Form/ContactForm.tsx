@@ -36,6 +36,7 @@ import {
 	itemVariants,
 	labelVariants,
 } from "@/lib/variants";
+import { ICONS } from "@/lib/icons";
 
 // Funkcja formatująca numer telefonu z spacjami
 
@@ -505,7 +506,7 @@ export default function ContactForm() {
 							>
 								<InstagramBtn
 									text="SKONTAKTUJ SIĘ PRZEZ INSTAGRAM"
-									link="https://www.instagram.com/iovi.ink/"
+									link={ICONS.instagram}
 								/>
 							</motion.div>
 						</motion.div>

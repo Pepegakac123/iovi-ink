@@ -1,7 +1,9 @@
+import { PROCESS_ICONS } from "@/lib/icons";
+
 export const proces = [
 	{
 		id: 1,
-		icon: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Czat-1.svg",
+		icon: PROCESS_ICONS.chat,
 		bg_image: {
 			mobile:
 				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_1_mobile.webp",
@@ -14,7 +16,7 @@ export const proces = [
 	},
 	{
 		id: 2,
-		icon: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Tablet-Graficzny.svg",
+		icon: PROCESS_ICONS.tabletGraphic,
 		bg_image: {
 			mobile:
 				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_2_mobile.webp",
@@ -27,7 +29,7 @@ export const proces = [
 	},
 	{
 		id: 3,
-		icon: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/diamond.svg",
+		icon: PROCESS_ICONS.diamond,
 		bg_image: {
 			mobile:
 				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_2_mobile.webp",
@@ -40,7 +42,7 @@ export const proces = [
 	},
 	{
 		id: 4,
-		icon: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/dbalosc_o-Detale_ikonka.svg",
+		icon: PROCESS_ICONS.careForDetails,
 		bg_image: {
 			mobile:
 				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_2_mobile.webp",
@@ -53,7 +55,7 @@ export const proces = [
 	},
 	{
 		id: 5,
-		icon: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/bandage_icon.svg",
+		icon: PROCESS_ICONS.bandage,
 		bg_image: {
 			mobile:
 				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_2_mobile.webp",

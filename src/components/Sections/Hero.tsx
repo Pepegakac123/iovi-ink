@@ -8,6 +8,7 @@ import {
 	descriptionVariants,
 	titleVariants,
 } from "@/lib/variants";
+import { ICONS } from "@/lib/icons";
 
 interface HeroProps {
 	subTitle: string;
@@ -69,17 +70,17 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 				>
 					<FeatureCard
 						text="Precyzyjne linie i stylizowane formy"
-						icon="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/pallete_brusj.svg"
+						icon={ICONS.paletteBrush}
 						delay={0}
 					/>
 					<FeatureCard
 						text="Od szkicu po finalny projekt"
-						icon="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Tablet-Graficzny.svg"
+						icon={ICONS.tabletGraphic}
 						delay={0.2}
 					/>
 					<FeatureCard
 						text="Robię to co lubię, i robię to dobrze"
-						icon="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Biceps_icon.svg"
+						icon={ICONS.biceps}
 						delay={0.4}
 					/>
 				</motion.div>

@@ -35,6 +35,7 @@ import {
 	inputVariantsFast,
 	labelVariantsFast,
 } from "@/lib/variants";
+import { ICONS } from "@/lib/icons";
 
 const formSchema = z.object({
 	name_surname: z.string().min(1, "Imię i nazwisko są wymagane"),
@@ -501,7 +502,7 @@ export default function PopupForm() {
 								}}
 							>
 								<Image
-									src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/instagram_ikona.svg"
+									src={ICONS.instagram}
 									alt="Instagram"
 									width={24}
 									height={24}

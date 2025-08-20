@@ -3,6 +3,7 @@ import * as motion from "motion/react-client";
 import Image from "next/image";
 import { Variants } from "motion";
 import { FooterMenuLinks, serviceLinks } from "@/Assets";
+import { ICONS } from "@/lib/icons";
 
 const Footer = () => {
 	const containerVariants = {
@@ -96,7 +97,7 @@ const Footer = () => {
 									}}
 								>
 									<Image
-										src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/instagram_ikona.svg"
+										src={ICONS.instagram}
 										alt="Instagram"
 										width={26}
 										height={26}
@@ -169,7 +170,7 @@ const Footer = () => {
 								transition={{ type: "spring", stiffness: 400, damping: 25 }}
 							>
 								<Image
-									src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/envelope_icon_accent.svg"
+									src={ICONS.envelope}
 									alt="Email"
 									width={24}
 									height={24}
@@ -188,7 +189,7 @@ const Footer = () => {
 								transition={{ type: "spring", stiffness: 400, damping: 25 }}
 							>
 								<Image
-									src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/instagram_icon_accent.svg"
+									src={ICONS.instagramAccent}
 									alt="Instagram"
 									width={24}
 									height={24}
@@ -207,7 +208,7 @@ const Footer = () => {
 								transition={{ type: "spring", stiffness: 400, damping: 25 }}
 							>
 								<Image
-									src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/location_accent.svg"
+									src={ICONS.locationAccent}
 									alt="Lokalizacja Studia"
 									width={24}
 									height={24}

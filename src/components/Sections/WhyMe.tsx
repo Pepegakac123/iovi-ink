@@ -11,6 +11,7 @@ import {
 	headerVariants,
 	iconVariants,
 } from "@/lib/variants";
+import { ICONS } from "@/lib/icons";
 
 const WhyMe = () => {
 	return (
@@ -75,7 +76,7 @@ const WhyMe = () => {
 									transition={{ duration: 0.2 }}
 								>
 									<Image
-										src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Tablet-Graficzny.svg"
+										src={ICONS.tabletGraphic}
 										alt="Autorskie projekty - ikona"
 										width={24}
 										height={24}
@@ -142,7 +143,7 @@ const WhyMe = () => {
 									transition={{ duration: 0.2 }}
 								>
 									<Image
-										src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/diamond.svg"
+										src={ICONS.careForDetails}
 										alt="Precyzja - ikona"
 										width={24}
 										height={24}
@@ -210,7 +211,7 @@ const WhyMe = () => {
 									transition={{ duration: 0.2 }}
 								>
 									<Image
-										src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/tattoo_machine.svg"
+										src={ICONS.tattooMachine}
 										alt="Studio Lewus Ink - ikona"
 										width={24}
 										height={24}
@@ -275,7 +276,7 @@ const WhyMe = () => {
 									transition={{ duration: 0.2 }}
 								>
 									<Image
-										src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/dbalosc_o-Detale_ikonka.svg"
+										src={ICONS.careForDetails}
 										alt="Dbałość o detale - ikona"
 										width={24}
 										height={24}

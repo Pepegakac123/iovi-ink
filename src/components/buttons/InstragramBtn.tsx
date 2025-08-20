@@ -1,3 +1,4 @@
+import { ICONS } from "@/lib/icons";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 
@@ -48,7 +49,7 @@ const InstagramBtn = ({ text, link, className = "" }: InstagramBtnProps) => {
 						}}
 					>
 						<Image
-							src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/instagram_ikona.svg"
+							src={ICONS.instagram}
 							alt="Instagram"
 							width={32}
 							height={32}
