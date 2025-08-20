@@ -3,63 +3,21 @@ import Subheadline from "../Subheadline";
 import images from "@/Assets/images";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
+import {
+	containerVariantsLong,
+	contentVariants,
+	imageVariants,
+	paragraphVariants,
+} from "@/lib/variants";
 
 const AboutMe = () => {
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.15,
-				delayChildren: 0.2,
-			},
-		},
-	} as Variants;
-
-	const contentVariants = {
-		hidden: { opacity: 0, y: 30 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.6,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
-	const imageVariants = {
-		hidden: { opacity: 0, scale: 0.9, x: 20 },
-		visible: {
-			opacity: 1,
-			scale: 1,
-			x: 0,
-			transition: {
-				duration: 0.8,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
-	const paragraphVariants = {
-		hidden: { opacity: 0, y: 20 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.5,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
 	return (
 		<motion.div
 			className="container"
 			initial="hidden"
 			whileInView="visible"
 			viewport={{ once: true, margin: "-100px" }}
-			variants={containerVariants}
+			variants={containerVariantsLong}
 		>
 			<motion.div
 				className="bg-transparent border-1 border-foreground rounded-md px-4 pt-4 lg:py-8 lg:px-8 flex flex-col lg:flex-row gap-4 w-full lg:items-center relative overflow-hidden"

@@ -30,6 +30,12 @@ import { Variants } from "motion";
 import { formatPhoneNumber } from "@/lib/utils";
 import { Paperclip } from "lucide-react";
 import { AnimatePresence } from "motion/react";
+import {
+	containerVariants,
+	inputVariants,
+	itemVariants,
+	labelVariants,
+} from "@/lib/variants";
 
 // Funkcja formatująca numer telefonu z spacjami
 
@@ -162,57 +168,6 @@ export default function ContactForm() {
 			setIsSubmitting(false);
 		}
 	}
-
-	// Animation variants
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.1,
-			},
-		},
-	} as Variants;
-
-	const itemVariants = {
-		hidden: { opacity: 0, y: 20 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				type: "spring",
-				stiffness: 100,
-				damping: 15,
-			},
-		},
-	} as Variants;
-
-	const labelVariants = {
-		rest: { y: 0, color: "hsl(var(--foreground))" },
-		hover: {
-			y: -2,
-			color: "hsl(var(--primary))",
-			transition: { type: "spring", stiffness: 400, damping: 30 },
-		},
-	} as Variants;
-
-	const inputVariants = {
-		rest: {
-			scale: 1,
-			borderColor: "hsl(var(--foreground))",
-		},
-		hover: {
-			scale: 1.02,
-			borderColor: "hsl(var(--primary))",
-			transition: { type: "spring", stiffness: 400, damping: 30 },
-		},
-		focus: {
-			scale: 1.02,
-			borderColor: "hsl(var(--primary))",
-			boxShadow: "0 0 0 2px hsl(var(--primary) / 0.2)",
-			transition: { type: "spring", stiffness: 400, damping: 30 },
-		},
-	} as Variants;
 
 	return (
 		<div className="w-full max-w-3xl mx-auto">

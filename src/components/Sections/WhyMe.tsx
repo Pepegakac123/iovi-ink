@@ -3,100 +3,15 @@ import Image from "next/image";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
 import PrimaryBtn from "../buttons/PrimaryBtn";
+import {
+	buttonVariants,
+	cardVariants,
+	containerVariants,
+	gridVariants,
+	headerVariants,
+	iconVariants,
+} from "@/lib/variants";
 
-// Variants dla głównego kontenera
-const containerVariants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			duration: 0.6,
-			staggerChildren: 0.1,
-			delayChildren: 0.2,
-		},
-	},
-} as Variants;
-
-// Variants dla nagłówka
-const headerVariants = {
-	hidden: {
-		opacity: 0,
-		y: 30,
-		scale: 0.95,
-	},
-	visible: {
-		opacity: 1,
-		y: 0,
-		scale: 1,
-		transition: {
-			duration: 0.6,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
-
-// Variants dla grida
-const gridVariants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			duration: 0.4,
-			staggerChildren: 0.15,
-			delayChildren: 0.3,
-		},
-	},
-} as Variants;
-
-// Variants dla kart
-const cardVariants = {
-	hidden: {
-		opacity: 0,
-		y: 50,
-		scale: 0.9,
-	},
-	visible: {
-		opacity: 1,
-		y: 0,
-		scale: 1,
-		transition: {
-			duration: 0.6,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
-
-// Variants dla ikon
-const iconVariants = {
-	hidden: {
-		opacity: 0,
-		scale: 0.5,
-		rotate: -180,
-	},
-	visible: {
-		opacity: 1,
-		scale: 1,
-		rotate: 0,
-		transition: {
-			duration: 0.5,
-			ease: "easeOut",
-			delay: 0.2,
-		},
-	},
-} as Variants;
-
-const buttonVariants = {
-	hidden: { opacity: 0, y: 30 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			duration: 0.6,
-			ease: "easeOut",
-			delay: 0.8, // Pojawi się po animacji kart
-		},
-	},
-} as Variants;
 const WhyMe = () => {
 	return (
 		<div className="container">

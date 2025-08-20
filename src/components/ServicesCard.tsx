@@ -1,22 +1,9 @@
 import { JetEngineUsluga } from "@/lib/jetPostTypes";
 import Image from "next/image";
-import Link from "next/link";
 import * as motion from "motion/react-client";
-import { Variants } from "motion";
 import CardBtn from "./buttons/CardBtn";
+import { cardVariantsFast } from "@/lib/variants";
 
-const cardVariants = {
-	hidden: { opacity: 0, y: 40, scale: 0.9 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		scale: 1,
-		transition: {
-			duration: 0.5,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
 const ServicesCard = ({
 	service,
 }: {
@@ -31,7 +18,7 @@ const ServicesCard = ({
 		<motion.div
 			key={service.id}
 			className="w-full sm:w-[calc(50%-12px)] md:flex-1 md:min-w-[280px] md:max-w-[350px] bg-background border-2 border-foreground rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-			variants={cardVariants}
+			variants={cardVariantsFast}
 			whileHover={{
 				scale: 1.02,
 				y: -4,

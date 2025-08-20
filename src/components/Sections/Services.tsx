@@ -6,33 +6,10 @@ import Link from "next/link";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
 import ServicesCard from "../ServicesCard";
+import { containerVariants, itemVariants } from "@/lib/variants";
 
 const Services = async () => {
 	const services = await getFeaturedServicesWithAltText();
-
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.1,
-				delayChildren: 0.2,
-			},
-		},
-	} as Variants;
-
-	const itemVariants = {
-		hidden: { opacity: 0, y: 30, scale: 0.95 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			scale: 1,
-			transition: {
-				duration: 0.6,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
 
 	return (
 		<motion.div

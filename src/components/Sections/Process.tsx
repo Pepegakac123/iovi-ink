@@ -3,100 +3,14 @@ import Subheadline from "../Subheadline";
 import { proces } from "@/Assets/index.js";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
-
-// Variants dla kontenera
-const containerVariants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			duration: 0.6,
-			staggerChildren: 0.1,
-			delayChildren: 0.2,
-		},
-	},
-} as Variants;
-
-// Variants dla elementów nagłówka
-const headerVariants = {
-	hidden: {
-		opacity: 0,
-		y: 30,
-	},
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			duration: 0.6,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
-
-// Variants dla tytułu
-const titleVariants = {
-	hidden: {
-		opacity: 0,
-		y: 40,
-		scale: 0.95,
-	},
-	visible: {
-		opacity: 1,
-		y: 0,
-		scale: 1,
-		transition: {
-			duration: 0.7,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
-
-// Variants dla opisu
-const descriptionVariants = {
-	hidden: {
-		opacity: 0,
-		y: 20,
-	},
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			duration: 0.6,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
-
-// Variants dla grida kart
-const gridVariants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			duration: 0.4,
-			staggerChildren: 0.15,
-			delayChildren: 0.3,
-		},
-	},
-} as Variants;
-
-// Variants dla pojedynczych kart w gridzie
-const cardItemVariants = {
-	hidden: {
-		opacity: 0,
-		y: 50,
-		scale: 0.9,
-	},
-	visible: {
-		opacity: 1,
-		y: 0,
-		scale: 1,
-		transition: {
-			duration: 0.6,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
+import {
+	cardVariants,
+	containerVariants,
+	descriptionVariants,
+	gridVariants,
+	headerVariants,
+	titleVariants,
+} from "@/lib/variants";
 
 const Process = () => {
 	return (
@@ -155,7 +69,7 @@ const Process = () => {
 				{proces.map((item, index) => (
 					<motion.div
 						key={item.id}
-						variants={cardItemVariants}
+						variants={cardVariants}
 						whileHover={{
 							y: -8,
 							transition: { duration: 0.2, ease: "easeOut" },

@@ -30,6 +30,11 @@ import InstagramBtn from "../buttons/InstragramBtn";
 import Image from "next/image";
 import { LuHardDriveUpload } from "react-icons/lu";
 import { AnimatePresence } from "motion/react";
+import {
+	containerVariantsFast,
+	inputVariantsFast,
+	labelVariantsFast,
+} from "@/lib/variants";
 
 const formSchema = z.object({
 	name_surname: z.string().min(1, "Imię i nazwisko są wymagane"),
@@ -149,69 +154,18 @@ export default function PopupForm() {
 		}
 	}
 
-	// Animation variants
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.06, // Zmniejszone z 0.08
-			},
-		},
-	} as Variants;
-
-	const itemVariants = {
-		hidden: { opacity: 0, y: 12 }, // Zmniejszone z 15
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				type: "spring",
-				stiffness: 120,
-				damping: 12,
-			},
-		},
-	} as Variants;
-
-	const labelVariants = {
-		rest: { y: 0, color: "hsl(var(--foreground))" },
-		hover: {
-			y: -1,
-			color: "hsl(var(--primary))",
-			transition: { type: "spring", stiffness: 400, damping: 30 },
-		},
-	} as Variants;
-
-	const inputVariants = {
-		rest: {
-			scale: 1,
-			borderColor: "hsl(var(--foreground))",
-		},
-		hover: {
-			scale: 1.01,
-			borderColor: "hsl(var(--primary))",
-			transition: { type: "spring", stiffness: 400, damping: 30 },
-		},
-		focus: {
-			scale: 1.01,
-			borderColor: "hsl(var(--primary))",
-			boxShadow: "0 0 0 2px hsl(var(--primary) / 0.2)",
-			transition: { type: "spring", stiffness: 400, damping: 30 },
-		},
-	} as Variants;
-
 	return (
 		<div className="w-full">
 			<Form {...form}>
 				<motion.form
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-3" // Zmniejszone z space-y-4
-					variants={containerVariants}
+					variants={containerVariantsFast}
 					initial="hidden"
 					animate="visible"
 				>
 					{/* Imię i nazwisko */}
-					<motion.div variants={itemVariants}>
+					<motion.div variants={labelVariantsFast}>
 						<FormField
 							control={form.control}
 							name="name_surname"
@@ -222,13 +176,13 @@ export default function PopupForm() {
 									whileFocus="focus"
 								>
 									<FormItem>
-										<motion.div variants={labelVariants}>
+										<motion.div variants={labelVariantsFast}>
 											<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
 												Imię i nazwisko*
 											</FormLabel>
 										</motion.div>
 										<FormControl>
-											<motion.div variants={inputVariants}>
+											<motion.div variants={inputVariantsFast}>
 												<Input
 													placeholder="Anna Kowalska"
 													className="bg-secondary/70 border-2 border-foreground font-text h-9 rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background focus:placeholder-transparent" // Zmniejszone z h-10 na h-9
@@ -244,7 +198,7 @@ export default function PopupForm() {
 					</motion.div>
 
 					{/* Email */}
-					<motion.div variants={itemVariants}>
+					<motion.div variants={labelVariantsFast}>
 						<FormField
 							control={form.control}
 							name="email"
@@ -255,13 +209,13 @@ export default function PopupForm() {
 									whileFocus="focus"
 								>
 									<FormItem>
-										<motion.div variants={labelVariants}>
+										<motion.div variants={labelVariantsFast}>
 											<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
 												E-mail*
 											</FormLabel>
 										</motion.div>
 										<FormControl>
-											<motion.div variants={inputVariants}>
+											<motion.div variants={inputVariantsFast}>
 												<Input
 													placeholder="anna@wp.pl"
 													type="email"
@@ -278,7 +232,7 @@ export default function PopupForm() {
 					</motion.div>
 
 					{/* Telefon */}
-					<motion.div variants={itemVariants}>
+					<motion.div variants={labelVariantsFast}>
 						<FormField
 							control={form.control}
 							name="phone_number"
@@ -289,7 +243,7 @@ export default function PopupForm() {
 									whileFocus="focus"
 								>
 									<FormItem>
-										<motion.div variants={labelVariants}>
+										<motion.div variants={labelVariantsFast}>
 											<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
 												Nr Telefonu
 											</FormLabel>
@@ -298,7 +252,7 @@ export default function PopupForm() {
 											</span>
 										</motion.div>
 										<FormControl>
-											<motion.div variants={inputVariants}>
+											<motion.div variants={inputVariantsFast}>
 												<Input
 													placeholder="123 456 789"
 													className="bg-secondary/70 border-2 border-foreground font-text h-9 rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background focus:placeholder-transparent"
@@ -321,7 +275,7 @@ export default function PopupForm() {
 					</motion.div>
 
 					{/* Opis projektu */}
-					<motion.div variants={itemVariants}>
+					<motion.div variants={labelVariantsFast}>
 						<FormField
 							control={form.control}
 							name="project_description"
@@ -332,13 +286,13 @@ export default function PopupForm() {
 									whileFocus="focus"
 								>
 									<FormItem>
-										<motion.div variants={labelVariants}>
+										<motion.div variants={labelVariantsFast}>
 											<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
 												Jak mogę ci pomóc?*
 											</FormLabel>
 										</motion.div>
 										<FormControl>
-											<motion.div variants={inputVariants}>
+											<motion.div variants={inputVariantsFast}>
 												<Textarea
 													placeholder="Krótko opisz swój projekt..."
 													className="bg-secondary/70 border-2 border-foreground font-text min-h-16 max-h-24 resize-none rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background focus:placeholder-transparent" // Zmniejszone min-h-20 na min-h-16, max-h-32 na max-h-24
@@ -354,7 +308,7 @@ export default function PopupForm() {
 					</motion.div>
 
 					{/* File uploader - zmniejszony */}
-					<motion.div variants={itemVariants}>
+					<motion.div variants={labelVariantsFast}>
 						<FormField
 							control={form.control}
 							name="file_input"
@@ -363,7 +317,7 @@ export default function PopupForm() {
 									<motion.div
 										initial="rest"
 										whileHover="hover"
-										variants={labelVariants}
+										variants={labelVariantsFast}
 									>
 										<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
 											Prześlij wzór
@@ -479,7 +433,7 @@ export default function PopupForm() {
 					</motion.div>
 
 					{/* Submit Button */}
-					<motion.div className="pt-2" variants={itemVariants}>
+					<motion.div className="pt-2" variants={labelVariantsFast}>
 						{" "}
 						{/* Zmniejszone z pt-4 na pt-3 */}
 						<motion.button
@@ -512,7 +466,7 @@ export default function PopupForm() {
 					{/* Separator */}
 					<motion.div
 						className="flex items-center justify-center py-1" // Zmniejszone padding
-						variants={itemVariants}
+						variants={labelVariantsFast}
 					>
 						<div className="flex-1 h-px bg-foreground/20"></div>
 						<span className="px-3 text-xs font-primary font-bold text-muted-foreground uppercase">
@@ -522,7 +476,7 @@ export default function PopupForm() {
 					</motion.div>
 
 					{/* Instagram Button */}
-					<motion.div variants={itemVariants}>
+					<motion.div variants={labelVariantsFast}>
 						<motion.button
 							type="button"
 							className="bg-secondary cursor-pointer text-foreground font-primary text-sm w-full px-6 py-2.5 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-2 group transition-all duration-200"

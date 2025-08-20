@@ -15,6 +15,11 @@ import {
 } from "lucide-react";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import NavPrimaryBtn from "./buttons/NavPrimaryBtn";
+import {
+	containerVariants,
+	dropdownVariants,
+	navItemVariants,
+} from "@/lib/variants";
 
 // Types
 interface ServiceItem {
@@ -40,32 +45,6 @@ const ServiceDropdown: React.FC<ServiceDropdownProps> = ({
 	serviceKey,
 	service,
 }) => {
-	const dropdownVariants = {
-		hidden: {
-			opacity: 0,
-			scale: 0.95,
-			y: -10,
-		},
-		visible: {
-			opacity: 1,
-			scale: 1,
-			y: 0,
-			transition: {
-				duration: 0.2,
-				ease: "easeOut",
-			},
-		},
-		exit: {
-			opacity: 0,
-			scale: 0.95,
-			y: -10,
-			transition: {
-				duration: 0.15,
-				ease: "easeIn",
-			},
-		},
-	} as Variants;
-
 	return (
 		<motion.div
 			className="absolute bottom-full left-0 mb-2 lg:top-full lg:bottom-auto lg:mt-2 lg:mb-0 w-80 bg-background border-4 border-foreground rounded-lg shadow-[8px_8px_0px_0px_theme(colors.foreground)] z-50"
@@ -160,23 +139,6 @@ const Navbar = () => {
 		{ name: "Kontakt", href: "/kontakt" },
 	];
 
-	const containerVariants = {
-		hidden: { opacity: 0, y: -20 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.6,
-				staggerChildren: 0.1,
-			},
-		},
-	} as Variants;
-
-	const itemVariants = {
-		hidden: { opacity: 0, y: -10 },
-		visible: { opacity: 1, y: 0 },
-	} as Variants;
-
 	return (
 		<>
 			{/* Desktop Navbar - Sticky Top */}
@@ -191,7 +153,7 @@ const Navbar = () => {
 						<motion.a
 							href="/"
 							className="flex items-center group"
-							variants={itemVariants}
+							variants={navItemVariants}
 							whileHover={{ scale: 1.02 }}
 							whileTap={{ scale: 0.98 }}
 						>
@@ -212,7 +174,7 @@ const Navbar = () => {
 										key={item.name}
 										href={item.href}
 										className="text-foreground hover:text-primary transition-colors font-secondary font-bold relative group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
-										variants={itemVariants}
+										variants={navItemVariants}
 									>
 										{item.name}
 									</motion.a>
@@ -223,7 +185,7 @@ const Navbar = () => {
 							<div className="relative">
 								<motion.button
 									className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-secondary font-bold group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
-									variants={itemVariants}
+									variants={navItemVariants}
 									onMouseEnter={() => setActiveDropdown("services")}
 									onMouseLeave={() => setActiveDropdown(null)}
 								>
@@ -273,7 +235,7 @@ const Navbar = () => {
 						{/* Mobile Menu Button */}
 						<motion.button
 							className="p-3 rounded bg-muted border-2 border-foreground shadow-[0_4px_0px_0px_theme(colors.foreground)] hover:shadow-[0_6px_0px_0px_theme(colors.foreground)] hover:translate-y-[-2px] transition-all duration-200"
-							variants={itemVariants}
+							variants={navItemVariants}
 							whileTap={{ scale: 0.95 }}
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
 						>
@@ -306,7 +268,7 @@ const Navbar = () => {
 						<motion.a
 							href="/"
 							className="flex items-center group"
-							variants={itemVariants}
+							variants={navItemVariants}
 							whileHover={{ scale: 1.02 }}
 							whileTap={{ scale: 0.98 }}
 						>

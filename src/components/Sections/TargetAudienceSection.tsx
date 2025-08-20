@@ -1,46 +1,13 @@
 import images from "@/Assets/images";
 import Image from "next/image";
 import * as motion from "motion/react-client";
-import { Variants } from "motion";
+import {
+	containerVariants,
+	imageVariantsRight,
+	itemVariants,
+} from "@/lib/variants";
 
 const TargetAudienceSection = () => {
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.1,
-				delayChildren: 0.2,
-			},
-		},
-	} as Variants;
-
-	const itemVariants = {
-		hidden: { opacity: 0, y: 30, scale: 0.95 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			scale: 1,
-			transition: {
-				duration: 0.6,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
-	const imageVariants = {
-		hidden: { opacity: 0, x: 30, scale: 0.95 },
-		visible: {
-			opacity: 1,
-			x: 0,
-			scale: 1,
-			transition: {
-				duration: 0.6,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
 	return (
 		<motion.div
 			className="container flex flex-col lg:flex-row gap-8 md:gap-12 items-start lg:items-center relative"
@@ -129,7 +96,7 @@ const TargetAudienceSection = () => {
 
 			<motion.div
 				className="w-full flex lg:justify-end"
-				variants={imageVariants}
+				variants={imageVariantsRight}
 			>
 				<motion.div
 					whileHover={{

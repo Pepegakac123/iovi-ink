@@ -3,69 +3,14 @@ import Subheadline from "../Subheadline";
 import ContactForm from "../Form/ContactForm";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
+import {
+	containerVariants,
+	formVariants,
+	itemVariants,
+	stickyContentVariants,
+} from "@/lib/variants";
 
 const Contact = () => {
-	// Motion variants matching the project style
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.2,
-				delayChildren: 0.1,
-			},
-		},
-	} as Variants;
-
-	const itemVariants = {
-		hidden: {
-			opacity: 0,
-			y: 40,
-			scale: 0.95,
-		},
-		visible: {
-			opacity: 1,
-			y: 0,
-			scale: 1,
-			transition: {
-				duration: 0.8,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
-	const stickyContentVariants = {
-		hidden: {
-			opacity: 0,
-			x: -50,
-		},
-		visible: {
-			opacity: 1,
-			x: 0,
-			transition: {
-				duration: 0.8,
-				ease: "easeOut",
-				delay: 0.2,
-			},
-		},
-	} as Variants;
-
-	const formVariants = {
-		hidden: {
-			opacity: 0,
-			x: 50,
-		},
-		visible: {
-			opacity: 1,
-			x: 0,
-			transition: {
-				duration: 0.8,
-				ease: "easeOut",
-				delay: 0.4,
-			},
-		},
-	} as Variants;
-
 	return (
 		<motion.div
 			className="container"

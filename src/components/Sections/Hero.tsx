@@ -3,6 +3,11 @@ import Subheadline from "../Subheadline";
 import FeatureCard from "../FeatureCard";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
+import {
+	containerVariants,
+	descriptionVariants,
+	titleVariants,
+} from "@/lib/variants";
 
 interface HeroProps {
 	subTitle: string;
@@ -12,42 +17,6 @@ interface HeroProps {
 }
 
 const Hero = ({ subTitle, title, description, image }: HeroProps) => {
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.1,
-				delayChildren: 0.2,
-			},
-		},
-	} as Variants;
-
-	const titleVariants = {
-		hidden: { opacity: 0, y: 50, scale: 0.9 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			scale: 1,
-			transition: {
-				duration: 0.8,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
-	const descriptionVariants = {
-		hidden: { opacity: 0, y: 30 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.6,
-				delay: 0.3,
-			},
-		},
-	} as Variants;
-
 	return (
 		<motion.div
 			className="max-w-[1440px] mx-auto flex justify-center px-4 sm:px-8 py-4 pb-20 md:pb-24 lg:py-8"

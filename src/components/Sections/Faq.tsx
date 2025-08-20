@@ -10,44 +10,13 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { homeFAQ } from "@/Assets/index.js";
+import {
+	containerVariants,
+	contentVariants,
+	imageVariants,
+} from "@/lib/variants";
 
 const Faq = () => {
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.15,
-				delayChildren: 0.2,
-			},
-		},
-	} as Variants;
-
-	const contentVariants = {
-		hidden: { opacity: 0, y: 30 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.6,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
-	const imageVariants = {
-		hidden: { opacity: 0, scale: 0.9, x: 20 },
-		visible: {
-			opacity: 1,
-			scale: 1,
-			x: 0,
-			transition: {
-				duration: 0.8,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
 	return (
 		<motion.div
 			className="container"

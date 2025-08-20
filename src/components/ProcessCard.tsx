@@ -1,6 +1,11 @@
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
+import {
+	cardVariantsProcess,
+	contentVariants,
+	iconVariantsSimple,
+} from "@/lib/variants";
 
 interface ProcessCardProps {
 	id: number;
@@ -13,51 +18,6 @@ interface ProcessCardProps {
 	description: string;
 }
 
-// Variants dla animacji karty
-const cardVariants = {
-	hidden: {
-		opacity: 0,
-		y: 40,
-		scale: 0.95,
-	},
-	visible: {
-		opacity: 1,
-		y: 0,
-		scale: 1,
-		transition: {
-			duration: 0.6,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
-
-// Variants dla zawartości
-const contentVariants = {
-	hidden: { opacity: 0, x: -20 },
-	visible: {
-		opacity: 1,
-		x: 0,
-		transition: {
-			duration: 0.5,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
-
-// Variants dla ikony
-const iconVariants = {
-	hidden: { opacity: 0, scale: 0.8, rotate: -10 },
-	visible: {
-		opacity: 1,
-		scale: 1,
-		rotate: 0,
-		transition: {
-			duration: 0.4,
-			ease: "easeOut",
-		},
-	},
-} as Variants;
-
 const ProcessCard = ({
 	id,
 	icon,
@@ -68,7 +28,7 @@ const ProcessCard = ({
 	return (
 		<motion.div
 			className="w-full h-full flex flex-col relative bg-background border-2 border-foreground border-b-4 border-r-4 rounded-lg overflow-hidden group cursor-default"
-			variants={cardVariants}
+			variants={cardVariantsProcess}
 			initial="hidden"
 			whileInView="visible"
 			viewport={{ once: true, margin: "-50px" }}
@@ -131,7 +91,7 @@ const ProcessCard = ({
 				{/* Animated Icon */}
 				<motion.div
 					className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6 flex-shrink-0"
-					variants={iconVariants}
+					variants={iconVariantsSimple}
 					whileHover={{
 						scale: 1.1,
 						rotate: 5,
