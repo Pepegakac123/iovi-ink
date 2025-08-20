@@ -50,7 +50,7 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 
 	return (
 		<motion.div
-			className="max-w-[1440px] mx-auto flex justify-center px-4 py-4 pb-20 md:pb-24 lg:py-8"
+			className="max-w-[1440px] mx-auto flex justify-center px-4 sm:px-8 py-4 pb-20 md:pb-24 lg:py-8"
 			initial="hidden"
 			animate="visible"
 			variants={containerVariants}

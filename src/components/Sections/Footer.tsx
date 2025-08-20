@@ -62,7 +62,7 @@ const Footer = () => {
 						</motion.a>
 
 						<p className="text-background/80 text-base leading-relaxed mb-6 w-full sm:max-w-[280px]">
-							Tworzę tatuaże w studio Lewus Ink w Mszanie Dolnej. Każdy projekt
+							Tworzę tatuaże w studiu Lewus Ink w Mszanie Dolnej. Każdy projekt
 							to dla mnie wyzwanie artystyczne, nie tylko techniczna realizacja.
 						</p>
 
@@ -207,8 +207,8 @@ const Footer = () => {
 								transition={{ type: "spring", stiffness: 400, damping: 25 }}
 							>
 								<Image
-									src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/tatto_machine_accent.svg"
-									alt="Instagram"
+									src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/location_accent.svg"
+									alt="Lokalizacja Studia"
 									width={24}
 									height={24}
 									className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"

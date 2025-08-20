@@ -28,6 +28,7 @@ import { CloudUpload, Paperclip } from "lucide-react";
 import { DropzoneOptions } from "react-dropzone";
 import InstagramBtn from "../buttons/InstragramBtn";
 import Image from "next/image";
+import { LuHardDriveUpload } from "react-icons/lu";
 
 const formSchema = z.object({
 	name_surname: z.string().min(1, "Imię i nazwisko są wymagane"),
@@ -395,7 +396,7 @@ export default function PopupForm() {
 																transition: { duration: 0.3 },
 															}}
 														>
-															<CloudUpload className="text-primary w-6 h-6 mb-2" />{" "}
+															<LuHardDriveUpload className="text-primary w-6 h-6 mb-2" />{" "}
 															{/* Zmniejszone z w-8 h-8 mb-3 */}
 														</motion.div>
 														<motion.p

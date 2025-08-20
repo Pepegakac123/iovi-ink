@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CloudUpload, Paperclip } from "lucide-react";
+import { LuHardDriveUpload } from "react-icons/lu";
 import {
 	FileInput,
 	FileUploader,
@@ -412,7 +413,7 @@ export default function ContactForm() {
 																	transition: { duration: 0.3 },
 																}}
 															>
-																<CloudUpload className="text-primary w-8 h-8 mb-3" />
+																<LuHardDriveUpload className="text-primary w-8 h-8 mb-3" />
 															</motion.div>
 															<motion.p
 																className="mb-1 text-sm text-foreground font-primary font-bold"

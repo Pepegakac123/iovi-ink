@@ -4,6 +4,7 @@ import "./globals.css";
 import { RecaptchaProvider } from "@/components/providers/RecaptchaProvider"; // ← DODANE
 import { Toaster } from "sonner"; // ← DODANE (dla toastów)
 import Footer from "@/components/Sections/Footer";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
 	title: "Moja Aplikacja",
@@ -19,8 +20,7 @@ export default function RootLayout({
 		<html lang="pl">
 			<body className="bg-background">
 				<RecaptchaProvider>
-					{" "}
-					{/* ← DODANE: Wrapper dla reCAPTCHA */}
+					<Navbar /> {/* ← DODANE: Wrapper dla reCAPTCHA */}
 					{children}
 					<Footer />
 					<Toaster
