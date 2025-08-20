@@ -91,3 +91,17 @@ export const homeFAQ = [
 			"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
 	},
 ];
+
+export const FooterMenuLinks = [
+	{ name: "Strona główna", href: "/" },
+	{ name: "Portfolio", href: "/portfolio" },
+	{ name: "Usługi", href: "/uslugi" },
+	{ name: "O Mnie", href: "/o-mnie" },
+	{ name: "Kontakt", href: "/kontakt" },
+];
+
+export const serviceLinks = [
+	{ name: "Minimalistyczne", href: "/uslugi/tatuaze/minimalistyczne" },
+	{ name: "Geometryczne", href: "/uslugi/tatuaze/geometryczne" },
+	{ name: "Fine Line", href: "/uslugi/tatuaze/fine-line" },
+];

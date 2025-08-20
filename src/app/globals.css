@@ -183,8 +183,15 @@
 	.container {
 		@apply mx-auto max-w-[1240px]  w-full;
 	}
-	section {
+	section:not([aria-label*="Notifications"]):not([aria-live]) {
 		@apply py-20 md:py-24 px-4 md:px-8 lg:px-12 xl:px-16;
+	}
+	.placeholder-transition::placeholder {
+		transition: opacity 0.2s ease-in-out;
+	}
+
+	.placeholder-transition:focus::placeholder {
+		opacity: 0;
 	}
 }
 
@@ -272,4 +279,8 @@
 /* Form labels brutal styling */
 .form-label-brutal {
 	@apply text-foreground font-primary font-bold;
+}
+
+[data-slot="dialog-content"] {
+	z-index: 9999 !important;
 }

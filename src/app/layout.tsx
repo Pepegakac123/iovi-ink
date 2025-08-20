@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { RecaptchaProvider } from "@/components/providers/RecaptchaProvider"; // ← DODANE
 import { Toaster } from "sonner"; // ← DODANE (dla toastów)
+import Footer from "@/components/Sections/Footer";
 
 export const metadata: Metadata = {
 	title: "Moja Aplikacja",
@@ -21,6 +22,7 @@ export default function RootLayout({
 					{" "}
 					{/* ← DODANE: Wrapper dla reCAPTCHA */}
 					{children}
+					<Footer />
 					<Toaster
 						position="top-right"
 						duration={5000}

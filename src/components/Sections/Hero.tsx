@@ -7,7 +7,7 @@ import { Variants } from "motion";
 interface HeroProps {
 	subTitle: string;
 	title: string;
-	description: string;
+	description: React.ReactNode | string; // Zmiana z string na React.ReactNode
 	image: string;
 }
 

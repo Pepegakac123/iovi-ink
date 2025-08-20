@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { v4 as uuidv4 } from "uuid";
 import {
 	Form,
 	FormControl,
@@ -14,7 +13,6 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { PhoneInput } from "@/components/ui/phone-input";
 import { Textarea } from "@/components/ui/textarea";
 import { CloudUpload, Paperclip } from "lucide-react";
 import {
@@ -28,6 +26,9 @@ import { DropzoneOptions } from "react-dropzone";
 import InstagramBtn from "../buttons/InstragramBtn";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
+import { formatPhoneNumber } from "@/lib/utils";
+
+// Funkcja formatująca numer telefonu z spacjami
 
 const formSchema = z.object({
 	name_surname: z.string().min(1, "Imię i nazwisko są wymagane"),
@@ -35,16 +36,24 @@ const formSchema = z.object({
 	phone_number: z
 		.string()
 		.optional()
-		.refine((val) => !val || /^\d{9}$/.test(val), {
-			message: "Numer telefonu musi mieć dokładnie 9 cyfr",
-		}),
+		.refine(
+			(val) => {
+				if (!val) return true; // Pole opcjonalne
+				// Usuń spacje i sprawdź czy ma dokładnie 9 cyfr
+				const numbersOnly = val.replace(/\s/g, "");
+				return /^\d{9}$/.test(numbersOnly);
+			},
+			{
+				message: "Numer telefonu musi mieć dokładnie 9 cyfr",
+			},
+		),
 	project_description: z
 		.string()
 		.min(10, "Opis musi mieć co najmniej 10 znaków"),
 	file_input: z.string().optional(),
 });
 
-export default function MyForm() {
+export default function ContactForm() {
 	const [files, setFiles] = useState<File[] | null>(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const { executeRecaptcha } = useRecaptcha();
@@ -84,10 +93,13 @@ export default function MyForm() {
 			// 2. Przygotuj FormData zamiast JSON
 			const formData = new FormData();
 
-			// Dodaj pola formularza
+			// Dodaj pola formularza - trimuj numer telefonu
 			formData.append("name_surname", values.name_surname);
 			formData.append("email", values.email);
-			formData.append("phone_number", values.phone_number || "");
+			formData.append(
+				"phone_number",
+				values.phone_number ? values.phone_number.replace(/\s/g, "") : "",
+			);
 			formData.append("project_description", values.project_description);
 			formData.append("file_input", values.file_input || "");
 			formData.append("recaptcha_token", recaptchaToken);
@@ -223,7 +235,7 @@ export default function MyForm() {
 									>
 										<FormItem>
 											<motion.div variants={labelVariants}>
-												<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
+												<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block whitespace-nowrap">
 													Imię i nazwisko*
 												</FormLabel>
 											</motion.div>
@@ -231,7 +243,7 @@ export default function MyForm() {
 												<motion.div variants={inputVariants}>
 													<Input
 														placeholder="Anna Kowalska"
-														className="bg-secondary/70 border-2 border-foreground font-text h-12 rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0"
+														className="bg-secondary/70 border-2 border-foreground font-text h-12 rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0 focus:placeholder-transparent placeholder-transition"
 														{...field}
 													/>
 												</motion.div>
@@ -253,7 +265,7 @@ export default function MyForm() {
 									>
 										<FormItem>
 											<motion.div variants={labelVariants}>
-												<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
+												<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block whitespace-nowrap">
 													E-mail*
 												</FormLabel>
 											</motion.div>
@@ -262,7 +274,7 @@ export default function MyForm() {
 													<Input
 														placeholder="anna@wp.pl"
 														type="email"
-														className="bg-secondary/70 border-2 border-foreground font-text h-12 rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0"
+														className="bg-secondary/70 border-2 border-foreground font-text h-12 rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0 focus:placeholder-transparent placeholder-transition"
 														{...field}
 													/>
 												</motion.div>
@@ -282,21 +294,30 @@ export default function MyForm() {
 										whileHover="hover"
 										whileFocus="focus"
 									>
-										<FormItem className="flex flex-col items-start">
+										<FormItem>
 											<motion.div variants={labelVariants}>
-												<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
-													Nr Telefonu*
+												<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block whitespace-nowrap">
+													Nr Telefonu
 												</FormLabel>
+												<span className="text-xs text-muted-foreground font-normal normal-case ml-1">
+													(Opcjonalne)
+												</span>
 											</motion.div>
-											<FormControl className="w-full">
-												<motion.div
-													className="phone-input-wrapper w-full"
-													variants={inputVariants}
-												>
-													<PhoneInput
+											<FormControl>
+												<motion.div variants={inputVariants}>
+													<Input
 														placeholder="123 456 789"
-														defaultCountry="PL"
-														className="w-full [&>button]:bg-secondary/70 [&>button]:border-foreground [&>button]:border-2 [&>button]:h-12 [&>button]:transition-all [&>button]:duration-200 [&>button]:hover:bg-secondary [&>button]:transform [&>button]:translate-x-0 [&>button]:translate-y-0 [&>button]:hover:translate-x-0 [&>button]:hover:translate-y-0 [&>input]:bg-secondary/70 [&>input]:border-foreground [&>input]:border-2 [&>input]:h-12 [&>input]:transition-all [&>input]:duration-200 [&>input]:hover:bg-secondary [&>input]:focus:bg-background [&>input]:transform [&>input]:translate-x-0 [&>input]:translate-y-0 [&>input]:hover:translate-x-0 [&>input]:hover:translate-y-0"
+														className="bg-secondary/70 border-2 border-foreground font-text h-12 rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0 focus:placeholder-transparent placeholder-transition"
+														value={field.value || ""}
+														onChange={(e) => {
+															const formatted = formatPhoneNumber(
+																e.target.value,
+															);
+															field.onChange(formatted);
+														}}
+														onBlur={field.onBlur}
+														name={field.name}
+														ref={field.ref}
 													/>
 												</motion.div>
 											</FormControl>
@@ -328,7 +349,7 @@ export default function MyForm() {
 												<motion.div variants={inputVariants}>
 													<Textarea
 														placeholder="Opisz swój projekt - styl, rozmiar, miejsce na ciele, inspiracje..."
-														className="bg-secondary/70 border-2 border-foreground font-text min-h-28 resize-none rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0"
+														className="bg-secondary/70 border-2 border-foreground font-text min-h-28 resize-none rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0 focus:placeholder-transparent placeholder-transition"
 														{...field}
 													/>
 												</motion.div>
@@ -353,8 +374,11 @@ export default function MyForm() {
 											variants={labelVariants}
 										>
 											<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
-												Prześlij wzór lub inspirację (opcjonalne)
+												Prześlij wzór lub inspirację
 											</FormLabel>
+											<span className="text-xs text-muted-foreground font-normal normal-case ml-1">
+												(Opcjonalne)
+											</span>
 										</motion.div>
 										<FormControl>
 											<motion.div
@@ -466,7 +490,7 @@ export default function MyForm() {
 						>
 							{/* Przycisk WYŚLIJ */}
 							<motion.button
-								type="button"
+								type="submit"
 								className="bg-primary cursor-pointer text-background font-primary text-base md:text-lg w-full px-4 md:px-8 py-4 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-3 group"
 								whileHover={{
 									scale: 1.05,
@@ -479,22 +503,7 @@ export default function MyForm() {
 									transition: { duration: 0.1 },
 								}}
 							>
-								<motion.span
-									animate={
-										isSubmitting
-											? {
-													rotate: [0, 360],
-													transition: {
-														duration: 1,
-														repeat: Infinity,
-														ease: "linear",
-													},
-												}
-											: {}
-									}
-								>
-									{isSubmitting ? "WYSYŁANIE..." : "WYŚLIJ"}
-								</motion.span>
+								{isSubmitting ? "WYSYŁANIE..." : "WYŚLIJ"}
 							</motion.button>
 
 							{/* Separator LUB */}
