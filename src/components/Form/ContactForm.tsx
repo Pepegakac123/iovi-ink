@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { v4 as uuidv4 } from "uuid";
 import {
 	Form,
 	FormControl,
@@ -14,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CloudUpload, Paperclip } from "lucide-react";
 import { LuHardDriveUpload } from "react-icons/lu";
 import {
 	FileInput,
@@ -28,6 +28,8 @@ import InstagramBtn from "../buttons/InstragramBtn";
 import * as motion from "motion/react-client";
 import { Variants } from "motion";
 import { formatPhoneNumber } from "@/lib/utils";
+import { Paperclip } from "lucide-react";
+import { AnimatePresence } from "motion/react";
 
 // Funkcja formatująca numer telefonu z spacjami
 
@@ -72,6 +74,16 @@ export default function ContactForm() {
 			"application/pdf": [".pdf"],
 		},
 	} satisfies DropzoneOptions;
+
+	const removeFile = (indexToRemove: number) => {
+		if (!files) return;
+
+		const updatedFiles = files.filter((_, index) => index !== indexToRemove);
+		setFiles(updatedFiles.length > 0 ? updatedFiles : null);
+
+		// Opcjonalne: toast informujący o usunięciu
+		toast.info("Plik został usunięty");
+	};
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -431,49 +443,56 @@ export default function ContactForm() {
 														</div>
 													</FileInput>
 													<FileUploaderContent>
-														{files &&
-															files.length > 0 &&
-															files.map((file, i) => (
-																<motion.div
-																	key={file.name}
-																	initial={{ opacity: 0, x: -20, scale: 0.8 }}
-																	animate={{ opacity: 1, x: 0, scale: 1 }}
-																	exit={{ opacity: 0, x: 20, scale: 0.8 }}
-																	transition={{
-																		delay: i * 0.1,
-																		type: "spring",
-																		stiffness: 200,
-																	}}
-																	whileHover={{
-																		scale: 1.02,
-																		y: -2,
-																		transition: {
-																			type: "spring",
-																			stiffness: 400,
-																		},
-																	}}
-																>
-																	<FileUploaderItem
-																		index={i}
-																		className="bg-background border-2 border-foreground hover:bg-accent/20 transition-all duration-200 rounded-sm mt-2 transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0"
-																	>
-																		<motion.div
-																			animate={{ rotate: [0, 5, -5, 0] }}
-																			transition={{
-																				duration: 2,
-																				repeat: Infinity,
+														<AnimatePresence mode="popLayout">
+															{files &&
+																files.length > 0 &&
+																files.map((file, i) => (
+																	<motion.div
+																		key={`${file.name}-${i}`} // Unikalny key
+																		initial={{ opacity: 0, x: -20, scale: 0.8 }}
+																		animate={{ opacity: 1, x: 0, scale: 1 }}
+																		exit={{
+																			opacity: 0,
+																			x: 20,
+																			scale: 0.8,
+																			height: 0,
+																			marginTop: 0,
+																			transition: {
+																				duration: 0.3,
 																				ease: "easeInOut",
-																				delay: i * 0.3,
-																			}}
+																			},
+																		}}
+																		transition={{
+																			// Dla initial -> animate
+																			type: "spring",
+																			stiffness: 200,
+																			damping: 20,
+																		}}
+
+																		// ULEPSZONA ANIMACJA WYJŚCIA
+																	>
+																		<FileUploaderItem
+																			index={i}
+																			onRemove={removeFile} // DODANE
+																			className="bg-background border-2 border-foreground hover:bg-accent/20 transition-all duration-200 rounded-sm mt-2"
 																		>
-																			<Paperclip className="h-4 w-4 stroke-current text-primary" />
-																		</motion.div>
-																		<span className="font-text text-foreground text-sm font-medium">
-																			{file.name}
-																		</span>
-																	</FileUploaderItem>
-																</motion.div>
-															))}
+																			<motion.div
+																				animate={{ rotate: [0, 5, -5, 0] }}
+																				transition={{
+																					duration: 2,
+																					repeat: Infinity,
+																					ease: "easeInOut",
+																				}}
+																			>
+																				<Paperclip className="h-4 w-4 stroke-current text-primary" />
+																			</motion.div>
+																			<span className="font-text text-foreground text-sm font-medium">
+																				{file.name}
+																			</span>
+																		</FileUploaderItem>
+																	</motion.div>
+																))}
+														</AnimatePresence>{" "}
 													</FileUploaderContent>
 												</FileUploader>
 											</motion.div>

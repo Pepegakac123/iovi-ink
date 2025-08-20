@@ -29,6 +29,7 @@ import { DropzoneOptions } from "react-dropzone";
 import InstagramBtn from "../buttons/InstragramBtn";
 import Image from "next/image";
 import { LuHardDriveUpload } from "react-icons/lu";
+import { AnimatePresence } from "motion/react";
 
 const formSchema = z.object({
 	name_surname: z.string().min(1, "Imię i nazwisko są wymagane"),
@@ -78,6 +79,15 @@ export default function PopupForm() {
 			project_description: "",
 		},
 	});
+
+	const removeFile = (indexToRemove: number) => {
+		if (!files) return;
+
+		const updatedFiles = files.filter((_, index) => index !== indexToRemove);
+		setFiles(updatedFiles.length > 0 ? updatedFiles : null);
+
+		toast.info("Plik został usunięty");
+	};
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		setIsSubmitting(true);
@@ -416,52 +426,48 @@ export default function PopupForm() {
 													</div>
 												</FileInput>
 												<FileUploaderContent>
-													{files &&
-														files.length > 0 &&
-														files.map((file, i) => (
-															<motion.div
-																key={file.name}
-																initial={{ opacity: 0, x: -20, scale: 0.8 }}
-																animate={{ opacity: 1, x: 0, scale: 1 }}
-																exit={{ opacity: 0, x: 20, scale: 0.8 }}
-																transition={{
-																	delay: i * 0.1,
-																	type: "spring",
-																	stiffness: 200,
-																}}
-																whileHover={{
-																	scale: 1.01, // Zmniejszone z 1.02
-																	y: -1, // Zmniejszone z -2
-																	transition: {
-																		type: "spring",
-																		stiffness: 400,
-																	},
-																}}
-															>
-																<FileUploaderItem
-																	index={i}
-																	className="bg-background border-2 border-foreground hover:bg-accent/20 transition-all duration-200 rounded-sm mt-1.5 text-xs" // Zmniejszone mt-2 na mt-1.5, dodane text-xs
-																>
-																	<motion.div
-																		animate={{ rotate: [0, 3, -3, 0] }} // Zmniejszone z 5, -5
-																		transition={{
-																			duration: 2,
-																			repeat: Infinity,
+													<AnimatePresence mode="popLayout">
+														{files &&
+															files.length > 0 &&
+															files.map((file, i) => (
+																<motion.div
+																	key={`${file.name}-${i}`} // Unikalny key
+																	initial={{ opacity: 0, x: -20, scale: 0.8 }}
+																	animate={{ opacity: 1, x: 0, scale: 1 }}
+																	exit={{
+																		opacity: 0,
+																		x: 20,
+																		scale: 0.8,
+																		height: 0,
+																		marginTop: 0,
+																		transition: {
+																			duration: 0.3,
 																			ease: "easeInOut",
-																			delay: i * 0.3,
-																		}}
+																		},
+																	}}
+																>
+																	<FileUploaderItem
+																		index={i}
+																		onRemove={removeFile}
+																		className="bg-background border-2 border-foreground hover:bg-accent/20 transition-all duration-200 rounded-sm mt-2"
 																	>
-																		<Paperclip className="h-3 w-3 stroke-current text-primary" />{" "}
-																		{/* Zmniejszone z h-4 w-4 */}
-																	</motion.div>
-																	<span className="font-text text-foreground text-xs font-medium truncate max-w-32">
-																		{" "}
-																		{/* Dodane truncate i max-w */}
-																		{file.name}
-																	</span>
-																</FileUploaderItem>
-															</motion.div>
-														))}
+																		<motion.div
+																			animate={{ rotate: [0, 5, -5, 0] }}
+																			transition={{
+																				duration: 2,
+																				repeat: Infinity,
+																				ease: "easeInOut",
+																			}}
+																		>
+																			<Paperclip className="h-4 w-4 stroke-current text-primary" />
+																		</motion.div>
+																		<span className="font-text text-foreground text-sm font-medium">
+																			{file.name}
+																		</span>
+																	</FileUploaderItem>
+																</motion.div>
+															))}
+													</AnimatePresence>{" "}
 												</FileUploaderContent>
 											</FileUploader>
 										</motion.div>
