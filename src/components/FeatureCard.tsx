@@ -1,5 +1,7 @@
 import Image from "next/image";
 import * as motion from "motion/react-client";
+import { iconVariantsSimple } from "@/lib/variants";
+
 interface FeatureProps {
 	icon: string;
 	text: string;
@@ -21,30 +23,49 @@ const FeatureCard = ({ icon, text, delay = 0 }: FeatureProps) => {
 				y: -2,
 				backgroundColor: "var(--muted)",
 				boxShadow: "6px 6px 0px 0px var(--foreground)",
-				transition: { duration: 0.15 }, // Szybki transition
+				transition: { duration: 0.15 },
 			}}
 			whileTap={{ scale: 0.98 }}
 		>
+			{/* Ikona w stylu ProcessCard, ale mniejsza */}
 			<motion.div
-				initial={{ rotate: -10, scale: 0.8 }}
-				animate={{ rotate: 0, scale: 1 }}
-				transition={{
-					duration: 0.5,
-					delay: delay + 0.2,
-					ease: "easeOut",
+				className="w-10 h-10 md:w-14 md:h-14 flex-shrink-0"
+				variants={iconVariantsSimple}
+				initial="hidden"
+				animate="visible"
+				whileHover={{
+					scale: 1.1,
+					rotate: 5,
+					transition: { duration: 0.2 },
 				}}
-				whileHover={{ rotate: 5 }}
 			>
-				<Image
-					src={icon}
-					alt="Ikonka"
-					width={64}
-					height={64}
-					className="text-foreground"
-				/>
+				<motion.div
+					className="w-full h-full bg-transparent border-1 border-foreground rounded-full flex items-center justify-center"
+					whileHover={{
+						boxShadow: "4px 4px 0px 0px var(--foreground)",
+						translateX: -2,
+						translateY: -2,
+						transition: { duration: 0.2 },
+					}}
+				>
+					<motion.div
+						whileHover={{ scale: 1.2 }}
+						transition={{ duration: 0.2 }}
+					>
+						<Image
+							src={icon}
+							alt={`${text} - ikona`}
+							width={24}
+							height={24}
+							className="w-5 h-5 md:w-6 md:h-6"
+						/>
+					</motion.div>
+				</motion.div>
 			</motion.div>
+
+			{/* Tekst */}
 			<motion.div
-				className="text-foreground text-base font-text"
+				className="paragraph-base font-text"
 				initial={{ opacity: 0, x: -10 }}
 				animate={{ opacity: 1, x: 0 }}
 				transition={{
