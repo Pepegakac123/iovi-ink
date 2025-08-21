@@ -26,6 +26,7 @@ import {
 	AnimatedFieldWrapper,
 } from "@/components/forms/ContactFormField";
 import FloatingElements from "../FloatingElements";
+import { socialLinks } from "@/Assets";
 
 // ===========================================
 // MAIN CONTACT FORM COMPONENT
@@ -278,7 +279,7 @@ export default function ContactForm() {
 							>
 								<InstagramBtn
 									text="SKONTAKTUJ SIĘ PRZEZ INSTAGRAM"
-									link="https://www.instagram.com/iovi.ink/"
+									link={socialLinks.iovi.instagram}
 								/>
 							</motion.div>
 						</motion.div>

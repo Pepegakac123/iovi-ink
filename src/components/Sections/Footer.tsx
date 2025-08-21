@@ -2,7 +2,7 @@ import React from "react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 import { Variants } from "motion";
-import { FooterMenuLinks, serviceLinks } from "@/Assets";
+import { FooterMenuLinks, serviceLinks, socialLinks } from "@/Assets";
 import { ICONS } from "@/lib/icons";
 
 const Footer = () => {
@@ -69,7 +69,7 @@ const Footer = () => {
 
 						{/* Instagram Button */}
 						<motion.a
-							href="https://instagram.com/iovi.ink"
+							href={socialLinks.iovi.instagram}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="inline-block w-full"
@@ -181,7 +181,7 @@ const Footer = () => {
 
 							{/* Instagram Profile */}
 							<motion.a
-								href="https://instagram.com/iovi.ink"
+								href={socialLinks.iovi.instagram}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex items-center gap-3 text-background/80 hover:text-secondary transition-colors duration-300 group"
@@ -200,7 +200,7 @@ const Footer = () => {
 
 							{/* Studio Location */}
 							<motion.a
-								href="https://share.google/6N8PzUIi5uxI0j0Bj"
+								href={socialLinks.lewus.googleMaps}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex items-center gap-3 text-background/80 hover:text-secondary transition-colors duration-300 group"

@@ -107,3 +107,12 @@ export const serviceLinks = [
 	{ name: "Geometryczne", href: "/uslugi/tatuaze/geometryczne" },
 	{ name: "Fine Line", href: "/uslugi/tatuaze/fine-line" },
 ];
+
+export const socialLinks = {
+	iovi: {
+		instagram: "https://www.instagram.com/iovi.ink/",
+	},
+	lewus: {
+		googleMaps: "https://share.google/lc156tUkL2CVSgy2m",
+	},
+};

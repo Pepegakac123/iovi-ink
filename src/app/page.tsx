@@ -9,6 +9,7 @@ import WhyMe from "@/components/Sections/WhyMe";
 import Faq from "@/components/Sections/Faq";
 import Contact from "@/components/Sections/Contact";
 import * as motion from "motion/react-client";
+import { socialLinks } from "@/Assets";
 
 export default async function Home() {
 	return (
@@ -23,7 +24,7 @@ export default async function Home() {
 						anatomii, stylu i tego, jak chcesz się czuć ze swoim tatuażem przez
 						następne lata. Pracuję w studiu{" "}
 						<motion.a
-							href="/https://share.google/eHam4GSChPQtpXCYH"
+							href={socialLinks.lewus.googleMaps}
 							rel="noopener noreferrer"
 							target="_blank"
 							className=" text-primary hover:text-accent transition-colors duration-300"
