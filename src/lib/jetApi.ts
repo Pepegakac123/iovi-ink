@@ -72,15 +72,24 @@ export async function getAllServices(): Promise<JetEngineUslugiResponse> {
 export async function getFeaturedServices(): Promise<JetEngineUslugiResponse> {
 	return jetEngineFetch<JetEngineUslugiResponse>("/wp-json/wp/v2/uslugi", {
 		_fields: "id,slug,type,title,meta,attributes",
-		atributes: 6,
+		attributes: "6",
+	});
+}
+export async function getMainServices(): Promise<JetEngineUslugiResponse> {
+	return jetEngineFetch<JetEngineUslugiResponse>("/wp-json/wp/v2/uslugi", {
+		_fields: "id,slug,type,title,meta,attributes",
+		attributes: "6,7",
 	});
 }
 
 // Nowa funkcja która pobiera usługi z alt textami
-export async function getFeaturedServicesWithAltText(): Promise<
+export async function getServicesWithAltText(
+	type: "main" | "featured",
+): Promise<
 	Array<JetEngineUsluga & { imageWithAlt: { src: string; alt: string } }>
 > {
-	const services = await getFeaturedServices();
+	const services =
+		type === "main" ? await getMainServices() : await getFeaturedServices();
 
 	// Pobierz alt text dla wszystkich obrazów równolegle
 	const servicesWithAltText = await Promise.all(

@@ -95,7 +95,7 @@ const TargetAudienceSection = () => {
 			</motion.div>
 
 			<motion.div
-				className="w-full flex lg:justify-end"
+				className="w-full justify-center flex lg:justify-end"
 				variants={imageVariantsRight}
 			>
 				<motion.div

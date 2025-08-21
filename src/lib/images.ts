@@ -30,38 +30,38 @@ export const images = {
 	proces: {
 		proces_1: {
 			mobile:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_1_mobile.webp",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_konsultacja_mobile.webp",
 			desktop:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_1_dekstop.webp",
-			alt: "Pierwszy krok procesu wykonywania tatuażu - konsultacja i ustalenie projektu z tatuażystką Jowita",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_konsultacja_desktop.webp",
+			alt: "Bezpłatna konsultacja - kobieta z laptopem podczas rozmowy o wizji tatuażu i oczekiwaniach klienta",
 		},
 		proces_2: {
 			mobile:
 				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_2_mobile.webp",
 			desktop:
 				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_2_dekstop.webp",
-			alt: "Drugi etap procesu tatuowania - projektowanie i dopracowanie wzoru tatuażu",
+			alt: "Szkicowanie autorskiego projektu - tatuażystka tworzy indywidualny design dostosowany do potrzeb i anatomii klienta",
 		},
 		proces_3: {
 			mobile:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_3_mobile.webp",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_bab_z_tabletem_mobile.webp",
 			desktop:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_3_dekstop.webp",
-			alt: "Trzeci krok w procesie wykonywania tatuażu - przygotowanie skóry i przełożenie wzoru",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_bab_z_tabletem_desktop.webp",
+			alt: "Dopracowanie szczegółów - prezentacja szkicu na tablecie i wprowadzanie zmian zgodnie z opiniami klienta",
 		},
 		proces_4: {
 			mobile:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_4_mobile.webp",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_bab_stoi_mobile.webp",
 			desktop:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_4_dekstop.webp",
-			alt: "Czwarty etap tatuowania - profesjonalne wykonanie tatuażu przez doświadczoną tatuażystkę",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_bab_stoi_desktop.webp",
+			alt: "Profesjonalne wykonanie - doświadczona tatuażystka podczas spokojnej sesji tatuowania z maksymalną precyzją",
 		},
 		proces_5: {
 			mobile:
 				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_5_mobile.webp",
 			desktop:
 				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_5_dekstop.webp",
-			alt: "Ostatni krok procesu tatuażu - opatrzenie i instrukcje pielęgnacji świeżego tatuażu",
+			alt: "Wsparcie podczas gojenia - instrukcje pielęgnacji i możliwość kontaktu z pytaniami przez cały okres gojenia tatuażu",
 		},
 	},
 	logo: {

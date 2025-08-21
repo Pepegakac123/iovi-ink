@@ -1,12 +1,12 @@
-import { getFeaturedServicesWithAltText } from "@/lib/jetApi";
 import SecondaryBtn from "../buttons/SecondaryBtn";
 import Subheadline from "../Subheadline";
 import * as motion from "motion/react-client";
 import ServicesCard from "../ServicesCard";
 import { containerVariants, itemVariants } from "@/lib/variants";
+import { getServicesWithAltText } from "@/lib/jetApi";
 
 const Services = async () => {
-	const services = await getFeaturedServicesWithAltText();
+	const services = await getServicesWithAltText("featured");
 
 	return (
 		<motion.div
