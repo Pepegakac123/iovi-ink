@@ -174,9 +174,6 @@ const MobileNavbar: React.FC = () => {
 					</AnimatePresence>
 				</div>
 			</motion.nav>
-
-			{/* Mobile content padding to prevent overlap with fixed navbar */}
-			<div className="lg:hidden h-16" />
 		</>
 	);
 };

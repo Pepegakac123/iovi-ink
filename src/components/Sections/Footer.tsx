@@ -11,7 +11,7 @@ const Footer = () => {
 	const servicesLinks = services.tatuaze.items;
 	return (
 		<motion.footer
-			className="bg-foreground text-background py-12 mt-20 overflow-hidden"
+			className="bg-foreground text-background py-12  overflow-hidden"
 			variants={containerVariants}
 			initial="hidden"
 			whileInView="visible"

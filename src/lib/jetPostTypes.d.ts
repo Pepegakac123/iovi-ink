@@ -129,7 +129,11 @@ export interface TattooPortfolio {
 }
 
 export interface GroupedTattooImages {
-	allImages: string[];
-	geometryczne: string[];
-	minimalistyczne: string[];
+	allImages: Array<{ src: string; alt: string }>;
+	geometryczne: Array<{ src: string; alt: string }>;
+	minimalistyczne: Array<{ src: string; alt: string }>;
+}
+export interface TattooImageWithAlt {
+	src: string;
+	alt: string;
 }
