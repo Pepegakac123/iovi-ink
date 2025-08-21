@@ -236,7 +236,8 @@ export const CardCarousel: React.FC<CarouselProps> = ({
 									depth: 60,
 								},
 							},
-							640: {
+
+							768: {
 								slidesPerView: 2.5,
 								spaceBetween: 25,
 								coverflowEffect: {
@@ -244,24 +245,24 @@ export const CardCarousel: React.FC<CarouselProps> = ({
 									depth: 80,
 								},
 							},
-							768: {
-								slidesPerView: 3,
+							1024: {
+								slidesPerView: 2.5,
 								spaceBetween: 28,
 								coverflowEffect: {
-									modifier: 2.2,
-									depth: 90,
+									modifier: 1.2,
+									depth: 70,
 								},
 							},
-							1024: {
-								slidesPerView: 3,
+							1400: {
+								slidesPerView: 4, // 4 slajdy na desktop
 								spaceBetween: 32,
 								coverflowEffect: {
 									modifier: 2.5,
 									depth: 100,
 								},
 							},
-							1400: {
-								slidesPerView: 4, // 4 slajdy na desktop
+							2000: {
+								slidesPerView: 5, // 4 slajdy na desktop
 								spaceBetween: 32,
 								coverflowEffect: {
 									modifier: 2.5,
