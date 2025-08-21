@@ -1,36 +1,14 @@
 import React from "react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
-import { Variants } from "motion";
-import { FooterMenuLinks, serviceLinks, socialLinks } from "@/Assets";
 import { ICONS } from "@/lib/icons";
+import { images } from "@/lib/images";
+import { socialLinks } from "@/lib/data";
+import { FooterMenuLinks, services } from "@/lib/menuData";
+import { containerVariants, itemVariants } from "@/lib/variants";
 
 const Footer = () => {
-	const containerVariants = {
-		hidden: { opacity: 0, y: 30 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.8,
-				staggerChildren: 0.1,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
-	const itemVariants = {
-		hidden: { opacity: 0, y: 20 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.6,
-				ease: "easeOut",
-			},
-		},
-	} as Variants;
-
+	const servicesLinks = services.tatuaze.items;
 	return (
 		<motion.footer
 			className="bg-foreground text-background py-12 mt-20 overflow-hidden"
@@ -54,7 +32,7 @@ const Footer = () => {
 							whileTap={{ scale: 0.98 }}
 						>
 							<Image
-								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/iovi-high-resolution-logo-transparent.png"
+								src={images.logo}
 								alt="Iovi Logo"
 								width={150}
 								height={128}
@@ -138,7 +116,7 @@ const Footer = () => {
 							<div className="absolute -bottom-2 left-0 w-8 h-1 bg-accent rounded"></div>
 						</h3>
 						<nav className="space-y-3">
-							{serviceLinks.map((link, index) => (
+							{servicesLinks.map((link, index) => (
 								<motion.a
 									key={link.href}
 									href={link.href}

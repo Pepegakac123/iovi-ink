@@ -6,7 +6,6 @@ import Subheadline from "../Subheadline";
 import { CardCarousel } from "@/components/ui/card-carousel";
 import CTASection from "./CTASection";
 import * as motion from "motion/react-client";
-import { Variants } from "motion";
 import {
 	carouselVariants,
 	containerVariantsLong,

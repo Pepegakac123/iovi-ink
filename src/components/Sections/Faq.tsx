@@ -1,21 +1,20 @@
 import Image from "next/image";
 import Subheadline from "../Subheadline";
-import images from "@/Assets/images";
 import * as motion from "motion/react-client";
-import { Variants } from "motion";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { homeFAQ } from "@/Assets/index.js";
 import {
 	containerVariants,
 	contentVariants,
 	imageVariants,
 } from "@/lib/variants";
 import FloatingElements from "../FloatingElements";
+import { images } from "@/lib/images";
+import { homeFAQ } from "@/lib/data";
 
 const Faq = () => {
 	return (
@@ -66,7 +65,7 @@ const Faq = () => {
 						className="relative"
 					>
 						<Image
-							src={images.faq}
+							src={images.bab_stoi}
 							alt="Jowita - Artystka Tatuażu"
 							width={380}
 							height={380}

@@ -1,4 +1,3 @@
-import images from "@/Assets/images";
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import {
@@ -6,6 +5,7 @@ import {
 	imageVariantsRight,
 	itemVariants,
 } from "@/lib/variants";
+import { images } from "@/lib/images";
 
 const TargetAudienceSection = () => {
 	return (
@@ -107,7 +107,7 @@ const TargetAudienceSection = () => {
 					whileTap={{ scale: 0.98 }}
 				>
 					<Image
-						src={images.targetAudience}
+						src={images.karty_tatuazy}
 						alt="Tatuaże - Iovi Ink"
 						width={600}
 						height={400}

@@ -1,8 +1,6 @@
 import ProcessCard from "../ProcessCard";
 import Subheadline from "../Subheadline";
-import { proces } from "@/Assets/index.js";
 import * as motion from "motion/react-client";
-import { Variants } from "motion";
 import {
 	cardVariants,
 	containerVariants,
@@ -11,6 +9,7 @@ import {
 	headerVariants,
 	titleVariants,
 } from "@/lib/variants";
+import { proces } from "@/lib/data";
 
 const Process = () => {
 	return (

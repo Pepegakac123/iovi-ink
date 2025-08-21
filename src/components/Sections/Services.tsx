@@ -1,10 +1,7 @@
 import { getFeaturedServicesWithAltText } from "@/lib/jetApi";
 import SecondaryBtn from "../buttons/SecondaryBtn";
 import Subheadline from "../Subheadline";
-import Image from "next/image";
-import Link from "next/link";
 import * as motion from "motion/react-client";
-import { Variants } from "motion";
 import ServicesCard from "../ServicesCard";
 import { containerVariants, itemVariants } from "@/lib/variants";
 

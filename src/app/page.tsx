@@ -1,5 +1,4 @@
 import Hero from "@/components/Sections/Hero";
-import images from "@/Assets/images";
 import CarouselSections from "@/components/Sections/CarouselSections";
 import AboutMe from "@/components/Sections/AboutMe";
 import Services from "@/components/Sections/Services";
@@ -10,6 +9,7 @@ import Faq from "@/components/Sections/Faq";
 import Contact from "@/components/Sections/Contact";
 import * as motion from "motion/react-client";
 import { socialLinks } from "@/Assets";
+import { images } from "@/lib/images";
 
 export default async function Home() {
 	return (
@@ -36,7 +36,7 @@ export default async function Home() {
 						realizacji każdego projektu.
 					</>
 				}
-				image={images.hero}
+				image={images.bab_z_maszynkom}
 			/>
 			<CarouselSections />
 			<section>

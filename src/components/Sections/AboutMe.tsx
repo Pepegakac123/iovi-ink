@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Subheadline from "../Subheadline";
-import images from "@/Assets/images";
 import * as motion from "motion/react-client";
-import { Variants } from "motion";
 import {
 	containerVariantsLong,
 	contentVariants,
@@ -10,6 +8,7 @@ import {
 	paragraphVariants,
 } from "@/lib/variants";
 import FloatingElements from "../FloatingElements";
+import { images } from "@/lib/images";
 
 const AboutMe = () => {
 	return (
@@ -79,7 +78,7 @@ const AboutMe = () => {
 							whileTap={{ scale: 0.98 }}
 						>
 							<Image
-								src={images.about}
+								src={images.zblizenie_na_twarz_patrzy_na_wprost}
 								alt="Jowita - Artystka Tatuażu"
 								width={189}
 								height={189}
@@ -103,7 +102,7 @@ const AboutMe = () => {
 						whileTap={{ scale: 0.98 }}
 					>
 						<Image
-							src={images.about}
+							src={images.zblizenie_na_twarz_patrzy_na_wprost}
 							alt="Jowita - Artystka Tatuażu"
 							width={440}
 							height={428}

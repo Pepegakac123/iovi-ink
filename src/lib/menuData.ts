@@ -32,7 +32,13 @@ export const menuItems: MenuItem[] = [
 	{ name: "O Mnie", href: "/o-mnie" },
 	{ name: "Kontakt", href: "/kontakt" },
 ];
-
+export const FooterMenuLinks = [
+	{ name: "Strona główna", href: "/" },
+	{ name: "Portfolio", href: "/portfolio" },
+	{ name: "Usługi", href: "/uslugi" },
+	{ name: "O Mnie", href: "/o-mnie" },
+	{ name: "Kontakt", href: "/kontakt" },
+];
 // Services data
 export const services = {
 	tatuaze: {

@@ -2,7 +2,6 @@
 import Subheadline from "../Subheadline";
 import ContactForm from "../forms/ContactForm";
 import * as motion from "motion/react-client";
-import { Variants } from "motion";
 import {
 	containerVariants,
 	formVariants,

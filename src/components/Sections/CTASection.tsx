@@ -1,7 +1,6 @@
 import * as motion from "motion/react-client";
 import PrimaryBtn from "../buttons/PrimaryBtn";
 import SecondaryBtn from "../buttons/SecondaryBtn";
-import { Variants } from "motion";
 import { buttonVariantsSimple, ctaContainerVariants } from "@/lib/variants";
 
 const CTASection = () => {

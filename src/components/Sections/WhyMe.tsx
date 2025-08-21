@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import * as motion from "motion/react-client";
-import { Variants } from "motion";
 import PrimaryBtn from "../buttons/PrimaryBtn";
 import {
 	buttonVariants,
