@@ -41,11 +41,11 @@ export const formVariants = {
 	},
 
 	/**
-	 * Formularz popup (kompaktowy)
+	 * Formularz popup (BARDZO kompaktowy)
 	 */
 	popup: {
 		files: {
-			maxFiles: 3,
+			maxFiles: 2, // Zmniejszone z 3 na 2
 			maxSize: 1024 * 1024 * 5, // 5MB
 			multiple: true,
 			accept: {
@@ -57,16 +57,16 @@ export const formVariants = {
 		} satisfies DropzoneOptions,
 
 		ui: {
-			inputHeight: "h-9", // Mniejsze pola
-			spacing: "space-y-3", // Mniej przestrzeni
-			containerPadding: "p-4",
+			inputHeight: "h-8", // Zmniejszone z h-9 na h-8
+			spacing: "space-y-3", // Zmniejszone z space-y-3 na space-y-2
+			containerPadding: "p-4", // Zmniejszone z p-4 na p-2
 			gridCols: "grid-cols-1", // 1 kolumna
 		},
 
 		animations: {
-			staggerChildren: 0.06,
-			delayChildren: 0.1,
-			containerDuration: 0.3,
+			staggerChildren: 0.05, // Zmniejszone z 0.06 na 0.05
+			delayChildren: 0.05, // Zmniejszone z 0.1 na 0.05
+			containerDuration: 0.2, // Zmniejszone z 0.3 na 0.2
 		},
 	},
 } as const;
@@ -81,20 +81,20 @@ export const formVariants = {
 export const sharedStyles = {
 	input: {
 		base: "bg-secondary/70 border-2 border-foreground hover:border-accent focus:border-primary font-text rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background focus:placeholder-transparent",
-		popup: "placeholder-transition", // Dodatkowa klasa dla popup
-		main: "placeholder-transition transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0", // Dodatkowe dla main
+		popup: "placeholder-transition text-sm", // Dodane text-sm dla mniejszej czcionki
+		main: "placeholder-transition transform translate-x-0 translate-y-0 hover:translate-x-0 hover:translate-y-0",
 	},
 
 	label: {
 		base: "text-foreground font-primary text-sm font-bold uppercase inline-block",
-		required: "", // Gwiazdka już w tekście
-		optional: "whitespace-nowrap", // Zapobiega łamaniu
+		required: "",
+		optional: "whitespace-nowrap",
 	},
 
 	textarea: {
 		base: "bg-secondary/70 border-2 border-foreground font-text resize-none rounded-md transition-all duration-200 hover:bg-secondary focus:bg-background",
-		popup: "min-h-16 max-h-24", // Mniejsza wysokość
-		main: "min-h-28", // Większa wysokość
+		popup: "min-h-12 max-h-16 text-sm", // Zmniejszone z min-h-16 max-h-24 + dodane text-sm
+		main: "min-h-28",
 	},
 
 	container: {
@@ -123,12 +123,33 @@ export const formMotionPresets = {
 		},
 
 		popup: {
+			hidden: { opacity: 0, y: 10 },
+			visible: {
+				opacity: 1,
+				y: 0,
+				transition: { duration: 0.2 }, // Zmniejszone z domyślnego
+			},
+		},
+	},
+
+	form: {
+		main: {
 			hidden: { opacity: 0 },
 			visible: {
 				opacity: 1,
 				transition: {
-					staggerChildren: 0.06,
-					delayChildren: 0.1,
+					staggerChildren: 0.1,
+					delayChildren: 0.2,
+				},
+			},
+		},
+		popup: {
+			hidden: { opacity: 0 },
+			visible: {
+				opacity: 1,
+				transition: {
+					staggerChildren: 0.05, // Szybsze animacje
+					delayChildren: 0.05,
 				},
 			},
 		},
@@ -149,38 +170,14 @@ export const formMotionPresets = {
 		},
 
 		popup: {
-			hidden: { opacity: 0, y: 12 },
+			hidden: { opacity: 0, y: 8 }, // Zmniejszone z y: 12
 			visible: {
 				opacity: 1,
 				y: 0,
 				transition: {
 					type: "spring",
-					stiffness: 120,
-					damping: 12,
-				},
-			},
-		},
-	},
-
-	// Add missing motion presets for other elements
-	form: {
-		main: {
-			hidden: { opacity: 0 },
-			visible: {
-				opacity: 1,
-				transition: {
-					staggerChildren: 0.1,
-					delayChildren: 0.2,
-				},
-			},
-		},
-		popup: {
-			hidden: { opacity: 0 },
-			visible: {
-				opacity: 1,
-				transition: {
-					staggerChildren: 0.06,
-					delayChildren: 0.1,
+					stiffness: 150, // Zwiększone dla szybszych animacji
+					damping: 15,
 				},
 			},
 		},
@@ -199,12 +196,12 @@ export const formMotionPresets = {
 			},
 		},
 		popup: {
-			hidden: { opacity: 0, y: 10 },
+			hidden: { opacity: 0, y: 8 }, // Zmniejszone z y: 10
 			visible: {
 				opacity: 1,
 				y: 0,
 				transition: {
-					duration: 0.3,
+					duration: 0.2, // Zmniejszone z 0.3
 					ease: "easeOut",
 				},
 			},
@@ -228,7 +225,7 @@ export const formMotionPresets = {
 			visible: {
 				scale: 1,
 				transition: {
-					delay: 0.5,
+					delay: 0.3, // Zmniejszone z 0.5
 					type: "spring",
 					stiffness: 200,
 				},
@@ -250,12 +247,12 @@ export const formMotionPresets = {
 			},
 		},
 		popup: {
-			hidden: { y: 10, opacity: 0 },
+			hidden: { y: 8, opacity: 0 }, // Zmniejszone z y: 10
 			visible: {
 				y: 0,
 				opacity: 1,
 				transition: {
-					delay: 0.3,
+					delay: 0.2, // Zmniejszone z 0.3
 					type: "spring",
 					stiffness: 200,
 				},
@@ -286,8 +283,8 @@ export const getFormStyles = (variant: keyof typeof formVariants) => {
 		textarea: `${sharedStyles.textarea.base} ${sharedStyles.textarea[variant] || ""}`,
 		container: `${sharedStyles.container[variant] || ""} ${config.ui.containerPadding}`,
 		spacing: config.ui.spacing,
-		gridCols: `grid ${config.ui.gridCols}`, // DODANE: grid + grid-cols
-		button: `${config.ui.inputHeight}`, // Dodajemy też style dla przycisku
+		gridCols: `grid ${config.ui.gridCols}`,
+		button: `${config.ui.inputHeight}`,
 	};
 };
 

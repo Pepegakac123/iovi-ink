@@ -15,7 +15,6 @@ import { AnimatePresence } from "motion/react";
 // Imports from refactored structure
 import { usePopupContactForm } from "@/hooks/useContactFormField";
 import { getFormStyles, getFormMotion } from "@/lib/config/form-config";
-import { containerVariants, itemVariants } from "@/lib/variants";
 import {
 	NameField,
 	EmailField,
@@ -25,6 +24,9 @@ import {
 	AnimatedFieldWrapper,
 } from "@/components/forms/ContactFormField";
 import InstagramBtn from "../buttons/InstragramBtn";
+import Image from "next/image";
+import { ICONS } from "@/lib/icons";
+import { socialLinks } from "@/Assets";
 
 // ===========================================
 // POPUP FORM COMPONENT
@@ -61,53 +63,63 @@ export default function PopupForm() {
 				<motion.form
 					onSubmit={onSubmit}
 					className={styles.spacing}
-					variants={containerVariants}
+					variants={motionPresets.form.popup} // ← ZMIANA: używamy spójnego systemu
 					initial="hidden"
 					animate="visible"
 				>
 					{/* Imię i nazwisko */}
-					<AnimatedFieldWrapper variant="popup">
-						<NameField form={form} variant="popup" />
-					</AnimatedFieldWrapper>
+					<motion.div variants={motionPresets.field.popup}>
+						<FormSection variant="popup">
+							<AnimatedFieldWrapper variant="popup">
+								<NameField form={form} variant="popup" />
+							</AnimatedFieldWrapper>
+						</FormSection>
+					</motion.div>
 
 					{/* Email */}
-					<AnimatedFieldWrapper variant="popup">
-						<EmailField form={form} variant="popup" />
-					</AnimatedFieldWrapper>
+					<motion.div variants={motionPresets.field.popup}>
+						<FormSection variant="popup">
+							<AnimatedFieldWrapper variant="popup">
+								<EmailField form={form} variant="popup" />
+							</AnimatedFieldWrapper>
+						</FormSection>
+					</motion.div>
 
 					{/* Telefon */}
-					<FormSection variant="popup">
-						<AnimatedFieldWrapper variant="popup">
-							<PhoneField
-								form={form}
-								variant="popup"
-								formatPhone={formatPhone}
-							/>
-						</AnimatedFieldWrapper>
-					</FormSection>
+					<motion.div variants={motionPresets.field.popup}>
+						<FormSection variant="popup">
+							<AnimatedFieldWrapper variant="popup">
+								<PhoneField
+									form={form}
+									variant="popup"
+									formatPhone={formatPhone}
+								/>
+							</AnimatedFieldWrapper>
+						</FormSection>
+					</motion.div>
 
 					{/* Opis projektu */}
-					<FormSection variant="popup">
-						<AnimatedFieldWrapper variant="popup">
-							<DescriptionField form={form} variant="popup" rows={3} />
-						</AnimatedFieldWrapper>
-					</FormSection>
+					<motion.div variants={motionPresets.field.popup}>
+						<FormSection variant="popup">
+							<AnimatedFieldWrapper variant="popup">
+								<DescriptionField form={form} variant="popup" rows={2} />
+							</AnimatedFieldWrapper>
+						</FormSection>
+					</motion.div>
 
-					{/* File Upload Section - kompaktowy */}
-					<AnimatedFieldWrapper variant="popup">
-						<div className="space-y-2">
+					{/* File Upload Section */}
+					<motion.div variants={motionPresets.field.popup}>
+						<div className="space-y-1">
 							<motion.label
 								htmlFor="popupFileInput"
-								className="text-foreground font-primary text-sm font-bold uppercase inline-block"
-								variants={itemVariants}
+								className="text-foreground font-primary text-xs font-bold uppercase inline-block"
 							>
 								Prześlij wzór
 								<span className="text-xs text-muted-foreground font-normal normal-case ml-1">
 									(Opcjonalne)
 								</span>
 							</motion.label>
-
-							<motion.div variants={itemVariants}>
+							<motion.div>
 								<FileUploader
 									value={files}
 									onValueChange={setFiles}
@@ -116,16 +128,16 @@ export default function PopupForm() {
 								>
 									{/** biome-ignore lint/correctness/useUniqueElementIds: <explanation> */}
 									<FileInput id="popupFileInput" className="">
-										<div className="flex items-center justify-center flex-col p-4 w-full">
+										<div className="flex items-center justify-center flex-col p-3 w-full">
 											<motion.div
 												animate={{
-													y: [0, -6, 0], // Mniejszy ruch dla popup
-													scale: [1, 1.03, 1], // Delikatniejsze powiększenie
+													y: [0, -4, 0],
+													scale: [1, 1.02, 1],
 												}}
 												whileHover={{
-													scale: 1.15,
-													y: -3,
-													rotate: 10,
+													scale: 1.1,
+													y: -2,
+													rotate: 8,
 													transition: {
 														type: "spring",
 														stiffness: 400,
@@ -139,7 +151,7 @@ export default function PopupForm() {
 													repeatType: "reverse",
 												}}
 											>
-												<LuHardDriveUpload className="text-primary h-8 w-8" />
+												<LuHardDriveUpload className="text-primary h-6 w-6" />
 											</motion.div>
 											<p className="mb-1 text-xs text-foreground font-text text-center">
 												<span className="font-semibold">Kliknij</span> lub
@@ -159,16 +171,16 @@ export default function PopupForm() {
 												files.map((file, i) => (
 													<motion.div
 														key={`${file.name}-${i}`}
-														initial={{ opacity: 0, x: -15, scale: 0.9 }}
+														initial={{ opacity: 0, x: -10, scale: 0.95 }}
 														animate={{ opacity: 1, x: 0, scale: 1 }}
 														exit={{
 															opacity: 0,
-															x: 15,
-															scale: 0.9,
+															x: 10,
+															scale: 0.95,
 															height: 0,
 															marginTop: 0,
 															transition: {
-																duration: 0.2,
+																duration: 0.15,
 																ease: "easeInOut",
 															},
 														}}
@@ -184,9 +196,9 @@ export default function PopupForm() {
 															className="bg-background border border-foreground hover:bg-accent/20 transition-all duration-150 rounded text-xs py-1 px-2"
 														>
 															<motion.div
-																animate={{ rotate: [0, 3, -3, 0] }}
+																animate={{ rotate: [0, 2, -2, 0] }}
 																transition={{
-																	duration: 1.5,
+																	duration: 1.2,
 																	repeat: Infinity,
 																	ease: "easeInOut",
 																}}
@@ -204,23 +216,23 @@ export default function PopupForm() {
 								</FileUploader>
 							</motion.div>
 						</div>
-					</AnimatedFieldWrapper>
+					</motion.div>
 
-					{/* Submit Button - kompaktowy */}
+					{/* Submit Button */}
 					<motion.div
-						className="flex gap-2 flex-col w-full items-center justify-center pt-4"
+						className="flex gap-2 flex-col w-full items-center justify-center pt-2"
 						variants={motionPresets.field.popup}
 					>
 						<motion.button
 							type="submit"
 							disabled={isSubmitting}
-							className="bg-primary cursor-pointer text-background font-primary text-sm w-full px-4 py-3 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+							className="bg-primary cursor-pointer text-background font-primary text-xs w-full px-3 py-2 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
 							whileHover={
 								!isSubmitting
 									? {
-											scale: 1.02,
+											scale: 1.01,
 											backgroundColor: "var(--accent)",
-											boxShadow: "3px 3px 0px 0px var(--foreground)",
+											boxShadow: "2px 2px 0px 0px var(--foreground)",
 											transition: { duration: 0.15 },
 										}
 									: {}
@@ -236,22 +248,22 @@ export default function PopupForm() {
 						>
 							{isSubmitting ? (
 								<>
-									<Loader2 className="h-4 w-4 animate-spin" />
+									<Loader2 className="h-3 w-3 animate-spin" />
 									WYSYŁANIE...
 								</>
 							) : (
 								<>
 									WYŚLIJ
-									<Send className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-0.5" />
+									<Send className="h-3 w-3 transition-transform duration-150 group-hover:translate-x-0.5" />
 								</>
 							)}
 						</motion.button>
+
 						<motion.span
-							className="text-foreground uppercase text-sm font-primary font-bold"
-							initial={motionPresets.span.popup.hidden}
-							animate={motionPresets.span.popup.visible}
+							className="text-foreground uppercase text-xs font-primary font-bold"
+							variants={motionPresets.span.popup}
 							whileHover={{
-								scale: 1.05,
+								scale: 1.03,
 								color: "hsl(var(--primary))",
 								transition: { type: "spring", stiffness: 400 },
 							}}
@@ -260,19 +272,42 @@ export default function PopupForm() {
 						</motion.span>
 
 						{/* Instagram Button */}
-						<motion.div
-							className="w-full"
-							initial={motionPresets.div.popup.hidden}
-							animate={motionPresets.div.popup.visible}
+						<motion.a
+							href={socialLinks.iovi.instagram}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="inline-block w-full"
 						>
-							<InstagramBtn
-								text="INSTAGRAM"
-								link="https://www.instagram.com/iovi.ink/"
-							/>
-						</motion.div>
+							<motion.div className="w-full" variants={motionPresets.div.popup}>
+								<motion.button
+									type="button"
+									className="bg-secondary cursor-pointer text-foreground font-primary text-xs w-full px-3 py-2 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+									whileHover={{
+										scale: 1.01,
+										backgroundColor: "var(--secondary)",
+										boxShadow: "2px 2px 0px 0px var(--foreground)",
+										transition: { duration: 0.15 },
+									}}
+									whileTap={{
+										scale: 0.98,
+										transition: { duration: 0.1 },
+									}}
+								>
+									Napisz na Instagramie
+									<Image
+										src={ICONS.instagram}
+										alt="Instagram"
+										width={16}
+										height={16}
+										className="group-hover:filter group-hover:brightness-110"
+									/>
+								</motion.button>
+							</motion.div>
+						</motion.a>
+
 						<motion.p
-							className="text-xs text-muted-foreground text-center"
-							variants={itemVariants}
+							className="text-xs text-muted-foreground text-center mt-1"
+							variants={motionPresets.field.popup}
 						>
 							Odpowiem w ciągu 24 godzin!
 						</motion.p>

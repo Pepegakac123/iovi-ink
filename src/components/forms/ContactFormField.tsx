@@ -74,11 +74,15 @@ export function ContactFormField({
 				<motion.div initial="rest" whileHover="hover" whileFocus="focus">
 					<FormItem>
 						<motion.div variants={currentLabelVariants}>
-							<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block min-h-[2.5rem] flex items-end">
+							<FormLabel
+								className={`text-foreground font-primary ${variant === "popup" ? "text-xs" : "text-sm"} font-bold uppercase inline-block ${variant === "popup" ? "" : "min-h-[2.5rem]"} flex items-end`}
+							>
 								{fieldConfigItem.label}
 								{!fieldConfigItem.required &&
 									(fieldConfigItem as any).helperText && (
-										<span className="text-xs text-muted-foreground font-normal normal-case ml-1">
+										<span
+											className={`${variant === "popup" ? "text-xs" : "text-xs"} text-muted-foreground font-normal normal-case ml-1`}
+										>
 											{(fieldConfigItem as any).helperText}
 										</span>
 									)}
@@ -145,7 +149,9 @@ export function ContactTextareaField({
 				<motion.div initial="rest" whileHover="hover" whileFocus="focus">
 					<FormItem>
 						<motion.div variants={currentLabelVariants}>
-							<FormLabel className="text-foreground font-primary text-sm font-bold uppercase inline-block">
+							<FormLabel
+								className={`text-foreground font-primary ${variant === "popup" ? "text-xs" : "text-sm"} font-bold uppercase inline-block`}
+							>
 								{fieldConfigItem.label}
 							</FormLabel>
 						</motion.div>
@@ -164,9 +170,11 @@ export function ContactTextareaField({
 
 						<FormMessage />
 
-						{/* Character counter for long text fields */}
+						{/* Character counter for long text fields - smaller for popup */}
 						{maxLength && field.value && (
-							<div className="text-xs text-muted-foreground text-right mt-1">
+							<div
+								className={`${variant === "popup" ? "text-xs" : "text-xs"} text-muted-foreground text-right ${variant === "popup" ? "mt-0.5" : "mt-1"}`}
+							>
 								{field.value.length}/{maxLength}
 							</div>
 						)}
@@ -222,7 +230,7 @@ export function FormSection({
 
 	return (
 		<motion.div
-			className={`${styles.gridCols} gap-4 ${className}`}
+			className={`${styles.gridCols} ${variant === "popup" ? "gap-2" : "gap-4"} ${className}`}
 			variants={variant === "popup" ? inputVariantsFast : inputVariants}
 		>
 			{children}
