@@ -6,6 +6,7 @@ import {
 	JetEngineUsluga,
 	JetEngineUslugiResponse,
 	TattooPortfolio,
+	TattooTypes,
 } from "./jetPostTypes";
 
 // ================================================================
@@ -294,15 +295,16 @@ export async function getAllTattooImages(): Promise<GroupedTattooImages> {
 		["tattoo-all"],
 	);
 
-	// ✅ Krok 1: Zgrupuj URL-e jak dotychczas
 	const allImageUrls = portfolios.flatMap(
 		(portfolio) => portfolio.meta.zdjecia,
 	);
 
 	const groupedUrls = {
 		allImages: allImageUrls,
-		geometryczne: [] as string[],
+		damskie: [] as string[],
 		minimalistyczne: [] as string[],
+		kwiatowe: [] as string[],
+		graficzne: [] as string[],
 	};
 
 	portfolios.forEach((portfolio) => {
@@ -311,33 +313,34 @@ export async function getAllTattooImages(): Promise<GroupedTattooImages> {
 	});
 
 	// ✅ Krok 2: Pobierz alt texty dla każdej grupy równolegle
-	const [allImagesWithAlt, geometryczneWithAlt, minimalistyczneWithAlt] =
-		await Promise.all([
-			mapImagesWithWordPressAlt(groupedUrls.allImages),
-			mapImagesWithWordPressAlt(groupedUrls.geometryczne),
-			mapImagesWithWordPressAlt(groupedUrls.minimalistyczne),
-		]);
+	const [
+		allImagesWithAlt,
+		kwiatoweWithAlt,
+		minimalistyczneWithAlt,
+		graficzneWithAlt,
+		damskieWithAlt,
+	] = await Promise.all([
+		mapImagesWithWordPressAlt(groupedUrls.allImages),
+		mapImagesWithWordPressAlt(groupedUrls.kwiatowe),
+		mapImagesWithWordPressAlt(groupedUrls.minimalistyczne),
+		mapImagesWithWordPressAlt(groupedUrls.graficzne),
+		mapImagesWithWordPressAlt(groupedUrls.damskie),
+	]);
 
 	// ✅ Krok 3: Zwróć zgrupowane obrazy z alt textami
 	const result: GroupedTattooImages = {
 		allImages: allImagesWithAlt,
-		geometryczne: geometryczneWithAlt,
+		damskie: damskieWithAlt,
 		minimalistyczne: minimalistyczneWithAlt,
+		kwiatowe: kwiatoweWithAlt,
+		graficzne: graficzneWithAlt,
 	};
-
-	console.log("🖼️ Grouped images with alt texts:", {
-		totalImages: result.allImages.length,
-		geometryczne: result.geometryczne.length,
-		minimalistyczne: result.minimalistyczne.length,
-		sampleAlt: result.allImages[0]?.alt,
-	});
-
 	return result;
 }
 
 // Funkcja dla konkretnego typu z alt textami
 export async function getTattooImagesByType(
-	type: "geometryczne" | "minimalistyczne",
+	type: TattooTypes,
 ): Promise<Array<{ src: string; alt: string }>> {
 	const allImages = await getAllTattooImages();
 	return allImages[type];

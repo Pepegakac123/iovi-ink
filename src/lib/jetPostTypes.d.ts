@@ -112,7 +112,11 @@ export type ServiceContentSections =
 	| "dlaczego_ja"
 	| "cta";
 
-export type TattooTypes = "geometryczne" | "minimalistyczne";
+export type TattooTypes =
+	| "damskie"
+	| "minimalistyczne"
+	| "kwiatowe"
+	| "graficzne";
 
 export interface Carousel {
 	meta: {
@@ -130,8 +134,10 @@ export interface TattooPortfolio {
 
 export interface GroupedTattooImages {
 	allImages: Array<{ src: string; alt: string }>;
-	geometryczne: Array<{ src: string; alt: string }>;
+	damskie: Array<{ src: string; alt: string }>;
 	minimalistyczne: Array<{ src: string; alt: string }>;
+	kwiatowe: Array<{ src: string; alt: string }>;
+	graficzne: Array<{ src: string; alt: string }>;
 }
 export interface TattooImageWithAlt {
 	src: string;

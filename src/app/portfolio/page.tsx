@@ -44,7 +44,7 @@ const PortfolioPage = async () => {
 					{/* ✅ Tabs z Galerią */}
 					<motion.div variants={itemVariants}>
 						<Tabs defaultValue="wszystkie" className="w-full">
-							{/* ✅ Tabs Navigation - bez center na mobile */}
+							{/* ✅ Tabs Navigation - poprawione values */}
 							<div className="flex justify-center md:justify-center mb-6 md:mb-8">
 								<TabsList className="w-full md:w-auto">
 									<TabsTrigger value="wszystkie">
@@ -53,28 +53,51 @@ const PortfolioPage = async () => {
 											({groupedImages.allImages.length})
 										</span>
 									</TabsTrigger>
+									<TabsTrigger value="damskie">
+										<span className="block md:inline">Damskie</span>
+										<span className="block md:inline">
+											({groupedImages.damskie.length})
+										</span>
+									</TabsTrigger>
+									<TabsTrigger value="kwiatowe">
+										<span className="block md:inline">kwiatowe</span>
+										<span className="block md:inline">
+											({groupedImages.kwiatowe.length})
+										</span>
+									</TabsTrigger>
 									<TabsTrigger value="minimalistyczne">
 										<span className="block md:inline">Minimalistyczne</span>
 										<span className="block md:inline">
 											({groupedImages.minimalistyczne.length})
 										</span>
 									</TabsTrigger>
-									<TabsTrigger value="geometryczne">
-										<span className="block md:inline">Geometryczne</span>
+
+									<TabsTrigger value="graficzne">
+										<span className="block md:inline">Graficzne</span>
 										<span className="block md:inline">
-											({groupedImages.geometryczne.length})
+											({groupedImages.graficzne.length})
 										</span>
 									</TabsTrigger>
 								</TabsList>
 							</div>
 
-							{/* Tabs Content bez border/padding - jest już w TabsContent */}
+							{/* ✅ Tabs Content - wszystkie kategorie */}
 							<TabsContent
 								value="wszystkie"
 								className="border-0 bg-transparent p-0 shadow-none"
 							>
 								<TattooGallery
 									images={groupedImages.allImages}
+									className="animate-in fade-in-50 duration-500"
+								/>
+							</TabsContent>
+
+							<TabsContent
+								value="damskie"
+								className="border-0 bg-transparent p-0 shadow-none"
+							>
+								<TattooGallery
+									images={groupedImages.damskie}
 									className="animate-in fade-in-50 duration-500"
 								/>
 							</TabsContent>
@@ -90,11 +113,21 @@ const PortfolioPage = async () => {
 							</TabsContent>
 
 							<TabsContent
-								value="geometryczne"
+								value="kwiatowe"
 								className="border-0 bg-transparent p-0 shadow-none"
 							>
 								<TattooGallery
-									images={groupedImages.geometryczne}
+									images={groupedImages.kwiatowe}
+									className="animate-in fade-in-50 duration-500"
+								/>
+							</TabsContent>
+
+							<TabsContent
+								value="graficzne"
+								className="border-0 bg-transparent p-0 shadow-none"
+							>
+								<TattooGallery
+									images={groupedImages.graficzne}
 									className="animate-in fade-in-50 duration-500"
 								/>
 							</TabsContent>
@@ -102,7 +135,7 @@ const PortfolioPage = async () => {
 					</motion.div>
 					{/* ✅ Portfolio Stats */}
 					<motion.div
-						className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
+						className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
 						variants={containerVariants}
 					>
 						<motion.div
@@ -118,7 +151,7 @@ const PortfolioPage = async () => {
 								{groupedImages.allImages.length}+
 							</h3>
 							<p className="text-xs md:text-sm text-muted-foreground">
-								Zrealizowanych projektów
+								Wszystkich projektów
 							</p>
 						</motion.div>
 
@@ -132,10 +165,10 @@ const PortfolioPage = async () => {
 							}}
 						>
 							<h3 className="text-lg md:text-xl lg:text-2xl font-primary text-foreground mb-1 md:mb-2">
-								{groupedImages.minimalistyczne.length}
+								{groupedImages.damskie.length}
 							</h3>
 							<p className="text-xs md:text-sm text-muted-foreground">
-								Minimalistycznych wzorów
+								Damskich wzorów
 							</p>
 						</motion.div>
 
@@ -149,10 +182,27 @@ const PortfolioPage = async () => {
 							}}
 						>
 							<h3 className="text-lg md:text-xl lg:text-2xl font-primary text-foreground mb-1 md:mb-2">
-								{groupedImages.geometryczne.length}
+								{groupedImages.kwiatowe.length}
 							</h3>
 							<p className="text-xs md:text-sm text-muted-foreground">
-								Geometrycznych kompozycji
+								Florystycznych
+							</p>
+						</motion.div>
+
+						<motion.div
+							className="bg-background rounded-md border-2 border-foreground p-4 md:p-6 text-center shadow-[4px_4px_0px_0px_var(--foreground)]"
+							variants={itemVariants}
+							whileHover={{
+								scale: 1.02,
+								y: -2,
+								transition: { duration: 0.3 },
+							}}
+						>
+							<h3 className="text-lg md:text-xl lg:text-2xl font-primary text-foreground mb-1 md:mb-2">
+								{groupedImages.graficzne.length}
+							</h3>
+							<p className="text-xs md:text-sm text-muted-foreground">
+								Graficznych
 							</p>
 						</motion.div>
 					</motion.div>

@@ -18,7 +18,6 @@ const PortfolioError: React.FC<PortfolioErrorProps> = ({ error, reset }) => {
 				subTitle="Wystąpił problem"
 				title="Nie udało się załadować portfolio"
 				description="Przepraszamy za niedogodności. Spróbuj odświeżyć stronę lub wróć za chwilę."
-				variant="centered"
 				className="bg-background"
 			/>
 
