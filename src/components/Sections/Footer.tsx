@@ -32,8 +32,8 @@ const Footer = () => {
 							whileTap={{ scale: 0.98 }}
 						>
 							<Image
-								src={images.logo}
-								alt="Iovi Logo"
+								src={images.logo.src}
+								alt={images.logo.alt}
 								width={150}
 								height={128}
 								className=" group-hover:opacity-90 transition-opacity duration-300"

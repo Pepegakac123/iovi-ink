@@ -14,7 +14,10 @@ interface HeroProps {
 	subTitle: string;
 	title: string;
 	description: React.ReactNode | string; // Zmiana z string na React.ReactNode
-	image: string;
+	image: {
+		src: string;
+		alt: string;
+	};
 }
 
 const Hero = ({ subTitle, title, description, image }: HeroProps) => {
@@ -90,8 +93,8 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 					<Image
 						width={900}
 						height={900}
-						src={image}
-						alt="Jowita - Tatuaże - Iovi"
+						src={image.src}
+						alt={image.alt}
 						className="block object-cover object-top max-w-[900px]"
 					/>
 				</div>

@@ -8,8 +8,8 @@ import WhyMe from "@/components/Sections/WhyMe";
 import Faq from "@/components/Sections/Faq";
 import Contact from "@/components/Sections/Contact";
 import * as motion from "motion/react-client";
-import { socialLinks } from "@/Assets";
 import { images } from "@/lib/images";
+import { socialLinks } from "@/lib/data";
 
 export default async function Home() {
 	return (

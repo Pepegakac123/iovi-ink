@@ -107,8 +107,8 @@ const TargetAudienceSection = () => {
 					whileTap={{ scale: 0.98 }}
 				>
 					<Image
-						src={images.karty_tatuazy}
-						alt="Tatuaże - Iovi Ink"
+						src={images.karty_tatuazy.src}
+						alt={images.karty_tatuazy.alt}
 						width={600}
 						height={400}
 						className="object-cover rounded-md"

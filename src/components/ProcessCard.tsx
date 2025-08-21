@@ -12,6 +12,7 @@ interface ProcessCardProps {
 	bg_image: {
 		mobile: string;
 		desktop: string;
+		alt: string;
 	};
 	title: string;
 	description: string;
@@ -52,7 +53,7 @@ const ProcessCard = ({
 				>
 					<Image
 						src={bg_image.mobile}
-						alt={`${title} - background`}
+						alt={bg_image.alt}
 						fill
 						className="object-cover object-right"
 						sizes="(max-width: 1024px) 100vw, 50vw"
@@ -67,7 +68,7 @@ const ProcessCard = ({
 				>
 					<Image
 						src={bg_image.desktop}
-						alt={`${title} - background`}
+						alt={bg_image.alt}
 						fill
 						className="object-cover object-right"
 						sizes="(max-width: 1024px) 100vw, 50vw"

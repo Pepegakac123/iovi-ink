@@ -65,8 +65,8 @@ const Faq = () => {
 						className="relative"
 					>
 						<Image
-							src={images.bab_stoi}
-							alt="Jowita - Artystka Tatuażu"
+							src={images.bab_stoi.src}
+							alt={images.bab_stoi.alt}
 							width={380}
 							height={380}
 							className="object-cover rounded-md max-w-[380px] h-auto"

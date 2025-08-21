@@ -8,6 +8,7 @@ export const proces = [
 		bg_image: {
 			mobile: images.proces.proces_1.mobile,
 			desktop: images.proces.proces_1.desktop,
+			alt: images.proces.proces_1.alt,
 		},
 		title: "Bezpłatna konsultacja",
 		description:
@@ -19,6 +20,7 @@ export const proces = [
 		bg_image: {
 			mobile: images.proces.proces_2.mobile,
 			desktop: images.proces.proces_2.desktop,
+			alt: images.proces.proces_2.alt,
 		},
 		title: "Szkicowanie autorskiego projektu",
 		description:
@@ -30,6 +32,7 @@ export const proces = [
 		bg_image: {
 			mobile: images.proces.proces_3.mobile,
 			desktop: images.proces.proces_3.desktop,
+			alt: images.proces.proces_3.alt,
 		},
 		title: "Dopracowanie szczegółów",
 		description:
@@ -41,6 +44,7 @@ export const proces = [
 		bg_image: {
 			mobile: images.proces.proces_4.mobile,
 			desktop: images.proces.proces_4.desktop,
+			alt: images.proces.proces_4.alt,
 		},
 		title: "Profesjonalne wykonanie",
 		description:
@@ -52,6 +56,7 @@ export const proces = [
 		bg_image: {
 			mobile: images.proces.proces_5.mobile,
 			desktop: images.proces.proces_5.desktop,
+			alt: images.proces.proces_5.alt,
 		},
 		title: "Wsparcie podczas gojenia",
 		description:

@@ -78,8 +78,8 @@ const AboutMe = () => {
 							whileTap={{ scale: 0.98 }}
 						>
 							<Image
-								src={images.zblizenie_na_twarz_patrzy_na_wprost}
-								alt="Jowita - Artystka Tatuażu"
+								src={images.zblizenie_na_twarz_patrzy_na_wprost.src}
+								alt={images.zblizenie_na_twarz_patrzy_na_wprost.alt}
 								width={189}
 								height={189}
 								className="object-cover rounded-md"
@@ -102,8 +102,8 @@ const AboutMe = () => {
 						whileTap={{ scale: 0.98 }}
 					>
 						<Image
-							src={images.zblizenie_na_twarz_patrzy_na_wprost}
-							alt="Jowita - Artystka Tatuażu"
+							src={images.zblizenie_na_twarz_patrzy_na_wprost.src}
+							alt={images.zblizenie_na_twarz_patrzy_na_wprost.alt}
 							width={440}
 							height={428}
 							className="object-cover rounded-md"
