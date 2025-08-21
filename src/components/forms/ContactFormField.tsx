@@ -15,13 +15,12 @@ import {
 	fieldConfig,
 	FieldName,
 } from "@/lib/schemas/contact-form-schema";
-import { FormVariant, getFormStyles } from "@/lib/config/form-config";
 import {
-	inputVariants,
-	labelVariants,
-	inputVariantsFast,
-	labelVariantsFast,
-} from "@/lib/variants";
+	FormVariant,
+	getFormStyles,
+	getFormMotion,
+} from "@/lib/config/form-config";
+// USUNIĘTY stary import: import { inputVariants, labelVariants, inputVariantsFast, labelVariantsFast } from "@/lib/variants";
 
 // ===========================================
 // TYPES
@@ -55,12 +54,7 @@ export function ContactFormField({
 }: TextFormFieldProps) {
 	const fieldConfigItem = fieldConfig[name];
 	const styles = getFormStyles(variant);
-
-	// Choose variants based on form variant
-	const currentInputVariants =
-		variant === "popup" ? inputVariantsFast : inputVariants;
-	const currentLabelVariants =
-		variant === "popup" ? labelVariantsFast : labelVariants;
+	const motionPresets = getFormMotion(variant);
 
 	// Safe access to optional properties
 	const inputType = type || (fieldConfigItem as any).type || "text";
@@ -73,7 +67,10 @@ export function ContactFormField({
 			render={({ field }) => (
 				<motion.div initial="rest" whileHover="hover" whileFocus="focus">
 					<FormItem>
-						<motion.div variants={currentLabelVariants}>
+						<motion.div
+						// USUNIĘTE: variants={currentLabelVariants}
+						// Używamy tylko hover animacji wewnętrznej
+						>
 							<FormLabel
 								className={`text-foreground font-primary ${variant === "popup" ? "text-xs" : "text-sm"} font-bold uppercase inline-block ${variant === "popup" ? "" : "min-h-[2.5rem]"} flex items-end`}
 							>
@@ -90,7 +87,10 @@ export function ContactFormField({
 						</motion.div>
 
 						<FormControl>
-							<motion.div variants={currentInputVariants}>
+							<motion.div
+							// USUNIĘTE: variants={currentInputVariants}
+							// Używamy tylko hover animacji wewnętrznej
+							>
 								<Input
 									type={inputType}
 									placeholder={fieldConfigItem.placeholder}
@@ -130,12 +130,7 @@ export function ContactTextareaField({
 }: TextareaFormFieldProps) {
 	const fieldConfigItem = fieldConfig[name];
 	const styles = getFormStyles(variant);
-
-	// Choose variants based on form variant
-	const currentInputVariants =
-		variant === "popup" ? inputVariantsFast : inputVariants;
-	const currentLabelVariants =
-		variant === "popup" ? labelVariantsFast : labelVariants;
+	const motionPresets = getFormMotion(variant);
 
 	// Safe access to optional properties
 	const maxLength = (fieldConfigItem as any).maxLength;
@@ -148,7 +143,9 @@ export function ContactTextareaField({
 			render={({ field }) => (
 				<motion.div initial="rest" whileHover="hover" whileFocus="focus">
 					<FormItem>
-						<motion.div variants={currentLabelVariants}>
+						<motion.div
+						// USUNIĘTE: variants={currentLabelVariants}
+						>
 							<FormLabel
 								className={`text-foreground font-primary ${variant === "popup" ? "text-xs" : "text-sm"} font-bold uppercase inline-block`}
 							>
@@ -157,7 +154,9 @@ export function ContactTextareaField({
 						</motion.div>
 
 						<FormControl>
-							<motion.div variants={currentInputVariants}>
+							<motion.div
+							// USUNIĘTE: variants={currentInputVariants}
+							>
 								<Textarea
 									placeholder={fieldConfigItem.placeholder}
 									className={styles.textarea}
@@ -231,7 +230,8 @@ export function FormSection({
 	return (
 		<motion.div
 			className={`${styles.gridCols} ${variant === "popup" ? "gap-2" : "gap-4"} ${className}`}
-			variants={variant === "popup" ? inputVariantsFast : inputVariants}
+			// USUNIĘTE: variants={variant === "popup" ? inputVariantsFast : inputVariants}
+			// Teraz animacje są kontrolowane na wyższym poziomie
 		>
 			{children}
 		</motion.div>
@@ -251,9 +251,10 @@ export function AnimatedFieldWrapper({
 	children,
 	variant,
 }: AnimatedFieldWrapperProps) {
-	const itemVariants = variant === "popup" ? inputVariantsFast : inputVariants;
+	// USUNIĘTE: const itemVariants = variant === "popup" ? inputVariantsFast : inputVariants;
+	// Teraz animacje są kontrolowane przez parent
 
-	return <motion.div variants={itemVariants}>{children}</motion.div>;
+	return <motion.div>{children}</motion.div>;
 }
 
 // ===========================================

@@ -16,7 +16,7 @@ import InstagramBtn from "../buttons/InstragramBtn";
 // Imports from refactored structure
 import { useMainContactForm } from "@/hooks/useContactFormField";
 import { getFormStyles, getFormMotion } from "@/lib/config/form-config";
-import { containerVariants, itemVariants } from "@/lib/variants";
+// USUNIĘTY: import { containerVariants, itemVariants } from "@/lib/variants";
 import {
 	NameField,
 	EmailField,
@@ -26,7 +26,6 @@ import {
 	AnimatedFieldWrapper,
 } from "@/components/forms/ContactFormField";
 import FloatingElements from "../FloatingElements";
-import { socialLinks } from "@/Assets";
 
 // ===========================================
 // MAIN CONTACT FORM COMPONENT
@@ -57,7 +56,7 @@ export default function ContactForm() {
 	const motionPresets = getFormMotion("main");
 
 	return (
-		<div className="w-full  mx-auto">
+		<div className="w-full mx-auto">
 			{/* Brutal Design Form Container */}
 			<motion.div
 				className={styles.container}
@@ -73,45 +72,51 @@ export default function ContactForm() {
 						initial="hidden"
 						animate="visible"
 					>
-						{/* Header Row: Name, Email, Phone */}
-						<FormSection variant="main">
-							<AnimatedFieldWrapper variant="main">
-								<NameField form={form} variant="main" />
-							</AnimatedFieldWrapper>
+						{/* Header Row: Name, Email, Phone - SPÓJNE ANIMACJE */}
+						<motion.div variants={motionPresets.field.main}>
+							<FormSection variant="main">
+								<AnimatedFieldWrapper variant="main">
+									<NameField form={form} variant="main" />
+								</AnimatedFieldWrapper>
 
-							<AnimatedFieldWrapper variant="main">
-								<EmailField form={form} variant="main" />
-							</AnimatedFieldWrapper>
+								<AnimatedFieldWrapper variant="main">
+									<EmailField form={form} variant="main" />
+								</AnimatedFieldWrapper>
 
-							<AnimatedFieldWrapper variant="main">
-								<PhoneField
-									form={form}
-									variant="main"
-									formatPhone={formatPhone}
-								/>
-							</AnimatedFieldWrapper>
-						</FormSection>
+								<motion.div
+									variants={motionPresets.field.main}
+									className="md:col-span-2 xl:col-span-1"
+								>
+									<PhoneField
+										form={form}
+										variant="main"
+										formatPhone={formatPhone}
+									/>
+								</motion.div>
+							</FormSection>
+						</motion.div>
 
-						{/* Large Text Area */}
-						<AnimatedFieldWrapper variant="main">
+						{/* Large Text Area - SPÓJNE ANIMACJE */}
+						<motion.div variants={motionPresets.field.main}>
 							<DescriptionField form={form} variant="main" rows={6} />
-						</AnimatedFieldWrapper>
+						</motion.div>
 
-						{/* File Upload Section */}
-						<AnimatedFieldWrapper variant="main">
+						{/* File Upload Section - SPÓJNE ANIMACJE */}
+						<motion.div variants={motionPresets.field.main}>
 							<div className="space-y-2">
 								<motion.label
 									htmlFor="fileInput"
 									className="text-foreground font-primary text-sm font-bold uppercase inline-block"
-									variants={itemVariants}
+									// ZMIENIONE: użycie spójnego systemu
 								>
 									Prześlij wzór
 									<span className="text-xs text-muted-foreground font-normal normal-case ml-1">
-										(Opcjonalne)
+										(Opcjonalne - Max. {config.files.maxSize / (1024 * 1024)}MB,
+										do {config.files.maxFiles} plików)
 									</span>
 								</motion.label>
 
-								<motion.div variants={itemVariants}>
+								<motion.div>
 									<FileUploader
 										value={files}
 										onValueChange={setFiles}
@@ -123,13 +128,13 @@ export default function ContactForm() {
 											<div className="flex items-center justify-center flex-col p-8 w-full">
 												<motion.div
 													animate={{
-														y: [0, -8, 0], // Ruch w górę i w dół
-														scale: [1, 1.05, 1], // Lekkie powiększenie
+														y: [0, -8, 0],
+														scale: [1, 1.05, 1],
 													}}
 													whileHover={{
 														scale: 1.2,
-														y: -5,
-														rotate: 15,
+														y: -4,
+														rotate: 12,
 														transition: {
 															type: "spring",
 															stiffness: 400,
@@ -145,15 +150,14 @@ export default function ContactForm() {
 												>
 													<LuHardDriveUpload className="text-primary h-10 w-10" />
 												</motion.div>
-												<p className="mb-1 text-sm text-foreground font-text">
+												<p className="mb-2 text-sm text-foreground font-text text-center">
 													<span className="font-semibold">
-														Kliknij aby przesłać
+														Kliknij aby wybrać
 													</span>{" "}
-													lub przeciągnij tutaj
+													lub przeciągnij i upuść
 												</p>
-												<p className="text-xs text-muted-foreground">
-													SVG, PNG, JPG, PDF (maks.{" "}
-													{config.files.maxSize / (1024 * 1024)}MB, do{" "}
+												<p className="text-xs text-muted-foreground text-center">
+													(Max. {config.files.maxSize / (1024 * 1024)}MB, do{" "}
 													{config.files.maxFiles} plików)
 												</p>
 											</div>
@@ -165,7 +169,7 @@ export default function ContactForm() {
 													files.length > 0 &&
 													files.map((file, i) => (
 														<motion.div
-															key={`${file.name}-${i}`} // Unikalny key
+															key={`${file.name}-${i}`}
 															initial={{ opacity: 0, x: -20, scale: 0.8 }}
 															animate={{ opacity: 1, x: 0, scale: 1 }}
 															exit={{
@@ -180,17 +184,15 @@ export default function ContactForm() {
 																},
 															}}
 															transition={{
-																// Dla initial -> animate
 																type: "spring",
 																stiffness: 200,
 																damping: 20,
 															}}
-															// ULEPSZONA ANIMACJA WYJŚCIA
 														>
 															<FileUploaderItem
 																index={i}
-																onRemove={removeFile} // DODANE
-																className="bg-background border-2 border-foreground hover:bg-accent/20 transition-all duration-200 rounded-sm "
+																onRemove={removeFile}
+																className="bg-background border-2 border-foreground hover:bg-accent/20 transition-all duration-200 rounded-sm"
 															>
 																<motion.div
 																	animate={{ rotate: [0, 5, -5, 0] }}
@@ -213,9 +215,9 @@ export default function ContactForm() {
 									</FileUploader>
 								</motion.div>
 							</div>
-						</AnimatedFieldWrapper>
+						</motion.div>
 
-						{/* Submit Section */}
+						{/* Submit Section - SPÓJNE ANIMACJE */}
 						<motion.div
 							className="flex gap-4 flex-col w-full items-center justify-center pt-6"
 							variants={motionPresets.field.main}
@@ -260,8 +262,7 @@ export default function ContactForm() {
 							{/* Separator */}
 							<motion.span
 								className="text-foreground uppercase text-lg md:text-xl font-primary font-bold"
-								initial={motionPresets.span.main.hidden}
-								animate={motionPresets.span.main.visible}
+								variants={motionPresets.span.main}
 								whileHover={{
 									scale: 1.1,
 									color: "hsl(var(--primary))",
@@ -272,14 +273,10 @@ export default function ContactForm() {
 							</motion.span>
 
 							{/* Instagram Button */}
-							<motion.div
-								className="w-full"
-								initial={motionPresets.div.main.hidden}
-								animate={motionPresets.div.main.visible}
-							>
+							<motion.div className="w-full" variants={motionPresets.div.main}>
 								<InstagramBtn
 									text="SKONTAKTUJ SIĘ PRZEZ INSTAGRAM"
-									link={socialLinks.iovi.instagram}
+									link="https://www.instagram.com/iovi.ink/"
 								/>
 							</motion.div>
 						</motion.div>

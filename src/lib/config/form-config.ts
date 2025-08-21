@@ -30,7 +30,7 @@ export const formVariants = {
 			inputHeight: "h-12", // Większe pola
 			spacing: "space-y-6", // Więcej przestrzeni
 			containerPadding: "p-6 md:p-8",
-			gridCols: "md:grid-cols-3", // 3 kolumny na desktop
+			gridCols: "md:grid-cols-2 xl:grid-cols-3", // ZMIENIONE: 2 kolumny od 768px, 3 kolumny od 1280px
 		},
 
 		animations: {
@@ -58,8 +58,8 @@ export const formVariants = {
 
 		ui: {
 			inputHeight: "h-8", // Zmniejszone z h-9 na h-8
-			spacing: "space-y-3", // Zmniejszone z space-y-3 na space-y-2
-			containerPadding: "p-4", // Zmniejszone z p-4 na p-2
+			spacing: "space-y-2", // Zmniejszone z space-y-3 na space-y-2
+			containerPadding: "p-2", // Zmniejszone z p-4 na p-2
 			gridCols: "grid-cols-1", // 1 kolumna
 		},
 
