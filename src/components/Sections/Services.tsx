@@ -39,15 +39,26 @@ const Services = async () => {
 				Twoich potrzeb i mojej wizji artystycznej.
 			</motion.p>
 
-			{/* Cards container */}
-			<motion.div
-				className="flex flex-wrap gap-4 sm:gap-6 w-full justify-center"
-				variants={containerVariants}
-			>
-				{services.map((service, index) => (
-					<ServicesCard service={service} key={service.id} />
-				))}
-			</motion.div>
+			{/* Cards container - tylko ten kontener ma 80% szerokości */}
+			<div className="w-[100%] max-w-[1200px] flex justify-center">
+				<motion.div
+					className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full items-stretch"
+					variants={containerVariants}
+				>
+					{services.map((service) => (
+						<motion.div
+							key={service.id}
+							variants={itemVariants}
+							whileHover={{
+								y: -4,
+								transition: { duration: 0.2, ease: "easeOut" },
+							}}
+						>
+							<ServicesCard service={service} />
+						</motion.div>
+					))}
+				</motion.div>
+			</div>
 
 			<motion.div
 				variants={itemVariants}
@@ -64,4 +75,5 @@ const Services = async () => {
 		</motion.div>
 	);
 };
+
 export default Services;
