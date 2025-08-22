@@ -76,7 +76,7 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 					transition={{ duration: 0.6, delay: 0.5 }}
 				>
 					<FeatureCard
-						text="Precyzyjne linie i stylizowane formy"
+						text="Precyzyjne linie i przemyślane detale"
 						icon={ICONS.paletteBrush}
 						delay={0}
 					/>

@@ -47,10 +47,9 @@ export default async function CarouselSections() {
 					className="paragraph-center-constrained"
 					variants={itemVariants}
 				>
-					W portfolio znajdziesz różnorodność stylów i technik – od delikatnej
-					ważki na ramieniu po bardziej wyraziste projekty jak patchwork kobiety
-					z motylem. Specjalizuję się w fine line, minimalistycznych
-					kompozycjach i graficznych wzorach.
+					W portfolio znajdziesz różnorodność stylów i technik – od delikatnych
+					kobiecych wzorów po bardziej wyraziste tatuaże. Specjalizuję się w
+					fine line, minimalistycznych kompozycjach i graficznych wzorach.
 				</motion.p>
 			</motion.div>
 

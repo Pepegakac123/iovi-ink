@@ -31,8 +31,8 @@ const ServicesPage = async () => {
 			{/* ✅ Mini Hero Section */}
 			<SectionHero
 				subTitle="Profesjonalne usługi tatuażu"
-				title="Nasze Usługi"
-				description="Specjalizuję się w minimalistycznych i geometrycznych wzorach, fine line oraz indywidualnych projektach. Każdy tatuaż to przemyślana realizacja dostosowana do anatomii i Twoich potrzeb."
+				title="Moje Usługi"
+				description="Specjalizuję się w minimalistycznych / subtelnych i graficznych tatuażach oraz indywidualnych projektach. Każdy tatuaż to przemyślana realizacja dostosowana do anatomii i Twoich potrzeb."
 			/>
 
 			{/* ✅ Main Services Section */}

@@ -10,6 +10,7 @@ import { containerVariants, itemVariants } from "@/lib/variants";
 import Contact from "@/components/Sections/Contact";
 import { NextSeo } from "next-seo";
 import PORTFOLIO_SEO from "@/lib/config/seo/portfolio";
+import { contactHome } from "@/lib/data";
 
 const PortfolioPage = async () => {
 	const groupedImages = await getAllTattooImages();
@@ -20,7 +21,7 @@ const PortfolioPage = async () => {
 			<SectionHero
 				subTitle="Każdy projekt to unikalna historia"
 				title="Moje Portfolio Tatuaży"
-				description="Odkryj różnorodność stylów i technik - od delikatnych minimalistycznych kompozycji po precyzyjne wzory geometryczne. Każdy tatuaż to przemyślany projekt dostosowany do indywidualnych potrzeb i anatomii."
+				description="Odkryj różnorodność stylów i technik - od graficznych kompozycji po precyzyjne i subtelne tatuaże minimalistyczne. Każdy tatuaż to przemyślany projekt dostosowany do indywidualnych potrzeb i anatomii."
 			/>
 
 			{/* ✅ Main Portfolio Section */}
@@ -203,7 +204,7 @@ const PortfolioPage = async () => {
 				</motion.div>
 			</motion.section>
 			<section>
-				<Contact />
+				<Contact {...contactHome} />
 			</section>
 		</>
 	);

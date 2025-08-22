@@ -35,7 +35,7 @@ export const proces: Proces[] = [
 		},
 		title: "Szkicowanie autorskiego projektu",
 		description:
-			"Na podstawie rozmowy tworzę indywidualny design. Każdy szkic jest unikalny, dostosowany do Twoich potrzeb i anatomii.",
+			"Na podstawie rozmowy tworzę indywidualny wzór. Każdy szkic jest unikalny, dostosowany do Twoich potrzeb i anatomii.",
 	},
 	{
 		id: 3,
@@ -71,7 +71,7 @@ export const proces: Proces[] = [
 		},
 		title: "Wsparcie podczas gojenia",
 		description:
-			"Dostajesz instrukcje pielęgnacji i możesz się kontaktować z pytaniami przez cały okres gojenia. To część usługi.",
+			"Dostajesz instrukcje pielęgnacji a w razie pytań nie wachaj się napisać. To część usługi.",
 	},
 ];
 export const faqHome: FaqProps = {
@@ -106,11 +106,11 @@ export const faqHome: FaqProps = {
 
 export const aboutMeHome: AboutMeProps = {
 	title: "Moje Doświadczenie w Tworzeniu Tatuaży",
-	subheadline: "2 lata intensywnej nauki",
+	subheadline: "2 lata doświadczenia",
 	image: images.zblizenie_na_twarz_patrzy_na_wprost,
 	description: [
-		"Artystyczne wykształcenie to fundament, ale prawdziwa nauka zaczęła się w studio. Każdy dzień to nowe wyzwania – różne typy skóry, różne oczekiwania klientów, różne techniki",
-		"Studio Lewus Ink pozwala mi oferować tatuaże na najwyższym poziomie. Sterylne środowisko, profesjonalny sprzęt, komfortowe warunki. Mogę skupić się na sztuce, bo wszystko inne jest dopięte",
+		"Zaczynałam od nauki w domu, prawdziwe doświadczenie przyszło w studio. Każdy dzień to nowe wyzwania – różne typy skóry, różne oczekiwania klientów, różne techniki do opanowania.",
+		"Praca w studio Lewus Ink pozwala mi oferować tatuaże na najwyższym poziomie. Sterylne środowisko, profesjonalny sprzęt, komfortowe warunki. Mogę skupić się na sztuce, bo wszystko inne jest załatwione.",
 		"Każdy tatuaż traktuję jak wyzwanie artystyczne. Nie ma rutyny – jest ciągłe doskonalenie techniki i poszukiwanie najlepszych rozwiązań.",
 	],
 };
@@ -118,9 +118,9 @@ export const aboutMeHome: AboutMeProps = {
 export const servicesHome: ServicesProps = {
 	servicesType: "featured" as "main" | "featured",
 	title: "Co mogę ci zaoferować?",
-	subheadline: "Nie powtarzam schematów",
+	subheadline: "Style którymi się zajmuję",
 	description:
-		"Nie ma szablonów. Każdy projekt to unikalna realizacja dostosowana do Twoich potrzeb i mojej wizji artystycznej.",
+		"Każdy projekt to unikalna realizacja dostosowana do Twoich potrzeb i mojej wizji artystycznej.",
 };
 
 export const targetAudienceHome: TargetAudienceSectionProps = {
@@ -128,19 +128,19 @@ export const targetAudienceHome: TargetAudienceSectionProps = {
 	image: images.karty_tatuazy,
 	targetAudienceDsc: [
 		{
-			title: "Osoby ceniące jakość nad ceną",
+			title: "Osoby ceniące uczciwy stosunek jakości do ceny",
 			description:
-				"Jeśli szukasz najtańszego tatuażu w okolicy – nie jestem dla Ciebie. Jeśli szukasz kogoś, kto zrobi to dobrze i będziesz zadowolony za 5 lat – pogadajmy.",
+				"Płacisz za umiejętności i czas, który w to wkładam. Dostajesz tatuaż wykonany precyzyjnie, który będzie wyglądał dobrze przez lata, w cenie która ma sens.",
 		},
 		{
 			title: "Miłośnicy przemyślanego designu",
 			description:
-				"Fine line, minimalizm, geometria – specjalizuję się w stylach wymagających precyzji. Jeśli lubisz czyste linie i przemyślane proporcje – rozumiemy się.",
+				"Tatuaże graficzne, fine line, minimalizm, – specjalizuję się w stylach wymagających precyzji. Jeśli lubisz czyste linie i przemyślane proporcje – rozumiemy się.",
 		},
 		{
-			title: "Klienci którzy wiedzą czego chcą",
+			title: "Osoby z konkretnym pomysłem",
 			description:
-				"Nie jestem terapeutą ani doradcą życiowym. Jestem artystką, która realizuje konkretne wizje. Jeśli masz pomysł i potrzebujesz precyzyjnej realizacji – jesteśmy na tak.",
+				"Jeśli przychodzisz z konkretną ideą - świetnie się dogadamy. Lubię klientów, którzy wiedzą w którym kierunku iść. Wspólnie dopracujemy szczegóły i zrobimy to jak należy.",
 		},
 	],
 };
@@ -150,12 +150,12 @@ export const whyMeHome: WhyMeProps = {
 	cards: {
 		left: {
 			title: "Autorskie projekty bez kopii",
-			description: `Każdy szkic rysuję od zera. Nie ma "weź z Instagrama", nie ma szablonów. Tylko przemyślane, autorskie kompozycje.`,
+			description: `Każdy szkic rysuję od zera. Oferuje tylko przemyślane, autorskie kompozycje.`,
 			icon: ICONS.tabletGraphic,
 		},
 		centerTop: {
 			title: "Precyzja na poziomie obsesji",
-			description: `Artystyczne wykształcenie plus codzienną praktyka. Każda linia musi być dokładnie tam, gdzie zaplanowałam. Nie ma "w przybliżeniu".`,
+			description: `Doświadczenie i praktyka. Każda linia musi być dokładnie tam, gdzie zaplanowałam.`,
 			icon: ICONS.diamond,
 		},
 		centerBottom: {
@@ -174,8 +174,7 @@ export const whyMeHome: WhyMeProps = {
 export const procesHome: ProcessSectionProps = {
 	title: "Tatuaże - Proces Tworzenia",
 	subheadline: "Od pierwszego szkicu do gojenia",
-	description:
-		"Jestem z Tobą na każdym etapie współpracy. Tylko przejrzysty proces i regularne update'y.",
+	description: "Jestem z Tobą na każdym etapie współpracy.",
 	proces: proces,
 };
 
@@ -183,7 +182,7 @@ export const contactHome: ContactProps = {
 	subheadline: "Napisz – pogadamy o szczegółach",
 	title: "Gotowy na Rozmowę o Twoim Projekcie?",
 	description:
-		"Marzysz o unikalnym tatuażu? Jestem tutaj, żeby tchnąć życie w Twoje pomysły. Pierwsza rozmowa jest zawsze bezpłatna. Opowiesz mi o swojej wizji, ja pokażę swoje prace i ustalimy, czy to ma sens.",
+		"Marzysz o unikalnym tatuażu? Jestem tutaj, żeby tchnąć życie w Twoje pomysły. Pierwsza rozmowa jest zawsze bezpłatna.",
 };
 
 export const socialLinks = {

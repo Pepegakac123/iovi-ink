@@ -47,7 +47,7 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 									},
 								}}
 							>
-								<Subheadline title="Napisz – pogadamy o szczegółach" />
+								<Subheadline title={subheadline} />
 							</motion.div>
 
 							<motion.div
@@ -80,7 +80,7 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 										},
 									}}
 								>
-									Gotowy na Rozmowę o Twoim Projekcie?
+									{title}
 								</motion.h2>
 
 								<motion.p
@@ -96,10 +96,7 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 										},
 									}}
 								>
-									Marzysz o unikalnym tatuażu? Jestem tutaj, żeby tchnąć życie w
-									Twoje pomysły. Pierwsza rozmowa jest zawsze bezpłatna.
-									Opowiesz mi o swojej wizji, ja pokażę swoje prace i ustalimy,
-									czy to ma sens.
+									{description}
 								</motion.p>
 							</motion.div>
 						</div>

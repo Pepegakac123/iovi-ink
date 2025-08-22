@@ -28,10 +28,10 @@ export default async function Home() {
 				title="Tatuaże z charakterem i głową"
 				description={
 					<>
-						Każdy projekt tworzę jako autorską kompozycję, nie kopię z
-						Pinterest. Moje tatuaże to przemyślane dzieła dostosowane do Twojej
-						anatomii, stylu i tego, jak chcesz się czuć ze swoim tatuażem przez
-						następne lata. Pracuję w studiu{" "}
+						Każdy projekt tworzę jako autorską kompozycję. Moje tatuaże to
+						przemyślane dzieła dostosowane do Twojej anatomii, stylu i tego, jak
+						chcesz się czuć ze swoim tatuażem przez następne lata. Pracuję w
+						studiu{" "}
 						<motion.a
 							href={socialLinks.lewus.googleMaps}
 							rel="noopener noreferrer"
