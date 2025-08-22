@@ -1,3 +1,4 @@
+// src/components/navbar/DesktopNavbar.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -8,7 +9,12 @@ import { ChevronDown } from "lucide-react";
 import NavPrimaryBtn from "../buttons/NavPrimaryBtn";
 import ServiceDropdown from "./ServiceDropdown";
 import { containerVariants, navItemVariants } from "@/lib/variants";
-import { menuItems, services, type MenuItem } from "@/lib/menuData";
+import {
+	menuItemsBeforeServices,
+	menuItemsAfterServices,
+	services,
+	type MenuItem,
+} from "@/lib/menuData";
 import { images } from "@/lib/images";
 
 const DesktopNavbar: React.FC = () => {
@@ -41,7 +47,8 @@ const DesktopNavbar: React.FC = () => {
 
 					{/* Desktop Menu */}
 					<div className="flex items-center gap-4">
-						{menuItems.map((item: MenuItem, index: number) => (
+						{/* Menu items PRZED usługami */}
+						{menuItemsBeforeServices.map((item: MenuItem, index: number) => (
 							<motion.a
 								key={item.name}
 								href={item.href}
@@ -52,7 +59,7 @@ const DesktopNavbar: React.FC = () => {
 							</motion.a>
 						))}
 
-						{/* Services Dropdown */}
+						{/* Services Dropdown - TUTAJ między Portfolio a O Mnie */}
 						<div className="relative">
 							<motion.button
 								className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-secondary font-bold group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
@@ -73,22 +80,30 @@ const DesktopNavbar: React.FC = () => {
 
 							<AnimatePresence>
 								{activeDropdown === "services" && (
-									<motion.div
-										className="absolute top-full left-0 mt-2"
-										onMouseEnter={() => setActiveDropdown("services")}
-										onMouseLeave={() => setActiveDropdown(null)}
-									>
-										<ServiceDropdown
-											serviceKey="tatuaze"
-											service={services.tatuaze}
-										/>
-									</motion.div>
+									<ServiceDropdown
+										serviceKey="tatuaze"
+										service={services.tatuaze}
+									/>
 								)}
 							</AnimatePresence>
 						</div>
 
+						{/* Menu items PO usługach */}
+						{menuItemsAfterServices.map((item: MenuItem, index: number) => (
+							<motion.a
+								key={item.name}
+								href={item.href}
+								className="text-foreground hover:text-primary transition-colors font-secondary font-bold relative group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
+								variants={navItemVariants}
+							>
+								{item.name}
+							</motion.a>
+						))}
+
 						{/* CTA Button */}
-						<NavPrimaryBtn />
+						<motion.div variants={navItemVariants}>
+							<NavPrimaryBtn />
+						</motion.div>
 					</div>
 				</div>
 			</div>

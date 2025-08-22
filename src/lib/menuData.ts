@@ -1,3 +1,4 @@
+// src/lib/menuData.ts
 import type { LucideIcon } from "lucide-react";
 import { Palette, Layers3, Zap, Sparkles } from "lucide-react";
 
@@ -18,6 +19,7 @@ export interface Service {
 export interface MenuItem {
 	name: string;
 	href: string;
+	hasDropdown?: boolean; // Nowe pole dla rozróżnienia
 }
 
 export interface ServiceDropdownProps {
@@ -25,13 +27,26 @@ export interface ServiceDropdownProps {
 	service: Service;
 }
 
-// Menu items data
+// Menu items data - ZMIENIONA KOLEJNOŚĆ
 export const menuItems: MenuItem[] = [
 	{ name: "Strona główna", href: "/" },
 	{ name: "Portfolio", href: "/portfolio" },
+	// Usługi będą wstawione tu jako dropdown
 	{ name: "O Mnie", href: "/o-mnie" },
 	{ name: "Kontakt", href: "/kontakt" },
 ];
+
+// Pomocnicze tablice dla różnych części menu
+export const menuItemsBeforeServices: MenuItem[] = [
+	{ name: "Strona główna", href: "/" },
+	{ name: "Portfolio", href: "/portfolio" },
+];
+
+export const menuItemsAfterServices: MenuItem[] = [
+	{ name: "O Mnie", href: "/o-mnie" },
+	{ name: "Kontakt", href: "/kontakt" },
+];
+
 export const FooterMenuLinks = [
 	{ name: "Strona główna", href: "/" },
 	{ name: "Portfolio", href: "/portfolio" },
@@ -39,6 +54,7 @@ export const FooterMenuLinks = [
 	{ name: "O Mnie", href: "/o-mnie" },
 	{ name: "Kontakt", href: "/kontakt" },
 ];
+
 // Services data
 export const services = {
 	tatuaze: {
