@@ -1,4 +1,4 @@
-import { PROCESS_ICONS } from "@/lib/icons";
+import { ICONS, PROCESS_ICONS } from "@/lib/icons";
 import { images } from "./images";
 import {
 	AboutMeProps,
@@ -9,6 +9,7 @@ import {
 	ProcessSectionProps,
 	ServicesProps,
 	TargetAudienceSectionProps,
+	WhyMeProps,
 } from "./dataTypes";
 
 export const proces: Proces[] = [
@@ -142,6 +143,32 @@ export const targetAudienceHome: TargetAudienceSectionProps = {
 				"Nie jestem terapeutą ani doradcą życiowym. Jestem artystką, która realizuje konkretne wizje. Jeśli masz pomysł i potrzebujesz precyzyjnej realizacji – jesteśmy na tak.",
 		},
 	],
+};
+
+export const whyMeHome: WhyMeProps = {
+	title: "Co wyróżnia moje tatuaże?",
+	cards: {
+		left: {
+			title: "Autorskie projekty bez kopii",
+			description: `Każdy szkic rysuję od zera. Nie ma "weź z Instagrama", nie ma szablonów. Tylko przemyślane, autorskie kompozycje.`,
+			icon: ICONS.tabletGraphic,
+		},
+		centerTop: {
+			title: "Precyzja na poziomie obsesji",
+			description: `Artystyczne wykształcenie plus codzienną praktyka. Każda linia musi być dokładnie tam, gdzie zaplanowałam. Nie ma "w przybliżeniu".`,
+			icon: ICONS.diamond,
+		},
+		centerBottom: {
+			title: "Studio Lewus Ink jako gwarancja",
+			description: `Jeden z najlepszych adresów w regionie. Najwyższe standardy higieny, profesjonalny sprzęt.`,
+			icon: ICONS.tattooMachine,
+		},
+		right: {
+			title: "Artystyczny fundament",
+			description: `Pasja do rysowania od dziecka dała mi oko do tego co współgra ze sobą wizualnie. Po prostu wiem co zrobić aby tatauż prezentował się dobrze na skórze`,
+			icon: ICONS.paletteBrush,
+		},
+	},
 };
 
 export const procesHome: ProcessSectionProps = {

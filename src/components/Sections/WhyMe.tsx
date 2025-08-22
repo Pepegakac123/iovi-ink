@@ -11,8 +11,10 @@ import {
 	iconVariants,
 } from "@/lib/variants";
 import { ICONS } from "@/lib/icons";
+import { WhyMeProps } from "@/lib/dataTypes";
+import { icons } from "lucide-react";
 
-const WhyMe = () => {
+const WhyMe = ({ title, cards }: WhyMeProps) => {
 	return (
 		<div className="container">
 			<motion.div
@@ -31,7 +33,7 @@ const WhyMe = () => {
 							transition: { duration: 0.2 },
 						}}
 					>
-						Co wyróżnia moje tatuaże
+						{title}
 					</motion.h2>
 				</motion.div>
 
@@ -40,7 +42,7 @@ const WhyMe = () => {
 					className="grid grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-4 lg:gap-6 lg:h-[500px]"
 					variants={gridVariants}
 				>
-					{/* Autorskie projekty - row-span-2 on desktop */}
+					{/* 1 karta po lewej */}
 					<motion.div
 						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-md p-4 lg:p-8 flex flex-col justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
@@ -75,8 +77,8 @@ const WhyMe = () => {
 									transition={{ duration: 0.2 }}
 								>
 									<Image
-										src={ICONS.tabletGraphic}
-										alt="Autorskie projekty - ikona"
+										src={cards.left.icon}
+										alt={`${cards.left.title} ikonka`}
 										width={24}
 										height={24}
 										className="w-6 h-6 md:w-8 md:h-8"
@@ -92,7 +94,7 @@ const WhyMe = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: 0.3 }}
 							>
-								Autorskie projekty bez kopii
+								{cards.left.title}
 							</motion.h3>
 							<motion.p
 								className="text-foreground font-text text-xs lg:text-base"
@@ -101,13 +103,12 @@ const WhyMe = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: 0.4 }}
 							>
-								Każdy szkic rysuję od zera. Nie ma "weź z Instagrama", nie ma
-								szablonów. Tylko przemyślane, autorskie kompozycje.
+								{cards.left.description}
 							</motion.p>
 						</div>
 					</motion.div>
 
-					{/* Precyzja na poziomie obsesji */}
+					{/* karta srodkowa na gorze */}
 					<motion.div
 						className="col-span-1 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
@@ -142,8 +143,8 @@ const WhyMe = () => {
 									transition={{ duration: 0.2 }}
 								>
 									<Image
-										src={ICONS.diamond}
-										alt="Precyzja - ikona"
+										src={cards.centerTop.icon}
+										alt={`${cards.centerTop.title} ikonka`}
 										width={24}
 										height={24}
 										className="w-6 h-6 md:w-8 md:h-8"
@@ -159,7 +160,7 @@ const WhyMe = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: 0.3 }}
 							>
-								Precyzja na poziomie obsesji
+								{cards.centerTop.title}
 							</motion.h3>
 							<motion.p
 								className="paragraph-small"
@@ -168,14 +169,12 @@ const WhyMe = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: 0.4 }}
 							>
-								Artystyczne wykształcenie plus codzienną praktyka. Każda linia
-								musi być dokładnie tam, gdzie zaplanowałam. Nie ma "w
-								przybliżeniu".
+								{cards.centerTop.description}
 							</motion.p>
 						</div>
 					</motion.div>
 
-					{/* Pewność i stabilność */}
+					{/* karta prawa  */}
 					<motion.div
 						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
@@ -210,8 +209,8 @@ const WhyMe = () => {
 									transition={{ duration: 0.2 }}
 								>
 									<Image
-										src={ICONS.tattooMachine}
-										alt="Studio Lewus Ink - ikona"
+										src={cards.right.icon}
+										alt={`${cards.right.title} ikonka`}
 										width={24}
 										height={24}
 										className="w-6 h-6 md:w-8 md:h-8"
@@ -227,7 +226,7 @@ const WhyMe = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: 0.3 }}
 							>
-								Studio Lewus Ink jako gwarancja
+								{cards.right.title}
 							</motion.h3>
 							<motion.p
 								className="paragraph-small"
@@ -236,11 +235,11 @@ const WhyMe = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: 0.4 }}
 							>
-								Jeden z najlepszych adresów w regionie. Najwyższe standardy
-								higieny, profesjonalny sprzęt.
+								{cards.right.description}
 							</motion.p>
 						</div>
 					</motion.div>
+					{/* karta srodkowa na dole */}
 					<motion.div
 						className="col-span-1 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
@@ -275,8 +274,8 @@ const WhyMe = () => {
 									transition={{ duration: 0.2 }}
 								>
 									<Image
-										src={ICONS.careForDetails}
-										alt="Dbałość o detale - ikona"
+										src={cards.centerBottom.icon}
+										alt={`${cards.centerBottom.title} ikonka`}
 										width={24}
 										height={24}
 										className="w-6 h-6 md:w-8 md:h-8"
@@ -292,7 +291,7 @@ const WhyMe = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: 0.3 }}
 							>
-								Artystyczny fundament
+								{cards.centerBottom.title}
 							</motion.h3>
 							<motion.p
 								className="paragraph-small"
@@ -301,9 +300,7 @@ const WhyMe = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: 0.4 }}
 							>
-								Pasja do rysowania od dziecka dała mi oko do tego co współgra ze
-								sobą wizualnie. Po prostu wiem co zrobić aby tatauż prezentował
-								się dobrze na skórze
+								{cards.centerBottom.description}
 							</motion.p>
 						</div>
 					</motion.div>

@@ -17,6 +17,7 @@ import {
 	servicesHome,
 	socialLinks,
 	targetAudienceHome,
+	whyMeHome,
 } from "@/lib/data";
 
 export default async function Home() {
@@ -60,7 +61,7 @@ export default async function Home() {
 				<Process {...procesHome} />
 			</section>
 			<section className="bg-foreground mt-16">
-				<WhyMe />
+				<WhyMe {...whyMeHome} />
 			</section>
 			<section>
 				<Faq {...faqHome} />

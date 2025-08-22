@@ -1,3 +1,5 @@
+import { StringValidation } from "zod/v3";
+
 export type Proces = {
 	id: number;
 	icon: any;
@@ -37,6 +39,21 @@ export type TargetAudienceSectionProps = {
 	image: {
 		src: string;
 		alt: string;
+	};
+};
+
+export type WhyMeCard = {
+	title: string;
+	description: string;
+	icon: string;
+};
+export type WhyMeProps = {
+	title: string;
+	cards: {
+		left: WhyMeCard;
+		centerTop: WhyMeCard;
+		centerBottom: WhyMeCard;
+		right: WhyMeCard;
 	};
 };
 
