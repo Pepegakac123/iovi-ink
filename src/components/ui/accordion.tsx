@@ -1,6 +1,8 @@
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { images } from "@/lib/images";
+import { ICONS } from "@/lib/icons";
 
 function Accordion({
 	...props
@@ -47,7 +49,7 @@ function AccordionTrigger({
 					<div
 						className="absolute w-8 h-8  transition-all duration-200 group-data-[state=open]:opacity-0 group-data-[state=open]:scale-75 group-data-[state=closed]:opacity-100 group-data-[state=closed]:scale-100"
 						style={{
-							backgroundImage: `url('https://cms.iovi-ink.pl/wp-content/uploads/2025/08/plus.svg')`,
+							backgroundImage: `url(${ICONS.plus})`,
 							backgroundSize: "32px 32px",
 							backgroundRepeat: "no-repeat",
 							backgroundPosition: "center",
@@ -59,7 +61,7 @@ function AccordionTrigger({
 					<div
 						className="absolute w-8 h-8  transition-all duration-200 group-data-[state=closed]:opacity-0 group-data-[state=closed]:scale-75 group-data-[state=open]:opacity-100 group-data-[state=open]:scale-100"
 						style={{
-							backgroundImage: `url('https://cms.iovi-ink.pl/wp-content/uploads/2025/08/minus.svg')`,
+							backgroundImage: `url(${ICONS.minus})`,
 							backgroundSize: "32px 32px",
 							backgroundRepeat: "no-repeat",
 							backgroundPosition: "center",

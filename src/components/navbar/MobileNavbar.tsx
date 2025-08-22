@@ -9,6 +9,7 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import NavPrimaryBtn from "../buttons/NavPrimaryBtn";
 import { containerVariants, navItemVariants } from "@/lib/variants";
 import { menuItems, services, MenuItem, ServiceItem } from "@/lib/menuData";
+import { images } from "@/lib/images";
 
 const MobileNavbar: React.FC = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,8 +66,8 @@ const MobileNavbar: React.FC = () => {
 							whileTap={{ scale: 0.98 }}
 						>
 							<Image
-								src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/iovi-high-resolution-logo-transparent.png"
-								alt="iovi-ink logo"
+								src={images.logo.src}
+								alt={images.logo.alt}
 								width={80}
 								height={68}
 								className="w-[80px] h-[68px] object-contain"

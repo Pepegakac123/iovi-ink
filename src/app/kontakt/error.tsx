@@ -5,6 +5,7 @@ import React from "react";
 import SectionHero from "@/components/SectionHero";
 import * as motion from "motion/react-client";
 import { containerVariants, itemVariants } from "@/lib/variants";
+import { socialLinks } from "@/lib/data";
 
 interface ContactErrorProps {
 	error: Error & { digest?: string };
@@ -76,7 +77,7 @@ const ContactError: React.FC<ContactErrorProps> = ({ error, reset }) => {
 							</motion.a>
 
 							<motion.a
-								href="https://www.instagram.com/iovi.ink/"
+								href={socialLinks.iovi.instagram}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="bg-secondary border-2 border-foreground text-foreground p-4 rounded-md font-primary uppercase text-sm transition-all duration-200 hover:bg-muted hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] flex items-center justify-center gap-2"

@@ -9,6 +9,7 @@ import NavPrimaryBtn from "../buttons/NavPrimaryBtn";
 import ServiceDropdown from "./ServiceDropdown";
 import { containerVariants, navItemVariants } from "@/lib/variants";
 import { menuItems, services, type MenuItem } from "@/lib/menuData";
+import { images } from "@/lib/images";
 
 const DesktopNavbar: React.FC = () => {
 	const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -30,8 +31,8 @@ const DesktopNavbar: React.FC = () => {
 						whileTap={{ scale: 0.98 }}
 					>
 						<Image
-							src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/iovi-high-resolution-logo-transparent.png"
-							alt="iovi-ink logo"
+							src={images.logo.src}
+							alt={images.logo.alt}
 							width={120}
 							height={102}
 							className="object-cover"

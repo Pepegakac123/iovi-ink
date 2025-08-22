@@ -10,6 +10,9 @@ export const SYSTEM_ICONS = {
 	tabletGraphic: `${BASE_URL}/Tablet-Graficzny.svg`,
 	careForDetails: `${BASE_URL}/dbalosc_o-Detale_ikonka.svg`,
 
+	plus: `${BASE_URL}/plus.svg`,
+	minus: `${BASE_URL}/minus.svg`,
+
 	// Ikony kontaktu
 	envelope: `${BASE_URL}/envelope_icon_accent.svg`,
 	instagramAccent: `${BASE_URL}/instagram_icon_accent.svg`,
@@ -67,6 +70,10 @@ export const ICONS = {
 
 	// Detale
 	careForDetails: SYSTEM_ICONS.careForDetails,
+
+	//Inne
+	plus: SYSTEM_ICONS.plus,
+	minus: SYSTEM_ICONS.minus,
 } as const;
 
 // ===========================================
