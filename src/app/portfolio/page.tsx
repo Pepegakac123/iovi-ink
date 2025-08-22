@@ -1,4 +1,6 @@
 // app/portfolio/page.tsx - Główna strona portfolio
+
+import React from "react";
 import SectionHero from "@/components/SectionHero";
 import TattooGallery from "@/components/TattooGallery";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -6,23 +8,21 @@ import { getAllTattooImages } from "@/lib/jetApi";
 import * as motion from "motion/react-client";
 import { containerVariants, itemVariants } from "@/lib/variants";
 import Contact from "@/components/Sections/Contact";
-import { generateImageGalleryData } from "@/lib/seoUtils";
 import { NextSeo } from "next-seo";
 import PORTFOLIO_SEO from "@/lib/config/seo/portfolio";
 
 const PortfolioPage = async () => {
 	const groupedImages = await getAllTattooImages();
-	const imageGalleryData = generateImageGalleryData(groupedImages.allImages);
-
+	<NextSeo {...PORTFOLIO_SEO} />;
 	return (
 		<>
-			<NextSeo {...PORTFOLIO_SEO} />
 			{/* ✅ Mini Hero Section */}
 			<SectionHero
 				subTitle="Każdy projekt to unikalna historia"
 				title="Moje Portfolio Tatuaży"
 				description="Odkryj różnorodność stylów i technik - od delikatnych minimalistycznych kompozycji po precyzyjne wzory geometryczne. Każdy tatuaż to przemyślany projekt dostosowany do indywidualnych potrzeb i anatomii."
 			/>
+
 			{/* ✅ Main Portfolio Section */}
 			<motion.section
 				className="w-full bg-primary-foreground "
@@ -179,7 +179,7 @@ const PortfolioPage = async () => {
 								{groupedImages.kwiatowe.length}
 							</h3>
 							<p className="text-xs md:text-sm text-muted-foreground">
-								Kwiatowych
+								Florystycznych
 							</p>
 						</motion.div>
 
