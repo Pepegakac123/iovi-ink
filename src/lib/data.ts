@@ -96,5 +96,7 @@ export const socialLinks = {
 	},
 	lewus: {
 		googleMaps: "https://share.google/lc156tUkL2CVSgy2m",
+		googleMapsView: "https://maps.app.goo.gl/kBFjCk4v8GGxi3mM9",
+		instagram: "https://www.instagram.com/lewus_ink/",
 	},
 };

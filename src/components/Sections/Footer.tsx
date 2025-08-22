@@ -142,7 +142,7 @@ const Footer = () => {
 						<div className="space-y-4">
 							{/* Email */}
 							<motion.a
-								href="mailto:iovi@kontakt.pl"
+								href={`mailto:${process.env.EMAIL_TO}`}
 								className="flex items-center gap-3 text-background/80 hover:text-secondary transition-colors duration-300 group"
 								whileHover={{ x: 4 }}
 								transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -154,7 +154,7 @@ const Footer = () => {
 									height={24}
 									className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
 								/>
-								<span className="text-base">iovi@kontakt.pl</span>
+								<span className="text-base">{process.env.EMAIL_TO}</span>
 							</motion.a>
 
 							{/* Instagram Profile */}
