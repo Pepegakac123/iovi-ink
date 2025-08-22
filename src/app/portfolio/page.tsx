@@ -185,7 +185,7 @@ const PortfolioPage = async () => {
 								{groupedImages.kwiatowe.length}
 							</h3>
 							<p className="text-xs md:text-sm text-muted-foreground">
-								Florystycznych
+								Kwiatowych
 							</p>
 						</motion.div>
 

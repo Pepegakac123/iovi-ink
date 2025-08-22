@@ -306,9 +306,9 @@ export async function getAllTattooImages(): Promise<GroupedTattooImages> {
 		kwiatowe: [] as string[],
 		graficzne: [] as string[],
 	};
-
 	portfolios.forEach((portfolio) => {
 		const type = portfolio.meta.tattoo_type;
+
 		groupedUrls[type].push(...portfolio.meta.zdjecia);
 	});
 
