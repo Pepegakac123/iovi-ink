@@ -8,7 +8,7 @@ const PORTFOLIO_SEO = {
 	openGraph: {
 		title: "Portfolio Tatuaży - IOVI INK",
 		description:
-			"Galeria moich najlepszych prac - od minimalistycznych wzorów po precyzyjne kompozycje geometryczne",
+			"Galeria moich najlepszych prac - od minimalistycznych wzorów po precyzyjne kompozycje graficzne",
 		url: "https://iovi-ink.pl/portfolio",
 		type: "website",
 		images: [

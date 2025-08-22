@@ -10,7 +10,14 @@ import {
 import FloatingElements from "../FloatingElements";
 import { images } from "@/lib/images";
 
-const AboutMe = () => {
+interface AboutMeProps {
+	title: string;
+	subheadline: string;
+	description: string[];
+	image: { src: string; alt: string };
+}
+
+const AboutMe = ({ title, description, image, subheadline }: AboutMeProps) => {
 	return (
 		<motion.div
 			className="container"
@@ -33,7 +40,7 @@ const AboutMe = () => {
 					variants={contentVariants}
 				>
 					<motion.div variants={paragraphVariants}>
-						<Subheadline title="2 lata intensywnej nauki" />
+						<Subheadline title={subheadline} />
 					</motion.div>
 
 					<motion.h2
@@ -44,25 +51,18 @@ const AboutMe = () => {
 							transition: { duration: 0.2 },
 						}}
 					>
-						Moje Doświadczenie w Tworzeniu Tatuaży
+						{title}
 					</motion.h2>
-
-					<motion.p className="paragraph-base" variants={paragraphVariants}>
-						Artystyczne wykształcenie to fundament, ale prawdziwa nauka zaczęła
-						się w studio. Każdy dzień to nowe wyzwania – różne typy skóry, różne
-						oczekiwania klientów, różne techniki
-					</motion.p>
-
-					<motion.p className="paragraph-base" variants={paragraphVariants}>
-						Studio Lewus Ink pozwala mi oferować tatuaże na najwyższym poziomie.
-						Sterylne środowisko, profesjonalny sprzęt, komfortowe warunki. Mogę
-						skupić się na sztuce, bo wszystko inne jest dopięte
-					</motion.p>
-
-					<motion.p className="paragraph-base" variants={paragraphVariants}>
-						Każdy tatuaż traktuję jak wyzwanie artystyczne. Nie ma rutyny – jest
-						ciągłe doskonalenie techniki i poszukiwanie najlepszych rozwiązań.
-					</motion.p>
+					{description.map((paragraph, index) => (
+						<motion.p
+							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+							key={index}
+							className="paragraph-base"
+							variants={paragraphVariants}
+						>
+							{paragraph}
+						</motion.p>
+					))}
 
 					{/* Mobile Image - positioned at bottom right */}
 					<motion.div
@@ -78,8 +78,8 @@ const AboutMe = () => {
 							whileTap={{ scale: 0.98 }}
 						>
 							<Image
-								src={images.zblizenie_na_twarz_patrzy_na_wprost.src}
-								alt={images.zblizenie_na_twarz_patrzy_na_wprost.alt}
+								src={image.src}
+								alt={image.alt}
 								width={189}
 								height={189}
 								className="object-cover rounded-md"
@@ -102,8 +102,8 @@ const AboutMe = () => {
 						whileTap={{ scale: 0.98 }}
 					>
 						<Image
-							src={images.zblizenie_na_twarz_patrzy_na_wprost.src}
-							alt={images.zblizenie_na_twarz_patrzy_na_wprost.alt}
+							src={image.src}
+							alt={image.alt}
 							width={440}
 							height={428}
 							className="object-cover rounded-md"

@@ -90,6 +90,17 @@ export const homeFAQ = [
 	},
 ];
 
+export const aboutMeHome = {
+	title: "Moje Doświadczenie w Tworzeniu Tatuaży",
+	subheadline: "2 lata intensywnej nauki",
+	image: images.zblizenie_na_twarz_patrzy_na_wprost,
+	description: [
+		"Artystyczne wykształcenie to fundament, ale prawdziwa nauka zaczęła się w studio. Każdy dzień to nowe wyzwania – różne typy skóry, różne oczekiwania klientów, różne techniki",
+		"Studio Lewus Ink pozwala mi oferować tatuaże na najwyższym poziomie. Sterylne środowisko, profesjonalny sprzęt, komfortowe warunki. Mogę skupić się na sztuce, bo wszystko inne jest dopięte",
+		"Każdy tatuaż traktuję jak wyzwanie artystyczne. Nie ma rutyny – jest ciągłe doskonalenie techniki i poszukiwanie najlepszych rozwiązań.",
+	],
+};
+
 export const socialLinks = {
 	iovi: {
 		instagram: "https://www.instagram.com/iovi.ink/",
