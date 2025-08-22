@@ -1,8 +1,6 @@
-import { StringValidation } from "zod/v3";
-
 export type Proces = {
 	id: number;
-	icon: any;
+	icon: string;
 	bg_image: {
 		mobile: string;
 		desktop: string;
@@ -72,3 +70,82 @@ export type ContactProps = {
 	title: string;
 	description: string;
 };
+
+export interface ExperienceItem {
+	id: number;
+	period: string;
+	position: string;
+	company: string;
+	location: string;
+	description?: string;
+}
+
+export interface SpecializationItem {
+	id: number;
+	period: string;
+	name: string;
+	institution: string;
+	description: string;
+}
+
+export interface HobbyItem {
+	id: number;
+	name: string;
+	icon: string;
+}
+
+export interface SkillTag {
+	id: number;
+	name: string;
+	category: "style" | "technique" | "software";
+}
+
+export interface ContactQuick {
+	id: number;
+	type: string;
+	icon: string;
+	value: string;
+	href?: string;
+}
+
+// ===========================================
+// PERSONAL SHOWCASE COMPONENT PROPS TYPES
+// ===========================================
+
+export interface SectionHeaderProps {
+	title: string;
+	className?: string;
+}
+
+export interface ExperienceCardProps {
+	experience: ExperienceItem;
+	index: number;
+}
+
+export interface SpecializationCardProps {
+	specialization: SpecializationItem;
+	index: number;
+}
+
+export interface HobbyCardProps {
+	hobby: HobbyItem;
+	index: number;
+}
+
+export interface SkillTagProps {
+	skill: SkillTag;
+	index: number;
+}
+
+export interface ContactItemProps {
+	contact: ContactQuick;
+	index: number;
+}
+
+export interface PersonalShowcaseProps {
+	experienceData?: ExperienceItem[];
+	specializationData?: SpecializationItem[];
+	hobbiesData?: HobbyItem[];
+	skillsData?: SkillTag[];
+	quickContactData?: ContactQuick[];
+}
