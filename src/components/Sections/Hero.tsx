@@ -1,3 +1,4 @@
+// src/components/Sections/Hero.tsx - poprawka mobile overlay
 import Image from "next/image";
 import Subheadline from "../Subheadline";
 import FeatureCard from "../FeatureCard";
@@ -13,7 +14,7 @@ import FloatingElements from "../FloatingElements";
 interface HeroProps {
 	subTitle: string;
 	title: string;
-	description: React.ReactNode | string; // Zmiana z string na React.ReactNode
+	description: React.ReactNode | string;
 	image: {
 		src: string;
 		alt: string;
@@ -38,7 +39,7 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 					transition: { duration: 0.3 },
 				}}
 			>
-				{/* Content Section */}
+				{/* Content Section z lepszym positioning na mobile */}
 				<motion.div
 					className="flex flex-col gap-4 md:gap-8 items-center z-10 relative max-w-4xl"
 					variants={containerVariants}
@@ -56,12 +57,15 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 						{title}
 					</motion.h1>
 
-					<motion.p
-						className="paragraph-hero text-center"
-						variants={descriptionVariants}
-					>
-						{description}
-					</motion.p>
+					{/* Description z lepszym kontrastem na mobile */}
+					<motion.div className="relative" variants={descriptionVariants}>
+						{/* Opcja 1: Tło pod tekstem na mobile */}
+						<div className="absolute inset-0 bg-background/80 backdrop-blur-sm rounded-md -m-3 sm:hidden" />
+
+						<motion.p className="paragraph-hero text-center relative z-10 px-3 sm:px-0">
+							{description}
+						</motion.p>
+					</motion.div>
 				</motion.div>
 
 				{/* Feature Cards with staggered animation */}
@@ -88,14 +92,14 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 					/>
 				</motion.div>
 
-				{/* Character Image - No animations */}
-				<div className="absolute top-[220px] sm:top-[150px] md:top-[200px] lg:top-[300px] left-0 right-0 bottom-0 overflow-hidden z-0 mt-8 flex align-center justify-center">
+				{/* Character Image - przesunięty niżej na mobile */}
+				<div className="absolute top-[250px] sm:top-[200px] md:top-[200px] lg:top-[300px] left-0 right-0 bottom-0 overflow-hidden z-0 mt-8 flex align-center justify-center">
 					<Image
 						width={900}
 						height={900}
 						src={image.src}
 						alt={image.alt}
-						className="block object-cover object-top max-w-[900px]"
+						className="block object-cover object-top max-w-[700px] sm:max-w-[900px]" // Mniejszy na mobile
 					/>
 				</div>
 
