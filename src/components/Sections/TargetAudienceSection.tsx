@@ -6,8 +6,13 @@ import {
 	itemVariants,
 } from "@/lib/variants";
 import { images } from "@/lib/images";
+import { TargetAudienceSectionProps } from "@/lib/dataTypes";
 
-const TargetAudienceSection = () => {
+const TargetAudienceSection = ({
+	title,
+	targetAudienceDsc,
+	image,
+}: TargetAudienceSectionProps) => {
 	return (
 		<motion.div
 			className="container flex flex-col lg:flex-row gap-8 md:gap-12 items-start lg:items-center relative"
@@ -28,69 +33,30 @@ const TargetAudienceSection = () => {
 						transition: { duration: 0.2 },
 					}}
 				>
-					Dla Kogo Są Moje Tatuaże
+					{title}
 				</motion.h2>
 
 				<motion.div
 					className="flex flex-col gap-8"
 					variants={containerVariants}
 				>
-					<motion.div
-						className="flex flex-col gap-2"
-						variants={itemVariants}
-						whileHover={{
-							scale: 1.02,
-							y: -2,
-							transition: { duration: 0.2 },
-						}}
-					>
-						<motion.h3 className="heading-secondary">
-							Osoby ceniące jakość nad ceną
-						</motion.h3>
-						<motion.p className="paragraph-secondary">
-							Jeśli szukasz najtańszego tatuażu w okolicy – nie jestem dla
-							Ciebie. Jeśli szukasz kogoś, kto zrobi to dobrze i będziesz
-							zadowolony za 5 lat – pogadajmy.
-						</motion.p>
-					</motion.div>
-
-					<motion.div
-						className="flex flex-col gap-2"
-						variants={itemVariants}
-						whileHover={{
-							scale: 1.02,
-							y: -2,
-							transition: { duration: 0.2 },
-						}}
-					>
-						<motion.h3 className="heading-secondary">
-							Miłośnicy przemyślanego designu
-						</motion.h3>
-						<motion.p className="paragraph-secondary">
-							Fine line, minimalizm, geometria – specjalizuję się w stylach
-							wymagających precyzji. Jeśli lubisz czyste linie i przemyślane
-							proporcje – rozumiemy się.
-						</motion.p>
-					</motion.div>
-
-					<motion.div
-						className="flex flex-col gap-2"
-						variants={itemVariants}
-						whileHover={{
-							scale: 1.02,
-							y: -2,
-							transition: { duration: 0.2 },
-						}}
-					>
-						<motion.h3 className="heading-secondary">
-							Klienci którzy wiedzą czego chcą
-						</motion.h3>
-						<motion.p className="paragraph-secondary">
-							Nie jestem terapeutą ani doradcą życiowym. Jestem artystką, która
-							realizuje konkretne wizje. Jeśli masz pomysł i potrzebujesz
-							precyzyjnej realizacji – jesteśmy na tak.
-						</motion.p>
-					</motion.div>
+					{targetAudienceDsc.map((item, index) => (
+						<motion.div
+							key={item.title}
+							className="flex flex-col gap-2"
+							variants={itemVariants}
+							whileHover={{
+								scale: 1.02,
+								y: -2,
+								transition: { duration: 0.2 },
+							}}
+						>
+							<motion.h3 className="heading-secondary">{item.title}</motion.h3>
+							<motion.p className="paragraph-secondary">
+								{item.description}
+							</motion.p>
+						</motion.div>
+					))}
 				</motion.div>
 			</motion.div>
 
@@ -107,8 +73,8 @@ const TargetAudienceSection = () => {
 					whileTap={{ scale: 0.98 }}
 				>
 					<Image
-						src={images.karty_tatuazy.src}
-						alt={images.karty_tatuazy.alt}
+						src={image.src}
+						alt={image.alt}
 						width={600}
 						height={400}
 						className="object-cover rounded-md"

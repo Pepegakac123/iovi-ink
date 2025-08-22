@@ -4,9 +4,15 @@ import * as motion from "motion/react-client";
 import ServicesCard from "../ServicesCard";
 import { containerVariants, itemVariants } from "@/lib/variants";
 import { getServicesWithAltText } from "@/lib/jetApi";
+import { ServicesProps } from "@/lib/dataTypes";
 
-const Services = async () => {
-	const services = await getServicesWithAltText("featured");
+const Services = async ({
+	servicesType,
+	title,
+	subheadline,
+	description,
+}: ServicesProps) => {
+	const services = await getServicesWithAltText(servicesType);
 
 	return (
 		<motion.div
@@ -17,7 +23,7 @@ const Services = async () => {
 			variants={containerVariants}
 		>
 			<motion.div variants={itemVariants}>
-				<Subheadline title="Nie powtarzam schematów" />
+				<Subheadline title={subheadline} />
 			</motion.div>
 
 			<motion.h2
@@ -28,15 +34,14 @@ const Services = async () => {
 					transition: { duration: 0.2 },
 				}}
 			>
-				Co mogę ci zaoferować?
+				{title}
 			</motion.h2>
 
 			<motion.p
 				className="paragraph-center-small-constrained"
 				variants={itemVariants}
 			>
-				Nie ma szablonów. Każdy projekt to unikalna realizacja dostosowana do
-				Twoich potrzeb i mojej wizji artystycznej.
+				{description}
 			</motion.p>
 
 			{/* Cards container - tylko ten kontener ma 80% szerokości */}

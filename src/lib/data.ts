@@ -1,7 +1,17 @@
 import { PROCESS_ICONS } from "@/lib/icons";
 import { images } from "./images";
+import {
+	AboutMeProps,
+	ContactProps,
+	FaqProps,
+	FaqQuestion,
+	Proces,
+	ProcessSectionProps,
+	ServicesProps,
+	TargetAudienceSectionProps,
+} from "./dataTypes";
 
-export const proces = [
+export const proces: Proces[] = [
 	{
 		id: 1,
 		icon: PROCESS_ICONS.chat,
@@ -63,34 +73,37 @@ export const proces = [
 			"Dostajesz instrukcje pielęgnacji i możesz się kontaktować z pytaniami przez cały okres gojenia. To część usługi.",
 	},
 ];
-export const homeFAQ = [
-	{
-		id: 1,
-		question: "Ile czasu zajmuje wykonanie?",
-		answer:
-			"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
-	},
-	{
-		id: 2,
-		question: "Czy pierwsza rozmowa jest płatna?",
-		answer:
-			"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
-	},
-	{
-		id: 3,
-		question: "Jak przebiega gojenie tatuażu?",
-		answer:
-			"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
-	},
-	{
-		id: 4,
-		question: "Czy robisz poprawki starych tatuaży?",
-		answer:
-			"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
-	},
-];
+export const faqHome: FaqProps = {
+	subheadline: "FAQ",
+	questions: [
+		{
+			id: 1,
+			question: "Ile czasu zajmuje wykonanie?",
+			answer:
+				"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+		},
+		{
+			id: 2,
+			question: "Czy pierwsza rozmowa jest płatna?",
+			answer:
+				"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+		},
+		{
+			id: 3,
+			question: "Jak przebiega gojenie tatuażu?",
+			answer:
+				"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+		},
+		{
+			id: 4,
+			question: "Czy robisz poprawki starych tatuaży?",
+			answer:
+				"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+		},
+	],
+};
 
-export const aboutMeHome = {
+export const aboutMeHome: AboutMeProps = {
 	title: "Moje Doświadczenie w Tworzeniu Tatuaży",
 	subheadline: "2 lata intensywnej nauki",
 	image: images.zblizenie_na_twarz_patrzy_na_wprost,
@@ -99,6 +112,51 @@ export const aboutMeHome = {
 		"Studio Lewus Ink pozwala mi oferować tatuaże na najwyższym poziomie. Sterylne środowisko, profesjonalny sprzęt, komfortowe warunki. Mogę skupić się na sztuce, bo wszystko inne jest dopięte",
 		"Każdy tatuaż traktuję jak wyzwanie artystyczne. Nie ma rutyny – jest ciągłe doskonalenie techniki i poszukiwanie najlepszych rozwiązań.",
 	],
+};
+
+export const servicesHome: ServicesProps = {
+	servicesType: "featured" as "main" | "featured",
+	title: "Co mogę ci zaoferować?",
+	subheadline: "Nie powtarzam schematów",
+	description:
+		"Nie ma szablonów. Każdy projekt to unikalna realizacja dostosowana do Twoich potrzeb i mojej wizji artystycznej.",
+};
+
+export const targetAudienceHome: TargetAudienceSectionProps = {
+	title: "Dla Kogo Są Moje Tatuaże",
+	image: images.karty_tatuazy,
+	targetAudienceDsc: [
+		{
+			title: "Osoby ceniące jakość nad ceną",
+			description:
+				"Jeśli szukasz najtańszego tatuażu w okolicy – nie jestem dla Ciebie. Jeśli szukasz kogoś, kto zrobi to dobrze i będziesz zadowolony za 5 lat – pogadajmy.",
+		},
+		{
+			title: "Miłośnicy przemyślanego designu",
+			description:
+				"Fine line, minimalizm, geometria – specjalizuję się w stylach wymagających precyzji. Jeśli lubisz czyste linie i przemyślane proporcje – rozumiemy się.",
+		},
+		{
+			title: "Klienci którzy wiedzą czego chcą",
+			description:
+				"Nie jestem terapeutą ani doradcą życiowym. Jestem artystką, która realizuje konkretne wizje. Jeśli masz pomysł i potrzebujesz precyzyjnej realizacji – jesteśmy na tak.",
+		},
+	],
+};
+
+export const procesHome: ProcessSectionProps = {
+	title: "Tatuaże - Proces Tworzenia",
+	subheadline: "Od pierwszego szkicu do gojenia",
+	description:
+		"Jestem z Tobą na każdym etapie współpracy. Tylko przejrzysty proces i regularne update'y.",
+	proces: proces,
+};
+
+export const contactHome: ContactProps = {
+	subheadline: "Napisz – pogadamy o szczegółach",
+	title: "Gotowy na Rozmowę o Twoim Projekcie?",
+	description:
+		"Marzysz o unikalnym tatuażu? Jestem tutaj, żeby tchnąć życie w Twoje pomysły. Pierwsza rozmowa jest zawsze bezpłatna. Opowiesz mi o swojej wizji, ja pokażę swoje prace i ustalimy, czy to ma sens.",
 };
 
 export const socialLinks = {

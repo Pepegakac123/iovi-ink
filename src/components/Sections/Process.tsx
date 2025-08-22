@@ -9,9 +9,14 @@ import {
 	headerVariants,
 	titleVariants,
 } from "@/lib/variants";
-import { proces } from "@/lib/data";
+import { Proces, ProcessSectionProps } from "@/lib/dataTypes";
 
-const Process = () => {
+const Process = ({
+	subheadline,
+	title,
+	description,
+	proces,
+}: ProcessSectionProps) => {
 	return (
 		<motion.div
 			className="container flex flex-col gap-12 md:gap-14"
@@ -32,7 +37,7 @@ const Process = () => {
 					viewport={{ once: true }}
 					transition={{ duration: 0.5, ease: "easeOut" }}
 				>
-					<Subheadline title="Od pierwszego szkicu do gojenia" />
+					<Subheadline title={subheadline} />
 				</motion.div>
 
 				{/* Content */}
@@ -46,7 +51,7 @@ const Process = () => {
 							transition: { duration: 0.2 },
 						}}
 					>
-						Tatuaże - Proces Tworzenia
+						{title}
 					</motion.h2>
 
 					{/* Animated Description */}
@@ -54,8 +59,7 @@ const Process = () => {
 						className="paragraph-constrained"
 						variants={descriptionVariants}
 					>
-						Jestem z Tobą na każdym etapie współpracy. Tylko przejrzysty proces
-						i regularne update'y.
+						{description}
 					</motion.p>
 				</div>
 			</motion.div>

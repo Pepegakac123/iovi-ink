@@ -9,7 +9,15 @@ import Faq from "@/components/Sections/Faq";
 import Contact from "@/components/Sections/Contact";
 import * as motion from "motion/react-client";
 import { images } from "@/lib/images";
-import { aboutMeHome, socialLinks } from "@/lib/data";
+import {
+	aboutMeHome,
+	contactHome,
+	faqHome,
+	procesHome,
+	servicesHome,
+	socialLinks,
+	targetAudienceHome,
+} from "@/lib/data";
 
 export default async function Home() {
 	return (
@@ -43,22 +51,22 @@ export default async function Home() {
 				<AboutMe {...aboutMeHome} />
 			</section>
 			<section className="bg-foreground mt-16">
-				<Services />
+				<Services {...servicesHome} />
 			</section>
 			<section className="bg-primary-foreground">
-				<TargetAudienceSection />
+				<TargetAudienceSection {...targetAudienceHome} />
 			</section>
 			<section>
-				<Process />
+				<Process {...procesHome} />
 			</section>
 			<section className="bg-foreground mt-16">
 				<WhyMe />
 			</section>
 			<section>
-				<Faq />
+				<Faq {...faqHome} />
 			</section>
 			<section>
-				<Contact />
+				<Contact {...contactHome} />
 			</section>
 		</>
 	);

@@ -8,8 +8,9 @@ import {
 	itemVariants,
 	stickyContentVariants,
 } from "@/lib/variants";
+import { ContactProps } from "@/lib/dataTypes";
 
-const Contact = () => {
+const Contact = ({ title, subheadline, description }: ContactProps) => {
 	return (
 		<motion.div
 			className="container"

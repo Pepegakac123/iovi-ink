@@ -5,7 +5,7 @@ import ServicesCard from "@/components/ServicesCard";
 import Contact from "@/components/Sections/Contact";
 import { getServicesWithAltText } from "@/lib/jetApi";
 import { containerVariants, itemVariants } from "@/lib/variants";
-import Process from "@/components/Sections/Process";
+import { contactHome, procesHome } from "@/lib/data";
 
 // ===========================================
 // METADATA & SEO
@@ -43,10 +43,7 @@ const ServicesPage = async () => {
 				viewport={{ once: true, margin: "-100px" }}
 				variants={containerVariants}
 			>
-				<motion.div
-					className="container px-4 sm:px-8"
-					variants={containerVariants}
-				>
+				<motion.div className="container" variants={containerVariants}>
 					{/* Services Grid - 4 kolumny na dużych ekranach + stretch items */}
 					<motion.div
 						className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch"
@@ -68,9 +65,9 @@ const ServicesPage = async () => {
 				</motion.div>
 			</motion.main>
 
-			{/* ✅ Contact Section */}
+			{/* ✅ Process Section */}
 			<section>
-				<Process />
+				<Contact {...contactHome} />
 			</section>
 		</>
 	);

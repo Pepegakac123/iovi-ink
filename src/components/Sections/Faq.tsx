@@ -14,9 +14,9 @@ import {
 } from "@/lib/variants";
 import FloatingElements from "../FloatingElements";
 import { images } from "@/lib/images";
-import { homeFAQ } from "@/lib/data";
+import { FaqProps } from "@/lib/dataTypes";
 
-const Faq = () => {
+const Faq = ({ subheadline, questions }: FaqProps) => {
 	return (
 		<motion.div
 			className="container"
@@ -40,7 +40,7 @@ const Faq = () => {
 				>
 					<Subheadline title="FAQ" />
 					<Accordion type="single" collapsible className="w-full">
-						{homeFAQ.map((item) => {
+						{questions.map((item) => {
 							return (
 								<AccordionItem value={item.question} key={item.id}>
 									<AccordionTrigger>{item.question}</AccordionTrigger>

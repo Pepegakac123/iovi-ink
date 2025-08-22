@@ -9,13 +9,7 @@ import {
 } from "@/lib/variants";
 import FloatingElements from "../FloatingElements";
 import { images } from "@/lib/images";
-
-interface AboutMeProps {
-	title: string;
-	subheadline: string;
-	description: string[];
-	image: { src: string; alt: string };
-}
+import { AboutMeProps } from "@/lib/dataTypes";
 
 const AboutMe = ({ title, description, image, subheadline }: AboutMeProps) => {
 	return (
