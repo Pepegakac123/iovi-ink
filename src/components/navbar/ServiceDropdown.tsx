@@ -1,3 +1,5 @@
+// src/components/navbar/ServiceDropdown.tsx - FIXED: Dodane hover props
+
 "use client";
 
 import React from "react";
@@ -10,17 +12,28 @@ import type {
 	ServiceDropdownProps,
 } from "@/lib/menuData";
 
-const ServiceDropdown: React.FC<ServiceDropdownProps> = ({
+// ✅ FIXED: Rozszerzony interface o hover events
+interface ServiceDropdownPropsExtended extends ServiceDropdownProps {
+	onMouseEnter?: () => void;
+	onMouseLeave?: () => void;
+}
+
+const ServiceDropdown: React.FC<ServiceDropdownPropsExtended> = ({
 	serviceKey,
 	service,
+	onMouseEnter,
+	onMouseLeave,
 }) => {
 	return (
 		<motion.div
-			className="absolute bottom-full left-0 mb-2 lg:top-full lg:bottom-auto lg:mt-2 lg:mb-0 w-80 bg-background border-4 border-foreground rounded-md shadow-[8px_8px_0px_0px_theme(colors.foreground)] z-50"
+			className="absolute top-full left-0 mt-2 w-80 bg-background border-4 border-foreground rounded-md shadow-[8px_8px_0px_0px_theme(colors.foreground)] z-50"
 			variants={dropdownVariants}
 			initial="hidden"
 			animate="visible"
 			exit="exit"
+			// ✅ FIXED: Przekazujemy hover events
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 		>
 			<div className="p-6">
 				<div className="flex items-center gap-2 mb-4 text-primary">

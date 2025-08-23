@@ -1,10 +1,3 @@
-Galeria nie działa po klikniecu na dowolne zdjecie zawsze wyswietla sie pierwsze
-sa duplikaty w kategori wszystkie
-zdjecia w galerii oryginalna wielkosc 4:5 ma byc plis(sproboujemy)
-Pod galeria te divy z informacjami albo wywalic albo znalezc lepsza alternatywe
-
-Hero karuzela zdjecia ciulowa jakosc
-zdjecia w galerii oryginalna wielkosc 4:5 ma byc plis(sproboujemy)
 
 W uslugach navie rozjebal sie dropdowna nie da sie wejsc na nie
 

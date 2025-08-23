@@ -1,4 +1,5 @@
-// src/components/navbar/DesktopNavbar.tsx
+// src/components/navbar/DesktopNavbar.tsx - FIXED: Poprawiony dropdown z hover
+
 "use client";
 
 import React, { useState } from "react";
@@ -19,6 +20,26 @@ import { images } from "@/lib/images";
 
 const DesktopNavbar: React.FC = () => {
 	const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+	// ✅ FIXED: Używamy timeoutów do kontroli hover behavior
+	const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+
+	const handleMouseEnter = () => {
+		// ✅ Anuluj timeout jeśli istnieje
+		if (hoverTimeout) {
+			clearTimeout(hoverTimeout);
+			setHoverTimeout(null);
+		}
+		setActiveDropdown("services");
+	};
+
+	const handleMouseLeave = () => {
+		// ✅ Ustaw timeout przed zamknięciem - daje czas na przejście myszy do dropdown
+		const timeout = setTimeout(() => {
+			setActiveDropdown(null);
+		}, 100); // 100ms opóźnienia
+		setHoverTimeout(timeout);
+	};
 
 	return (
 		<motion.nav
@@ -59,13 +80,16 @@ const DesktopNavbar: React.FC = () => {
 							</motion.a>
 						))}
 
-						{/* Services Dropdown - TUTAJ między Portfolio a O Mnie */}
-						<div className="relative">
+						{/* ✅ FIXED: Services Dropdown z lepszym hover handling */}
+						{/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
+						<div
+							className="relative"
+							onMouseEnter={handleMouseEnter}
+							onMouseLeave={handleMouseLeave}
+						>
 							<motion.button
 								className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-secondary font-bold group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
 								variants={navItemVariants}
-								onMouseEnter={() => setActiveDropdown("services")}
-								onMouseLeave={() => setActiveDropdown(null)}
 							>
 								Usługi
 								<motion.div
@@ -78,11 +102,14 @@ const DesktopNavbar: React.FC = () => {
 								</motion.div>
 							</motion.button>
 
+							{/* ✅ FIXED: Dropdown z lepszym pozycjonowaniem */}
 							<AnimatePresence>
 								{activeDropdown === "services" && (
 									<ServiceDropdown
 										serviceKey="tatuaze"
 										service={services.tatuaze}
+										onMouseEnter={handleMouseEnter}
+										onMouseLeave={handleMouseLeave}
 									/>
 								)}
 							</AnimatePresence>
