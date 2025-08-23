@@ -11,6 +11,14 @@ export const images = {
 		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/karty-tatauzy.webp",
 		alt: "Karty z różnymi projektami przedstawiającymi tatuaże wykonane przez Jowite, Iovi-Ink",
 	},
+	karty_rysunki_1: {
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/karty_rysunki_1.webp",
+		alt: "Karty z rysunkami wykonanymi przez Jowite, Iovi-Ink",
+	},
+	karty_rysunki_2: {
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/karty_rysunki_2.webp",
+		alt: "Karty z rysunkami wykonanymi przez Jowite, Iovi-Ink",
+	},
 	bab_stoi: {
 		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab_stoi.webp",
 		alt: "Jowita - tatuażystka stojąca ze skrzyżowanymi rękami w profesjonalnej pozie, demonstrujaca pewność siebie w wykonywaniu tatuaży",

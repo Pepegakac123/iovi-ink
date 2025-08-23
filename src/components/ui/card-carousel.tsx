@@ -295,7 +295,7 @@ export const CardCarousel: React.FC<CarouselProps> = ({
 											src={image.src}
 											alt={image.alt}
 											fill
-											sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+											sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 40vw"
 											style={{ objectFit: "cover", objectPosition: "center" }} // lub "center top"
 											priority={index < 6}
 											loading={index < 6 ? "eager" : "lazy"}
