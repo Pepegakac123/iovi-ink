@@ -1,5 +1,6 @@
 Galeria nie działa po klikniecu na dowolne zdjecie zawsze wyswietla sie pierwsze
 sa duplikaty w kategori wszystkie
+zdjecia w galerii oryginalna wielkosc 4:5 ma byc plis(sproboujemy)
 Pod galeria te divy z informacjami albo wywalic albo znalezc lepsza alternatywe
 
 Hero karuzela zdjecia ciulowa jakosc

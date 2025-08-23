@@ -295,24 +295,41 @@ export async function getAllTattooImages(): Promise<GroupedTattooImages> {
 		["tattoo-all"],
 	);
 
-	const allImageUrls = portfolios.flatMap(
-		(portfolio) => portfolio.meta.zdjecia,
-	);
-
-	const groupedUrls = {
-		allImages: allImageUrls,
-		damskie: [] as string[],
-		minimalistyczne: [] as string[],
-		kwiatowe: [] as string[],
-		graficzne: [] as string[],
+	// ✅ STEP 1: Zbierz wszystkie URL-e w zbiorach (Sets) dla automatycznej deduplikacji
+	const uniqueSets = {
+		allImages: new Set<string>(),
+		damskie: new Set<string>(),
+		minimalistyczne: new Set<string>(),
+		kwiatowe: new Set<string>(),
+		graficzne: new Set<string>(),
 	};
+
+	// ✅ STEP 2: Dodaj zdjęcia do odpowiednich kategorii (Set zapewnia unikalność)
 	portfolios.forEach((portfolio) => {
 		const type = portfolio.meta.tattoo_type;
+		const images = portfolio.meta.zdjecia || [];
 
-		groupedUrls[type].push(...portfolio.meta.zdjecia);
+		// Dodaj do wszystkich zdjęć
+		// biome-ignore lint/suspicious/useIterableCallbackReturn: <explanation>
+		images.forEach((img) => uniqueSets.allImages.add(img));
+
+		// Dodaj do odpowiedniej kategorii (jeśli istnieje)
+		if (uniqueSets[type]) {
+			// biome-ignore lint/suspicious/useIterableCallbackReturn: <explanation>
+			images.forEach((img) => uniqueSets[type].add(img));
+		}
 	});
 
-	// ✅ Krok 2: Pobierz alt texty dla każdej grupy równolegle
+	// ✅ STEP 3: Przekonwertuj Sets na tablice
+	const groupedUrls = {
+		allImages: Array.from(uniqueSets.allImages),
+		damskie: Array.from(uniqueSets.damskie),
+		minimalistyczne: Array.from(uniqueSets.minimalistyczne),
+		kwiatowe: Array.from(uniqueSets.kwiatowe),
+		graficzne: Array.from(uniqueSets.graficzne),
+	};
+
+	// ✅ STEP 4: Pobierz alt texty dla każdej grupy równolegle
 	const [
 		allImagesWithAlt,
 		kwiatoweWithAlt,
@@ -327,13 +344,13 @@ export async function getAllTattooImages(): Promise<GroupedTattooImages> {
 		mapImagesWithWordPressAlt(groupedUrls.damskie),
 	]);
 
-	// ✅ Krok 3: Zwróć zgrupowane obrazy z alt textami
+	// ✅ STEP 5: Zwróć zgrupowane obrazy z alt textami (bez duplikatów)
 	const result: GroupedTattooImages = {
 		allImages: allImagesWithAlt,
-		damskie: damskieWithAlt,
-		minimalistyczne: minimalistyczneWithAlt,
 		kwiatowe: kwiatoweWithAlt,
+		minimalistyczne: minimalistyczneWithAlt,
 		graficzne: graficzneWithAlt,
+		damskie: damskieWithAlt,
 	};
 	return result;
 }

@@ -1,4 +1,4 @@
-// src/components/TattooGallery.tsx - Animowana galeria tatuaży z modalem
+// src/components/TattooGallery.tsx - FIXED: Zmiana z masonry na grid dla poprawnego indeksowania
 
 "use client";
 
@@ -30,27 +30,30 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 		<div className={`w-full ${className}`}>
 			{/* ✅ Gallery Modal - wraps całą galerię */}
 			<GalleryModal images={images} wrapAround={true}>
-				{/* ✅ Masonry grid dla lepszego układu zdjęć */}
-				<div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+				{/* ✅ FIXED: Zwykły responsive grid zamiast masonry dla poprawnego indeksowania */}
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 					{images.map((image, index) => (
 						<BlurFade
 							key={`${image.src}-${index}`}
-							delay={0.05 * index} // ✅ Staggered animation
+							delay={0.05 * index}
 							duration={0.6}
 							direction="up"
 							offset={20}
 							blur="8px"
-							className="break-inside-avoid mb-4"
+							className="w-full"
 						>
-							<div className="group relative overflow-hidden rounded-md border-2 border-foreground bg-primary-foreground transition-all duration-300 cursor-pointer hover:border-primary hover:shadow-[4px_4px_0px_0px_var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px]">
-								{/* ✅ Mniejsze zdjęcia ~300px wysokości, bez box-shadow */}
-								<div className="relative w-full">
+							{/* ✅ FIXED: data-gallery-index dla prawidłowej identyfikacji */}
+							<div
+								data-gallery-index={index}
+								className="group relative overflow-hidden rounded-md border-2 border-foreground bg-primary-foreground transition-all duration-300 cursor-pointer hover:border-primary hover:shadow-[4px_4px_0px_0px_var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
+							>
+								{/* ✅ FIXED: Proporcje 4:5 (320px x 400px) */}
+								<div className="relative w-full" style={{ aspectRatio: "4/5" }}>
 									<Image
 										src={image.src}
 										alt={image.alt}
-										width={300}
-										height={300}
-										className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105 max-h-[300px]"
+										fill
+										className="object-cover transition-transform duration-500 group-hover:scale-105"
 										sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
 										loading="lazy"
 									/>
@@ -69,13 +72,13 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 
 									{/* ✅ Zoom indicator - subtle icon */}
 									<div className="absolute top-3 right-3 w-8 h-8 bg-background/80 backdrop-blur-sm rounded-full border border-foreground/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-										{/** biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
 										<svg
 											className="w-4 h-4 text-foreground"
 											fill="none"
 											stroke="currentColor"
 											viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg"
+											role="graphics-symbol"
 										>
 											<path
 												strokeLinecap="round"
@@ -92,7 +95,7 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 				</div>
 			</GalleryModal>
 
-			{/* ✅ Counter zdjęć - mniejszy na mobile */}
+			{/* ✅ Counter zdjęć */}
 			<div className="mt-6 md:mt-8 text-center">
 				<p className="text-xs md:text-sm text-muted-foreground font-primary">
 					{images.length} {images.length === 1 ? "zdjęcie" : "zdjęć"}

@@ -1,3 +1,5 @@
+// src/components/ui/card-carousel.tsx - FIXED: Lepsze zdjęcia w karuzeli
+
 "use client";
 
 import React from "react";
@@ -20,10 +22,9 @@ export const CardCarousel: React.FC<CarouselProps> = ({
 	autoplayDelay = 3000,
 	showPagination = true,
 }) => {
-	// Duplikowanie slajdów jeśli jest ich mało - zabezpieczenie przed bugami loop
+	// Duplikowanie slajdów jeśli jest ich mało
 	const extendedImages = React.useMemo(() => {
 		if (images.length < 8) {
-			// Jeśli mamy mniej niż 8 slajdów, duplikujemy je
 			const duplicated = [...images, ...images, ...images];
 			return duplicated.slice(0, Math.max(8, images.length * 2));
 		}
@@ -49,15 +50,15 @@ export const CardCarousel: React.FC<CarouselProps> = ({
     padding-bottom: 60px;
     padding-left: 50px;
     padding-right: 50px;
-    min-height: 570px;
+    min-height: 600px; /* ✅ Zwiększone z 570px */
     position: relative;
   }
   
   .carousel-swiper .swiper-slide {
     background-position: center;
     background-size: cover;
-    width: 280px; /* Zmniejszone dla 4 slajdów */
-    height: 520px;
+    width: 320px; /* ✅ Zwiększone z 280px dla lepszej jakości */
+    height: 560px; /* ✅ Zwiększone z 520px */
     flex-shrink: 0;
     box-sizing: border-box;
     transition: all 0.4s ease;
@@ -66,30 +67,30 @@ export const CardCarousel: React.FC<CarouselProps> = ({
     justify-content: center;
   }
   
-  /* Active slide scaling */
+  /* ✅ FIXED: Zmniejszone skalowanie dla mniej agresywnych transformacji */
   .carousel-swiper .swiper-slide-active {
     z-index: 2;
   }
   
-  /* Previous and next slides slightly smaller */
   .carousel-swiper .swiper-slide-prev img,
   .carousel-swiper .swiper-slide-next img {
-    transform: scale(0.92);
-    opacity: 0.85;
+    transform: scale(0.96); /* ✅ Zwiększone z 0.92 */
+    opacity: 0.9; /* ✅ Zwiększone z 0.85 */
   }
   
-  /* Other slides even smaller */
   .carousel-swiper .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) img {
-    transform: scale(0.88);
-    opacity: 0.7;
+    transform: scale(0.92); /* ✅ Zwiększone z 0.88 */
+    opacity: 0.8; /* ✅ Zwiększone z 0.7 */
   }
   
   .carousel-swiper .swiper-slide img {
     display: block;
     width: 100%;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 16px; /* Zwiększone z 12px do 16px */
+    /* ✅ FIXED: Zachowaj proporcje zamiast force height */
+    height: auto; /* ✅ CHANGED z height: 500px */
+    max-height: 540px; /* ✅ Maksymalna wysokość */
+    object-fit: contain; /* ✅ CHANGED z cover na contain */
+    border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.4s ease;
   }
@@ -98,14 +99,14 @@ export const CardCarousel: React.FC<CarouselProps> = ({
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
   
-  /* Active slide - larger scale */
+  /* ✅ Active slide - no scaling to preserve quality */
   .carousel-swiper .swiper-slide-active img {
     transform: scale(1.0);
   }
   
-  /* Non-active slides - smaller scale */
+  /* ✅ Non-active slides - minimal scaling */
   .carousel-swiper .swiper-slide:not(.swiper-slide-active) img {
-    transform: scale(0.88);
+    transform: scale(0.94); /* ✅ Mniejsze skalowanie */
   }
   
   .carousel-swiper .swiper-pagination {
@@ -143,12 +144,11 @@ export const CardCarousel: React.FC<CarouselProps> = ({
     
     .carousel-swiper .swiper-slide {
       width: 280px;
-      height: 470px;
+      height: 480px; /* ✅ Zwiększone */
     }
     
     .carousel-swiper .swiper-slide img {
-      height: 450px;
-      border-radius: 16px;
+      max-height: 460px; /* ✅ Dostosowane */
     }
     
     .carousel-swiper .swiper-pagination {
@@ -170,17 +170,16 @@ export const CardCarousel: React.FC<CarouselProps> = ({
     }
     
     .carousel-swiper .swiper-slide img {
-      height: 375px;
-      border-radius: 16px;
+      max-height: 375px;
     }
     
-    /* Mobile scaling - mniejsze różnice */
+    /* ✅ Mobile - jeszcze mniejsze skalowanie */
     .carousel-swiper .swiper-slide-active img {
       transform: scale(1.0);
     }
     
     .carousel-swiper .swiper-slide:not(.swiper-slide-active) img {
-      transform: scale(0.92);
+      transform: scale(0.96); /* ✅ Mniejsze skalowanie na mobile */
     }
     
     .carousel-swiper .swiper-pagination {
@@ -209,22 +208,22 @@ export const CardCarousel: React.FC<CarouselProps> = ({
 					<Swiper
 						className="carousel-swiper"
 						modules={[Autoplay, EffectCoverflow, Pagination]}
-						// Coverflow effect settings - dostosowane dla 4 slajdów
+						// Coverflow effect settings
 						effect="coverflow"
 						coverflowEffect={{
 							rotate: 0,
 							stretch: 0,
-							depth: 100, // Zmniejszone dla lepszego efektu z 4 slajdami
-							modifier: 2.5, // Dostosowane dla 4 slajdów
+							depth: 100,
+							modifier: 2.5,
 							slideShadows: false,
 						}}
-						// Core settings - 4 slajdy na desktop
+						// Core settings
 						slidesPerView={4}
 						centeredSlides={true}
-						spaceBetween={32}
-						// Loop settings - ulepszone dla stabilności
-						loop={extendedImages.length >= 8} // Włączamy loop tylko gdy mamy wystarczająco slajdów
-						loopAdditionalSlides={1} // Dodatkowe slajdy dla płynnego loop
+						spaceBetween={36} // ✅ Zwiększone z 32px
+						// Loop settings
+						loop={extendedImages.length >= 8}
+						loopAdditionalSlides={1}
 						grabCursor={true}
 						// Responsive breakpoints
 						breakpoints={{
@@ -236,7 +235,6 @@ export const CardCarousel: React.FC<CarouselProps> = ({
 									depth: 60,
 								},
 							},
-
 							768: {
 								slidesPerView: 2.5,
 								spaceBetween: 25,
@@ -254,16 +252,16 @@ export const CardCarousel: React.FC<CarouselProps> = ({
 								},
 							},
 							1400: {
-								slidesPerView: 4, // 4 slajdy na desktop
-								spaceBetween: 32,
+								slidesPerView: 4,
+								spaceBetween: 36,
 								coverflowEffect: {
 									modifier: 2.5,
 									depth: 100,
 								},
 							},
 							2000: {
-								slidesPerView: 5, // 4 slajdy na desktop
-								spaceBetween: 32,
+								slidesPerView: 5,
+								spaceBetween: 36,
 								coverflowEffect: {
 									modifier: 2.5,
 									depth: 100,
@@ -309,16 +307,20 @@ export const CardCarousel: React.FC<CarouselProps> = ({
 					>
 						{extendedImages.map((image, index) => (
 							<SwiperSlide key={`${image.src}-${index}`}>
-								<div className="w-full h-full">
+								<div className="w-full h-full flex items-center justify-center">
 									<Image
 										src={image.src}
 										alt={image.alt}
-										width={280}
-										height={500}
-										className="w-full h-full object-cover"
-										sizes="(max-width: 640px) 250px, (max-width: 768px) 280px, 280px"
-										priority={index < 6} // Load first 6 images with priority
+										// ✅ FIXED: Większe wymiary dla lepszej jakości
+										width={400} // ✅ Zwiększone z 280px
+										height={500} // ✅ Zachowaj wysokość ale lepszą szerokość
+										className="w-full h-auto" // ✅ FIXED: Usuń object-cover
+										// ✅ FIXED: Lepsze sizes dla karuzeli
+										sizes="(max-width: 640px) 250px, (max-width: 768px) 300px, 400px"
+										priority={index < 6}
 										loading={index < 6 ? "eager" : "lazy"}
+										// ✅ CRITICAL: Dodaj wysoką jakość
+										quality={92} // ✅ ADDED: Wysoka jakość dla karuzeli
 									/>
 								</div>
 							</SwiperSlide>

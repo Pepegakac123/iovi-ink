@@ -1,4 +1,5 @@
-// src/components/gallery/GalleryModal.tsx
+// src/components/gallery/GalleryModal.tsx - POPRAWIONY modal z właściwymi indeksami
+
 "use client";
 
 import React from "react";
@@ -29,7 +30,7 @@ interface GalleryModalProps {
 
 /**
  * Główny komponent modalnej galerii
- * Używa ShadCN Dialog jako podstawy i integruje wszystkie części galerii
+ * FIXED: Prawidłowe przekazywanie indeksów zdjęć
  */
 const GalleryModal: React.FC<GalleryModalProps> = ({
 	images,
@@ -52,6 +53,29 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 	} = galleryModal;
 
 	// ===========================================
+	// CLICK HANDLER - FIXED
+	// ===========================================
+
+	const handleImageClick = (event: React.MouseEvent) => {
+		// ✅ FIXED: Szukamy prawidłowego indeksu z data-gallery-index
+		const target = event.target as HTMLElement;
+		const imageContainer = target.closest(
+			"[data-gallery-index]",
+		) as HTMLElement;
+
+		if (imageContainer) {
+			const imageIndex = parseInt(
+				imageContainer.dataset.galleryIndex || "0",
+				10,
+			);
+			galleryModal.openModal(imageIndex);
+		} else {
+			// Fallback - otwórz pierwsze zdjęcie
+			galleryModal.openModal(0);
+		}
+	};
+
+	// ===========================================
 	// RENDER LOGIC
 	// ===========================================
 
@@ -61,19 +85,11 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 
 	return (
 		<>
-			{/* Trigger - Clone children z dodanym kontekstem */}
-			<div className={className}>
-				{React.Children.map(children, (child, index) =>
-					React.isValidElement(child)
-						? React.cloneElement(child as React.ReactElement<any>, {
-								onClick: () => galleryModal.openModal(index),
-								style: { cursor: "pointer" },
-								role: "button",
-								tabIndex: 0,
-								"aria-label": `Otwórz galerię - zdjęcie ${index + 1}`,
-							})
-						: child,
-				)}
+			{/* ✅ FIXED: Jeden event handler na kontenerze zamiast clonowania children */}
+			{/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
+			{/** biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+			<div className={className} onClick={handleImageClick}>
+				{children}
 			</div>
 
 			{/* Modal Dialog */}
@@ -93,7 +109,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 						"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
 						"duration-300",
 					)}
-					showCloseButton={false} // Własny przycisk zamknięcia
+					showCloseButton={false}
 				>
 					<DialogTitle className="sr-only">
 						Galeria zdjęć - {currentIndex + 1} z {totalCount}

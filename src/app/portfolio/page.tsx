@@ -159,11 +159,11 @@ const PortfolioPage = async () => {
 								transition: { duration: 0.3 },
 							}}
 						>
-							<h3 className="text-lg md:text-xl lg:text-2xl font-primary text-foreground mb-1 md:mb-2">
-								{groupedImages.damskie.length}
+							<h3 className="text-2xl lg:text-4xl font-primary text-foreground mb-1 md:mb-2">
+								∞
 							</h3>
 							<p className="text-xs md:text-sm text-muted-foreground">
-								Damskich wzorów
+								Autorskich szkiców
 							</p>
 						</motion.div>
 
@@ -177,10 +177,10 @@ const PortfolioPage = async () => {
 							}}
 						>
 							<h3 className="text-lg md:text-xl lg:text-2xl font-primary text-foreground mb-1 md:mb-2">
-								{groupedImages.kwiatowe.length}
+								100%
 							</h3>
 							<p className="text-xs md:text-sm text-muted-foreground">
-								Florystycznych
+								Sterylne warunki
 							</p>
 						</motion.div>
 
@@ -194,10 +194,10 @@ const PortfolioPage = async () => {
 							}}
 						>
 							<h3 className="text-lg md:text-xl lg:text-2xl font-primary text-foreground mb-1 md:mb-2">
-								{groupedImages.graficzne.length}
+								0
 							</h3>
 							<p className="text-xs md:text-sm text-muted-foreground">
-								Graficznych
+								Ukrytych kosztów
 							</p>
 						</motion.div>
 					</motion.div>
