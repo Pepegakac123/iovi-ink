@@ -1,4 +1,76 @@
 // Base content section interface - used in multiple meta fields
+/**
+ * Typ dla surowych danych z API (przed transformacją)
+ */
+interface RawUslugiMeta {
+	type: string;
+	name: string;
+	seo_title: string;
+	seo_description: string;
+	seo_keyword: string;
+	hero_subheadline: string;
+	hero_h1: string;
+	hero_intro: string;
+
+	// Sekcje jako obiekty z kluczami 'item-0', 'item-1', etc.
+	dla_kogo_subheadline: string;
+	dla_kogo_h2: string;
+	dla_kogo: Record<string, { h3: string; content: string }>;
+
+	rola_uslugi_subheadline: string;
+	rola_uslugi_h2: string;
+	rola_uslugi: Record<string, { h3: string; content: string }>;
+
+	korzysci_subheadline: string;
+	korzysci_h2: string;
+	korzysci: Record<string, { h3: string; description: string; ikona: string }>;
+
+	punkt_wyrozniajacy_subheadline?: string; // może być wyroznienie_subheadline
+	punkt_wyrozniajacy_h2?: string;
+	wyroznienie_subheadline?: string;
+	wyroznienie_h2?: string;
+	wyroznienie: Record<string, { h3: string; content: string }>;
+
+	specjalizacja_subheadline: string;
+	specjalizacja_h2: string;
+	specjalizacja: Record<string, { h3: string; content: string }>;
+
+	proces_subheadline: string;
+	proces_h2: string;
+	proces: Record<
+		string,
+		{ number: string; title: string; description: string }
+	>;
+
+	dlaczego_ja_subheadline: string;
+	dlaczego_ja_h2: string;
+	dlaczego_ja: Record<string, { h3: string; content: string }>;
+
+	cta_subheadline: string;
+	cta_h2: string;
+	cta: Record<string, { h3: string; content: string }>;
+
+	// Obrazy pozostają bez zmian
+	image_1: string;
+	image_2: string;
+	image_3: string;
+	image_4: string;
+	image_5: string;
+	image_6: string;
+}
+
+/**
+ * Surowa odpowiedź z API (przed transformacją)
+ */
+interface RawJetEngineUsluga {
+	id: number;
+	slug: string;
+	type: string;
+	title: RenderedTitle;
+	meta: RawUslugiMeta;
+	attributes?: number;
+}
+
 interface ContentSection {
 	h3: string;
 	content: string;

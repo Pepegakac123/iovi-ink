@@ -5,9 +5,11 @@ import {
 	GroupedTattooImages,
 	JetEngineUsluga,
 	JetEngineUslugiResponse,
+	RawJetEngineUsluga,
 	TattooPortfolio,
 	TattooTypes,
 } from "./jetPostTypes";
+import { transformServiceData } from "./utils";
 
 // ================================================================
 // SETUP & ERROR HANDLING
@@ -231,7 +233,7 @@ export async function getServiceById(id: number): Promise<JetEngineUsluga> {
  * Cache tags: ["jet-engine", "uslugi", "service-{slug}", "uslugi-basic-fields"]
  */
 export async function getServiceBySlug(slug: string): Promise<JetEngineUsluga> {
-	const services = await jetEngineFetch<JetEngineUslugiResponse>(
+	const rawServices = await jetEngineFetch<RawJetEngineUsluga[]>(
 		"/wp-json/wp/v2/uslugi",
 		{
 			slug: slug,
@@ -240,7 +242,7 @@ export async function getServiceBySlug(slug: string): Promise<JetEngineUsluga> {
 		[`service-${slug}`],
 	);
 
-	if (services.length === 0) {
+	if (rawServices.length === 0) {
 		throw new JETEngineAPIError(
 			`Service with slug "${slug}" not found`,
 			404,
@@ -248,7 +250,8 @@ export async function getServiceBySlug(slug: string): Promise<JetEngineUsluga> {
 		);
 	}
 
-	return services[0];
+	// Przekształć surowe dane na zgodne z interfejsami
+	return transformServiceData(rawServices[0]);
 }
 
 // ================================================================

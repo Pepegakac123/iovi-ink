@@ -72,6 +72,10 @@ export const images = {
 			alt: "Wsparcie podczas gojenia - instrukcje pielęgnacji i możliwość kontaktu z pytaniami przez cały okres gojenia tatuażu",
 		},
 	},
+	plain_proces_card: {
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/plain_proces_card.webp",
+		alt: "Tło kary procesu",
+	},
 	logo: {
 		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/iovi-high-resolution-logo-transparent.png",
 		alt: "Logo Iovi Ink - studio tatuażu prowadzone przez tatuażystkę Jowita",

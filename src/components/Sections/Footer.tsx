@@ -213,25 +213,7 @@ const Footer = () => {
 							Iovi
 						</motion.a>
 					</div>
-					<motion.p className="text-background/60 text-sm">
-						This site is protected by reCAPTCHA and the Google{" "}
-						<a
-							href="https://policies.google.com/privacy"
-							rel="noopener noreferrer"
-							target="_blank"
-							className="text-primary hover:text-accent transition-colors duration-200"
-						>
-							Privacy Policy
-						</a>{" "}
-						and{" "}
-						<a
-							href="https://policies.google.com/terms"
-							className="text-primary hover:text-accent transition-colors duration-200"
-						>
-							Terms of Service
-						</a>{" "}
-						apply.
-					</motion.p>
+
 					<motion.a
 						href="/polityka-prywatnosci"
 						className="text-primary hover:text-accent transition-colors duration-300 text-sm"

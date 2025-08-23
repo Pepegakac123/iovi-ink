@@ -71,7 +71,7 @@ export const services = {
 				name: "Fine Line",
 				desc: "Cienkie linie, szczegółowe",
 				icon: Palette,
-				href: "/uslugi/tatuaze-minimalistyczne",
+				href: "/uslugi/tatuaze-fine-line",
 			},
 			{
 				name: "Delikatne Tatuaże Damskie",

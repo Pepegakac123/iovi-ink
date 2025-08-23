@@ -17,14 +17,14 @@ const TargetAudience = ({
 	return (
 		<motion.section>
 			<motion.div
-				className="container"
+				className="container flex flex-col gap-8 md:gap-16"
 				initial="hidden"
 				whileInView="visible"
 				viewport={{ once: true, margin: "-50px" }}
 				variants={containerVariants}
 			>
 				{/* Header Section - Subheadline i H2 osobno */}
-				<div className="flex flex-col gap-6 md:gap-8 mb-12 md:mb-16">
+				<div className="flex flex-col gap-6 md:gap-8">
 					<Subheadline title={subtitle} />
 					<motion.h2
 						className="heading-primary"
@@ -69,28 +69,36 @@ const TargetAudience = ({
 
 					{/* Image Section - wyśrodkowany względem paragrafów */}
 					<motion.div
-						className="flex justify-center items-center flex-1"
-						variants={imageVariantsRight}
+						className="flex justify-center items-center w-full lg:flex-1"
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{
+							opacity: 1,
+							y: 0,
+							transition: {
+								duration: 0.6,
+								ease: "easeOut",
+							},
+						}}
+						viewport={{ once: true }}
 					>
 						<motion.div
 							whileHover={{
-								scale: 1.03,
-								rotate: -1,
+								scale: 1.02,
 								transition: { duration: 0.4 },
 							}}
 							whileTap={{ scale: 0.98 }}
 							className="group max-w-[400px] w-full"
 						>
 							<div
-								className="relative w-full rounded-md overflow-hidden"
-								style={{ aspectRatio: "4/5" }}
+								className="relative w-full rounded-md overflow-hidden max-h-[600px]"
+								style={{ aspectRatio: "3/4", maxHeight: "600px" }}
 							>
 								<Image
 									src={image.src}
 									alt={image.alt}
 									fill
 									className="object-cover transition-transform duration-500 group-hover:scale-105"
-									sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+									sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 90vw, 600px"
 									loading="lazy"
 									quality={85}
 								/>
