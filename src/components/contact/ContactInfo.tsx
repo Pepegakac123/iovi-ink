@@ -163,7 +163,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ className = "" }) => {
 					Gotowy na pierwszą rozmowę?
 				</motion.h2>
 				<motion.p className="paragraph-secondary">
-					Wybierz najwygodniejszy sposób kontaktu
+					Najszybciej odpisuję na instagramie.
 				</motion.p>
 			</motion.div>
 

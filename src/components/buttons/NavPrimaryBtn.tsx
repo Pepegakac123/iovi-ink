@@ -27,8 +27,8 @@ const NavPrimaryBtn = () => {
 						Bezpłatna Konsultacja
 					</DialogTitle>
 					<DialogDescription className="text-muted-foreground font-text text-sm md:text-base">
-						Napisz do mnie, a omówimy Twój pomysł na tatuaż. Odpowiem w ciągu 24
-						godzin!
+						Napisz do mnie, a omówimy Twój pomysł na tatuaż. Najszybciej
+						odpowiem na instagramie.
 					</DialogDescription>
 				</DialogHeader>
 				<PopupForm />

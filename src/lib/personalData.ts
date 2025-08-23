@@ -37,7 +37,8 @@ export const experienceData: ExperienceItem[] = [
 		position: "TATUAŻYSTKA",
 		company: "LEWUS INK",
 		location: "Mszana Dolna",
-		description: "Specjalizacja w fine line, minimalizm, geometria",
+		description:
+			"Specjalizacja w tatuażach graficznych, minimalistycznych i fine line",
 	},
 	{
 		id: 2,

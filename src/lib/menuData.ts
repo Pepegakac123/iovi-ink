@@ -68,12 +68,6 @@ export const services = {
 				href: "/uslugi/tatuaze/minimalistyczne",
 			},
 			{
-				name: "Geometryczne",
-				desc: "Precyzyjne wzory i kształty",
-				icon: Layers3,
-				href: "/uslugi/tatuaze/geometryczne",
-			},
-			{
 				name: "Fine Line",
 				desc: "Cienkie linie, szczegółowe",
 				icon: Palette,

@@ -34,20 +34,19 @@ export interface UseContactFormReturn {
 	form: ReturnType<typeof useForm<ContactFormData>>;
 	isSubmitting: boolean;
 
-	// File handling
-	files: File[] | null;
-	setFiles: (files: File[] | null) => void;
+	// File handling - FIXED: Nie może być null
+	files: File[];
+	setFiles: (files: File[]) => void;
 	removeFile: (index: number) => void;
 
 	// Form actions
-	onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>; // Fixed: proper event type
+	onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
 	resetForm: () => void;
 
 	// Utilities
 	formatPhone: (value: string) => string;
 	config: ReturnType<typeof getFormConfig>;
 }
-
 // ===========================================
 // MAIN HOOK
 // ===========================================
@@ -66,8 +65,7 @@ export function useContactForm(
 	// ===========================================
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [files, setFiles] = useState<File[] | null>(null);
-
+	const [files, setFiles] = useState<File[]>([]);
 	// Form configuration based on variant
 	const config = getFormConfig(variant);
 
@@ -93,10 +91,12 @@ export function useContactForm(
 	 */
 	const removeFile = useCallback(
 		(indexToRemove: number) => {
-			if (!files) return;
+			if (!files || files.length === 0) return;
 
 			const updatedFiles = files.filter((_, index) => index !== indexToRemove);
-			setFiles(updatedFiles.length > 0 ? updatedFiles : null);
+
+			// ✅ FIXED: Ustaw na pustą tablicę zamiast null jeśli nie ma plików
+			setFiles(updatedFiles.length > 0 ? updatedFiles : []);
 
 			toast.info("Plik został usunięty", {
 				duration: 2000,
@@ -121,7 +121,7 @@ export function useContactForm(
 	 */
 	const resetForm = useCallback(() => {
 		form.reset(defaultFormValues);
-		setFiles(null);
+		setFiles([]); // ✅ FIXED: Pusta tablica zamiast null
 		setIsSubmitting(false);
 	}, [form]);
 

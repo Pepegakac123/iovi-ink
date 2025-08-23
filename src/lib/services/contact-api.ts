@@ -226,7 +226,7 @@ export function getProcessingMessage(fileCount: number): {
 } {
 	return {
 		title: "Przetwarzanie plików...",
-		description: `Konwertowanie ${fileCount} plików na WebP...`,
+		description: `Konwertowanie ${fileCount} plików na mniejszy rozmiar...`,
 	};
 }
 

@@ -5,7 +5,6 @@ import {
 	imageVariantsRight,
 	itemVariants,
 } from "@/lib/variants";
-import { images } from "@/lib/images";
 import { TargetAudienceSectionProps } from "@/lib/dataTypes";
 
 const TargetAudienceSection = ({

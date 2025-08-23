@@ -8,8 +8,8 @@ export const images = {
 		alt: "Portret Jowity - tatuażystki patrzącej wprost z ręką podpierającą głowę, wyrażająca spokój i profesjonalizm w branży tatuaży",
 	},
 	karty_tatuazy: {
-		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/tatuaze_target_audience.webp",
-		alt: "Karty z różnymi projektami tatuaży przedstawiające portfolio artysty",
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/karty-tatauzy.webp",
+		alt: "Karty z różnymi projektami przedstawiającymi tatuaże wykonane przez Jowite, Iovi-Ink",
 	},
 	bab_stoi: {
 		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab_stoi.webp",

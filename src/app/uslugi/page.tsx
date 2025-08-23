@@ -8,18 +8,6 @@ import { containerVariants, itemVariants } from "@/lib/variants";
 import { contactHome, procesHome } from "@/lib/data";
 
 // ===========================================
-// METADATA & SEO
-// ===========================================
-
-export const metadata = {
-	title: "Usługi Tatuażu | Jowita - IOVI INK",
-	description:
-		"Profesjonalne usługi tatuażu - minimalistyczne, geometryczne, fine line i inne style. Każdy projekt dostosowany do Twoich potrzeb.",
-	keywords:
-		"usługi tatuażu, minimalistyczne tatuaże, geometryczne tatuaże, fine line, tatuażysta Mszana Dolna, indywidualne projekty",
-};
-
-// ===========================================
 // MAIN SERVICES PAGE COMPONENT
 // ===========================================
 

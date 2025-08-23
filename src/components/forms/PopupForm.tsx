@@ -23,7 +23,6 @@ import {
 	FormSection,
 	AnimatedFieldWrapper,
 } from "@/components/forms/ContactFormField";
-import InstagramBtn from "../buttons/InstragramBtn";
 import Image from "next/image";
 import { ICONS } from "@/lib/icons";
 import { socialLinks } from "@/lib/data";

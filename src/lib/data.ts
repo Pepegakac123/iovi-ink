@@ -182,7 +182,7 @@ export const contactHome: ContactProps = {
 	subheadline: "Napisz – pogadamy o szczegółach",
 	title: "Gotowy na Rozmowę o Twoim Projekcie?",
 	description:
-		"Marzysz o unikalnym tatuażu? Jestem tutaj, żeby tchnąć życie w Twoje pomysły. Pierwsza rozmowa jest zawsze bezpłatna.",
+		"Marzysz o unikalnym tatuażu? Jestem tutaj, żeby tchnąć życie w Twoje pomysły. Pierwsza rozmowa jest zawsze bezpłatna. Na instagramie odpisuję najszybciej.",
 };
 
 export const socialLinks = {

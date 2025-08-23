@@ -1,3 +1,5 @@
+// src/components/forms/ContactForm.tsx - FIXED: Akumulacja plików zamiast zastępowania
+
 "use client";
 import React from "react";
 import * as motion from "motion/react-client";
@@ -16,7 +18,6 @@ import InstagramBtn from "../buttons/InstragramBtn";
 // Imports from refactored structure
 import { useMainContactForm } from "@/hooks/useContactFormField";
 import { getFormStyles, getFormMotion } from "@/lib/config/form-config";
-// USUNIĘTY: import { containerVariants, itemVariants } from "@/lib/variants";
 import {
 	NameField,
 	EmailField,
@@ -56,6 +57,55 @@ export default function ContactForm() {
 	const styles = getFormStyles("main");
 	const motionPresets = getFormMotion("main");
 
+	const handleFilesChange = (newFiles: File[] | null) => {
+		if (!newFiles || newFiles.length === 0) {
+			return;
+		}
+
+		// ✅ Sprawdź czy to są nowe pliki czy zastąpienie
+		if (!files || files.length === 0) {
+			// Pierwsza batch plików - ustaw bezpośrednio
+			setFiles(newFiles);
+			return;
+		}
+
+		// ✅ Dodaj nowe pliki do istniejących (akumulacja)
+		const existingFiles = files || [];
+		const combinedFiles = [...existingFiles];
+
+		// Dodaj tylko te pliki, które jeszcze nie istnieją (sprawdź po nazwie i rozmiarze)
+		for (const newFile of newFiles) {
+			const isDuplicate = existingFiles.some(
+				(existingFile) =>
+					existingFile.name === newFile.name &&
+					existingFile.size === newFile.size &&
+					existingFile.lastModified === newFile.lastModified,
+			);
+
+			if (!isDuplicate) {
+				combinedFiles.push(newFile);
+			}
+		}
+
+		// ✅ Sprawdź limit plików
+		if (combinedFiles.length > config.files.maxFiles) {
+			const excessCount = combinedFiles.length - config.files.maxFiles;
+			// Ogranicz do maksymalnej liczby plików (zachowaj najnowsze)
+			const limitedFiles = combinedFiles.slice(-config.files.maxFiles);
+			setFiles(limitedFiles);
+
+			// Pokaż informację o limicie
+			if (excessCount > 0) {
+				// Można dodać toast tutaj jeśli potrzebne
+				console.warn(
+					`Maksymalnie ${config.files.maxFiles} plików. Usunięto ${excessCount} najstarszych.`,
+				);
+			}
+		} else {
+			setFiles(combinedFiles);
+		}
+	};
+
 	return (
 		<div className="w-full mx-auto">
 			{/* Brutal Design Form Container */}
@@ -73,7 +123,7 @@ export default function ContactForm() {
 						initial="hidden"
 						animate="visible"
 					>
-						{/* Header Row: Name, Email, Phone - SPÓJNE ANIMACJE */}
+						{/* Header Row: Name, Email, Phone */}
 						<motion.div variants={motionPresets.field.main}>
 							<FormSection variant="main">
 								<AnimatedFieldWrapper variant="main">
@@ -97,18 +147,17 @@ export default function ContactForm() {
 							</FormSection>
 						</motion.div>
 
-						{/* Large Text Area - SPÓJNE ANIMACJE */}
+						{/* Large Text Area */}
 						<motion.div variants={motionPresets.field.main}>
 							<DescriptionField form={form} variant="main" rows={6} />
 						</motion.div>
 
-						{/* File Upload Section - SPÓJNE ANIMACJE */}
+						{/* ✅ FIXED: File Upload Section z poprawnym handlingiem */}
 						<motion.div variants={motionPresets.field.main}>
 							<div className="space-y-2">
 								<motion.label
 									htmlFor="fileInput"
 									className="text-foreground font-primary text-sm font-bold uppercase inline-block"
-									// ZMIENIONE: użycie spójnego systemu
 								>
 									Prześlij wzór
 									<span className="text-xs text-muted-foreground font-normal normal-case ml-1">
@@ -120,9 +169,9 @@ export default function ContactForm() {
 								<motion.div>
 									<FileUploader
 										value={files}
-										onValueChange={setFiles}
+										onValueChange={handleFilesChange}
 										dropzoneOptions={config.files}
-										className="relative bg-secondary border-2 border-dashed hover:border-accent border-foreground rounded-md"
+										className="relative bg-secondary border-3 border-dashed hover:border-accent border-foreground rounded-md"
 									>
 										{/** biome-ignore lint/correctness/useUniqueElementIds: <explanation> */}
 										<FileInput id="fileInput" className="">
@@ -170,7 +219,7 @@ export default function ContactForm() {
 													files.length > 0 &&
 													files.map((file, i) => (
 														<motion.div
-															key={`${file.name}-${i}`}
+															key={`${file.name}-${file.size}-${i}`} // ✅ Lepszy key
 															initial={{ opacity: 0, x: -20, scale: 0.8 }}
 															animate={{ opacity: 1, x: 0, scale: 1 }}
 															exit={{
@@ -207,6 +256,9 @@ export default function ContactForm() {
 																</motion.div>
 																<span className="font-text text-foreground text-sm font-medium">
 																	{file.name}
+																	<span className="text-xs text-muted-foreground ml-2">
+																		({(file.size / 1024 / 1024).toFixed(1)}MB)
+																	</span>
 																</span>
 															</FileUploaderItem>
 														</motion.div>
@@ -218,7 +270,7 @@ export default function ContactForm() {
 							</div>
 						</motion.div>
 
-						{/* Submit Section - SPÓJNE ANIMACJE */}
+						{/* Submit Section */}
 						<motion.div
 							className="flex gap-4 flex-col w-full items-center justify-center pt-6"
 							variants={motionPresets.field.main}
@@ -249,18 +301,17 @@ export default function ContactForm() {
 							>
 								{isSubmitting ? (
 									<>
-										<Loader2 className="h-5 w-5 animate-spin" />
-										WYSYŁANIE...
+										<Loader2 className="w-5 h-5 animate-spin" />
+										Wysyłam...
 									</>
 								) : (
 									<>
-										WYŚLIJ
-										<Send className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+										<Send className="w-5 h-5" />
+										Wyślij wiadomość
 									</>
 								)}
 							</motion.button>
 
-							{/* Separator */}
 							<motion.span
 								className="text-foreground uppercase text-lg md:text-xl font-primary font-bold"
 								variants={motionPresets.span.main}
@@ -274,18 +325,28 @@ export default function ContactForm() {
 							</motion.span>
 
 							{/* Instagram Button */}
-							<motion.div className="w-full" variants={motionPresets.div.main}>
+							<motion.div
+								className="w-full flex justify-center"
+								whileHover={{ scale: 1.02 }}
+								whileTap={{ scale: 0.98 }}
+							>
 								<InstagramBtn
-									text="SKONTAKTUJ SIĘ PRZEZ INSTAGRAM"
 									link={socialLinks.iovi.instagram}
+									text="Napisz na Instagramie"
 								/>
 							</motion.div>
+
+							{/* Footer Text */}
+							<motion.p className="paragraph-small-muted text-center max-w-md">
+								Otrzymasz odpowiedź w ciągu 24 godzin. Pierwsza konsultacja jest{" "}
+								<span className="text-primary font-semibold">bezpłatna</span>.
+							</motion.p>
 						</motion.div>
+
+						{/* Floating Elements */}
+						<FloatingElements variant="section" />
 					</motion.form>
 				</Form>
-
-				{/* Decorative Elements */}
-				<FloatingElements variant="card" />
 			</motion.div>
 		</div>
 	);
