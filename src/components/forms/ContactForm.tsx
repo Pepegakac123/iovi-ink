@@ -146,12 +146,10 @@ export default function ContactForm() {
 								</motion.div>
 							</FormSection>
 						</motion.div>
-
 						{/* Large Text Area */}
 						<motion.div variants={motionPresets.field.main}>
 							<DescriptionField form={form} variant="main" rows={6} />
 						</motion.div>
-
 						{/* ✅ FIXED: File Upload Section z poprawnym handlingiem */}
 						<motion.div variants={motionPresets.field.main}>
 							<div className="space-y-2">
@@ -342,7 +340,6 @@ export default function ContactForm() {
 								<span className="text-primary font-semibold">bezpłatna</span>.
 							</motion.p>
 						</motion.div>
-
 						{/* Floating Elements */}
 						<FloatingElements variant="section" />
 					</motion.form>

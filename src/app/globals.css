@@ -194,6 +194,9 @@
 	.placeholder-transition:focus::placeholder {
 		opacity: 0;
 	}
+	.grecaptcha-badge {
+		visibility: hidden;
+	}
 }
 
 /* Phone Input styling specjalne dla brutal design */
