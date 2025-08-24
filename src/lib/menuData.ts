@@ -91,7 +91,7 @@ export const services = {
 			},
 			{
 				name: "Delikatne Tatuaże Damskie",
-				desc: "Romantyczne i eleganckie wzory podkreślające kobiecość",
+				desc: "Subtelne i eleganckie wzory podkreślające kobiecość",
 				icon: Heart, // Heart = kobiecość, emocje
 				href: "/uslugi/delikatne-tatuaze-damskie",
 			},

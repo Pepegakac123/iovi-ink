@@ -1,5 +1,4 @@
-// src/components/gallery/GalleryModal.tsx - POPRAWIONY modal z właściwymi indeksami
-
+// src/components/gallery/GalleryModal.tsx
 "use client";
 
 import React from "react";
@@ -25,12 +24,12 @@ interface GalleryModalProps {
 }
 
 // ===========================================
-// MAIN COMPONENT
+// 🔧 QUICK FIXED GALLERY MODAL
 // ===========================================
 
 /**
- * Główny komponent modalnej galerii
- * FIXED: Prawidłowe przekazywanie indeksów zdjęć
+ * ✅ QUICK FIX: Usunięte referencje do nieistniejącego isImageLoading
+ * ✅ Zachowana cała reszta funkcjonalności
  */
 const GalleryModal: React.FC<GalleryModalProps> = ({
 	images,
@@ -53,11 +52,10 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 	} = galleryModal;
 
 	// ===========================================
-	// CLICK HANDLER - FIXED
+	// CLICK HANDLER (unchanged)
 	// ===========================================
 
 	const handleImageClick = (event: React.MouseEvent) => {
-		// ✅ FIXED: Szukamy prawidłowego indeksu z data-gallery-index
 		const target = event.target as HTMLElement;
 		const imageContainer = target.closest(
 			"[data-gallery-index]",
@@ -70,7 +68,6 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 			);
 			galleryModal.openModal(imageIndex);
 		} else {
-			// Fallback - otwórz pierwsze zdjęcie
 			galleryModal.openModal(0);
 		}
 	};
@@ -85,9 +82,9 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 
 	return (
 		<>
-			{/* ✅ FIXED: Jeden event handler na kontenerze zamiast clonowania children */}
-			{/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
-			{/** biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+			{/* Gallery Trigger Container */}
+			{/** biome-ignore lint/a11y/noStaticElementInteractions: Gallery click handler */}
+			{/** biome-ignore lint/a11y/useKeyWithClickEvents: Gallery click handler */}
 			<div className={className} onClick={handleImageClick}>
 				{children}
 			</div>
@@ -98,7 +95,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 					className={cn(
 						// Mobile: fullscreen
 						"w-full h-full max-w-none max-h-none p-0",
-						// Desktop: NARROWER for portrait images
+						// Desktop: optimized size
 						"md:w-[70vw] md:h-[85vh] md:max-w-[800px] md:max-h-[900px]",
 						// Brutalist styling
 						"border-2 border-foreground rounded-md",
@@ -114,6 +111,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 					<DialogTitle className="sr-only">
 						Galeria zdjęć - {currentIndex + 1} z {totalCount}
 					</DialogTitle>
+
 					<motion.div
 						className="relative w-full h-full flex flex-col"
 						initial={{ opacity: 0 }}
@@ -121,7 +119,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.3 }}
 					>
-						{/* Header z licznikiem i przyciskiem zamknięcia */}
+						{/* 🔧 SIMPLIFIED Header - bez isImageLoading */}
 						<motion.div
 							className="flex items-center justify-between p-4 border-b-2 border-foreground bg-primary-foreground"
 							initial={{ y: -20, opacity: 0 }}
@@ -156,14 +154,14 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 							{currentImage && (
 								<ImageViewer
 									image={currentImage}
-									isLoading={false}
+									isLoading={false} // 🔧 FIXED: Uproszczone - ImageViewer sam zarządza loading
 									onNext={canGoNext ? nextImage : undefined}
 									onPrev={canGoPrev ? prevImage : undefined}
 								/>
 							)}
 						</motion.div>
 
-						{/* Navigation - tylko na desktop dla lepszego UX */}
+						{/* Navigation - Desktop */}
 						<motion.div
 							className="hidden md:block"
 							initial={{ y: 20, opacity: 0 }}
@@ -177,12 +175,13 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 								onNext={nextImage}
 								currentIndex={currentIndex}
 								totalCount={totalCount}
+								// 🔧 REMOVED: isDisabled prop (nie ma isImageLoading)
 							/>
 						</motion.div>
 
 						{/* Mobile Navigation - overlay buttons */}
 						<div className="md:hidden">
-							{/* Previous Button - Left Side */}
+							{/* Previous Button */}
 							{canGoPrev && (
 								<motion.div
 									className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10"
@@ -194,6 +193,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 										variant="outline"
 										size="icon"
 										onClick={prevImage}
+										// 🔧 REMOVED: disabled={isImageLoading}
 										className={cn(
 											"w-12 h-12 rounded-full border-2 border-foreground",
 											"bg-background/90 backdrop-blur-sm",
@@ -208,7 +208,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 								</motion.div>
 							)}
 
-							{/* Next Button - Right Side */}
+							{/* Next Button */}
 							{canGoNext && (
 								<motion.div
 									className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10"
@@ -220,6 +220,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 										variant="outline"
 										size="icon"
 										onClick={nextImage}
+										// 🔧 REMOVED: disabled={isImageLoading}
 										className={cn(
 											"w-12 h-12 rounded-full border-2 border-foreground",
 											"bg-background/90 backdrop-blur-sm",

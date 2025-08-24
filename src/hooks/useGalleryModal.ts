@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 // ===========================================
-// TYPES
+// TYPES (unchanged)
 // ===========================================
 
 export interface GalleryImage {
@@ -39,21 +39,23 @@ export interface UseGalleryModalReturn {
 }
 
 // ===========================================
-// MAIN HOOK
+// 🔧 SIMPLE IMPROVED HOOK
 // ===========================================
 
 /**
- * Hook do zarządzania stanem modalnej galerii obrazów
- * Obsługuje keyboard navigation, preloading i edge cases
+ * ✅ SIMPLE FIX: Hook do zarządzania stanem modalnej galerii obrazów
+ * 🔧 Fixed: Better preloading without complex state management
+ * 🔧 Fixed: More predictable behavior
+ * ✅ Preserved: All existing working functionality
  */
 export function useGalleryModal(
 	galleryImages: GalleryImage[] = [],
 	options: UseGalleryModalOptions = {},
 ): UseGalleryModalReturn {
-	const { wrapAround = true, preloadCount = 1 } = options;
+	const { wrapAround = true, preloadCount = 2 } = options; // 🆕 Default to 2 for better UX
 
 	// ===========================================
-	// STATE MANAGEMENT
+	// STATE MANAGEMENT (unchanged)
 	// ===========================================
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +63,7 @@ export function useGalleryModal(
 	const [images] = useState<GalleryImage[]>(galleryImages);
 
 	// ===========================================
-	// COMPUTED VALUES
+	// COMPUTED VALUES (unchanged)
 	// ===========================================
 
 	const totalCount = images.length;
@@ -71,7 +73,7 @@ export function useGalleryModal(
 	const canGoNext = wrapAround ? totalCount > 1 : currentIndex < totalCount - 1;
 
 	// ===========================================
-	// NAVIGATION FUNCTIONS
+	// NAVIGATION FUNCTIONS (unchanged)
 	// ===========================================
 
 	const openModal = useCallback(
@@ -118,7 +120,7 @@ export function useGalleryModal(
 	}, [canGoPrev, wrapAround, totalCount]);
 
 	// ===========================================
-	// KEYBOARD NAVIGATION
+	// KEYBOARD NAVIGATION (unchanged)
 	// ===========================================
 
 	useEffect(() => {
@@ -155,38 +157,57 @@ export function useGalleryModal(
 	}, [isOpen, nextImage, prevImage, closeModal]);
 
 	// ===========================================
-	// PRELOADING EFFECT
+	// 🆕 IMPROVED PRELOADING EFFECT
 	// ===========================================
 
 	useEffect(() => {
-		if (!isOpen || preloadCount <= 0) return;
+		if (!isOpen || preloadCount <= 0 || totalCount <= 1) return;
 
-		// Preload images around current index
-		const imagesToPreload: string[] = [];
+		// 🔧 Simple but effective preloading
+		const preloadImages = () => {
+			const imagesToPreload: string[] = [];
 
-		for (let i = 1; i <= preloadCount; i++) {
-			// Next images
-			const nextIndex = (currentIndex + i) % totalCount;
-			if (images[nextIndex]) {
-				imagesToPreload.push(images[nextIndex].src);
+			// Preload images around current index
+			for (let i = 1; i <= preloadCount; i++) {
+				// Next images
+				const nextIndex = (currentIndex + i) % totalCount;
+				if (images[nextIndex]) {
+					imagesToPreload.push(images[nextIndex].src);
+				}
+
+				// Previous images
+				const prevIndex = (currentIndex - i + totalCount) % totalCount;
+				if (images[prevIndex]) {
+					imagesToPreload.push(images[prevIndex].src);
+				}
 			}
 
-			// Previous images
-			const prevIndex = (currentIndex - i + totalCount) % totalCount;
-			if (images[prevIndex]) {
-				imagesToPreload.push(images[prevIndex].src);
-			}
-		}
+			// 🆕 IMPROVED: Create Image objects for preloading with error handling
+			imagesToPreload.forEach((src) => {
+				const img = new Image();
 
-		// Create Image objects for preloading
-		imagesToPreload.forEach((src) => {
-			const img = new Image();
-			img.src = src;
-		});
+				// 🆕 Add error handling to prevent console errors
+				img.onerror = () => {
+					console.warn(`Failed to preload image: ${src}`);
+				};
+
+				// 🆕 Optional: Add onload for debugging (remove in production)
+				// img.onload = () => console.log(`Preloaded: ${src}`);
+
+				img.src = src;
+			});
+		};
+
+		// 🆕 Small delay to avoid preloading during rapid navigation
+		const preloadTimeout = setTimeout(preloadImages, 100);
+
+		return () => {
+			clearTimeout(preloadTimeout);
+		};
 	}, [isOpen, currentIndex, images, preloadCount, totalCount]);
 
 	// ===========================================
-	// BODY SCROLL LOCK
+	// BODY SCROLL LOCK (unchanged)
 	// ===========================================
 
 	useEffect(() => {
@@ -202,7 +223,7 @@ export function useGalleryModal(
 	}, [isOpen]);
 
 	// ===========================================
-	// RETURN OBJECT
+	// RETURN OBJECT (unchanged)
 	// ===========================================
 
 	return {
