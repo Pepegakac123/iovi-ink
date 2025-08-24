@@ -15,7 +15,12 @@ const TargetAudience = ({
 	image,
 }: ServiceTargetAudienceSectionProps) => {
 	return (
-		<motion.section>
+		<motion.section
+			initial="hidden"
+			whileInView="visible"
+			viewport={{ once: true, margin: "-50px" }}
+			variants={containerVariants}
+		>
 			<motion.div
 				className="container flex flex-col gap-8 md:gap-16"
 				initial="hidden"

@@ -15,7 +15,6 @@ const ServiceBenefitsSection = ({
 }: ServiceBenefitsSectionProps) => {
 	return (
 		<motion.section
-			className="py-16 md:py-20"
 			initial="hidden"
 			whileInView="visible"
 			viewport={{ once: true, margin: "-50px" }}
@@ -29,7 +28,7 @@ const ServiceBenefitsSection = ({
 					</motion.div>
 
 					<motion.h2
-						className="heading-primary"
+						className="heading-primary max-w-2xl"
 						variants={itemVariants}
 						whileHover={{
 							scale: 1.02,

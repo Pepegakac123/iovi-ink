@@ -17,11 +17,7 @@ const ServiceBenefitsCard = ({
 }: ServiceBenefitsCardProps) => {
 	return (
 		<motion.div
-			className="w-full h-full flex flex-col relative bg-gradient-to-120 from-background to-accent border-2 border-foreground border-b-4 border-r-4 rounded-md overflow-hidden group cursor-default"
-			style={{
-				background:
-					"linear-gradient(120deg, hsl(var(--background)), hsl(var(--accent)))",
-			}}
+			className="w-full h-full flex flex-col relative bg-gradient-to-r from-background/20 to-accent/20 border-2 border-foreground border-b-4 border-r-4 rounded-md overflow-hidden group cursor-default"
 			variants={cardVariantsProcess}
 			whileHover={{
 				scale: 1.02,

@@ -6,30 +6,29 @@ import Subheadline from "../Subheadline";
 import ServiceProcessCard from "./ServiceProcessCard";
 import { containerVariants, itemVariants, gridVariants } from "@/lib/variants";
 import { ServiceProcessSectionProps } from "./servicePage";
+import PrimaryBtn from "../buttons/PrimaryBtn";
 
 const ServiceProcessSection = ({
 	title,
 	subtitle,
 	processSteps,
-	image,
 }: ServiceProcessSectionProps) => {
 	return (
 		<motion.section
-			className="py-16 md:py-20"
 			initial="hidden"
 			whileInView="visible"
 			viewport={{ once: true, margin: "-50px" }}
 			variants={containerVariants}
 		>
-			<div className="container">
+			<div className="container flex flex-col gap-4 md:gap-8">
 				{/* Header Section */}
-				<div className="flex flex-col gap-6 md:gap-8 mb-12 md:mb-16 items-start">
+				<div className="flex flex-col gap-4 items-start">
 					<motion.div variants={itemVariants}>
 						<Subheadline title={subtitle} />
 					</motion.div>
 
 					<motion.h2
-						className="heading-primary"
+						className="heading-primary max-w-2xl"
 						variants={itemVariants}
 						whileHover={{
 							scale: 1.02,
@@ -43,9 +42,9 @@ const ServiceProcessSection = ({
 				{/* Content Layout - Cards po lewej, sticky obraz po prawej */}
 				<div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:items-start">
 					{/* Process Cards - lewa strona */}
-					<motion.div className="lg:w-1/2 lg:pr-8" variants={containerVariants}>
+					<motion.div className="w-full" variants={containerVariants}>
 						<motion.div
-							className="grid grid-cols-1 gap-6 md:gap-8"
+							className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
 							variants={gridVariants}
 						>
 							{processSteps.map((step, index) => (
@@ -66,31 +65,9 @@ const ServiceProcessSection = ({
 							))}
 						</motion.div>
 					</motion.div>
-
-					{/* Sticky Image - prawa strona */}
-					<motion.div
-						className="lg:w-1/2 lg:sticky lg:top-[120px] lg:self-start"
-						variants={itemVariants}
-					>
-						<motion.div
-							className="relative w-full rounded-md overflow-hidden group max-h-[500px]"
-							whileHover={{
-								scale: 1.02,
-								transition: { duration: 0.4 },
-							}}
-							style={{ aspectRatio: "3/4", maxHeight: "500px" }}
-						>
-							<Image
-								src={image.src}
-								alt={image.alt}
-								fill
-								className="object-cover transition-transform duration-500 group-hover:scale-105"
-								sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 90vw, 600px"
-								loading="lazy"
-								quality={95}
-							/>
-						</motion.div>
-					</motion.div>
+				</div>
+				<div className="flex justify-center items-center">
+					<PrimaryBtn />
 				</div>
 			</div>
 		</motion.section>

@@ -10,10 +10,11 @@ const ServiceDistinguishingSection = ({
 	title,
 	subtitle,
 	distinguishingItems,
+	bgVariant = "dark",
 }: ServiceDistinguishingSectionProps) => {
 	return (
 		<motion.section
-			className="w-full bg-foreground py-16 md:py-20"
+			className={`w-full  ${bgVariant === "dark" ? "bg-foreground" : "bg-background"}`}
 			initial="hidden"
 			whileInView="visible"
 			viewport={{ once: true, margin: "-50px" }}
@@ -30,7 +31,7 @@ const ServiceDistinguishingSection = ({
 					</motion.div>
 
 					<motion.h2
-						className="heading-primary-inverted"
+						className={` ${bgVariant === "dark" ? "heading-primary-inverted" : "heading-primary"}`}
 						variants={itemVariants}
 						whileHover={{
 							scale: 1.02,
@@ -59,6 +60,7 @@ const ServiceDistinguishingSection = ({
 								<ServiceDistinguishingCard
 									title={item.h3}
 									content={item.content}
+									variant={bgVariant}
 								/>
 							</motion.div>
 						))}

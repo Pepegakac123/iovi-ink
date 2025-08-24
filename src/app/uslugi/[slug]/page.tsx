@@ -12,6 +12,13 @@ import {
 	mapImagesWithWordPressAlt,
 } from "@/lib/jetApi";
 import ServiceBenefitsSection from "@/components/servicePagesComponents/ServiceBenefitsSection";
+import ServiceWhyMeSection from "@/components/servicePagesComponents/ServiceWhyMeSection";
+import ServiceCta from "@/components/servicePagesComponents/serviceCta";
+import * as motion from "motion/react-client";
+import { containerVariants } from "@/lib/variants";
+import Services from "@/components/Sections/Services";
+import { servicesHome } from "@/lib/data";
+import CarouselSections from "@/components/Sections/CarouselSections";
 
 export async function generateStaticParams() {
 	const services = await getAllServices();
@@ -49,13 +56,46 @@ async function Page({ params }: { params: { slug: string } }) {
 				title={meta.korzysci_h2}
 				subtitle={meta.korzysci_subheadline}
 				benefits={meta.korzysci}
-				image={images[3] || images[0]}
+				image={images[4] || images[0]}
 			/>
 			<ServiceDistinguishingSection
 				title={meta.wyroznienie_h2}
 				subtitle={meta.wyroznienie_subheadline}
 				distinguishingItems={meta.wyroznienie}
+				bgVariant="dark"
 			/>
+			<ServiceProcessSection
+				title={meta.proces_h2}
+				subtitle={meta.proces_subheadline}
+				processSteps={meta.proces}
+			/>
+			<ServiceDistinguishingSection
+				title={meta.specjalizacja_h2}
+				subtitle={meta.specjalizacja_subheadline}
+				distinguishingItems={meta.specjalizacja_1}
+				bgVariant="light"
+			/>
+			<ServiceWhyMeSection
+				title={meta.dlaczego_ja_h2}
+				subtitle={meta.dlaczego_ja_subheadline}
+				whyMeItems={meta.dlaczego_ja}
+				image={images[5] || images[0]}
+			/>
+			<ServiceCta
+				title={meta.cta_h2}
+				subtitle={meta.cta_subheadline}
+				ctaItems={meta.cta}
+			/>
+			<motion.section
+				className="bg-foreground"
+				initial="hidden"
+				whileInView="visible"
+				viewport={{ once: true, margin: "-50px" }}
+				variants={containerVariants}
+			>
+				<Services {...servicesHome} />
+			</motion.section>
+			<CarouselSections />
 		</>
 	);
 }

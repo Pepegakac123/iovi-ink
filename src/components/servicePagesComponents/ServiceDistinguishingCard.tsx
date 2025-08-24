@@ -6,19 +6,24 @@ import { cardVariantsFast } from "@/lib/variants";
 interface ServiceDistinguishingCardProps {
 	title: string;
 	content: string;
+	variant: "dark" | "light";
 }
 
 const ServiceDistinguishingCard = ({
 	title,
 	content,
+	variant = "dark",
 }: ServiceDistinguishingCardProps) => {
 	return (
 		<motion.div
-			className="w-full h-full bg-background border-2 border-accent rounded-md p-6 md:p-8 group cursor-default"
-			variants={cardVariantsFast}
+			className={`w-full h-full bg-background rounded-md p-6 md:p-8 group cursor-default 
+        border-2 ${variant === "dark" ? "border-accent" : "border-foreground"}`}
 			whileHover={{
 				scale: 1.02,
-				boxShadow: "6px 6px 0px 0px var(--accent)",
+				boxShadow:
+					variant === "dark"
+						? "6px 6px 0px 0px var(--accent)"
+						: "6px 6px 0px 0px var(--foreground)",
 				transition: { duration: 0.2 },
 			}}
 			whileTap={{ scale: 0.98 }}

@@ -1,4 +1,3 @@
-"use client";
 import Subheadline from "../Subheadline";
 import ContactForm from "../forms/ContactForm";
 import * as motion from "motion/react-client";
@@ -31,7 +30,7 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 				<div className="flex flex-col lg:flex-row gap-8 lg:items-start">
 					{/* Content Column - sticky content */}
 					<motion.div
-						className="lg:w-1/2 lg:pr-8 lg:sticky top-8 self-start"
+						className="lg:w-1/2 lg:pr-8 lg:sticky lg:top-30 self-start"
 						variants={stickyContentVariants}
 					>
 						<div className="gap-4 flex flex-col">

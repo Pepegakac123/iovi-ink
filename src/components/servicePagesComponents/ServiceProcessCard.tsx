@@ -3,6 +3,7 @@
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import { cardVariantsProcess, contentVariants } from "@/lib/variants";
+import { images } from "@/lib/images";
 
 interface ServiceProcessCardProps {
 	number: string;
@@ -38,7 +39,7 @@ const ServiceProcessCard = ({
 					transition={{ duration: 0.4, ease: "easeOut" }}
 				>
 					<Image
-						src="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/plain_proces_card.webp"
+						src={images.plain_proces_card.src}
 						alt="Tło karty procesu"
 						fill
 						className="object-cover object-right"

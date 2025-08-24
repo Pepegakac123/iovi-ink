@@ -79,7 +79,6 @@ export type ServiceProcessSectionProps = {
 	title: string;
 	subtitle: string;
 	processSteps: ServiceProcessStep[];
-	image: ServiceImage;
 };
 
 // ================================================================
@@ -126,4 +125,5 @@ export type ServiceDistinguishingSectionProps = {
 	title: string;
 	subtitle: string;
 	distinguishingItems: ServiceDistinguishingItem[];
+	bgVariant?: "dark" | "light";
 };
