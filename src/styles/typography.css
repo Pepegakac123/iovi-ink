@@ -45,60 +45,63 @@
 
 /* Domyślny paragraf */
 .paragraph-base {
-	@apply text-base text-foreground;
+	@apply text-base text-foreground font-text;
 }
 
 /* Paragraf dla sekcji z ciemnym tłem */
 .paragraph-base-inverted {
-	@apply text-base text-background;
+	@apply text-base text-background font-text;
 }
 
 /* Paragraf z font-text */
 .paragraph-secondary {
-	@apply text-base font-text text-foreground;
+	@apply text-base font-text text-foreground font-text;
 }
 
 /* Paragraf mały */
 .paragraph-small {
-	@apply text-sm text-foreground;
+	@apply text-sm text-foreground font-text;
 }
 
 /* Paragraf mały wyciszony */
 .paragraph-small-muted {
-	@apply text-sm text-muted-foreground;
+	@apply text-sm text-muted-foreground font-text;
 }
 
 /* Paragraf z opacity */
 .paragraph-muted {
-	@apply text-base text-foreground/80;
+	@apply text-base text-foreground/80 font-text;
 }
 
 /* Paragraf Hero (większy) */
 .paragraph-hero {
-	@apply text-base lg:text-lg font-text text-foreground;
+	@apply text-base lg:text-lg font-text text-foreground ;
 }
 
 .paragraph-hero-inverted {
-	@apply text-base lg:text-lg font-text text-background;
+	@apply text-base lg:text-lg font-text text-background ;
 }
 /* Paragraf ProcessCard */
 .paragraph-process {
-	@apply text-sm md:text-base text-foreground/80 leading-relaxed;
+	@apply text-sm md:text-base text-foreground/80 leading-relaxed font-text;
 }
 
 /* ======= PARAGRAFY Z OGRANICZENIAMI SZEROKOŚCI ======= */
 
 /* Paragraf z max-width */
 .paragraph-constrained {
-	@apply text-base text-foreground max-w-[600px];
+	@apply text-base text-foreground max-w-[600px] font-text;
 }
 
 /* Paragraf wyśrodkowany z max-width */
 .paragraph-center-constrained {
-	@apply text-base text-foreground text-center max-w-[800px];
+	@apply text-base text-foreground text-center max-w-[800px] font-text;
 }
 
 /* Paragraf mniejszy wyśrodkowany z max-width */
 .paragraph-center-small-constrained {
-	@apply text-base text-background max-w-[525px] text-center;
+	@apply text-base text-background max-w-[525px] text-center font-text;
+}
+p{
+	@apply font-text
 }

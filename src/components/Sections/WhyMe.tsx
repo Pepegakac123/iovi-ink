@@ -12,7 +12,7 @@ import {
 } from "@/lib/variants";
 import { ICONS } from "@/lib/icons";
 import { WhyMeProps } from "@/lib/dataTypes";
-import { icons } from "lucide-react";
+import { images } from "@/lib/images";
 
 const WhyMe = ({ title, cards }: WhyMeProps) => {
 	return (
@@ -39,12 +39,12 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 
 				{/* Unified Grid Layout with animations */}
 				<motion.div
-					className="grid grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-4 lg:gap-6 lg:h-[500px]"
+					className="grid grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-4 lg:gap-6 lg:max-h-[700px]"
 					variants={gridVariants}
 				>
-					{/* 1 karta po lewej */}
+					{/* Karta po lewej */}
 					<motion.div
-						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-md p-4 lg:p-8 flex flex-col justify-between hover:bg-muted transition-colors"
+						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-md p-4 lg:p-8 flex flex-col hover:bg-muted transition-colors"
 						variants={cardVariants}
 						whileHover={{
 							scale: 1.02,
@@ -54,6 +54,7 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 						}}
 						whileTap={{ scale: 0.98 }}
 					>
+						{/* Ikona */}
 						<motion.div
 							className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6 flex-shrink-0"
 							variants={iconVariants}
@@ -86,9 +87,12 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 								</motion.div>
 							</motion.div>
 						</motion.div>
-						<div>
+
+						{/* Treść karty */}
+						<div className="flex flex-col flex-1">
+							{/* Tytuł */}
 							<motion.h3
-								className="text-sm lg:text-2xl font-primary text-foreground mb-2 lg:mb-4"
+								className="heading-secondary mb-4 lg:mb-6 flex-shrink-0"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
@@ -96,8 +100,34 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 							>
 								{cards.left.title}
 							</motion.h3>
+
+							{/* Zdjęcie - wypełnia dostępną przestrzeń */}
+							<motion.div
+								className="hidden lg:block flex-1 mb-4 lg:mb-6"
+								initial={{ opacity: 0, scale: 0.9 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								viewport={{ once: true }}
+								transition={{ duration: 0.5, delay: 0.5 }}
+								whileHover={{
+									scale: 1.02,
+									translateY: -2,
+									rotate: 1,
+									transition: { duration: 0.4, ease: "easeOut" },
+								}}
+							>
+								<Image
+									src={images.karty_rysunki_1.src}
+									alt={images.karty_rysunki_1.alt}
+									width={1024}
+									height={1024}
+									className="w-full h-full object-contain rounded-md"
+									quality={90}
+								/>
+							</motion.div>
+
+							{/* Opis na dole */}
 							<motion.p
-								className="text-foreground font-text text-xs lg:text-base"
+								className="paragraph-small flex-shrink-0"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
@@ -108,7 +138,7 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 						</div>
 					</motion.div>
 
-					{/* karta srodkowa na gorze */}
+					{/* Karta środkowa na górze */}
 					<motion.div
 						className="col-span-1 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
@@ -174,9 +204,9 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 						</div>
 					</motion.div>
 
-					{/* karta prawa  */}
+					{/* Karta prawa */}
 					<motion.div
-						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
+						className="col-span-1 lg:row-span-2 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col hover:bg-muted transition-colors gap-0"
 						variants={cardVariants}
 						whileHover={{
 							scale: 1.02,
@@ -186,6 +216,7 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 						}}
 						whileTap={{ scale: 0.98 }}
 					>
+						{/* Ikona */}
 						<motion.div
 							className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6 flex-shrink-0"
 							variants={iconVariants}
@@ -218,9 +249,12 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 								</motion.div>
 							</motion.div>
 						</motion.div>
-						<div>
+
+						{/* Treść karty */}
+						<div className="flex flex-col flex-1">
+							{/* Tytuł */}
 							<motion.h3
-								className="heading-secondary mb-2 lg:mb-3"
+								className="heading-secondary mb-4 lg:mb-6 flex-shrink-0"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
@@ -228,8 +262,34 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 							>
 								{cards.right.title}
 							</motion.h3>
+
+							{/* Zdjęcie - wypełnia dostępną przestrzeń */}
+							<motion.div
+								className="hidden lg:block flex-1 mb-4 lg:mb-6"
+								initial={{ opacity: 0, scale: 0.9 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								viewport={{ once: true }}
+								transition={{ duration: 0.5, delay: 0.5 }}
+								whileHover={{
+									scale: 1.02,
+									translateY: -2,
+									rotate: -1,
+									transition: { duration: 0.4, ease: "easeOut" },
+								}}
+							>
+								<Image
+									src={images.karty_rysunki_2.src}
+									alt={images.karty_rysunki_2.alt}
+									width={1024}
+									height={1024}
+									className="w-full h-full object-contain rounded-md"
+									quality={90}
+								/>
+							</motion.div>
+
+							{/* Opis na dole */}
 							<motion.p
-								className="paragraph-small"
+								className="paragraph-small flex-shrink-0"
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
@@ -239,9 +299,10 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 							</motion.p>
 						</div>
 					</motion.div>
-					{/* karta srodkowa na dole */}
+
+					{/* Karta środkowa na dole */}
 					<motion.div
-						className="col-span-1 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col justify-between hover:bg-muted transition-colors"
+						className="col-span-1 bg-primary-foreground rounded-md p-4 lg:p-6 flex flex-col lg:justify-between hover:bg-muted transition-colors"
 						variants={cardVariants}
 						whileHover={{
 							scale: 1.02,
@@ -283,7 +344,7 @@ const WhyMe = ({ title, cards }: WhyMeProps) => {
 								</motion.div>
 							</motion.div>
 						</motion.div>
-						<div>
+						<div className="flex flex-col">
 							<motion.h3
 								className="heading-secondary mb-2 lg:mb-3"
 								initial={{ opacity: 0, y: 20 }}
