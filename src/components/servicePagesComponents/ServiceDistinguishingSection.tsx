@@ -14,7 +14,7 @@ const ServiceDistinguishingSection = ({
 }: ServiceDistinguishingSectionProps) => {
 	return (
 		<motion.section
-			className={`w-full  ${bgVariant === "dark" ? "bg-foreground" : "bg-background"}`}
+			className={`w-full py-16 md:py-20 ${bgVariant === "dark" ? "bg-foreground" : "bg-background"}`}
 			initial="hidden"
 			whileInView="visible"
 			viewport={{ once: true, margin: "-50px" }}
@@ -25,13 +25,13 @@ const ServiceDistinguishingSection = ({
 				variants={containerVariants}
 			>
 				{/* Header */}
-				<div className="flex flex-col gap-6 md:gap-8 max-w-[600px]">
+				<div className="flex flex-col gap-6 md:gap-8">
 					<motion.div variants={itemVariants}>
 						<Subheadline title={subtitle} />
 					</motion.div>
 
 					<motion.h2
-						className={` ${bgVariant === "dark" ? "heading-primary-inverted" : "heading-primary"}`}
+						className={` ${bgVariant === "dark" ? "heading-primary-inverted" : "heading-primary"} max-w-[600px]`}
 						variants={itemVariants}
 						whileHover={{
 							scale: 1.02,

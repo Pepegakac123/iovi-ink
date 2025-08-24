@@ -51,9 +51,11 @@ const ServiceSectionHero: React.FC<ServiceSectionHeroProps> = ({
 							src={image.src}
 							alt={image.alt}
 							fill
-							className="object-cover"
-							sizes="(max-width: 768px) 100vw, (max-width: 1440px) 100vw, 1440px"
+							className="object-cover
+							"
+							sizes="(max-width: 768px) 100vw, (max-width: 1440px) 100vw, 1920px"
 							priority={true}
+							quality={95}
 						/>
 						{/* Overlay - delikatny czarny gradient liniowy 120 stopni */}
 						<div
