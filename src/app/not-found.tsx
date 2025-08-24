@@ -39,7 +39,7 @@ const NotFound: React.FC = () => {
 						}}
 					>
 						<img
-							src={ICONS.careForDetails}
+							src={ICONS.errorPage}
 							alt="404 - Strona nie znaleziona"
 							className="w-16 h-16 md:w-20 md:h-20 mx-auto"
 						/>
@@ -170,7 +170,7 @@ const NotFound: React.FC = () => {
 					<motion.div variants={buttonVariants}>
 						<Link href="/">
 							<motion.button
-								className="bg-primary border-2 border-foreground text-primary-foreground px-6 md:px-8 py-3 md:py-4 rounded-md font-primary uppercase transition-all duration-200 hover:bg-accent hover:shadow-[6px_6px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
+								className="hover:cursor-pointer bg-primary border-2 border-foreground text-primary-foreground px-6 md:px-8 py-3 md:py-4 rounded-md font-primary uppercase transition-all duration-200 hover:bg-accent hover:shadow-[6px_6px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
 								whileHover={{ scale: 1.02 }}
 								whileTap={{ scale: 0.98 }}
 							>
@@ -183,7 +183,7 @@ const NotFound: React.FC = () => {
 					<motion.div variants={buttonVariants}>
 						<Link href="/portfolio">
 							<motion.button
-								className="bg-secondary border-2 border-foreground text-foreground px-6 md:px-8 py-3 md:py-4 rounded-md font-primary uppercase transition-all duration-200 hover:bg-muted hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
+								className="hover:cursor-pointer bg-secondary border-2 border-foreground text-foreground px-6 md:px-8 py-3 md:py-4 rounded-md font-primary uppercase transition-all duration-200 hover:bg-muted hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
 								whileHover={{ scale: 1.02 }}
 								whileTap={{ scale: 0.98 }}
 							>
@@ -196,7 +196,7 @@ const NotFound: React.FC = () => {
 					<motion.div variants={buttonVariants}>
 						<Link href="/uslugi">
 							<motion.button
-								className="bg-secondary border-2 border-foreground text-foreground px-6 md:px-8 py-3 md:py-4 rounded-md font-primary uppercase transition-all duration-200 hover:bg-muted hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
+								className="hover:cursor-pointer bg-secondary border-2 border-foreground text-foreground px-6 md:px-8 py-3 md:py-4 rounded-md font-primary uppercase transition-all duration-200 hover:bg-muted hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
 								whileHover={{ scale: 1.02 }}
 								whileTap={{ scale: 0.98 }}
 							>

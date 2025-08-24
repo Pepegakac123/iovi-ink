@@ -1,106 +1,108 @@
+// src/components/TattooGallery.tsx - FIXED: Zmiana z masonry na grid dla poprawnego indeksowania
+
+"use client";
+
+import React from "react";
 import Image from "next/image";
-import * as motion from "motion/react-client";
-import {
-	containerVariants,
-	imageVariantsRight,
-	itemVariants,
-} from "@/lib/variants";
-import { ServiceTargetAudienceSectionProps } from "./servicePage";
-import Subheadline from "../Subheadline";
+import { BlurFade } from "@/components/magicui/blur-fade";
+import { GalleryModal } from "@/components/gallery";
 
-const TargetAudience = ({
-	title,
-	subtitle,
-	targetAudienceDsc,
-	image,
-}: ServiceTargetAudienceSectionProps) => {
+interface TattooGalleryProps {
+	images: Array<{ src: string; alt: string }>;
+	className?: string;
+}
+
+const TattooGallery: React.FC<TattooGalleryProps> = ({
+	images,
+	className = "",
+}) => {
+	if (!images || images.length === 0) {
+		return (
+			<div className="text-center py-12">
+				<p className="paragraph-secondary text-muted-foreground">
+					Brak zdjęć w tej kategorii
+				</p>
+			</div>
+		);
+	}
+
 	return (
-		<motion.section>
-			<motion.div
-				className="container"
-				initial="hidden"
-				whileInView="visible"
-				viewport={{ once: true, margin: "-50px" }}
-				variants={containerVariants}
-			>
-				{/* Header Section - Subheadline i H2 osobno */}
-				<div className="flex flex-col gap-6 md:gap-8 mb-12 md:mb-16">
-					<Subheadline title={subtitle} />
-					<motion.h2
-						className="heading-primary"
-						variants={itemVariants}
-						whileHover={{
-							scale: 1.02,
-							transition: { duration: 0.2 },
-						}}
-					>
-						{title}
-					</motion.h2>
-				</div>
-
-				{/* Content Section - Paragraphs + Image razem */}
-				<motion.div
-					className="flex flex-col lg:flex-row gap-8 md:gap-12 items-center"
-					variants={containerVariants}
-				>
-					{/* Paragraphs Section */}
-					<motion.div
-						className="flex flex-col gap-8 flex-1"
-						variants={containerVariants}
-					>
-						{targetAudienceDsc.map((item, index) => (
-							<motion.div
-								key={item.h3}
-								className="flex flex-col gap-2"
-								variants={itemVariants}
-								whileHover={{
-									scale: 1.02,
-									y: -2,
-									transition: { duration: 0.2 },
-								}}
-							>
-								<motion.h3 className="heading-secondary">{item.h3}</motion.h3>
-								<motion.p className="paragraph-secondary">
-									{item.content}
-								</motion.p>
-							</motion.div>
-						))}
-					</motion.div>
-
-					{/* Image Section - wyśrodkowany względem paragrafów */}
-					<motion.div
-						className="flex justify-center items-center flex-1"
-						variants={imageVariantsRight}
-					>
-						<motion.div
-							whileHover={{
-								scale: 1.03,
-								rotate: -1,
-								transition: { duration: 0.4 },
-							}}
-							whileTap={{ scale: 0.98 }}
-							className="group max-w-[400px] w-full"
+		<div className={`w-full ${className}`}>
+			{/* ✅ Gallery Modal - wraps całą galerię */}
+			<GalleryModal images={images} wrapAround={true}>
+				{/* ✅ FIXED: Zwykły responsive grid zamiast masonry dla poprawnego indeksowania */}
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+					{images.map((image, index) => (
+						<BlurFade
+							key={`${image.src}-${index}`}
+							delay={0.05 * index}
+							duration={0.6}
+							direction="up"
+							offset={20}
+							blur="8px"
+							className="w-full"
 						>
+							{/* ✅ FIXED: data-gallery-index dla prawidłowej identyfikacji */}
 							<div
-								className="relative w-full rounded-md overflow-hidden"
-								style={{ aspectRatio: "4/5" }}
+								data-gallery-index={index}
+								className="group relative overflow-hidden rounded-md border-2 border-foreground bg-primary-foreground transition-all duration-300 cursor-pointer hover:border-primary hover:shadow-[4px_4px_0px_0px_var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
 							>
-								<Image
-									src={image.src}
-									alt={image.alt}
-									fill
-									className="object-cover transition-transform duration-500 group-hover:scale-105"
-									sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-									loading="lazy"
-									quality={85}
-								/>
+								{/* ✅ FIXED: Proporcje 4:5 (320px x 400px) */}
+								<div className="relative w-full" style={{ aspectRatio: "4/5" }}>
+									<Image
+										src={image.src}
+										alt={image.alt}
+										fill
+										className="object-cover transition-transform duration-500 group-hover:scale-105"
+										sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+										loading="lazy"
+									/>
+
+									{/* ✅ Overlay z alt text na hover */}
+									<div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-end opacity-0 group-hover:opacity-100">
+										<div className="p-3 md:p-4 text-white">
+											<p className="text-xs md:text-sm font-text leading-relaxed mb-2">
+												{image.alt}
+											</p>
+											<p className="text-xs text-white/80 font-primary">
+												Kliknij aby powiększyć
+											</p>
+										</div>
+									</div>
+
+									{/* ✅ Zoom indicator - subtle icon */}
+									<div className="absolute top-3 right-3 w-8 h-8 bg-background/80 backdrop-blur-sm rounded-full border border-foreground/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+										<svg
+											className="w-4 h-4 text-foreground"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
+											role="graphics-symbol"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+											/>
+										</svg>
+									</div>
+								</div>
 							</div>
-						</motion.div>
-					</motion.div>
-				</motion.div>
-			</motion.div>
-		</motion.section>
+						</BlurFade>
+					))}
+				</div>
+			</GalleryModal>
+
+			{/* ✅ Counter zdjęć */}
+			<div className="mt-6 md:mt-8 text-center">
+				<p className="text-xs md:text-sm text-muted-foreground font-primary">
+					{images.length} {images.length === 1 ? "zdjęcie" : "zdjęć"}
+				</p>
+			</div>
+		</div>
 	);
 };
 
-export default TargetAudience;
+export default TattooGallery;

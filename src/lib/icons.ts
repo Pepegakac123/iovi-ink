@@ -19,6 +19,10 @@ export const SYSTEM_ICONS = {
 	tattooMachine: `${BASE_URL}/tattoo_machine.svg`,
 	tattooMachineAccent: `${BASE_URL}/tatto_machine_accent.svg`,
 	locationAccent: `${BASE_URL}/location_accent.svg`,
+
+	// Nowe ikony systemowe
+	errorPage: `${BASE_URL}/error-page.svg`,
+	ask: `${BASE_URL}/ask.svg`,
 } as const;
 
 // ===========================================
@@ -41,6 +45,34 @@ export const FEATURE_ICONS = {
 	paletteBrush: `${BASE_URL}/pallete_brusj.svg`,
 	tabletGraphic: `${BASE_URL}/tablet_graficzny.svg`,
 	biceps: `${BASE_URL}/Biceps_icon.svg`,
+} as const;
+
+// ===========================================
+// IKONY USŁUGOWE (Services & Benefits)
+// ===========================================
+
+export const SERVICE_ICONS = {
+	// Precyzja i jakość
+	precision: `${BASE_URL}/precision.svg`,
+	loupe: `${BASE_URL}/loupe.svg`,
+	tapeMeasure: `${BASE_URL}/tape-measure.svg`,
+
+	// Szybkość i czas
+	stopwatch: `${BASE_URL}/stopwatch.svg`,
+	lightning: `${BASE_URL}/lightning.svg`,
+
+	// Elegancja i premium
+	crown: `${BASE_URL}/crown.svg`,
+	feather: `${BASE_URL}/feather.svg`,
+	heart: `${BASE_URL}/heart.svg`,
+
+	// Bezpieczeństwo i pielęgnacja
+	secureShield: `${BASE_URL}/secure-shield.svg`,
+	glove: `${BASE_URL}/glove.svg`,
+	eyeCare: `${BASE_URL}/eye-care.svg`,
+
+	// Proces tatuowania
+	ink: `${BASE_URL}/ink.svg`,
 } as const;
 
 // ===========================================
@@ -71,9 +103,35 @@ export const ICONS = {
 	// Detale
 	careForDetails: SYSTEM_ICONS.careForDetails,
 
-	//Inne
+	// Inne systemowe
 	plus: SYSTEM_ICONS.plus,
 	minus: SYSTEM_ICONS.minus,
+	errorPage: SYSTEM_ICONS.errorPage,
+	ask: SYSTEM_ICONS.ask,
+
+	// === NOWE IKONY USŁUGOWE ===
+
+	// Precyzja i jakość
+	precision: SERVICE_ICONS.precision,
+	loupe: SERVICE_ICONS.loupe,
+	tapeMeasure: SERVICE_ICONS.tapeMeasure,
+
+	// Szybkość i efektywność
+	stopwatch: SERVICE_ICONS.stopwatch,
+	lightning: SERVICE_ICONS.lightning,
+
+	// Elegancja i premium
+	crown: SERVICE_ICONS.crown,
+	feather: SERVICE_ICONS.feather,
+	heart: SERVICE_ICONS.heart,
+
+	// Bezpieczeństwo i opieka
+	secureShield: SERVICE_ICONS.secureShield,
+	glove: SERVICE_ICONS.glove,
+	eyeCare: SERVICE_ICONS.eyeCare,
+
+	// Proces tatuowania
+	ink: SERVICE_ICONS.ink,
 } as const;
 
 // ===========================================
@@ -84,6 +142,7 @@ export type IconName = keyof typeof ICONS;
 export type SystemIconName = keyof typeof SYSTEM_ICONS;
 export type ProcessIconName = keyof typeof PROCESS_ICONS;
 export type FeatureIconName = keyof typeof FEATURE_ICONS;
+export type ServiceIconName = keyof typeof SERVICE_ICONS;
 
 // ===========================================
 // UTILITY FUNCTIONS
@@ -113,6 +172,13 @@ export const hasIcon = (name: string): name is IconName => {
  */
 export const getAvailableIcons = (): IconName[] => {
 	return Object.keys(ICONS) as IconName[];
+};
+
+/**
+ * Pobiera ikony z konkretnej kategorii
+ */
+export const getServiceIcons = (): ServiceIconName[] => {
+	return Object.keys(SERVICE_ICONS) as ServiceIconName[];
 };
 
 // ===========================================
