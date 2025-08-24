@@ -45,7 +45,7 @@ const ServiceCta = ({ title, subtitle, ctaItems }: ServiceCtaSectionProps) => {
 							},
 						}}
 					>
-						<div className="flex flex-col gap-8 text-center lg:text-left">
+						<div className="flex flex-col items-center lg:items-start gap-8 text-center lg:text-left">
 							<motion.div
 								initial={{ opacity: 0, scale: 0.8 }}
 								animate={{

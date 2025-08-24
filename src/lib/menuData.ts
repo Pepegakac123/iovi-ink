@@ -1,6 +1,16 @@
 // src/lib/menuData.ts
 import type { LucideIcon } from "lucide-react";
-import { Palette, Layers3, Zap, Sparkles } from "lucide-react";
+import {
+	Palette,
+	Layers3,
+	Zap,
+	Sparkles,
+	Shapes,
+	Flower2,
+	Heart,
+	Shield,
+	PenTool,
+} from "lucide-react";
 
 // Types
 export interface ServiceItem {
@@ -59,25 +69,37 @@ export const FooterMenuLinks = [
 export const services = {
 	tatuaze: {
 		title: "Tatuaże",
-		icon: Zap,
+		icon: Zap, // np. "Zap" jako główna kategoria – energia, ekspresja
 		items: [
 			{
-				name: "Minimalistyczne",
-				desc: "Delikatne, subtelne projekty",
-				icon: Sparkles,
+				name: "Minimalistyczne / Fine Line",
+				desc: "Subtelne wzory, cienkie linie, idealne dla miłośników prostoty",
+				icon: Sparkles, // Sparkles = lekkość, subtelność
 				href: "/uslugi/tatuaze-minimalistyczne",
 			},
 			{
-				name: "Fine Line",
-				desc: "Cienkie linie, szczegółowe",
-				icon: Palette,
-				href: "/uslugi/tatuaze-fine-line",
+				name: "Tatuaże Graficzne",
+				desc: "Ilustracyjne i artystyczne wzory o charakterze rysunkowym",
+				icon: PenTool, // PenTool = kojarzy się z grafiką, rysunkiem
+				href: "/uslugi/tatuaze-graficzne",
+			},
+			{
+				name: "Kwiatowe",
+				desc: "Motywy roślinne i kwiatowe o naturalnym charakterze",
+				icon: Flower2, // Flower2 = idealnie pasuje
+				href: "/uslugi/tatuaze-kwiatowe",
 			},
 			{
 				name: "Delikatne Tatuaże Damskie",
-				desc: "Cienkie linie, szczegółowe",
-				icon: Palette,
+				desc: "Romantyczne i eleganckie wzory podkreślające kobiecość",
+				icon: Heart, // Heart = kobiecość, emocje
 				href: "/uslugi/delikatne-tatuaze-damskie",
+			},
+			{
+				name: "Tatuaże Męskie",
+				desc: "Wyraziste, mocne projekty o zdecydowanym stylu",
+				icon: Shield, // Shield = siła, męskość, ochrona
+				href: "/uslugi/tatuaze-meskie",
 			},
 		],
 	},
