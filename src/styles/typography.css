@@ -75,9 +75,12 @@
 
 /* Paragraf Hero (większy) */
 .paragraph-hero {
-	@apply text-sm lg:text-lg font-text text-foreground;
+	@apply text-base lg:text-lg font-text text-foreground;
 }
 
+.paragraph-hero-inverted {
+	@apply text-base lg:text-lg font-text text-background;
+}
 /* Paragraf ProcessCard */
 .paragraph-process {
 	@apply text-sm md:text-base text-foreground/80 leading-relaxed;

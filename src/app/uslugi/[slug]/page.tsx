@@ -19,6 +19,7 @@ import { containerVariants } from "@/lib/variants";
 import Services from "@/components/Sections/Services";
 import { servicesHome } from "@/lib/data";
 import CarouselSections from "@/components/Sections/CarouselSections";
+import ServiceHero from "@/components/servicePagesComponents/ServiceHero";
 
 export async function generateStaticParams() {
 	const services = await getAllServices();
@@ -32,11 +33,12 @@ async function Page({ params }: { params: { slug: string } }) {
 	const images = await mapImagesWithWordPressAlt(getServiceImages(service));
 	return (
 		<>
-			<SectionHero
+			<ServiceHero
 				subTitle={meta.hero_subheadline}
 				title={meta.hero_h1}
 				description={meta.hero_intro}
-			></SectionHero>
+				image={images[0]}
+			></ServiceHero>
 			<TargetAudience
 				title={meta.dla_kogo_h2}
 				subtitle={meta.dla_kogo_subheadline}

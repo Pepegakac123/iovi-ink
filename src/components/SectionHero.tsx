@@ -32,7 +32,7 @@ const SectionHero: React.FC<SectionHeroProps> = ({
 		>
 			{/* ✅ Container podobny do Hero.tsx */}
 			<motion.div
-				className="max-w-[1440px] mx-auto flex justify-center px-4 sm:px-8"
+				className="max-w-[1440px] mx-auto flex justify-center"
 				variants={containerVariants}
 			>
 				<motion.div

@@ -16,6 +16,18 @@ export type ServiceImage = {
 	alt: string;
 };
 
+// ===========================================
+// Hero
+// ===========================================
+
+interface ServiceSectionHeroProps {
+	subTitle: string;
+	title: string;
+	description: string;
+	image: ServiceImage;
+	className?: string;
+}
+
 // ================================================================
 // TARGET AUDIENCE SECTION
 // ================================================================
