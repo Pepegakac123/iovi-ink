@@ -99,6 +99,7 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 						height={900}
 						src={image.src}
 						alt={image.alt}
+						priority={true}
 						className="block object-cover object-top max-w-[700px] sm:max-w-[900px]" // Mniejszy na mobile
 					/>
 				</div>

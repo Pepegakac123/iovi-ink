@@ -267,7 +267,21 @@ export default function ContactForm() {
 								</motion.div>
 							</div>
 						</motion.div>
-
+						{/* Privacy & reCAPTCHA Notice */}
+						<motion.p
+							className="text-xs text-muted-foreground text-center max-w-md mx-auto leading-relaxed"
+							variants={motionPresets.field.main}
+						>
+							Wysyłając formularz wyrażasz zgodę na przetwarzanie danych
+							osobowych zgodnie z{" "}
+							<a
+								href="/polityka-prywatnosci"
+								className="text-primary hover:text-accent underline"
+							>
+								polityką prywatności
+							</a>
+							. Strona jest chroniona przez reCAPTCHA Google.
+						</motion.p>
 						{/* Submit Section */}
 						<motion.div
 							className="flex gap-4 flex-col w-full items-center justify-center pt-6"

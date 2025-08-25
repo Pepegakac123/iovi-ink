@@ -5,6 +5,8 @@ import { Toaster } from "sonner";
 import Footer from "@/components/Sections/Footer";
 import Navbar from "@/components/Navbar";
 import { images } from "@/lib/images";
+import ConditionalAnalytics from "@/components/GDPR/GA4ConditionalAnalytics";
+import CookieConsent from "@/components/GDPR/CookieConsent";
 export const metadata: Metadata = {
 	title: {
 		template: "%s - bezpłatna konsultacja - iovi-ink",
@@ -78,10 +80,12 @@ export default function RootLayout({
 	return (
 		<html lang="pl">
 			<body className="bg-background">
+				<ConditionalAnalytics />
 				<RecaptchaProvider>
 					<Navbar /> {/* ← DODANE: Wrapper dla reCAPTCHA */}
 					{children}
 					<Footer />
+					<CookieConsent />
 					<Toaster
 						position="top-right"
 						duration={5000}

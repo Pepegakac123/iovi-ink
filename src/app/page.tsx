@@ -25,6 +25,7 @@ export default async function Home() {
 	return (
 		<>
 			<SocialProfileJsonLd
+				useAppDir={true}
 				type="Person"
 				name="Jowita Potaczek"
 				url="https://www.iovi-ink.pl"
