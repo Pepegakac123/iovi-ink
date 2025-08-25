@@ -1,14 +1,73 @@
-// app/layout.tsx - DODAJ RecaptchaProvider
 import type { Metadata } from "next";
 import "./globals.css";
-import { RecaptchaProvider } from "@/components/providers/RecaptchaProvider"; // ← DODANE
-import { Toaster } from "sonner"; // ← DODANE (dla toastów)
+import { RecaptchaProvider } from "@/components/providers/RecaptchaProvider";
+import { Toaster } from "sonner";
 import Footer from "@/components/Sections/Footer";
 import Navbar from "@/components/Navbar";
-
+import { images } from "@/lib/images";
 export const metadata: Metadata = {
-	title: "Moja Aplikacja",
-	description: "Opis aplikacji",
+	title: {
+		template: "%s - bezpłatna konsultacja - iovi-ink",
+		default: "Tatuaże - bezpłatna konsultacja - iovi-ink",
+	},
+	description:
+		"Tatuaże graficzne i minimalistyczne w Mszanie Dolnej. Autorskie projekty, precyzja wykonania, - Bezpłatna konsultacja",
+	keywords: [
+		"tatuaże",
+		// ✅ Z twojej keyword database - najwyższe priority
+		"delikatne tatuaże damskie", // 8,100 vol - MEGA HIGH
+		"tatuaże minimalistyczne", // 1,300 vol - HIGH
+		"tatuaże na ręce", // 14,800 vol - HIGH
+		"tatuażysta", // 2,400 vol - HIGH (używam "tatuażysta")
+		"tatuaże fine line", // z bazy - HIGH
+		"małe tatuaże damskie", // z bazy
+		"subtelne tatuaże", // z content
+
+		// ✅ Z realnego contentu data.ts
+		"autorskie projekty tatuaże", // z whyMeHome
+		"bezpłatna konsultacja tatuaż", // z proces[0]
+		"precyzyjne wykonanie", // z content
+		"tatuażystka mszana dolna", // local SEO
+		"studio lewus ink", // work location
+	],
+	authors: [{ name: "Jowita - iovi-ink" }],
+
+	openGraph: {
+		title:
+			"Jowita - Tatuaże graficzne i minimalistyczne | Lewus Ink Mszana Dolna",
+		description:
+			"Tatuaże graficzne i minimalistyczne w Mszanie Dolnej. Autorskie projekty, precyzja wykonania, - Bezpłatna konsultacja",
+		url: "https://iovi-ink.pl",
+		siteName: "iovi-ink",
+		locale: "pl_PL",
+		type: "website",
+		images: [
+			{
+				url: `${images.seoBaner.src}`,
+				width: 1200,
+				height: 630,
+				alt: `${images.seoBaner.alt}`,
+			},
+		],
+	},
+	// Geo targeting - KLUCZOWE dla Local SEO
+	other: {
+		"geo.region": "PL-12", // Małopolskie
+		"geo.placename": "Mszana Dolna",
+		"geo.position": "49.6754860;20.0798428", // Współrzędne Lewus Ink
+		ICBM: "49.6754860, 20.0798428",
+		robots: "index, follow, max-image-preview:large, max-snippet:140",
+	},
+
+	// Canonical URL
+	metadataBase: new URL("https://iovi-ink.pl"),
+	alternates: {
+		canonical: "https://iovi-ink.pl",
+	},
+
+	// Additional meta tags
+	category: "Art & Design",
+	classification: "Tattoo Artist",
 };
 
 export default function RootLayout({

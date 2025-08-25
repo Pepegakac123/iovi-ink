@@ -80,4 +80,8 @@ export const images = {
 		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/iovi-high-resolution-logo-transparent.png",
 		alt: "Logo Iovi Ink - studio tatuażu prowadzone przez tatuażystkę Jowita",
 	},
+	seoBaner: {
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/SEO-BANER-1.png",
+		alt: "Jowita - iovi-ink - Artystka tatuażu specjalizująca się w tatuażach graficznych i minimalistycznych",
+	},
 };

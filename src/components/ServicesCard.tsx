@@ -44,7 +44,7 @@ const ServicesCard = ({
 				viewport={{ once: true }}
 				transition={{ delay: 0.1, duration: 0.4 }}
 			>
-				<motion.h3
+				<motion.h2
 					className="heading-secondary"
 					initial={{ opacity: 0, x: -10 }}
 					whileInView={{ opacity: 1, x: 0 }}
@@ -52,7 +52,7 @@ const ServicesCard = ({
 					transition={{ delay: 0.2, duration: 0.3 }}
 				>
 					{service.title.rendered}
-				</motion.h3>
+				</motion.h2>
 
 				<motion.p
 					className="paragraph-small-muted flex-grow leading-relaxed"

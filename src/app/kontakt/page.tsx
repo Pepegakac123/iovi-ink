@@ -6,6 +6,44 @@ import ContactInfo from "@/components/contact/ContactInfo";
 import GoogleMapsEmbed from "@/components/contact/GoogleMapsEmbed";
 import { containerVariants, itemVariants } from "@/lib/variants";
 import SectionHero from "@/components/SectionHero";
+import { Metadata } from "next";
+import { images } from "@/lib/images";
+import { BreadcrumbJsonLd } from "next-seo";
+
+export const metadata: Metadata = {
+	title: "Kontakt",
+	description:
+		"Skontaktuj się ze mną. Studio Lewus Ink. Instagram @iovi.ink - najszybsza odpowiedź.",
+
+	openGraph: {
+		title: "Kontakt - Jowita Artystka Tatuażu | Studio Lewus Ink Mszana Dolna",
+		description:
+			"Umów bezpłatną konsultację z artystką tatuażu. Studio Lewus Ink w Mszanie Dolnej. Najszybciej odpisuję na Instagramie.",
+		url: "https://iovi-ink.pl/kontakt",
+		images: [
+			{
+				url: `${images.seoBaner.src}`,
+				width: 1200,
+				height: 630,
+				alt: `${images.seoBaner.alt}`,
+			},
+		],
+	},
+
+	alternates: {
+		canonical: "https://iovi-ink.pl/kontakt",
+	},
+
+	// Dodatkowe keywords dla kontaktu
+	keywords: [
+		"kontakt artystka tatuażu",
+		"umów tatuaż mszana dolna",
+		"studio lewus ink kontakt",
+		"tatuażystka mszana dolna telefon",
+		"konsultacja tatuaż",
+		"jowita tatuażystka kontakt",
+	],
+};
 
 // ===========================================
 // MAIN CONTACT PAGE COMPONENT
@@ -14,6 +52,21 @@ import SectionHero from "@/components/SectionHero";
 const ContactPage: React.FC = () => {
 	return (
 		<>
+			<BreadcrumbJsonLd
+				useAppDir={true}
+				itemListElements={[
+					{
+						position: 1,
+						name: "Strona główna",
+						item: "https://iovi-ink.pl",
+					},
+					{
+						position: 2,
+						name: "Kontakt",
+						item: "https://iovi-ink.pl/kontakt",
+					},
+				]}
+			/>
 			<SectionHero
 				subTitle="Napisz – pogadamy o szczegółach"
 				title="Skontaktuj się z nami"

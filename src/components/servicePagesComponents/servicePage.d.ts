@@ -4,6 +4,12 @@
 // SHARED TYPES FOR SERVICE PAGE COMPONENTS
 // ================================================================
 
+interface ServicePageProps {
+	params: Promise<{
+		slug: string;
+	}>;
+}
+
 // Base content section from API
 export type ServiceContentSection = {
 	h3: string;

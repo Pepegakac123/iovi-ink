@@ -8,15 +8,89 @@ import { getAllTattooImages } from "@/lib/jetApi";
 import * as motion from "motion/react-client";
 import { containerVariants, itemVariants } from "@/lib/variants";
 import Contact from "@/components/Sections/Contact";
-import { NextSeo } from "next-seo";
-import PORTFOLIO_SEO from "@/lib/config/seo/portfolio";
 import { contactHome } from "@/lib/data";
+import { Metadata } from "next";
+import { images } from "@/lib/images";
+import { BreadcrumbJsonLd, ImageJsonLd } from "next-seo";
+
+export const metadata: Metadata = {
+	title: "Portfolio tatuaże", //
+	description:
+		"Portfolio Jowity - tatuażystka specjalizująca się w delikatne tatuaże damskie i minimalistyczne wzory. Galeria prac Mszana Dolna.",
+
+	openGraph: {
+		title: "Portfolio - Delikatne Tatuaże Damskie i Minimalistyczne | Jowita",
+		description:
+			"Zobacz portfolio tatuażystki Jowity - specjalistki od delikatnych tatuaży damskich i minimalistycznych wzorów. Mszana Dolna.",
+		url: "https://iovi-ink.pl/portfolio",
+		images: [
+			{
+				url: `${images.seoBaner.src}`,
+				width: 1200,
+				height: 630,
+				alt: `${images.seoBaner.alt}`,
+			},
+		],
+		type: "website",
+	},
+
+	alternates: {
+		canonical: "https://iovi-ink.pl/portfolio",
+	},
+
+	// Keywords z twojej bazy - najwyższy priority
+	keywords: [
+		"delikatne tatuaże damskie", // 8,100 vol - MEGA HIGH
+		"tatuaże minimalistyczne", // 1,300 vol - HIGH
+		"tatuaże na ręce", // 14,800 vol - HIGH
+		"tatuaże damskie na ręce", // 12,100 vol - HIGH
+		"portfolio tatuażystka",
+		"galeria tatuaży",
+		"małe tatuaże damskie",
+		"subtelne tatuaże",
+		"tatuaże fine line",
+		"tatuażystka mszana dolna portfolio",
+	],
+
+	// Dodatkowe informacje dla crawler
+	other: {
+		"article:section": "Portfolio",
+		"article:tag": "minimalistyczne,damskie,graficzne,kwiatowe",
+	},
+};
 
 const PortfolioPage = async () => {
 	const groupedImages = await getAllTattooImages();
-	<NextSeo {...PORTFOLIO_SEO} />;
 	return (
 		<>
+			<ImageJsonLd
+				useAppDir={true}
+				images={groupedImages.allImages.slice(0, 10).map((img) => ({
+					contentUrl: img.src,
+					creator: {
+						"@type": "Person",
+						name: "Jowita Potaczek",
+					},
+					creditText: "Jowita Potaczek - IOVI INK",
+					copyrightNotice: "© Jowita Potaczek",
+				}))}
+			/>
+
+			<BreadcrumbJsonLd
+				useAppDir={true}
+				itemListElements={[
+					{
+						position: 1,
+						name: "Strona główna",
+						item: "https://iovi-ink.pl",
+					},
+					{
+						position: 2,
+						name: "Portfolio",
+						item: "https://iovi-ink.pl/portfolio",
+					},
+				]}
+			/>
 			{/* ✅ Mini Hero Section */}
 			<SectionHero
 				subTitle="Każdy projekt to unikalna historia"

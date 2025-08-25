@@ -19,10 +19,34 @@ import {
 	targetAudienceHome,
 	whyMeHome,
 } from "@/lib/data";
+import { BreadcrumbJsonLd, FAQPageJsonLd, SocialProfileJsonLd } from "next-seo";
 
 export default async function Home() {
 	return (
 		<>
+			<SocialProfileJsonLd
+				type="Person"
+				name="Jowita Potaczek"
+				url="https://www.iovi-ink.pl"
+				sameAs={[socialLinks.iovi.instagram]}
+			/>
+			<BreadcrumbJsonLd
+				useAppDir={true}
+				itemListElements={[
+					{
+						position: 1,
+						name: "Strona główna",
+						item: "https://iovi-ink.pl",
+					},
+				]}
+			/>
+			<FAQPageJsonLd
+				useAppDir={true}
+				mainEntity={faqHome.questions.map(({ question, answer }) => ({
+					questionName: question,
+					acceptedAnswerText: answer,
+				}))}
+			/>
 			<Hero
 				subTitle="Od minimalistycznych lini po złożone kompozycje"
 				title="Tatuaże z charakterem i głową"

@@ -20,6 +20,87 @@ import Services from "@/components/Sections/Services";
 import { servicesHome } from "@/lib/data";
 import CarouselSections from "@/components/Sections/CarouselSections";
 import ServiceHero from "@/components/servicePagesComponents/ServiceHero";
+import { ServicePageProps } from "@/components/servicePagesComponents/servicePage";
+import { Metadata } from "next";
+import { images } from "@/lib/images";
+import { BreadcrumbJsonLd, WebPageJsonLd } from "next-seo";
+import { title } from "process";
+
+export async function generateMetadata({
+	params,
+}: ServicePageProps): Promise<Metadata> {
+	const { slug } = await params;
+
+	try {
+		const service = await getServiceBySlug(slug);
+
+		if (!service) {
+			return {
+				title: "Usługa nie została znaleziona",
+				description: "Przepraszamy, nie można znaleźć tej usługi tatuażu.",
+			};
+		}
+
+		const { meta } = service;
+		const serviceTitle = service.title.rendered;
+
+		// Wykorzystaj gotowe SEO z CMS lub fallback
+		const seoTitle =
+			serviceTitle || `${serviceTitle} - Jowita Tatuażystka | IOVI INK`;
+		const seoDescription =
+			meta.seo_description ||
+			`${serviceTitle} - profesjonalne usługi tatuażu. Minimalistyczne i graficzne wzory dostosowane do anatomii.`;
+
+		// Keywords z CMS + dodatkowe lokalne
+		const keywords = [meta.seo_keyword, "tatuażysta", "tatuaże"];
+
+		return {
+			title: seoTitle,
+			description: seoDescription,
+			keywords: keywords,
+
+			openGraph: {
+				title: seoTitle,
+				description: seoDescription,
+				url: `https://iovi-ink.pl/uslugi/${slug}`,
+				type: "website",
+				images: [
+					{
+						url: images.seoBaner.src,
+						width: 1200,
+						height: 630,
+						alt: `${serviceTitle} - ${seoDescription}`,
+					},
+				],
+				siteName: "Iovi-Ink",
+			},
+
+			twitter: {
+				card: "summary_large_image",
+				title: seoTitle,
+				description: seoDescription,
+				images: images.seoBaner.src,
+			},
+
+			alternates: {
+				canonical: `https://iovi-ink.pl/uslugi/${slug}`,
+			},
+
+			// Dodatkowe meta tagi
+			other: {
+				"og:locale": "pl_PL",
+				"article:author": "Jowita Potaczek",
+				"article:section": "Tatuaże",
+			},
+		};
+	} catch (error) {
+		console.error("Error generating metadata:", error);
+		return {
+			title: "Błąd ładowania usługi",
+			description: "Wystąpił problem z załadowaniem tej usługi tatuażu.",
+		};
+	}
+}
 
 export async function generateStaticParams() {
 	const services = await getAllServices();
@@ -33,6 +114,37 @@ async function Page({ params }: { params: { slug: string } }) {
 	const images = await mapImagesWithWordPressAlt(getServiceImages(service));
 	return (
 		<>
+			<BreadcrumbJsonLd
+				useAppDir={true}
+				itemListElements={[
+					{
+						position: 1,
+						name: "Strona główna",
+						item: "https://iovi-ink.pl",
+					},
+					{
+						position: 2,
+						name: "Usługi",
+						item: "https://iovi-ink.pl/uslugi",
+					},
+					{
+						position: 3,
+						name: title.rendered,
+						item: `https://iovi-ink.pl/uslugi/${slug}`,
+					},
+				]}
+			/>
+			<WebPageJsonLd
+				useAppDir={true}
+				description={meta.seo_description || meta.hero_intro}
+				id={`https://iovi-ink.pl/uslugi/${slug}`}
+				lastReviewed={new Date().toISOString()}
+				reviewedBy={{
+					type: "Person",
+					name: "Jowita Potaczek",
+				}}
+			/>
+
 			<ServiceHero
 				subTitle={meta.hero_subheadline}
 				title={meta.hero_h1}
