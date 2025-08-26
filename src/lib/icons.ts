@@ -23,6 +23,7 @@ export const SYSTEM_ICONS = {
 	// Nowe ikony systemowe
 	errorPage: `${BASE_URL}/error-page.svg`,
 	ask: `${BASE_URL}/ask.svg`,
+	cookie: `${BASE_URL}/cookie.svg`,
 } as const;
 
 // ===========================================
@@ -108,6 +109,7 @@ export const ICONS = {
 	minus: SYSTEM_ICONS.minus,
 	errorPage: SYSTEM_ICONS.errorPage,
 	ask: SYSTEM_ICONS.ask,
+	cookie: SYSTEM_ICONS.cookie,
 
 	// === NOWE IKONY USŁUGOWE ===
 
