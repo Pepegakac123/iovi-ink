@@ -2,6 +2,8 @@
 import { MetadataRoute } from "next";
 import { getAllServices } from "@/lib/jetApi";
 
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const baseUrl = "https://iovi-ink.pl";
 
@@ -36,6 +38,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 0.6,
+		},
+		{
+			url: `${baseUrl}/polityka-prywatnosci`,
+			lastModified: new Date(),
+			changeFrequency: "yearly",
+			priority: 0.3,
 		},
 	];
 

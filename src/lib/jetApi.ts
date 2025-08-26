@@ -32,23 +32,16 @@ class JETEngineAPIError extends Error {
 	}
 }
 
+// ✅ OPTYMALNA konfiguracja dla tattoo studio
 const REVALIDATE_TIMES = {
-	FEATURED_SERVICES: 1800, // 30 minut - często aktualizowane dla marektingu
-	MAIN_SERVICES: 3600, // 1 godzina - ważne dla conversji
-
-	// 📋 Standardowe content - średni cache
-	ALL_SERVICES: 7200, // 2 godziny - kompletna lista zmienia się rzadko
-	SERVICE_BY_SLUG: 10800, // 3 godziny - pojedyncze usługi rzadko edytowane
-	SERVICE_BY_ID: 10800, // 3 godziny - jak wyżej
-
-	// 📸 Portfolio/Media - długi cache (zmiany rzadkie ale istotne)
-	PORTFOLIO_ALL: 21600, // 6 godzin - portfolio dodawane rzadko
-	PORTFOLIO_BY_SLUG: 43200, // 12 godzin - konkretne portfolio bardzo stabilne
-	CAROUSEL: 43200, // 12 godzin - karuzele ustawiane raz na długo
-
-	// 🔧 Media/Alt text - bardzo długi cache
-	MEDIA_SEARCH: 86400, // 24 godziny - alt texty się nie zmieniają
-	IMAGE_WITH_ALT: 86400, // 24 godziny - jak wyżej
+	FEATURED_SERVICES: 86400, // 1 dzień
+	MAIN_SERVICES: 86400, // 1 dzień
+	ALL_SERVICES: 604800, // 7 dni
+	SERVICE_BY_SLUG: 604800, // 7 dni
+	PORTFOLIO_ALL: 86400, // 1 dzień (nowe prace)
+	PORTFOLIO_BY_SLUG: 2592000, // 30 dni (stabilne)
+	CAROUSEL: 604800, // 7 dni
+	MEDIA_SEARCH: 2592000, // 30 dni
 } as const;
 
 // ================================================================
@@ -65,8 +58,7 @@ async function jetEngineFetch<T>(
 	const url = `${baseUrl}${path}${queryString}`;
 
 	// ✅ Buduj granularne tagi (jak wcześniej)
-	const baseTags = ["jet-engine"];
-
+	const baseTags: string[] = [];
 	if (path.includes("/uslugi")) {
 		baseTags.push("uslugi");
 		if (query?.attributes === "6") baseTags.push("uslugi-featured");

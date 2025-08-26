@@ -17,7 +17,7 @@ const CookieConsent: React.FC = () => {
 
 	const handleAccept = () => {
 		setIsVisible(false);
-		// Delay żeby animacja się skończyła (dopasowane do exit.transition.duration)
+		// Delay żeby animacja się skończyła (dopasowane do exit.transition.duration)P
 		setTimeout(() => {
 			acceptCookies();
 		}, 420);
