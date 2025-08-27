@@ -54,6 +54,7 @@ export const menuItemsBeforeServices: MenuItem[] = [
 
 export const menuItemsAfterServices: MenuItem[] = [
 	{ name: "O Mnie", href: "/o-mnie" },
+	{ name: "Blog", href: "/blog" },
 	{ name: "Kontakt", href: "/kontakt" },
 ];
 
@@ -62,6 +63,7 @@ export const FooterMenuLinks = [
 	{ name: "Portfolio", href: "/portfolio" },
 	{ name: "Usługi", href: "/uslugi" },
 	{ name: "O Mnie", href: "/o-mnie" },
+	{ name: "Blog", href: "/blog" },
 	{ name: "Kontakt", href: "/kontakt" },
 ];
 

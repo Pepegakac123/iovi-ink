@@ -79,27 +79,27 @@ export const faqHome: FaqProps = {
 	questions: [
 		{
 			id: 1,
-			question: "Ile czasu zajmuje wykonanie?",
+			question: "Jak można się zapisać na tatuaż?",
 			answer:
-				"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+				"Możesz skontaktować się przez formularz na stronie internetowej albo wysyłając wiadomość na Instagramie iovi_ink. W zgłoszeniu warto dołączyć inspiracje graficzne, opis swojego pomysłu oraz informację o miejscu na ciele, które chcesz wytatuować.",
 		},
 		{
 			id: 2,
-			question: "Czy pierwsza rozmowa jest płatna?",
+			question: "Ile kosztuje tatuaż?",
 			answer:
-				"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+				"Cena tatuażu zależy przede wszystkim od jego wielkości, stylu, miejsca na ciele i stopnia skomplikowania wzoru. Dokładną wycenę podaję zawsze po zapoznaniu się z Twoim pomysłem.",
 		},
 		{
 			id: 3,
-			question: "Jak przebiega gojenie tatuażu?",
+			question: "Jak przygotować się do tatuażu?",
 			answer:
-				"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+				"Dobrze się wyśpij, zjedz posiłek przed wizytą i pij dużo wody. Unikaj alkoholu i środków rozrzedzających krew dzień wcześniej. Warto też założyć wygodne ubranie, które łatwo odsłoni tatuowaną część ciała.",
 		},
 		{
 			id: 4,
-			question: "Czy robisz poprawki starych tatuaży?",
+			question: "Jak dbać o świeży tatuaż?",
 			answer:
-				"Małe projekty to 1-2 godziny, większe mogą wymagać kilku sesji. Wszystko zależy od złożoności i Twojej wytrzymałości.",
+				"Po zakończeniu sesji otrzymasz szczegółowe instrukcje pielęgnacji, jednak podstawowe zasady są zawsze takie same. Przez pierwsze dni tatuaż trzeba delikatnie myć letnią wodą i łagodnym mydłem, a następnie smarować cienką warstwą kremu do tatuażu. Ważne jest, aby nie drapać ani nie zdrapywać strupków – to naturalna część procesu gojenia. Przez minimum dwa tygodnie należy unikać ekspozycji na słońce, solarium, basenu czy sauny. Odpowiednia pielęgnacja gwarantuje, że tatuaż zagoi się ładnie i zachowa intensywne kolory na lata.",
 		},
 	],
 };

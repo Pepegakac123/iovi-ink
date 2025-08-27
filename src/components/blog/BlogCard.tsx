@@ -85,7 +85,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 
 				{/* Content Section */}
 				<motion.div
-					className="p-4 md:p-6 flex flex-col gap-3 md:gap-4 h-[calc(100%-220px)] min-h-[280px] justify-between"
+					className="p-4 md:p-6 flex flex-col gap-3 md:gap-4  justify-between"
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
