@@ -497,7 +497,7 @@ export function getServiceSEO(service: JetEngineUsluga) {
 
 export async function getAllBlogs(): Promise<ProcessedBlogPost[]> {
 	const rawBlogs = await jetEngineFetch<WordPressBlogResponse>(
-		"/wp-json/wp/v2/posts", // lub "/wp-json/wp/v2/blog" jeśli masz custom post type
+		"/wp-json/wp/v2/blog",
 		{
 			_fields: "id,slug,title,meta",
 		},
@@ -521,7 +521,7 @@ export async function getAllBlogs(): Promise<ProcessedBlogPost[]> {
  */
 export async function getBlogBySlug(slug: string): Promise<ProcessedBlogPost> {
 	const rawBlogs = await jetEngineFetch<WordPressBlogResponse>(
-		"/wp-json/wp/v2/posts", // lub "/wp-json/wp/v2/blog"
+		"/wp-json/wp/v2/blog", // lub "/wp-json/wp/v2/blog"
 		{
 			slug: slug,
 			_fields: "id,slug,title,meta",
