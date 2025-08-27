@@ -83,8 +83,8 @@
 /* ======= OBRAZY ======= */
 
 .blog-content img {
-	@apply w-full max-h-[400px] object-cover rounded-md border-2 border-foreground my-6 md:my-8;
-	@apply hover:shadow-[4px_4px_0px_0px_theme(colors.foreground)] hover:scale-[1.02] transition-all duration-300;
+	@apply w-full max-h-[400px] object-cover rounded-md  my-6 md:my-8;
+	@apply hover:scale-[1.02] transition-all duration-500;
 }
 
 .blog-content figure {

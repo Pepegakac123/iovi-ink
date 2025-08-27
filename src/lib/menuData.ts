@@ -41,8 +41,8 @@ export interface ServiceDropdownProps {
 export const menuItems: MenuItem[] = [
 	{ name: "Strona główna", href: "/" },
 	{ name: "Portfolio", href: "/portfolio" },
-	// Usługi będą wstawione tu jako dropdown
 	{ name: "O Mnie", href: "/o-mnie" },
+	{ name: "Blog", href: "/blog" },
 	{ name: "Kontakt", href: "/kontakt" },
 ];
 

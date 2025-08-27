@@ -221,7 +221,7 @@ export async function POST(request: Request) {
 
 		// Wysłanie emaila przez Resend
 		const emailResult = await resend.emails.send({
-			from: "Formularz Kontaktowy <onboarding@resend.dev>",
+			from: `Formularz Kontaktowy <${process.env.EMAIL_FROM}>`,
 			to: [process.env.EMAIL_TO!],
 			replyTo: email,
 			subject: `[Nowy Projekt] ${name_surname}${fileInfo.length > 0 ? ` (${fileInfo.length} plików)` : ""}`,

@@ -24,7 +24,6 @@ import { ServicePageProps } from "@/components/servicePagesComponents/servicePag
 import { Metadata } from "next";
 import { images } from "@/lib/images";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "next-seo";
-import { title } from "process";
 
 export async function generateMetadata({
 	params,
