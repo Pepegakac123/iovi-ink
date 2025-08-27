@@ -12,6 +12,7 @@ import {
 	WordPressBlogResponse,
 } from "./jetPostTypes";
 import { objectToSortedArray, transformServiceData } from "./utils";
+import { p } from "framer-motion/client";
 
 // ================================================================
 // SETUP & ERROR HANDLING
@@ -148,7 +149,8 @@ export async function getAllServices(): Promise<JetEngineUslugiResponse> {
 	return jetEngineFetch<JetEngineUslugiResponse>(
 		"/wp-json/wp/v2/uslugi",
 		{
-			_fields: "id,slug,type,title,meta",
+			_fields: "id,slug,title",
+			per_page: 100,
 		},
 		["uslugi-all"], // Specific tag dla wszystkich usług
 	);
@@ -237,7 +239,6 @@ export async function getServiceBySlug(slug: string): Promise<JetEngineUsluga> {
 		},
 		[`service-${slug}`],
 	);
-
 	if (rawServices.length === 0) {
 		throw new JETEngineAPIError(
 			`Service with slug "${slug}" not found`,

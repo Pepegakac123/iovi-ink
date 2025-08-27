@@ -23,7 +23,7 @@ import ServiceHero from "@/components/servicePagesComponents/ServiceHero";
 import { ServicePageProps } from "@/components/servicePagesComponents/servicePage";
 import { Metadata } from "next";
 import { images } from "@/lib/images";
-import { BreadcrumbJsonLd, WebPageJsonLd } from "next-seo";
+import { BreadcrumbJsonLd, ImageJsonLd } from "next-seo";
 
 export async function generateMetadata({
 	params,
@@ -133,15 +133,17 @@ async function Page({ params }: { params: { slug: string } }) {
 					},
 				]}
 			/>
-			<WebPageJsonLd
+			<ImageJsonLd
 				useAppDir={true}
-				description={meta.seo_description || meta.hero_intro}
-				id={`https://iovi-ink.pl/uslugi/${slug}`}
-				lastReviewed={new Date().toISOString()}
-				reviewedBy={{
-					type: "Person",
-					name: "Jowita Potaczek",
-				}}
+				images={images.map((img) => ({
+					contentUrl: img.src,
+					creator: {
+						"@type": "Person",
+						name: "Jowita Potaczek",
+					},
+					creditText: "Jowita Potaczek - IOVI INK",
+					copyrightNotice: "© Jowita Potaczek",
+				}))}
 			/>
 
 			<ServiceHero

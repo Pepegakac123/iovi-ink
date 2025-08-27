@@ -44,7 +44,9 @@ export function objectToSortedArray<T>(obj: Record<string, T>): T[] {
 	if (!obj || typeof obj !== "object") {
 		return [];
 	}
-
+	if (Array.isArray(obj)) {
+		return obj;
+	}
 	return Object.keys(obj)
 		.filter((key) => key.startsWith("item-"))
 		.sort((a, b) => {
