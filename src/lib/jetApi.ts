@@ -5,11 +5,13 @@ import {
 	GroupedTattooImages,
 	JetEngineUsluga,
 	JetEngineUslugiResponse,
+	ProcessedBlogPost,
 	RawJetEngineUsluga,
 	TattooPortfolio,
 	TattooTypes,
+	WordPressBlogResponse,
 } from "./jetPostTypes";
-import { transformServiceData } from "./utils";
+import { objectToSortedArray, transformServiceData } from "./utils";
 
 // ================================================================
 // SETUP & ERROR HANDLING
@@ -490,6 +492,60 @@ export function getServiceSEO(service: JetEngineUsluga) {
 		title: meta.seo_title,
 		description: meta.seo_description,
 		keyword: meta.seo_keyword,
+	};
+}
+
+export async function getAllBlogs(): Promise<ProcessedBlogPost[]> {
+	const rawBlogs = await jetEngineFetch<WordPressBlogResponse>(
+		"/wp-json/wp/v2/posts", // lub "/wp-json/wp/v2/blog" jeśli masz custom post type
+		{
+			_fields: "id,slug,title,meta",
+		},
+		["blogs-all"],
+	);
+
+	return rawBlogs.map((blog) => ({
+		slug: blog.slug,
+		title: blog.title.rendered,
+		date: blog.meta.data_bloga,
+		excerpt: blog.meta.wstep,
+		thumbnail: blog.meta.miniaturka_bloga,
+		content: blog.meta.tekst_glowny,
+		faq: objectToSortedArray(blog.meta.blog_faq),
+	}));
+}
+
+/**
+ * Pobiera pojedynczy blog po slug z przetworzonymi danymi
+ * Cache tags: ["jet-engine", "blogs", "blog-{slug}"]
+ */
+export async function getBlogBySlug(slug: string): Promise<ProcessedBlogPost> {
+	const rawBlogs = await jetEngineFetch<WordPressBlogResponse>(
+		"/wp-json/wp/v2/posts", // lub "/wp-json/wp/v2/blog"
+		{
+			slug: slug,
+			_fields: "id,slug,title,meta",
+		},
+		[`blog-${slug}`],
+	);
+
+	if (rawBlogs.length === 0) {
+		throw new JETEngineAPIError(
+			`Blog with slug "${slug}" not found`,
+			404,
+			`/wp-json/wp/v2/posts?slug=${slug}`,
+		);
+	}
+
+	const blog = rawBlogs[0];
+	return {
+		slug: blog.slug,
+		title: blog.title.rendered,
+		date: blog.meta.data_bloga,
+		excerpt: blog.meta.wstep,
+		thumbnail: blog.meta.miniaturka_bloga,
+		content: blog.meta.tekst_glowny,
+		faq: objectToSortedArray(blog.meta.blog_faq),
 	};
 }
 

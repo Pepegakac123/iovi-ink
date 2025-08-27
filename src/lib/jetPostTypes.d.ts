@@ -70,7 +70,6 @@ interface RawJetEngineUsluga {
 	meta: RawUslugiMeta;
 	attributes?: number;
 }
-
 interface ContentSection {
 	h3: string;
 	content: string;
@@ -214,4 +213,49 @@ export interface GroupedTattooImages {
 export interface TattooImageWithAlt {
 	src: string;
 	alt: string;
+}
+
+interface BlogFAQItem {
+	pytanie: string;
+	odpowiedz: string;
+}
+
+// Interfejs dla sekcji FAQ (obiekt z kluczami item-0, item-1, etc.)
+interface BlogFAQSection {
+	[key: string]: BlogFAQItem; // klucze jak "item-0", "item-1"
+}
+
+// Interfejs dla metadanych bloga
+interface BlogMeta {
+	data_bloga: string;
+	wstep: string;
+	miniaturka_bloga: string;
+	tekst_glowny: string;
+	blog_faq: BlogFAQSection; // zmienione z 'korzysci' na 'blog_faq'
+}
+
+// Interfejs dla tytułu bloga
+interface BlogTitle {
+	rendered: string;
+}
+
+// Główny interfejs dla pojedynczego posta z WordPress API
+interface WordPressBlogPost {
+	slug: string;
+	title: BlogTitle;
+	meta: BlogMeta;
+}
+
+// Typ dla odpowiedzi z WordPress API (tablica postów)
+type WordPressBlogResponse = WordPressBlogPost[];
+
+// Interfejs dla przetworzonego bloga z FAQ jako tablicą
+interface ProcessedBlogPost {
+	slug: string;
+	title: string;
+	date: string;
+	excerpt: string;
+	thumbnail: string;
+	content: string;
+	faq: BlogFAQItem[];
 }
