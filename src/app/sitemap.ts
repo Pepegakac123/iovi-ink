@@ -1,6 +1,6 @@
 // app/sitemap.ts
 import { MetadataRoute } from "next";
-import { getAllServices } from "@/lib/jetApi";
+import { getAllBlogs, getAllServices } from "@/lib/jetApi";
 
 export const revalidate = 3600;
 
@@ -28,10 +28,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			priority: 0.8,
 		},
 		{
+			url: `${baseUrl}/blog`,
+			lastModified: new Date(),
+			changeFrequency: "weekly",
+			priority: 0.7, // Bardzo wysoki priorytet dla usług
+		},
+		{
 			url: `${baseUrl}/kontakt`,
 			lastModified: new Date(),
 			changeFrequency: "monthly",
-			priority: 0.7,
+			priority: 0.6,
 		},
 		{
 			url: `${baseUrl}/o-mnie`,
@@ -50,16 +56,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	try {
 		// Dynamic pages - pobierz wszystkie usługi z CMS
 		const services = await getAllServices();
-
+		const blogs = await getAllBlogs();
 		const servicePages: MetadataRoute.Sitemap = services.map((service) => ({
 			url: `${baseUrl}/uslugi/${service.slug}`,
 			lastModified: new Date(), // Można dodać pole z CMS jeśli masz
 			changeFrequency: "monthly" as const,
 			priority: 0.8, // Wysokie priority dla stron usług - to główne landing pages
 		}));
+		const blogPages: MetadataRoute.Sitemap = blogs.map((blog) => ({
+			url: `${baseUrl}/blog/${blog.slug}`,
+			lastModified: blog.date, // Można dodać pole z CMS jeśli masz
+			changeFrequency: "monthly" as const,
+			priority: 0.7,
+		}));
 
 		// Combine static + dynamic pages
-		return [...staticPages, ...servicePages];
+		return [...staticPages, ...servicePages, ...blogPages];
 	} catch (error) {
 		console.error("Error generating sitemap:", error);
 

@@ -1,5 +1,5 @@
 // app/api/revalidate/route.ts
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
 			console.log(`Revalidating: ${tag.trim()}`);
 			revalidateTag(tag.trim());
 		});
-
+		revalidatePath("/sitemap.xml");
 		console.log("✅ Revalidation complete");
 		return NextResponse.json({
 			success: true,

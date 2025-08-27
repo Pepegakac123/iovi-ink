@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import * as motion from "motion/react-client";
 import { cardVariantsFast } from "@/lib/variants";
+import { formatDate } from "@/lib/utils";
 
 interface ProcessedBlogPost {
 	slug: string;
@@ -24,18 +25,6 @@ interface BlogCardProps {
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 	// Format date to Polish format
-	const formatDate = (dateString: string) => {
-		try {
-			const date = new Date(dateString);
-			return date.toLocaleDateString("pl-PL", {
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-			});
-		} catch {
-			return dateString;
-		}
-	};
 
 	return (
 		<motion.article
@@ -53,13 +42,13 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 				{/* Image Section with Date Badge */}
 				<div className="w-full h-[220px] relative overflow-hidden">
 					<motion.div
-						className="absolute top-4 left-4 z-10 bg-primary text-primary-foreground px-3 py-1 rounded-md border-1 border-foreground"
+						className="absolute top-4 left-4 z-10 bg-primary text-primary-foreground px-3 py-2 rounded-md border-1 border-foreground flex items-center justify-center"
 						initial={{ opacity: 0, scale: 0.8 }}
 						whileInView={{ opacity: 1, scale: 1 }}
 						viewport={{ once: true }}
 						transition={{ delay: 0.2, duration: 0.3 }}
 					>
-						<span className="text-xs font-primary uppercase">
+						<span className="text-sm font-primary uppercase">
 							{formatDate(blog.date)}
 						</span>
 					</motion.div>

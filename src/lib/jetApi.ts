@@ -42,6 +42,8 @@ const REVALIDATE_TIMES = {
 	SERVICE_BY_SLUG: 604800, // 7 dni
 	PORTFOLIO_ALL: 86400, // 1 dzień (nowe prace)
 	PORTFOLIO_BY_SLUG: 2592000, // 30 dni (stabilne)
+	BLOG: 86400, // 1 dzień
+	BLOG_BY_SLUG: 604800, // 7 dni
 	CAROUSEL: 604800, // 7 dni
 	MEDIA_SEARCH: 2592000, // 30 dni
 } as const;
@@ -576,6 +578,10 @@ export const CACHE_TAGS = {
 	// Carousel
 	ALL_CAROUSEL: "carousel",
 	CAROUSEL_BY_SLUG: (slug: string) => `carousel-${slug}`,
+
+	//Blog
+	ALL_BLOGS: "blogs",
+	BLOG_BY_SLUG: (slug: string) => `blog-${slug}`,
 
 	// Media
 	ALL_MEDIA: "media",

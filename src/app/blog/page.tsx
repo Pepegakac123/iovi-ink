@@ -12,7 +12,7 @@ import { images } from "@/lib/images";
 import { BreadcrumbJsonLd } from "next-seo";
 
 export const metadata: Metadata = {
-	title: "Blog", // zostanie: "Blog - Porady o tatuażach i pielęgnacji - iovi-ink"
+	title: "Blog",
 	description:
 		"Porady o tatuażach, pielęgnacji i stylizacji. Odkryj najnowsze trendy i dowiedz się jak dbać o swoje tatuaże.",
 
@@ -85,7 +85,10 @@ const BlogPage = async () => {
 				viewport={{ once: true, margin: "-100px" }}
 				variants={containerVariants}
 			>
-				<motion.div className="container" variants={containerVariants}>
+				<motion.div
+					className="container px-4 md:px-8"
+					variants={containerVariants}
+				>
 					{/* Blog Grid - 3 kolumny na dużych ekranach */}
 					<motion.div
 						className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch"

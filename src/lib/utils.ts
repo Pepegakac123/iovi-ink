@@ -27,6 +27,19 @@ export const formatPhoneNumber = (value: string) => {
 	}
 };
 
+export const formatDate = (dateString: string) => {
+	try {
+		const date = new Date(dateString);
+		return date.toLocaleDateString("pl-PL", {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+		});
+	} catch {
+		return dateString;
+	}
+};
+
 export function objectToSortedArray<T>(obj: Record<string, T>): T[] {
 	if (!obj || typeof obj !== "object") {
 		return [];

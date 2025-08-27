@@ -1,6 +1,6 @@
 // src/app/blog/[slug]/page.tsx
 
-import { BreadcrumbJsonLd } from "next-seo";
+import { ArticleJsonLd, BreadcrumbJsonLd, FAQPageJsonLd } from "next-seo";
 import { getAllBlogs, getBlogBySlug } from "@/lib/jetApi";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import Contact from "@/components/Sections/Contact";
@@ -9,6 +9,7 @@ import * as motion from "motion/react-client";
 import { containerVariants, itemVariants } from "@/lib/variants";
 import BlogContent from "@/components/blog/BlogContent";
 import BlogFAQSection from "@/components/blog/BlogFAQSection";
+import { images } from "@/lib/images";
 
 export async function generateMetadata({
 	params,
@@ -90,6 +91,28 @@ async function BlogSinglePage({ params }: { params: { slug: string } }) {
 						item: `https://iovi-ink.pl/blog/${slug}`,
 					},
 				]}
+			/>
+			{blog.faq && blog.faq.length > 0 && (
+				<FAQPageJsonLd
+					useAppDir={true}
+					mainEntity={blog.faq.map((item) => ({
+						questionName: item.pytanie,
+						acceptedAnswerText: item.odpowiedz,
+					}))}
+				/>
+			)}
+			<ArticleJsonLd
+				useAppDir={true}
+				url={`https://iovi-ink.pl/blog/${slug}`}
+				title={blog.title}
+				images={[blog.thumbnail]}
+				datePublished={blog.date}
+				dateModified={blog.date}
+				authorName="Jowita Potaczek"
+				publisherName="IOVI INK"
+				publisherLogo={images.logo.src}
+				description={blog.excerpt}
+				isAccessibleForFree={true}
 			/>
 
 			{/* ✅ Main Blog Layout */}
