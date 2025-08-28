@@ -149,8 +149,8 @@ export async function getAllServices(): Promise<JetEngineUslugiResponse> {
 	return jetEngineFetch<JetEngineUslugiResponse>(
 		"/wp-json/wp/v2/uslugi",
 		{
-			_fields: "id,slug,title",
-			per_page: 100,
+			_fields: "slug",
+			per_page: 1000,
 		},
 		["uslugi-all"], // Specific tag dla wszystkich usług
 	);
@@ -517,7 +517,27 @@ export async function getAllBlogs(): Promise<ProcessedBlogPost[]> {
 		faq: objectToSortedArray(blog.meta.blog_faq),
 	}));
 }
+export async function getFeaturedBlogs(): Promise<ProcessedBlogPost[]> {
+	const rawBlogs = await jetEngineFetch<WordPressBlogResponse>(
+		"/wp-json/wp/v2/blog",
+		{
+			_fields: "id,slug,title,meta",
+			per_page: 3,
+			orderby: "date",
+		},
+		["blogs-featured"],
+	);
 
+	return rawBlogs.map((blog) => ({
+		slug: blog.slug,
+		title: blog.title.rendered,
+		date: blog.meta.data_bloga,
+		excerpt: blog.meta.wstep,
+		thumbnail: blog.meta.miniaturka_bloga,
+		content: blog.meta.tekst_glowny,
+		faq: objectToSortedArray(blog.meta.blog_faq),
+	}));
+}
 /**
  * Pobiera pojedynczy blog po slug z przetworzonymi danymi
  * Cache tags: ["jet-engine", "blogs", "blog-{slug}"]

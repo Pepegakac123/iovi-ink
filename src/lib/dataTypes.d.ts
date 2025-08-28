@@ -55,6 +55,12 @@ export type WhyMeProps = {
 	};
 };
 
+export type FeaturedBlogsProps = {
+	title: string;
+	subheadline: string;
+	description: string;
+};
+
 export type FaqQuestion = {
 	id: number;
 	question: string;

@@ -35,6 +35,18 @@ export const images = {
 		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab_z_zarufkom.webp",
 		alt: "Tatuażystka Jowita siedząca w pozycji relaksowej z nogami skrzyżowanymi, przedstawiając przyjazne i spokojne podejście do klientów zainteresowanych tatuażami",
 	},
+	bab_wpatrzona_w_telefon: {
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab-z-telefonem.webp",
+		alt: "Jowita - tatuażystka prowadząca konsultację telefoniczną z klientem, zapewniając profesjonalną obsługę przed wykonaniem tatuażu",
+	},
+	bab_z_szescianem: {
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab-z-szescianem.webp",
+		alt: "Jowita - tatuażystka prowadząca konsultację telefoniczną z klientem, zapewniając profesjonalną obsługę przed wykonaniem tatuażu",
+	},
+	bab_sie_rozciaga: {
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab-sie-rozciaga.webp",
+		alt: "Jowita - tatuażystka prowadząca konsultację telefoniczną z klientem, zapewniając profesjonalną obsługę przed wykonaniem tatuażu",
+	},
 	proces: {
 		proces_1: {
 			mobile:
@@ -45,9 +57,9 @@ export const images = {
 		},
 		proces_2: {
 			mobile:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_2_mobile.webp",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_konsultacja_mobile.webp",
 			desktop:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_2_dekstop.webp",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_konsultacja_desktop.webp",
 			alt: "Szkicowanie autorskiego projektu - tatuażystka tworzy indywidualny design dostosowany do potrzeb i anatomii klienta",
 		},
 		proces_3: {
@@ -66,9 +78,9 @@ export const images = {
 		},
 		proces_5: {
 			mobile:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_5_mobile.webp",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_bab_z_telefonem_mobile.webp",
 			desktop:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_5_dekstop.webp",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_bab_z_telefonem_desktop.webp",
 			alt: "Wsparcie podczas gojenia - instrukcje pielęgnacji i możliwość kontaktu z pytaniami przez cały okres gojenia tatuażu",
 		},
 	},

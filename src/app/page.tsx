@@ -11,6 +11,7 @@ import * as motion from "motion/react-client";
 import { images } from "@/lib/images";
 import {
 	aboutMeHome,
+	blogHome,
 	contactHome,
 	faqHome,
 	procesHome,
@@ -20,6 +21,7 @@ import {
 	whyMeHome,
 } from "@/lib/data";
 import { BreadcrumbJsonLd, FAQPageJsonLd, SocialProfileJsonLd } from "next-seo";
+import FeaturedBlogs from "@/components/FeaturedBlogs";
 
 export default async function Home() {
 	return (
@@ -87,6 +89,9 @@ export default async function Home() {
 			</section>
 			<section className="bg-foreground mt-16">
 				<WhyMe {...whyMeHome} />
+			</section>
+			<section className="bg-primary-foreground ">
+				<FeaturedBlogs {...blogHome} />
 			</section>
 			<section>
 				<Faq {...faqHome} />

@@ -36,7 +36,7 @@ const ServiceSectionHero: React.FC<ServiceSectionHeroProps> = ({
 				variants={containerVariants}
 			>
 				<motion.div
-					className="w-full gap-4 md:gap-6 flex flex-col items-center justify-center border-1 border-b-4 border-r-4 border-foreground rounded-md overflow-hidden p-4 md:p-6 relative min-h-[550px]"
+					className="w-full gap-4 md:gap-6 flex flex-col items-center justify-center border-1 border-b-4 border-r-4 border-foreground rounded-md overflow-hidden p-4 md:p-6 relative min-h-[650px]"
 					initial={{ opacity: 0, scale: 0.95, rotateX: 10 }}
 					animate={{ opacity: 1, scale: 1, rotateX: 0 }}
 					transition={{ duration: 0.8, ease: "easeOut" }}
@@ -51,11 +51,10 @@ const ServiceSectionHero: React.FC<ServiceSectionHeroProps> = ({
 							src={image.src}
 							alt={image.alt}
 							fill
-							className="object-cover
-							"
-							sizes="(max-width: 768px) 100vw, (max-width: 1440px) 100vw, 1920px"
+							className="object-cover"
+							sizes="100vw"
 							priority={true}
-							quality={95}
+							quality={100}
 						/>
 						{/* Overlay - delikatny czarny gradient liniowy 120 stopni */}
 						<div

@@ -5,19 +5,7 @@ import Link from "next/link";
 import * as motion from "motion/react-client";
 import { cardVariantsFast } from "@/lib/variants";
 import { formatDate } from "@/lib/utils";
-
-interface ProcessedBlogPost {
-	slug: string;
-	title: string;
-	date: string;
-	excerpt: string;
-	thumbnail: string;
-	content: string;
-	faq: Array<{
-		pytanie: string;
-		odpowiedz: string;
-	}>;
-}
+import { ProcessedBlogPost } from "@/lib/jetPostTypes";
 
 interface BlogCardProps {
 	blog: ProcessedBlogPost;

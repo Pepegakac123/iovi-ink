@@ -5,6 +5,7 @@ import {
 	ContactProps,
 	FaqProps,
 	FaqQuestion,
+	FeaturedBlogsProps,
 	Proces,
 	ProcessSectionProps,
 	ServicesProps,
@@ -74,6 +75,12 @@ export const proces: Proces[] = [
 			"Dostajesz instrukcje pielęgnacji a w razie pytań nie wachaj się napisać. To część usługi.",
 	},
 ];
+export const blogHome: FeaturedBlogsProps = {
+	title: "Tatuaże - Porady i inspiracje",
+	subheadline: "2 lata doświadczenia",
+	description:
+		"Odkryj porady o tatuażach, pielęgnacji i najnowsze trendy. Dowiedz się jak przygotować się do sesji i jak dbać o swoje tatuaże.",
+};
 export const faqHome: FaqProps = {
 	subheadline: "FAQ",
 	questions: [
