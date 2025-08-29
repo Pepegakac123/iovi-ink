@@ -1,6 +1,6 @@
 // app/sitemap.ts
 import { MetadataRoute } from "next";
-import { getAllBlogs, getAllServices } from "@/lib/jetApi";
+import { getAllBlogs, getAllHomepageCites, getAllServices } from "@/lib/jetApi";
 
 export const revalidate = 3600;
 
@@ -63,6 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		// Dynamic pages - pobierz wszystkie usługi z CMS
 		const services = await getAllServices();
 		const blogs = await getAllBlogs();
+		const homePageCities1 = await getAllHomepageCites(
+			"tatuazysta" as "tatuaze | tatuazysta",
+		);
+		const homePageCities2 = await getAllHomepageCites(
+			"tatuaze" as "tatuaze | tatuazysta",
+		);
 		const servicePages: MetadataRoute.Sitemap = services.map((service) => ({
 			url: `${baseUrl}/uslugi/${service.slug}`,
 			lastModified: new Date(), // Można dodać pole z CMS jeśli masz
@@ -75,9 +81,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			changeFrequency: "monthly" as const,
 			priority: 0.7,
 		}));
+		const homePageCities1Pages: MetadataRoute.Sitemap = homePageCities1.map(
+			(city) => ({
+				url: `${baseUrl}/tatuazysta/${city.slug}`,
+				lastModified: new Date(), // Można dodać pole z CMS jeśli masz
+				changeFrequency: "monthly" as const,
+				priority: 0.8,
+			}),
+		);
+		const homePageCities2Pages: MetadataRoute.Sitemap = homePageCities2.map(
+			(city) => ({
+				url: `${baseUrl}/tatuaze/${city.slug}`,
+				lastModified: new Date(), // Można dodać pole z CMS jeśli masz
+				changeFrequency: "monthly" as const,
+				priority: 0.8,
+			}),
+		);
 
 		// Combine static + dynamic pages
-		return [...staticPages, ...servicePages, ...blogPages];
+		return [
+			...staticPages,
+			...servicePages,
+			...blogPages,
+			...homePageCities1Pages,
+			...homePageCities2Pages,
+		];
 	} catch (error) {
 		console.error("Error generating sitemap:", error);
 

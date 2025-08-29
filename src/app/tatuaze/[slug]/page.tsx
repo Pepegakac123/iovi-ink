@@ -1,3 +1,5 @@
+export const dynamicParams = false;
+
 import Hero from "@/components/Sections/Hero";
 import CarouselSections from "@/components/Sections/CarouselSections";
 import AboutMe from "@/components/Sections/AboutMe";
@@ -13,62 +15,92 @@ import { ICONS, PROCESS_ICONS } from "@/lib/icons";
 import { socialLinks } from "@/lib/data";
 import { BreadcrumbJsonLd, FAQPageJsonLd, SocialProfileJsonLd } from "next-seo";
 import FeaturedBlogs from "@/components/FeaturedBlogs";
+import { getAllHomepageCites, getCityHomepageBySlug } from "@/lib/jetApi";
+import { JetHomepageProps } from "@/lib/jetPostTypes";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Tatuażysta",
-	description:
-		"Tatuażysta specjalizujący w delikatnych, minimalistycznych i graficznych - iovi-ink. Artystyczne projekty, precyzyjne wykonanie, bezpłatna konsultacja. Wykonanie w Studio Lewus Ink ",
+export async function generateStaticParams() {
+	const type = "tatuazysta";
+	const cities = await getAllHomepageCites(type as "tatuaze | tatuazysta");
+	return cities.map((cities) => ({ slug: cities.slug }));
+}
+export async function generateMetadata({
+	params,
+}: JetHomepageProps): Promise<Metadata> {
+	const { slug } = await params;
 
-	openGraph: {
-		title:
-			"Tatuażysta |  Delikatne i Graficzne Tatuaże | Bezpłatna konsultacja Mszana Dolna",
-		description:
-			"Tatuażysta specjalizujący w delikatnych, minimalistycznych i graficznych - iovi-ink. Artystyczne projekty, precyzyjne wykonanie, bezpłatna konsultacja. Wykonanie w Studio Lewus Ink ",
-		url: "https://iovi-ink.pl/tatuazysta",
-		images: [
-			{
-				url: `${images.seoBaner.src}`,
-				width: 1200,
-				height: 630,
-				alt: `${images.seoBaner.alt}`,
+	try {
+		const service = await getCityHomepageBySlug(
+			slug,
+			"tatuaze" as "tatuaze | tatuazysta",
+		);
+
+		if (!service) {
+			return {
+				title: "Usługa nie została znaleziona",
+				description: "Przepraszamy, nie można znaleźć tej usługi tatuażu.",
+			};
+		}
+
+		const { meta } = service;
+		const serviceTitle = service.title.rendered;
+
+		// Wykorzystaj gotowe SEO z CMS lub fallback
+		const seoTitle =
+			serviceTitle || `${serviceTitle} - Jowita Tatuażystka | IOVI INK`;
+		const seoDescription =
+			meta.seo_description ||
+			`${serviceTitle} - profesjonalne usługi tatuażu. Minimalistyczne i graficzne wzory dostosowane do anatomii.`;
+
+		// Keywords z CMS + dodatkowe lokalne
+		const keywords = [meta.seo_keyword, "tatuażysta", "tatuaże"];
+
+		return {
+			title: seoTitle,
+			description: seoDescription,
+			keywords: keywords,
+
+			openGraph: {
+				title: seoTitle,
+				description: seoDescription,
+				url: `https://iovi-ink.pl/tatuaze/${slug}`,
+				type: "website",
+				images: [
+					{
+						url: images.seoBaner.src,
+						width: 1200,
+						height: 630,
+						alt: `${serviceTitle} - ${seoDescription}`,
+					},
+				],
+				siteName: "Iovi-Ink",
 			},
-		],
-		type: "profile",
-	},
 
-	alternates: {
-		canonical: "https://iovi-ink.pl/tatuazysta",
-	},
+			twitter: {
+				card: "summary_large_image",
+				title: seoTitle,
+				description: seoDescription,
+				images: images.seoBaner.src,
+			},
 
-	// Keywords dla strony o mnie
-	keywords: [
-		"tatuażysta",
-		"tatuażystka",
-		"delikatne tatuaże damskie", // 8,100 vol - MEGA HIGH
-		"tatuaże minimalistyczne", // 1,300 vol - HIGH
-		"tatuaże na ręce", // 14,800 vol - HIGH
-		"tatuażysta", // 2,400 vol - HIGH (używam "tatuażysta")
-		"tatuaże fine line", // z bazy - HIGH
-		"małe tatuaże damskie", // z bazy
-		"subtelne tatuaże", // z content
+			alternates: {
+				canonical: `https://iovi-ink.pl/tatuaze/${slug}`,
+			},
+		};
+	} catch (error) {
+		console.error("Error generating metadata:", error);
+		return {
+			title: "Błąd ładowania usługi",
+			description: "Wystąpił problem z załadowaniem tej usługi tatuażu.",
+		};
+	}
+}
 
-		// ✅ Z realnego contentu data.ts
-		"autorskie projekty tatuaże", // z whyMeHome
-		"bezpłatna konsultacja tatuaż", // z proces[0]
-		"precyzyjne wykonanie", // z content
-		"tatuażystka mszana dolna", // local SEO
-		"studio lewus ink", // work location
-	],
-
-	// Dodatkowe schema.org metadata dla profilu
-	other: {
-		"profile:first_name": "Jowita",
-		"profile:username": "iovi.ink",
-		"article:author": "Jowita - iovi-ink",
-	},
-};
-export default async function TatuazystaPage() {
+export default async function TatuazystaPage({
+	params,
+}: {
+	params: { slug: string };
+}) {
 	// FAQ Data
 	const faqData = {
 		subheadline: "FAQ",
@@ -163,16 +195,14 @@ export default async function TatuazystaPage() {
 				"Otrzymujesz szczegółowe instrukcje pielęgnacji. Jako Twój tatuażysta jestem dostępna w razie pytań podczas gojenia - to część mojej usługi.",
 		},
 	];
-
+	const { slug } = await params;
+	const service = await getCityHomepageBySlug(
+		slug,
+		"tatuaze" as "tatuaze | tatuazysta",
+	);
+	const { meta, title } = service;
 	return (
 		<>
-			<SocialProfileJsonLd
-				useAppDir={true}
-				type="Person"
-				name="Jowita Potaczek"
-				url="https://www.iovi-ink.pl"
-				sameAs={[socialLinks.iovi.instagram]}
-			/>
 			<BreadcrumbJsonLd
 				useAppDir={true}
 				itemListElements={[
@@ -183,8 +213,13 @@ export default async function TatuazystaPage() {
 					},
 					{
 						position: 2,
-						name: "Tatuażysta",
-						item: "https://iovi-ink.pl/tatuazysta",
+						name: "Tatuaże",
+						item: "https://iovi-ink.pl/tatuaze",
+					},
+					{
+						position: 3,
+						name: title.rendered,
+						item: `https://iovi-ink.pl/tatuaze/${slug}`,
 					},
 				]}
 			/>
@@ -197,40 +232,26 @@ export default async function TatuazystaPage() {
 			/>
 
 			<Hero
-				subTitle="Profesjonalne tatuaże z charakterem"
-				title="Tatuażysta z Pasją do Perfekcji"
-				description={
-					<>
-						Jestem tatuażystką, która traktuje każdy projekt jako wyzwanie
-						artystyczne. Specjalizuję się w tatuażach graficznych,
-						minimalistycznych i fine line. Pracuję w studiu{" "}
-						<motion.a
-							href={socialLinks.lewus.googleMaps}
-							rel="noopener noreferrer"
-							target="_blank"
-							className=" text-primary hover:text-accent transition-colors duration-300"
-							whileHover={{ scale: 1.02 }}
-						>
-							Lewus Ink
-						</motion.a>{" "}
-						w Mszanie Dolnej, gdzie mam idealne warunki do realizacji Twoich
-						pomysłów z maksymalną precyzją.
-					</>
-				}
-				image={images.bab_z_maszynkom}
+				subTitle={meta.hero_subtitle}
+				title={meta.hero_title}
+				description={meta.hero_description}
+				image={{
+					src: images.bab_z_maszynkom.src,
+					alt: `${title.rendered} - Iovi-Ink`,
+				}}
 			/>
 
 			<CarouselSections />
 
 			<section>
 				<AboutMe
-					title="Moja Droga jako Tatuażysta"
-					subheadline="2 lata praktyki i ciągłego rozwoju"
+					title={meta.about_me_title}
+					subheadline={meta.about_me_subheadline}
 					image={images.zblizenie_na_twarz_patrzy_na_wprost}
 					description={[
-						"Zostać tatuażystą to było naturalne rozwinięcie mojej pasji do sztuki. Od dziecka rysowałam, ale dopiero w studio odkryłam jak fascynujące jest przenoszenie sztuki na skórę.",
-						"Jako tatuażysta uczę się czegoś nowego każdego dnia - różne typy skóry, nowe techniki, sposoby na osiąganie coraz lepszych efektów. To zawód, który wymaga ciągłego doskonalenia.",
-						"Praca w studio Lewus Ink daje mi możliwość skupienia się na tym, co najważniejsze - tworzeniu pięknych tatuaży. Mam dostęp do najlepszego sprzętu i sterylnych warunków.",
+						meta.about_me_description_1,
+						meta.about_me_description_2,
+						meta.about_me_description_3,
 					]}
 				/>
 			</section>
@@ -238,31 +259,28 @@ export default async function TatuazystaPage() {
 			<section className="bg-foreground mt-16">
 				<Services
 					servicesType="featured"
-					title="Czym zajmuje się tatuażysta?"
-					subheadline="Moje specjalizacje jako tatuażysty"
-					description="Każdy tatuaż tworzę jako unikalną kompozycję dostosowaną do Twoich potrzeb i mojej wizji artystycznej."
+					title={meta.services_title}
+					subheadline={meta.services_subheadline}
+					description={meta.services_description}
 				/>
 			</section>
 
 			<section className="bg-primary-foreground">
 				<TargetAudienceSection
-					title="Dla Kogo Pracuję Jako Tatuażysta"
+					title={meta.target_audience_title}
 					image={images.karty_tatuazy}
 					targetAudienceDsc={[
 						{
-							title: "Osoby szukające profesjonalnego tatuażysty",
-							description:
-								"Jeśli szukasz tatuażysty, który potraktuje Twój pomysł poważnie i wykona go precyzyjnie, to dobrze trafiłeś. Oferuję uczciwy stosunek jakości do ceny i pełne zaangażowanie w każdy projekt.",
+							title: meta.target_audience_item_1_title,
+							description: meta.target_audience_item_1_description,
 						},
 						{
-							title: "Miłośnicy przemyślanego designu",
-							description:
-								"Jako tatuażysta specjalizuję się w stylach wymagających precyzji - fine line, minimalizm, grafika. Jeśli cenisz czyste linie i przemyślane kompozycje, rozumiemy się.",
+							title: meta.target_audience_item_2_title,
+							description: meta.target_audience_item_2_description,
 						},
 						{
-							title: "Klienci z konkretną wizją",
-							description:
-								"Najlepiej współpracuje mi się z osobami, które mają pomysł na swój tatuaż. Jako doświadczony tatuażysta pomogę Ci dopracować szczegóły i zrealizować projekt idealnie.",
+							title: meta.target_audience_item_3_title,
+							description: meta.target_audience_item_3_description,
 						},
 					]}
 				/>
@@ -310,9 +328,9 @@ export default async function TatuazystaPage() {
 			</section>
 			<section className="bg-primary-foreground ">
 				<FeaturedBlogs
-					title="Tatuażysta - Porady i inspiracje"
-					subheadline="2 lata doświadczenia"
-					description="Odkryj porady o tatuażach, pielęgnacji i najnowsze trendy od tatuażysty. Dowiedz się jak przygotować się do sesji i jak dbać o swoje dzieło."
+					title={meta.blog_title}
+					subheadline={meta.blog_subheadline}
+					description={meta.blog_description}
 				/>
 			</section>
 			<section>
@@ -321,9 +339,9 @@ export default async function TatuazystaPage() {
 
 			<section>
 				<Contact
-					subheadline="Szukasz profesjonalnego tatuażysty?"
-					title="Porozmawiajmy o Twoim Projekcie"
-					description="Jako doświadczony tatuażysta chętnie przedyskutuję Twoje pomysły i opowiem jak można je najlepiej zrealizować. Pierwsza konsultacja jest zawsze bezpłatna."
+					subheadline={meta.contact_subheadline}
+					title={meta.contact_title}
+					description={meta.contact_description}
 				/>
 			</section>
 		</>

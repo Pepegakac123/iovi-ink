@@ -259,3 +259,44 @@ interface ProcessedBlogPost {
 	content: string;
 	faq: BlogFAQItem[];
 }
+
+export type JetHomepage = {
+	slug: string;
+	title: {
+		rendered: string;
+	};
+	meta: {
+		seo_title: string;
+		seo_description: string;
+		seo_keyword: string;
+		hero_subtitle: string;
+		hero_title: string;
+		hero_description: string;
+		about_me_title: string;
+		about_me_subheadline: string;
+		about_me_description_1: string;
+		about_me_description_2: string;
+		about_me_description_3: string;
+		services_title: string;
+		services_subheadline: string;
+		services_description: string;
+		target_audience_title: string;
+		target_audience_item_1_title: string;
+		target_audience_item_1_description: string;
+		target_audience_item_2_title: string;
+		target_audience_item_2_description: string;
+		target_audience_item_3_title: string;
+		target_audience_item_3_description: string;
+		blog_title: string;
+		blog_subheadline: string;
+		blog_description: string;
+		contact_subheadline: string;
+		contact_title: string;
+		contact_description: string;
+	};
+};
+export interface JetHomepageProps {
+	params: Promise<{
+		slug: string;
+	}>;
+}

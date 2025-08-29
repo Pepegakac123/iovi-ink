@@ -5,6 +5,7 @@ import {
 	GroupedTattooImages,
 	JetEngineUsluga,
 	JetEngineUslugiResponse,
+	JetHomepage,
 	ProcessedBlogPost,
 	RawJetEngineUsluga,
 	TattooPortfolio,
@@ -39,8 +40,12 @@ class JETEngineAPIError extends Error {
 const REVALIDATE_TIMES = {
 	FEATURED_SERVICES: 86400, // 1 dzień
 	MAIN_SERVICES: 86400, // 1 dzień
-	ALL_SERVICES: 604800, // 7 dni
-	SERVICE_BY_SLUG: 604800, // 7 dni
+	TATUAZYSTA_HOMEPAGE: 2592000,
+	TATUAZE_HOMEPAGE: 2592000,
+	TATUAZE_HOMEPAGE_BY_SLUG: 604800,
+	TATUAZYSTA_HOMEPAGE_BY_SLUG: 604800,
+	ALL_SERVICES: 2592000, // 7 dni
+	SERVICE_BY_SLUG: 2592000, // 7 dni
 	PORTFOLIO_ALL: 86400, // 1 dzień (nowe prace)
 	PORTFOLIO_BY_SLUG: 2592000, // 30 dni (stabilne)
 	BLOG: 86400, // 1 dzień
@@ -572,6 +577,33 @@ export async function getBlogBySlug(slug: string): Promise<ProcessedBlogPost> {
 	};
 }
 
+export async function getAllHomepageCites(
+	type: "tatuaze | tatuazysta",
+): Promise<JetHomepage[]> {
+	return jetEngineFetch<JetHomepage[]>(
+		`/wp-json/wp/v2/${type}-home`,
+		{
+			_fields: "slug",
+			per_page: 100,
+		},
+		[`${type}-home`], // Specific tag dla wszystkich usług
+	);
+}
+export async function getCityHomepageBySlug(
+	slug: string,
+	type: "tatuaze | tatuazysta",
+): Promise<JetHomepage> {
+	const citiesPages = await jetEngineFetch<JetHomepage[]>(
+		`/wp-json/wp/v2/${type}-home`,
+		{
+			slug: slug,
+			_fields: "slug,title,meta",
+		},
+		[`${type}-home-${slug}`],
+	);
+	return citiesPages[0];
+}
+
 // ================================================================
 // CACHE REVALIDATION HELPERS
 // ================================================================
@@ -583,6 +615,12 @@ export async function getBlogBySlug(slug: string): Promise<ProcessedBlogPost> {
 export const CACHE_TAGS = {
 	// Wszystkie JET Engine dane
 	ALL_JET_ENGINE: "jet-engine",
+
+	//Homepage
+	TATUAZE_HOMEPAGE: "tatuaze-home",
+	TATUAZYSTA_HOMEPAGE: "tatuazysta-home",
+	TATUAZYSTA_HOMEPAGE_BY_SLUG: (slug: string) => `tatuazysta-home-${slug}`,
+	TATUAZE_HOMEPAGE_BY_SLUG: (slug: string) => `tatuaze-home-${slug}`,
 
 	// Usługi
 	ALL_SERVICES: "uslugi",

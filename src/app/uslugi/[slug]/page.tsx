@@ -103,6 +103,7 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
 	const services = await getAllServices();
+	// console.log(services);
 	return services.map((service) => ({ slug: service.slug }));
 }
 
