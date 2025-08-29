@@ -20,8 +20,9 @@ import { JetHomepageProps } from "@/lib/jetPostTypes";
 import { Metadata } from "next";
 
 export async function generateStaticParams() {
-	const type = "tatuazysta";
+	const type = "tatuaze";
 	const cities = await getAllHomepageCites(type as "tatuaze | tatuazysta");
+	console.log(cities);
 	return cities.map((cities) => ({ slug: cities.slug }));
 }
 export async function generateMetadata({
