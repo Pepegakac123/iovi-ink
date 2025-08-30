@@ -11,21 +11,16 @@ interface FeatureProps {
 const FeatureCard = ({ icon, text, delay = 0 }: FeatureProps) => {
 	return (
 		<motion.div
-			className="p-4 flex flex-row gap-4 bg-background border-foreground border-1 border-b-4 border-r-4 rounded-md cursor-pointer items-center"
+			className="p-4 flex flex-row gap-4 bg-background border-foreground border-1 border-b-4 border-r-4 rounded-md cursor-pointer items-center hover:bg-muted"
 			initial={{ opacity: 0, y: 30, scale: 0.95 }}
 			animate={{ opacity: 1, y: 0, scale: 1 }}
-			transition={{
-				duration: 0.3,
-				ease: "easeOut",
-			}}
 			whileHover={{
 				scale: 1.02,
 				y: -2,
-				backgroundColor: "var(--muted)",
 				boxShadow: "6px 6px 0px 0px var(--foreground)",
-				transition: { duration: 0.15 },
 			}}
 			whileTap={{ scale: 0.98 }}
+			transition={{ duration: 0.15 }}
 		>
 			{/* Ikona w stylu ProcessCard, ale mniejsza */}
 			<motion.div

@@ -1,5 +1,4 @@
 import Hero from "@/components/Sections/Hero";
-import CarouselSections from "@/components/Sections/CarouselSections";
 import AboutMe from "@/components/Sections/AboutMe";
 import Services from "@/components/Sections/Services";
 import TargetAudienceSection from "@/components/Sections/TargetAudienceSection";
@@ -9,6 +8,7 @@ import Faq from "@/components/Sections/Faq";
 import Contact from "@/components/Sections/Contact";
 import * as motion from "motion/react-client";
 import { images } from "@/lib/images";
+import { lazy, Suspense } from "react";
 import {
 	aboutMeHome,
 	blogHome,
@@ -22,6 +22,10 @@ import {
 } from "@/lib/data";
 import { BreadcrumbJsonLd, FAQPageJsonLd, SocialProfileJsonLd } from "next-seo";
 import FeaturedBlogs from "@/components/FeaturedBlogs";
+import CarouselSkeleton from "@/components/skeletons/CarouselSkeleton";
+const CarouselSections = lazy(
+	() => import("@/components/Sections/CarouselSections"),
+);
 
 export default async function Home() {
 	return (
@@ -74,7 +78,9 @@ export default async function Home() {
 				}
 				image={images.bab_z_maszynkom}
 			/>
-			<CarouselSections />
+			<Suspense fallback={<CarouselSkeleton />}>
+				<CarouselSections />
+			</Suspense>
 			<section>
 				<AboutMe {...aboutMeHome} />
 			</section>
@@ -96,6 +102,7 @@ export default async function Home() {
 			<section>
 				<Faq {...faqHome} />
 			</section>
+
 			<section>
 				<Contact {...contactHome} />
 			</section>

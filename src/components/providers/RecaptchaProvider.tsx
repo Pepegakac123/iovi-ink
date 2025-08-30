@@ -1,43 +1,52 @@
-// components/providers/RecaptchaProvider.tsx
 "use client";
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface RecaptchaProviderProps {
 	children: React.ReactNode;
 }
 
 export const RecaptchaProvider = ({ children }: RecaptchaProviderProps) => {
+	const [isLoaded, setIsLoaded] = useState(false);
+
 	useEffect(() => {
-		// Sprawdź czy skrypt już istnieje
-		if (document.querySelector('script[src*="recaptcha"]')) {
-			return;
-		}
+		// ✅ Opóźnij ładowanie reCAPTCHA do interakcji użytkownika
+		const loadRecaptcha = () => {
+			if (document.querySelector('script[src*="recaptcha"]') || isLoaded)
+				return;
 
-		// Dodaj skrypt reCAPTCHA v3
-		const script = document.createElement("script");
-		script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-		script.async = true;
-		script.defer = true;
+			const script = document.createElement("script");
+			script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
+			script.async = true;
+			script.defer = true;
+			script.onload = () => setIsLoaded(true);
 
-		script.onload = () => {
-			console.log("reCAPTCHA v3 loaded successfully");
+			document.head.appendChild(script);
 		};
 
-		script.onerror = () => {
-			console.error("Failed to load reCAPTCHA v3");
+		// ✅ Ładuj na pierwsze hover/touch zamiast od razu
+		const handleUserInteraction = () => {
+			loadRecaptcha();
+			// Remove listeners po załadowaniu
+			["mousedown", "touchstart", "keydown"].forEach((event) => {
+				document.removeEventListener(event, handleUserInteraction, true);
+			});
 		};
 
-		document.head.appendChild(script);
+		// ✅ Dodaj listenery na interakcję
+		["mousedown", "touchstart", "keydown"].forEach((event) => {
+			document.addEventListener(event, handleUserInteraction, {
+				once: true,
+				passive: true,
+				capture: true,
+			});
+		});
 
-		// Cleanup function
 		return () => {
-			const existingScript = document.querySelector('script[src*="recaptcha"]');
-			if (existingScript) {
-				document.head.removeChild(existingScript);
-			}
+			["mousedown", "touchstart", "keydown"].forEach((event) => {
+				document.removeEventListener(event, handleUserInteraction, true);
+			});
 		};
-	}, []);
+	}, [isLoaded]);
 
 	return <>{children}</>;
 };

@@ -18,12 +18,13 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 			variants={containerVariants}
 		>
 			<motion.div
-				className="bg-transparent border-1 border-foreground rounded-md px-4 py-8 lg:py-8 lg:px-8 w-full relative transition-shadow duration-300"
+				className="bg-transparent border-1 border-foreground rounded-md px-4 py-8 lg:py-8 lg:px-8 w-full relative"
 				variants={itemVariants}
+				// ✅ FIXED: Bardziej subtelna animacja container - nie koliduje z Subheadline
 				whileHover={{
 					boxShadow: "6px 6px 0px 0px var(--foreground)",
-					scale: 1.01,
-					transition: { duration: 0.2 },
+					// ✅ Usunięto scale - konflik z Subheadline
+					transition: { duration: 0.3 },
 				}}
 			>
 				{/* Flex layout z items-start */}
@@ -34,6 +35,7 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 						variants={stickyContentVariants}
 					>
 						<div className="gap-4 flex flex-col">
+							{/* ✅ FIXED: Subheadline bez dodatkowych wrapper animacji */}
 							<motion.div
 								initial={{ opacity: 0, scale: 0.8 }}
 								animate={{
@@ -45,16 +47,15 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 										ease: "easeOut",
 									},
 								}}
+								// ✅ Usunięto whileHover - konflikt z Subheadline hover
 							>
-								<Subheadline title={subheadline} />
+								{/* ✅ Subheadline z wyłączonym hover bo parent container ma hover */}
+								<Subheadline title={subheadline} disableHover={false} />
 							</motion.div>
 
+							{/* ✅ FIXED: Uproszczona animacja content - bez scale conflicts */}
 							<motion.div
-								className="flex flex-col gap-4 transition-transform duration-200"
-								whileHover={{
-									scale: 1.05,
-									transition: { duration: 0.2 },
-								}}
+								className="flex flex-col gap-4"
 								initial={{ opacity: 0, y: 20 }}
 								animate={{
 									opacity: 1,
@@ -65,6 +66,11 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 										ease: "easeOut",
 									},
 								}}
+								// ✅ Usunięto whileHover ze scale - konflikt z container
+								whileHover={{
+									y: -2, // Tylko lekkie przesunięcie
+									transition: { duration: 0.2 },
+								}}
 							>
 								<motion.h2
 									className="heading-primary max-w-[600px] capitalize"
@@ -73,8 +79,8 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 										opacity: 1,
 										y: 0,
 										transition: {
-											duration: 0.8,
-											delay: 0.6,
+											duration: 0.6,
+											delay: 0.7,
 											ease: "easeOut",
 										},
 									}}
@@ -83,14 +89,14 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 								</motion.h2>
 
 								<motion.p
-									className="text-base text-foreground max-w-[600px]"
-									initial={{ opacity: 0, y: 20 }}
+									className="paragraph-constrained"
+									initial={{ opacity: 0, y: 30 }}
 									animate={{
 										opacity: 1,
 										y: 0,
 										transition: {
-											duration: 0.8,
-											delay: 0.8,
+											duration: 0.6,
+											delay: 0.9,
 											ease: "easeOut",
 										},
 									}}
@@ -101,25 +107,9 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 						</div>
 					</motion.div>
 
-					{/* Form Section */}
-					<motion.div
-						className="lg:w-1/2 lg:flex-shrink-0"
-						variants={formVariants}
-					>
-						<motion.div
-							initial={{ opacity: 0, scale: 0.9 }}
-							animate={{
-								opacity: 1,
-								scale: 1,
-								transition: {
-									duration: 0.8,
-									delay: 0.6,
-									ease: "easeOut",
-								},
-							}}
-						>
-							<ContactForm />
-						</motion.div>
+					{/* Form Column */}
+					<motion.div className="lg:w-1/2" variants={formVariants}>
+						<ContactForm />
 					</motion.div>
 				</div>
 			</motion.div>

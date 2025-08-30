@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import { images } from "@/lib/images";
 import ConditionalAnalytics from "@/components/GDPR/GA4ConditionalAnalytics";
 import CookieConsent from "@/components/GDPR/CookieConsent";
+import { fontVariables } from "@/lib/fonts";
 export const metadata: Metadata = {
 	title: {
 		template: "%s - bezpłatna konsultacja - iovi-ink",
@@ -14,24 +15,7 @@ export const metadata: Metadata = {
 	},
 	description:
 		"Tatuaże graficzne i minimalistyczne w Mszanie Dolnej. Autorskie projekty, precyzja wykonania, - Bezpłatna konsultacja",
-	keywords: [
-		"tatuaże",
-		// ✅ Z twojej keyword database - najwyższe priority
-		"delikatne tatuaże damskie", // 8,100 vol - MEGA HIGH
-		"tatuaże minimalistyczne", // 1,300 vol - HIGH
-		"tatuaże na ręce", // 14,800 vol - HIGH
-		"tatuażysta", // 2,400 vol - HIGH (używam "tatuażysta")
-		"tatuaże fine line", // z bazy - HIGH
-		"małe tatuaże damskie", // z bazy
-		"subtelne tatuaże", // z content
-
-		// ✅ Z realnego contentu data.ts
-		"autorskie projekty tatuaże", // z whyMeHome
-		"bezpłatna konsultacja tatuaż", // z proces[0]
-		"precyzyjne wykonanie", // z content
-		"tatuażystka mszana dolna", // local SEO
-		"studio lewus ink", // work location
-	],
+	keywords: ["tatuaże", "tatuażystka"],
 	authors: [{ name: "Jowita - iovi-ink" }],
 
 	openGraph: {
@@ -79,8 +63,29 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="pl">
-			<body className="bg-background">
-				<ConditionalAnalytics />
+			<head>
+				<link rel="preconnect" href="https://cms.iovi-ink.pl" />
+				<link rel="dns-prefetch" href="https://cms.iovi-ink.pl" />\
+				<link
+					rel="preload"
+					as="image"
+					href="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/iovi-high-resolution-logo-transparent.png"
+				/>
+				<link
+					rel="preload"
+					as="image"
+					href="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab_z_maszynkom.webp"
+					fetchPriority="high"
+				/>
+				{/* Logo - ważny dla brand consistency */}
+				<link
+					rel="preload"
+					as="image"
+					href="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/iovi-high-resolution-logo-transparent.png"
+					fetchPriority="high"
+				/>
+			</head>
+			<body className="bg-background font-text">
 				<RecaptchaProvider>
 					<Navbar /> {/* ← DODANE: Wrapper dla reCAPTCHA */}
 					{children}
@@ -133,6 +138,7 @@ export default function RootLayout({
 						}}
 					/>
 				</RecaptchaProvider>
+				<ConditionalAnalytics />
 			</body>
 		</html>
 	);

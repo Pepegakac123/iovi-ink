@@ -99,8 +99,21 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 						height={900}
 						src={image.src}
 						alt={image.alt}
+						// ✅ KRYTYCZNE: Priority + eager loading dla LCP
 						priority={true}
-						className="block object-cover object-top max-w-[700px] sm:max-w-[900px]" // Mniejszy na mobile
+						loading="eager"
+						// ✅ Wysokiej jakość dla hero
+						quality={90}
+						// ✅ Optymalne sizes dla different viewports
+						sizes="(max-width: 640px) 700px, (max-width: 1024px) 800px, 900px"
+						className="block object-cover object-top max-w-[700px] sm:max-w-[900px]"
+						// ✅ Preload hint dla browsera
+						style={{
+							contentVisibility: "auto", // Browser optimization
+							containIntrinsicSize: "900px 900px", // Layout stability
+						}}
+						// ✅ Fetchpriority dla Chromium browsers
+						fetchPriority="high"
 					/>
 				</div>
 

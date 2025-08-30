@@ -9,14 +9,14 @@
 	font-family: Inter;
 	font-style: normal;
 	font-display: swap;
-	src: url("/fonts/Inter-VariableFont.ttf") format("truetype");
+	src: url("/fonts/Inter-VariableFont.woff2") format("woff2");
 }
 
 @font-face {
 	font-family: AlfaSlabOne;
 	font-style: normal;
 	font-display: swap;
-	src: url("/fonts/AlfaSlabOne-Regular.ttf") format("truetype");
+	src: url("/fonts/AlfaSlabOne-Regular.woff2") format("woff2");
 }
 
 :root {
@@ -180,7 +180,7 @@
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply bg-secondary text-foreground;
+		@apply bg-background text-foreground;
 	}
 	.container {
 		@apply mx-auto !max-w-[1440px] w-full;
@@ -197,6 +197,12 @@
 	}
 	.grecaptcha-badge {
 		visibility: hidden;
+	}
+	.font-primary {
+		font-family: var(--font-primary), sans-serif;
+	}
+	.font-text {
+		font-family: var(--font-text), sans-serif;
 	}
 }
 
