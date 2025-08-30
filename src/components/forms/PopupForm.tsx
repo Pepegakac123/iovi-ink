@@ -272,14 +272,12 @@ export default function PopupForm() {
 						<motion.button
 							type="submit"
 							disabled={isSubmitting}
-							className="bg-primary cursor-pointer text-background font-primary text-xs w-full px-3 py-2 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+							className="bg-primary hover:bg-accent cursor-pointer text-background font-primary text-xs w-full px-3 py-2 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary transition-colors duration-150"
 							whileHover={
 								!isSubmitting
 									? {
 											scale: 1.01,
-											backgroundColor: "var(--accent)",
 											boxShadow: "2px 2px 0px 0px var(--foreground)",
-											transition: { duration: 0.15 },
 										}
 									: {}
 							}
@@ -287,10 +285,12 @@ export default function PopupForm() {
 								!isSubmitting
 									? {
 											scale: 0.98,
-											transition: { duration: 0.1 },
 										}
 									: {}
 							}
+							transition={{
+								duration: 0.15,
+							}}
 						>
 							{isSubmitting ? (
 								<>
@@ -327,16 +327,16 @@ export default function PopupForm() {
 							<motion.div className="w-full" variants={motionPresets.div.popup}>
 								<motion.button
 									type="button"
-									className="bg-secondary cursor-pointer text-foreground font-primary text-xs w-full px-3 py-2 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+									className="bg-secondary hover:bg-muted cursor-pointer text-foreground font-primary text-xs w-full px-3 py-2 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
 									whileHover={{
 										scale: 1.01,
-										backgroundColor: "var(--secondary)",
 										boxShadow: "2px 2px 0px 0px var(--foreground)",
-										transition: { duration: 0.15 },
 									}}
 									whileTap={{
 										scale: 0.98,
-										transition: { duration: 0.1 },
+									}}
+									transition={{
+										duration: 0.15,
 									}}
 								>
 									Napisz na Instagramie

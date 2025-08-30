@@ -48,13 +48,19 @@ const ServiceSectionHero: React.FC<ServiceSectionHeroProps> = ({
 					{/* Background Image */}
 					<div className="absolute inset-0 z-0">
 						<Image
+							fill
 							src={image.src}
 							alt={image.alt}
-							fill
-							className="object-cover"
-							sizes="100vw"
+							// ✅ KRYTYCZNE: Priority + eager loading dla LCP
 							priority={true}
+							loading="eager"
+							// ✅ Wysokiej jakość dla hero
 							quality={100}
+							// ✅ Optymalne sizes dla different viewports
+							sizes="(max-width: 640px) 700px, (max-width: 1024px) 800px, 900px"
+							className="object-cover"
+							// ✅ Fetchpriority dla Chromium browsers
+							fetchPriority="high"
 						/>
 						{/* Overlay - delikatny czarny gradient liniowy 120 stopni */}
 						<div

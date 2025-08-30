@@ -31,6 +31,7 @@ const MobileNavbar: React.FC = () => {
 							variants={navItemVariants}
 							whileTap={{ scale: 0.95 }}
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
+							type="button"
 						>
 							<AnimatePresence mode="wait">
 								{isMenuOpen ? (
@@ -92,6 +93,7 @@ const MobileNavbar: React.FC = () => {
 									initial={{ scale: 0, rotate: -180 }}
 									animate={{ scale: 1, rotate: 0 }}
 									transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+									type="button"
 								>
 									<X className="w-6 h-6" />
 								</motion.button>

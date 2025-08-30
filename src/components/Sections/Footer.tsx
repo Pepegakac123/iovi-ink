@@ -54,15 +54,15 @@ const Footer = () => {
 						>
 							<motion.button
 								type="button"
-								className="bg-secondary cursor-pointer text-foreground font-primary text-sm w-full sm:w-fit px-2 py-2 uppercase border-2 border-background rounded-md flex items-center justify-center gap-3 group"
+								className="bg-secondary hover:bg-muted cursor-pointer text-foreground font-primary text-sm w-full sm:w-fit px-2 py-2 uppercase border-2 border-background rounded-md flex items-center justify-center gap-3 group transition-colors duration-200"
 								whileHover={{
 									scale: 1.05,
-									backgroundColor: "var(--muted)",
-									transition: { duration: 0.2 },
 								}}
 								whileTap={{
 									scale: 0.98,
-									transition: { duration: 0.1 },
+								}}
+								transition={{
+									duration: 0.2,
 								}}
 							>
 								<span>ZOBACZ INSTAGRAM</span>

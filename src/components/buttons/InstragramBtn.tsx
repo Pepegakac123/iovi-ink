@@ -27,16 +27,16 @@ const InstagramBtn = ({ text, link, className = "" }: InstagramBtnProps) => {
 			>
 				<motion.button
 					type="button"
-					className="bg-secondary cursor-pointer text-foreground font-primary text-base md:text-lg w-full px-4 md:px-8 py-4 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-3 group"
+					className="bg-secondary hover:bg-muted cursor-pointer text-foreground font-primary text-base md:text-lg w-full px-4 md:px-8 py-4 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-3 group transition-colors duration-200"
 					whileHover={{
 						scale: 1.05,
-						backgroundColor: "var(--muted)",
 						boxShadow: "4px 4px 0px 0px var(--foreground)",
-						transition: { duration: 0.2 },
 					}}
 					whileTap={{
 						scale: 0.98,
-						transition: { duration: 0.1 },
+					}}
+					transition={{
+						duration: 0.2,
 					}}
 				>
 					<span>{text}</span>

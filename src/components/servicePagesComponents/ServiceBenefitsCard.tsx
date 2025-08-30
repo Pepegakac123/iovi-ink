@@ -3,6 +3,7 @@
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import { cardVariantsProcess, contentVariants } from "@/lib/variants";
+import { ICONS } from "@/lib/icons";
 
 interface ServiceBenefitsCardProps {
 	title: string;
@@ -59,7 +60,7 @@ const ServiceBenefitsCard = ({
 							transition={{ duration: 0.2 }}
 						>
 							<Image
-								src={ikona}
+								src={ikona || ICONS.heart}
 								alt={`${title} - ikona`}
 								width={24}
 								height={24}
