@@ -1,25 +1,22 @@
 # -------- Builder --------
-FROM node:22-bookworm-slim AS builder
+FROM oven/bun AS builder
 WORKDIR /app
 
-# Install Bun
-RUN curl -fsSL https://bun.com/install | bash
-ENV BUN_INSTALL=/root/.bun
-ENV PATH="$BUN_INSTALL/bin:$PATH"
-
-# Install deps for sharp etc.
+# Instalacja zależności systemowych (np. dla sharp)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential python3 ca-certificates git \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy manifests and install
-COPY package.json bun.lock ./ 
-RUN bun install --frozen-lockfile
+# Kopiujemy pliki manifestu
+COPY package.json bun.lock* ./
 
-# Copy app source
+# Instalacja zależności
+RUN bun install
+
+# Kopiujemy resztę kodu
 COPY . .
 
-# Build Next.js (standalone)
+# Budujemy Next.js
 ENV NODE_ENV=production
 RUN bun run build
 
@@ -28,10 +25,11 @@ FROM node:22-bookworm-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
+# Tworzymy użytkownika
 RUN groupadd -g 1001 nodejs && useradd -r -u 1001 -g nodejs nextjs
 
-# Copy standalone build
-COPY --from=builder /app/.next/standalone ./ 
+# Kopiujemy build z buildera
+COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
