@@ -99,7 +99,7 @@ export async function generateMetadata({
 export default async function TatuazystaPage({
 	params,
 }: {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }) {
 	// FAQ Data
 	const faqData = {

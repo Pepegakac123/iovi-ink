@@ -17,7 +17,7 @@ import Link from "next/link";
 export async function generateMetadata({
 	params,
 }: {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }) {
 	try {
 		const { slug } = await params;
@@ -55,7 +55,11 @@ export async function generateStaticParams() {
 	return blogs.map((blog) => ({ slug: blog.slug }));
 }
 
-async function BlogSinglePage({ params }: { params: { slug: string } }) {
+async function BlogSinglePage({
+	params,
+}: {
+	params: Promise<{ slug: string }>;
+}) {
 	const { slug } = await params;
 	const blog = await getBlogBySlug(slug);
 	return (

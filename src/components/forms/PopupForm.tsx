@@ -55,7 +55,54 @@ export default function PopupForm() {
 	// Get styles and motion for popup variant
 	const styles = getFormStyles("popup");
 	const motionPresets = getFormMotion("popup");
+	const handleFilesChange = (newFiles: File[] | null) => {
+		if (!newFiles || newFiles.length === 0) {
+			return;
+		}
 
+		// ✅ Sprawdź czy to są nowe pliki czy zastąpienie
+		if (!files || files.length === 0) {
+			// Pierwsza batch plików - ustaw bezpośrednio
+			setFiles(newFiles);
+			return;
+		}
+
+		// ✅ Dodaj nowe pliki do istniejących (akumulacja)
+		const existingFiles = files || [];
+		const combinedFiles = [...existingFiles];
+
+		// Dodaj tylko te pliki, które jeszcze nie istnieją (sprawdź po nazwie i rozmiarze)
+		for (const newFile of newFiles) {
+			const isDuplicate = existingFiles.some(
+				(existingFile) =>
+					existingFile.name === newFile.name &&
+					existingFile.size === newFile.size &&
+					existingFile.lastModified === newFile.lastModified,
+			);
+
+			if (!isDuplicate) {
+				combinedFiles.push(newFile);
+			}
+		}
+
+		// ✅ Sprawdź limit plików
+		if (combinedFiles.length > config.files.maxFiles) {
+			const excessCount = combinedFiles.length - config.files.maxFiles;
+			// Ogranicz do maksymalnej liczby plików (zachowaj najnowsze)
+			const limitedFiles = combinedFiles.slice(-config.files.maxFiles);
+			setFiles(limitedFiles);
+
+			// Pokaż informację o limicie
+			if (excessCount > 0) {
+				// Można dodać toast tutaj jeśli potrzebne
+				console.warn(
+					`Maksymalnie ${config.files.maxFiles} plików. Usunięto ${excessCount} najstarszych.`,
+				);
+			}
+		} else {
+			setFiles(combinedFiles);
+		}
+	};
 	return (
 		<div className="w-full">
 			<Form {...form}>
@@ -121,7 +168,7 @@ export default function PopupForm() {
 							<motion.div>
 								<FileUploader
 									value={files}
-									onValueChange={setFiles}
+									onValueChange={handleFilesChange}
 									dropzoneOptions={config.files}
 									className="relative bg-secondary border-2 border-dashed hover:border-accent border-foreground rounded-md"
 								>

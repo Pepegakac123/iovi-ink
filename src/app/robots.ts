@@ -13,6 +13,11 @@ export default function robots(): MetadataRoute.Robots {
 					"/kontakt/",
 					"/o-mnie/",
 					"/uslugi/*", // Dynamic service pages
+					"/blog/",
+					"/blog/*",
+					"/tatuazysta/",
+					"/tatuazysta/*",
+					"/tatuaze/*",
 				],
 				disallow: [
 					"/api/", // API endpoints - prywatne
