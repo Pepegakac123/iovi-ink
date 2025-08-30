@@ -3,7 +3,7 @@ FROM node:22-bookworm-slim AS builder
 WORKDIR /app
 
 # Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
+RUN curl -fsSL https://bun.com/install | bash
 ENV BUN_INSTALL=/root/.bun
 ENV PATH="$BUN_INSTALL/bin:$PATH"
 
