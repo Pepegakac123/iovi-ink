@@ -42,24 +42,7 @@ export const metadata: Metadata = {
 	},
 
 	// Keywords dla strony o mnie
-	keywords: [
-		"tatuażysta",
-		"tatuażystka",
-		"delikatne tatuaże damskie", // 8,100 vol - MEGA HIGH
-		"tatuaże minimalistyczne", // 1,300 vol - HIGH
-		"tatuaże na ręce", // 14,800 vol - HIGH
-		"tatuażysta", // 2,400 vol - HIGH (używam "tatuażysta")
-		"tatuaże fine line", // z bazy - HIGH
-		"małe tatuaże damskie", // z bazy
-		"subtelne tatuaże", // z content
-
-		// ✅ Z realnego contentu data.ts
-		"autorskie projekty tatuaże", // z whyMeHome
-		"bezpłatna konsultacja tatuaż", // z proces[0]
-		"precyzyjne wykonanie", // z content
-		"tatuażystka mszana dolna", // local SEO
-		"studio lewus ink", // work location
-	],
+	keywords: ["tatuażysta", "tatuażystka"],
 
 	// Dodatkowe schema.org metadata dla profilu
 	other: {

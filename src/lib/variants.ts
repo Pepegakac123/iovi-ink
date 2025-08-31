@@ -1,3 +1,5 @@
+// src/lib/variants.ts - ZOPTYMALIZOWANE DLA LCP PERFORMANCE
+
 import { Variants } from "motion";
 
 // ==========================================
@@ -9,8 +11,8 @@ export const containerVariants = {
 	visible: {
 		opacity: 1,
 		transition: {
-			staggerChildren: 0.1,
-			delayChildren: 0.2,
+			staggerChildren: 0.05, // ZREDUKOWANE z 0.1 na 0.05
+			delayChildren: 0.1, // ZREDUKOWANE z 0.2 na 0.1
 		},
 	},
 } as Variants;
@@ -20,8 +22,8 @@ export const containerVariantsFast = {
 	visible: {
 		opacity: 1,
 		transition: {
-			staggerChildren: 0.06,
-			delayChildren: 0.1,
+			staggerChildren: 0.03,
+			delayChildren: 0.05,
 		},
 	},
 } as Variants;
@@ -38,73 +40,111 @@ export const containerVariantsLong = {
 } as Variants;
 
 // ==========================================
+// NOWE - VARIANTS BEZ DELAY DLA LCP
+// ==========================================
+
+export const containerVariantsImmediate = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.2,
+			staggerChildren: 0.02,
+			delayChildren: 0, // BEZ DELAY!
+		},
+	},
+} as Variants;
+
+export const lcpVariants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.1, // BARDZO SZYBKIE
+			delay: 0, // BEZ DELAY!
+		},
+	},
+} as Variants;
+
+// ==========================================
 // PODSTAWOWE WARIANTY ELEMENTÓW
 // ==========================================
 
 export const itemVariants = {
-	hidden: { opacity: 0, y: 30, scale: 0.95 },
+	hidden: { opacity: 0, y: 20, scale: 0.98 }, // ZREDUKOWANE y z 30 na 20
 	visible: {
 		opacity: 1,
 		y: 0,
 		scale: 1,
 		transition: {
-			duration: 0.6,
+			duration: 0.4, // ZREDUKOWANE z 0.6 na 0.4
 			ease: "easeOut",
 		},
 	},
 } as Variants;
 
 export const itemVariantsFast = {
-	hidden: { opacity: 0, y: 12 },
+	hidden: { opacity: 0, y: 8 }, // ZREDUKOWANE z 12 na 8
 	visible: {
 		opacity: 1,
 		y: 0,
 		transition: {
 			type: "spring",
-			stiffness: 120,
+			stiffness: 150, // ZWIĘKSZONE z 120
 			damping: 12,
 		},
 	},
 } as Variants;
 
 export const itemVariantsForm = {
-	hidden: { opacity: 0, y: 20 },
+	hidden: { opacity: 0, y: 15 }, // ZREDUKOWANE z 20 na 15
 	visible: {
 		opacity: 1,
 		y: 0,
 		transition: {
 			type: "spring",
-			stiffness: 100,
+			stiffness: 120,
 			damping: 15,
 		},
 	},
 } as Variants;
 
 export const contentVariants = {
-	hidden: { opacity: 0, y: 30 },
+	hidden: { opacity: 0, y: 15 }, // ZREDUKOWANE z 30 na 15
 	visible: {
 		opacity: 1,
 		y: 0,
 		transition: {
-			duration: 0.6,
+			duration: 0.4, // ZREDUKOWANE z 0.6 na 0.4
 			ease: "easeOut",
 		},
 	},
 } as Variants;
 
 // ==========================================
-// WARIANTY NAGŁÓWKÓW I TEKSTÓW
+// WARIANTY NAGŁÓWKÓW I TEKSTÓW - ZOPTYMALIZOWANE
 // ==========================================
 
 export const titleVariants = {
-	hidden: { opacity: 0, y: 50, scale: 0.9 },
+	hidden: { opacity: 0, y: 20, scale: 0.95 }, // ZREDUKOWANE y z 50 na 20
 	visible: {
 		opacity: 1,
 		y: 0,
 		scale: 1,
 		transition: {
-			duration: 0.8,
+			duration: 0.4, // ZREDUKOWANE z 0.8 na 0.4
 			ease: "easeOut",
+		},
+	},
+} as Variants;
+
+export const titleVariantsLCP = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.1, // BARDZO SZYBKIE DLA LCP
+			delay: 0,
 		},
 	},
 } as Variants;
@@ -112,39 +152,54 @@ export const titleVariants = {
 export const headerVariants = {
 	hidden: {
 		opacity: 0,
-		y: 30,
-		scale: 0.95,
+		y: 20, // ZREDUKOWANE z 30 na 20
+		scale: 0.98, // ZREDUKOWANE z 0.95 na 0.98
 	},
 	visible: {
 		opacity: 1,
 		y: 0,
 		scale: 1,
 		transition: {
-			duration: 0.6,
+			duration: 0.4, // ZREDUKOWANE z 0.6 na 0.4
 			ease: "easeOut",
 		},
 	},
 } as Variants;
 
+// ==========================================
+// NAJWAŻNIEJSZE - NOWE LCP VARIANTS
+// ==========================================
+
 export const descriptionVariants = {
-	hidden: { opacity: 0, y: 30 },
+	hidden: { opacity: 0, y: 15 }, // ZREDUKOWANE z 30 na 15
 	visible: {
 		opacity: 1,
 		y: 0,
 		transition: {
-			duration: 0.6,
-			delay: 0.3,
+			duration: 0.3, // ZREDUKOWANE z 0.6 na 0.3
+			delay: 0.1, // ZREDUKOWANE z 0.3 na 0.1
+		},
+	},
+} as Variants;
+
+export const descriptionVariantsLCP = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.1, // BARDZO SZYBKIE
+			delay: 0, // BEZ DELAY - KRYTYCZNE DLA LCP!
 		},
 	},
 } as Variants;
 
 export const paragraphVariants = {
-	hidden: { opacity: 0, y: 20 },
+	hidden: { opacity: 0, y: 10 }, // ZREDUKOWANE z 20 na 10
 	visible: {
 		opacity: 1,
 		y: 0,
 		transition: {
-			duration: 0.5,
+			duration: 0.3, // ZREDUKOWANE z 0.5 na 0.3
 			ease: "easeOut",
 		},
 	},
@@ -157,28 +212,28 @@ export const paragraphVariants = {
 export const cardVariants = {
 	hidden: {
 		opacity: 0,
-		y: 50,
-		scale: 0.9,
+		y: 30, // ZREDUKOWANE z 50 na 30
+		scale: 0.95, // ZWIĘKSZONE z 0.9 na 0.95
 	},
 	visible: {
 		opacity: 1,
 		y: 0,
 		scale: 1,
 		transition: {
-			duration: 0.6,
+			duration: 0.4, // ZREDUKOWANE z 0.6 na 0.4
 			ease: "easeOut",
 		},
 	},
 } as Variants;
 
 export const cardVariantsFast = {
-	hidden: { opacity: 0, y: 40, scale: 0.9 },
+	hidden: { opacity: 0, y: 20, scale: 0.95 }, // ZREDUKOWANE z 40 na 20
 	visible: {
 		opacity: 1,
 		y: 0,
 		scale: 1,
 		transition: {
-			duration: 0.5,
+			duration: 0.3, // ZREDUKOWANE z 0.5 na 0.3
 			ease: "easeOut",
 		},
 	},
@@ -187,15 +242,15 @@ export const cardVariantsFast = {
 export const cardVariantsProcess = {
 	hidden: {
 		opacity: 0,
-		y: 40,
-		scale: 0.95,
+		y: 25, // ZREDUKOWANE z 40 na 25
+		scale: 0.97, // ZWIĘKSZONE z 0.95 na 0.97
 	},
 	visible: {
 		opacity: 1,
 		y: 0,
 		scale: 1,
 		transition: {
-			duration: 0.6,
+			duration: 0.4, // ZREDUKOWANE z 0.6 na 0.4
 			ease: "easeOut",
 		},
 	},
@@ -206,39 +261,39 @@ export const cardVariantsProcess = {
 // ==========================================
 
 export const imageVariants = {
-	hidden: { opacity: 0, scale: 0.9, x: 20 },
+	hidden: { opacity: 0, scale: 0.95, x: 10 }, // ZREDUKOWANE x z 20 na 10
 	visible: {
 		opacity: 1,
 		scale: 1,
 		x: 0,
 		transition: {
-			duration: 0.8,
+			duration: 0.5, // ZREDUKOWANE z 0.8 na 0.5
 			ease: "easeOut",
 		},
 	},
 } as Variants;
 
 export const imageVariantsLeft = {
-	hidden: { opacity: 0, x: -50 },
+	hidden: { opacity: 0, x: -30 }, // ZREDUKOWANE z -50 na -30
 	visible: {
 		opacity: 1,
 		x: 0,
 		transition: {
-			duration: 0.8,
+			duration: 0.5, // ZREDUKOWANE z 0.8 na 0.5
 			ease: "easeOut",
-			delay: 0.2,
+			delay: 0.1, // ZREDUKOWANE z 0.2 na 0.1
 		},
 	},
 } as Variants;
 
 export const imageVariantsRight = {
-	hidden: { opacity: 0, x: 30, scale: 0.95 },
+	hidden: { opacity: 0, x: 20, scale: 0.97 }, // ZREDUKOWANE x z 30 na 20
 	visible: {
 		opacity: 1,
 		x: 0,
 		scale: 1,
 		transition: {
-			duration: 0.6,
+			duration: 0.4, // ZREDUKOWANE z 0.6 na 0.4
 			ease: "easeOut",
 		},
 	},
@@ -251,29 +306,29 @@ export const imageVariantsRight = {
 export const iconVariants = {
 	hidden: {
 		opacity: 0,
-		scale: 0.5,
-		rotate: -180,
+		scale: 0.7, // ZWIĘKSZONE z 0.5 na 0.7
+		rotate: -90, // ZREDUKOWANE z -180 na -90
 	},
 	visible: {
 		opacity: 1,
 		scale: 1,
 		rotate: 0,
 		transition: {
-			duration: 0.5,
+			duration: 0.3, // ZREDUKOWANE z 0.5 na 0.3
 			ease: "easeOut",
-			delay: 0.2,
+			delay: 0.1, // ZREDUKOWANE z 0.2 na 0.1
 		},
 	},
 } as Variants;
 
 export const iconVariantsSimple = {
-	hidden: { opacity: 0, scale: 0.8, rotate: -10 },
+	hidden: { opacity: 0, scale: 0.9, rotate: -5 }, // ZREDUKOWANE rotate z -10 na -5
 	visible: {
 		opacity: 1,
 		scale: 1,
 		rotate: 0,
 		transition: {
-			duration: 0.4,
+			duration: 0.3, // ZREDUKOWANE z 0.4 na 0.3
 			ease: "easeOut",
 		},
 	},
@@ -284,26 +339,26 @@ export const iconVariantsSimple = {
 // ==========================================
 
 export const buttonVariants = {
-	hidden: { opacity: 0, y: 30 },
+	hidden: { opacity: 0, y: 20 }, // ZREDUKOWANE z 30 na 20
 	visible: {
 		opacity: 1,
 		y: 0,
 		transition: {
-			duration: 0.6,
+			duration: 0.4, // ZREDUKOWANE z 0.6 na 0.4
 			ease: "easeOut",
-			delay: 0.8,
+			delay: 0.3, // ZREDUKOWANE z 0.8 na 0.3
 		},
 	},
 } as Variants;
 
 export const buttonVariantsSimple = {
-	hidden: { opacity: 0, y: 20, scale: 0.95 },
+	hidden: { opacity: 0, y: 15, scale: 0.98 }, // ZREDUKOWANE y z 20 na 15
 	visible: {
 		opacity: 1,
 		y: 0,
 		scale: 1,
 		transition: {
-			duration: 0.5,
+			duration: 0.3, // ZREDUKOWANE z 0.5 na 0.3
 			ease: "easeOut",
 		},
 	},
@@ -411,20 +466,20 @@ export const gridVariants = {
 	visible: {
 		opacity: 1,
 		transition: {
-			duration: 0.4,
-			staggerChildren: 0.15,
-			delayChildren: 0.3,
+			duration: 0.3, // ZREDUKOWANE z 0.4 na 0.3
+			staggerChildren: 0.08, // ZREDUKOWANE z 0.15 na 0.08
+			delayChildren: 0.2, // ZREDUKOWANE z 0.3 na 0.2
 		},
 	},
 } as Variants;
 
 export const carouselVariants = {
-	hidden: { opacity: 0, y: 40 },
+	hidden: { opacity: 0, y: 25 }, // ZREDUKOWANE z 40 na 25
 	visible: {
 		opacity: 1,
 		y: 0,
 		transition: {
-			duration: 0.8,
+			duration: 0.5, // ZREDUKOWANE z 0.8 na 0.5
 			ease: "easeOut",
 		},
 	},
@@ -433,15 +488,15 @@ export const carouselVariants = {
 export const stickyContentVariants = {
 	hidden: {
 		opacity: 0,
-		x: -50,
+		x: -30, // ZREDUKOWANE z -50 na -30
 	},
 	visible: {
 		opacity: 1,
 		x: 0,
 		transition: {
-			duration: 0.8,
+			duration: 0.5, // ZREDUKOWANE z 0.8 na 0.5
 			ease: "easeOut",
-			delay: 0.2,
+			delay: 0.1, // ZREDUKOWANE z 0.2 na 0.1
 		},
 	},
 } as Variants;
@@ -449,15 +504,15 @@ export const stickyContentVariants = {
 export const formVariants = {
 	hidden: {
 		opacity: 0,
-		x: 50,
+		x: 30, // ZREDUKOWANE z 50 na 30
 	},
 	visible: {
 		opacity: 1,
 		x: 0,
 		transition: {
-			duration: 0.8,
+			duration: 0.5, // ZREDUKOWANE z 0.8 na 0.5
 			ease: "easeOut",
-			delay: 0.4,
+			delay: 0.2, // ZREDUKOWANE z 0.4 na 0.2
 		},
 	},
 } as Variants;
@@ -467,15 +522,15 @@ export const formVariants = {
 // ==========================================
 
 export const ctaContainerVariants = {
-	hidden: { opacity: 0, y: 30 },
+	hidden: { opacity: 0, y: 20 }, // ZREDUKOWANE z 30 na 20
 	visible: {
 		opacity: 1,
 		y: 0,
 		transition: {
-			duration: 0.6,
+			duration: 0.4, // ZREDUKOWANE z 0.6 na 0.4
 			ease: "easeOut",
-			staggerChildren: 0.2,
-			delayChildren: 0.1,
+			staggerChildren: 0.1, // ZREDUKOWANE z 0.2 na 0.1
+			delayChildren: 0.05, // ZREDUKOWANE z 0.1 na 0.05
 		},
 	},
 } as Variants;

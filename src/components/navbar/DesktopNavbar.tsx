@@ -67,13 +67,13 @@ const DesktopNavbar: React.FC = () => {
 					</motion.a>
 
 					{/* Desktop Menu */}
-					<div className="flex items-center gap-4">
+					<div className="flex items-center gap-4 font-primary font-normal">
 						{/* Menu items PRZED usługami */}
 						{menuItemsBeforeServices.map((item: MenuItem, index: number) => (
 							<motion.a
 								key={item.name}
 								href={item.href}
-								className="text-foreground  hover:text-primary font-secondary font-bold relative group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
+								className="text-foreground  hover:text-primary font-primary font-medium relative group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
 								variants={navItemVariants}
 							>
 								{item.name}
@@ -88,7 +88,7 @@ const DesktopNavbar: React.FC = () => {
 							onMouseLeave={handleMouseLeave}
 						>
 							<motion.button
-								className="flex items-center gap-1 text-foreground hover:text-primary  font-secondary font-bold group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
+								className="flex items-center gap-1 text-foreground hover:text-primary font-primary font-normal group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
 								variants={navItemVariants}
 							>
 								Usługi
@@ -120,7 +120,7 @@ const DesktopNavbar: React.FC = () => {
 							<motion.a
 								key={item.name}
 								href={item.href}
-								className="text-foreground hover:text-primary transition-colors font-secondary font-bold relative group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
+								className="text-foreground hover:text-primary font-primary font-normal relative group px-3 py-2 rounded hover:bg-accent/20 hover:shadow-[2px_2px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] border-2 border-transparent hover:border-foreground transition-all duration-200"
 								variants={navItemVariants}
 							>
 								{item.name}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
@@ -13,6 +13,23 @@ import { images } from "@/lib/images";
 
 const MobileNavbar: React.FC = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	// Body + documentElement scroll lock (safer across browsers)
+	useEffect(() => {
+		if (isMenuOpen) {
+			document.body.style.overflow = "hidden";
+			document.documentElement.style.overflow = "hidden"; // lock html as well
+		} else {
+			document.body.style.overflow = "";
+			document.documentElement.style.overflow = "";
+		}
+
+		// Cleanup on unmount
+		return () => {
+			document.body.style.overflow = "";
+			document.documentElement.style.overflow = "";
+		};
+	}, [isMenuOpen]);
 
 	return (
 		<>
@@ -76,43 +93,43 @@ const MobileNavbar: React.FC = () => {
 						</motion.a>
 					</div>
 
-					{/* Mobile Menu */}
+					{/* Mobile Menu - Full Height with Scroll Lock */}
 					<AnimatePresence>
 						{isMenuOpen && (
 							<motion.div
-								className="fixed inset-0 z-50 bg-background/95 backdrop-blur-lg lg:hidden"
+								className="fixed inset-0 z-50 bg-background/95 backdrop-blur-lg lg:hidden min-h-screen h-[100dvh] overflow-hidden"
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								exit={{ opacity: 0 }}
 								transition={{ duration: 0.3 }}
 							>
-								{/* Close button */}
+								{/* Close button - repositioned */}
 								<motion.button
-									className="absolute top-6 right-6 p-3 rounded-full border-2 border-foreground hover:bg-accent transition-colors"
+									className="absolute top-4 right-4 p-2 rounded-full border-2 border-foreground hover:bg-accent transition-colors"
 									onClick={() => setIsMenuOpen(false)}
 									initial={{ scale: 0, rotate: -180 }}
 									animate={{ scale: 1, rotate: 0 }}
 									transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
 									type="button"
 								>
-									<X className="w-6 h-6" />
+									<X className="w-5 h-5" />
 								</motion.button>
 
-								{/* Menu content */}
-								<div className="flex flex-col items-center justify-center min-h-screen px-6">
+								{/* Menu content - Scrollable with proper constraints */}
+								<div className="flex h-full w-full items-center justify-center px-4">
 									<motion.div
-										className="text-center space-y-8 w-full max-w-sm"
+										className="text-center w-full max-w-xs max-h-[100dvh] overflow-y-auto py-8"
 										initial={{ y: 30, opacity: 0 }}
 										animate={{ y: 0, opacity: 1 }}
 										transition={{ delay: 0.1, duration: 0.4 }}
 									>
-										{/* Main menu items */}
-										<div className="space-y-6">
+										{/* Main menu items - Reduced spacing */}
+										<div className="flex flex-col gap-6 mb-4">
 											{menuItems.map((item: MenuItem, index: number) => (
 												<motion.a
 													key={item.name}
 													href={item.href}
-													className="block text-2xl font-bold text-foreground hover:text-primary transition-colors py-2"
+													className="block text-xl font-primary text-foreground hover:text-primary transition-colors py-1"
 													initial={{ x: -30, opacity: 0 }}
 													animate={{ x: 0, opacity: 1 }}
 													transition={{
@@ -126,23 +143,25 @@ const MobileNavbar: React.FC = () => {
 											))}
 										</div>
 
-										{/* Services section */}
+										{/* Services section - Simplified */}
 										<motion.div
-											className="pt-8 border-t border-foreground/20"
+											className="py-4 border-t border-foreground/20 font-primary flex flex-col gap-2"
 											initial={{ y: 20, opacity: 0 }}
 											animate={{ y: 0, opacity: 1 }}
 											transition={{ delay: 0.6, duration: 0.3 }}
 										>
-											<p className="text-2xl font-bold text-foreground mb-4 tracking-wider">
+											<span className="text-lg font-primary text-foreground mb-4">
 												Usługi
-											</p>
-											<div className="space-y-4">
-												{services.tatuaze.items.map(
-													(item: ServiceItem, index: number) => (
+											</span>
+											{/* Only show first 3 services to save space */}
+											<div className="space-y-2">
+												{services.tatuaze.items
+													.slice(0, 3)
+													.map((item: ServiceItem, index: number) => (
 														<motion.a
 															key={item.name}
 															href={item.href}
-															className="flex items-center gap-3 text-lg font-medium text-foreground hover:text-primary transition-colors py-1"
+															className="flex items-center gap-2 text-sm font-medium font-text text-foreground hover:text-primary transition-colors py-1"
 															initial={{ x: -20, opacity: 0 }}
 															animate={{ x: 0, opacity: 1 }}
 															transition={{
@@ -152,18 +171,28 @@ const MobileNavbar: React.FC = () => {
 															onClick={() => setIsMenuOpen(false)}
 														>
 															<span className="text-accent">
-																<item.icon className="w-4 h-4" />
+																<item.icon className="w-3 h-3" />
 															</span>
 															{item.name}
 														</motion.a>
-													),
-												)}
+													))}
+												{/* Show more link */}
+												<motion.a
+													href="/uslugi"
+													className="block text-sm text-primary hover:text-accent transition-colors mt-2 font-medium"
+													initial={{ opacity: 0 }}
+													animate={{ opacity: 1 }}
+													transition={{ delay: 1, duration: 0.3 }}
+													onClick={() => setIsMenuOpen(false)}
+												>
+													Zobacz wszystkie usługi →
+												</motion.a>
 											</div>
 										</motion.div>
 
-										{/* CTA Button */}
+										{/* CTA Button - Smaller */}
 										<motion.div
-											className="pt-8"
+											className="pt-4"
 											initial={{ y: 20, opacity: 0 }}
 											animate={{ y: 0, opacity: 1 }}
 											transition={{ delay: 0.9, duration: 0.3 }}

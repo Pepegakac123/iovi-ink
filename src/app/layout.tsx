@@ -7,7 +7,6 @@ import Navbar from "@/components/Navbar";
 import { images } from "@/lib/images";
 import ConditionalAnalytics from "@/components/GDPR/GA4ConditionalAnalytics";
 import CookieConsent from "@/components/GDPR/CookieConsent";
-import { fontVariables } from "@/lib/fonts";
 export const metadata: Metadata = {
 	title: {
 		template: "%s - bezpłatna konsultacja - iovi-ink",
@@ -64,26 +63,42 @@ export default function RootLayout({
 	return (
 		<html lang="pl">
 			<head>
+				{/* ✅ CRITICAL: Preload hero image dla LCP optimization */}
+				<link
+					rel="preload"
+					as="image"
+					href={images.bab_z_maszynkom.src} // Zastąp rzeczywistą ścieżką
+					imageSizes="(max-width: 640px) 320px, (max-width: 768px) 400px, (max-width: 1024px) 500px, 600px"
+					fetchPriority="high"
+				/>
+
+				{/* ✅ CRITICAL: Preload critical fonts */}
+				<link
+					rel="preload"
+					href="/fonts/Inter-VariableFont.woff2"
+					as="font"
+					type="font/woff2"
+					crossOrigin="anonymous"
+				/>
+				<link
+					rel="preload"
+					href="/fonts/AlfaSlabOne-Regular.woff2"
+					as="font"
+					type="font/woff2"
+					crossOrigin="anonymous"
+				/>
+
+				{/* ✅ CRITICAL: DNS prefetch dla external resources */}
+				<link rel="dns-prefetch" href="//cms.iovi-ink.pl" />
+
+				{/* ✅ CRITICAL: Resource hints */}
 				<link rel="preconnect" href="https://cms.iovi-ink.pl" />
-				<link rel="dns-prefetch" href="https://cms.iovi-ink.pl" />\
-				<link
-					rel="preload"
-					as="image"
-					href="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/iovi-high-resolution-logo-transparent.png"
-				/>
-				<link
-					rel="preload"
-					as="image"
-					href="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab_z_maszynkom.webp"
-					fetchPriority="high"
-				/>
-				{/* Logo - ważny dla brand consistency */}
-				<link
-					rel="preload"
-					as="image"
-					href="https://cms.iovi-ink.pl/wp-content/uploads/2025/08/iovi-high-resolution-logo-transparent.png"
-					fetchPriority="high"
-				/>
+
+				{/* ✅ CRITICAL: Viewport meta dla mobile optimization */}
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+				{/* ✅ Theme color dla mobile browsers */}
+				<meta name="theme-color" content="#FFEDEA" />
 			</head>
 			<body className="bg-background font-text">
 				<RecaptchaProvider>

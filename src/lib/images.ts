@@ -47,6 +47,10 @@ export const images = {
 		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab-sie-rozciaga.webp",
 		alt: "Jowita - tatuażystka prowadząca konsultację telefoniczną z klientem, zapewniając profesjonalną obsługę przed wykonaniem tatuażu",
 	},
+	bab_szkicuje: {
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab-szkicujoncy.webp",
+		alt: "Jowita - tatuażystka szkicuje projekt",
+	},
 	proces: {
 		proces_1: {
 			mobile:
@@ -57,9 +61,9 @@ export const images = {
 		},
 		proces_2: {
 			mobile:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_konsultacja_mobile.webp",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces-wspolpracy-bab-szkicujacy-mobile.webp",
 			desktop:
-				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces_konsultacja_desktop.webp",
+				"https://cms.iovi-ink.pl/wp-content/uploads/2025/08/proces-wspolpracy-bab-szkicujacy-desktop.webp",
 			alt: "Szkicowanie autorskiego projektu - tatuażystka tworzy indywidualny design dostosowany do potrzeb i anatomii klienta",
 		},
 		proces_3: {

@@ -36,7 +36,7 @@ const ServiceDropdown: React.FC<ServiceDropdownPropsExtended> = ({
 			onMouseLeave={onMouseLeave}
 		>
 			<div className="p-6">
-				<div className="flex items-center gap-2 mb-4 text-primary">
+				<div className="flex items-center gap-2 mb-4 text-primary font-primary font-medium">
 					<service.icon className="w-4 h-4" />
 					<h3 className="font-bold text-lg">{service.title}</h3>
 				</div>
@@ -45,7 +45,7 @@ const ServiceDropdown: React.FC<ServiceDropdownPropsExtended> = ({
 						<motion.a
 							key={item.name}
 							href={item.href}
-							className="group flex items-start gap-3 p-3 rounded border-2 border-transparent hover:border-foreground hover:shadow-[4px_4px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all duration-200"
+							className="group flex font-text font-medium items-start gap-3 p-3 rounded border-2 border-transparent hover:border-foreground hover:shadow-[4px_4px_0px_0px_theme(colors.foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all duration-200"
 							initial={{ opacity: 0, x: -10 }}
 							animate={{ opacity: 1, x: 0 }}
 							transition={{ delay: index * 0.05 }}
@@ -72,7 +72,7 @@ const ServiceDropdown: React.FC<ServiceDropdownPropsExtended> = ({
 				>
 					<a
 						href="/uslugi"
-						className="inline-flex items-center gap-2 text-sm text-primary hover:text-accent transition-colors font-bold"
+						className="inline-flex font-text items-center gap-2 text-sm text-primary hover:text-accent transition-colors font-bold"
 					>
 						Zobacz wszystkie usługi
 						<ChevronDown className="w-3 h-3 rotate-[-90deg]" />

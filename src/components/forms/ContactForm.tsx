@@ -291,12 +291,11 @@ export default function ContactForm() {
 							<motion.button
 								type="submit"
 								disabled={isSubmitting}
-								className="bg-primary cursor-pointer text-background font-primary text-base md:text-lg w-full px-4 md:px-8 py-4 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
+								className="bg-primary cursor-pointer text-background font-primary text-base md:text-lg w-full px-4 md:px-8 py-4 uppercase border-2 border-foreground rounded-md flex items-center hover:bg-accent justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
 								whileHover={
 									!isSubmitting
 										? {
 												scale: 1.05,
-												backgroundColor: "var(--accent)",
 												boxShadow: "4px 4px 0px 0px var(--foreground)",
 												transition: { duration: 0.2 },
 											}

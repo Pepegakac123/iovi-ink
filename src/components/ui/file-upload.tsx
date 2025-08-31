@@ -74,7 +74,7 @@ const FileInput = React.forwardRef<
 		<div
 			ref={ref}
 			className={cn(
-				"relative w-full rounded-md  px-3 py-6 text-center hover:bg-muted/25",
+				"relative w-full rounded-md  px-3 py-3 text-center hover:bg-muted/25",
 				"ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
 				className,
 			)}
