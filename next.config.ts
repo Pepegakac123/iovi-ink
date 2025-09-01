@@ -3,14 +3,15 @@ import type { NextConfig } from "next";
 const wordpressUrl = process.env.WORDPRESS_URL || "https://cms.iovi-ink.pl/";
 const wordpressHostname = new URL(wordpressUrl).hostname;
 
-// 🔥 FAZA 1: CDN tylko dla Next.js assetów
+// 🔥 MIKR.US CONFIG: Główna domena z Cloudflare cache
 const isProd = process.env.NODE_ENV === "production";
-const cdnDomain = isProd ? "https://cdn.iovi-ink.pl" : undefined;
+// 🚫 WYŁĄCZONE - mikr.us nie obsługuje subdomains (Error 521)
+const cdnDomain = undefined;
 
 const nextConfig: NextConfig = {
 	// output: "standalone", // Uncomment jeśli chcesz standalone
 
-	// 🚀 CDN dla statycznych assetów Next.js (_next/static/*)
+	// 🚫 CDN subdomain wyłączony dla mikr.us
 	assetPrefix: cdnDomain,
 
 	experimental: {
@@ -28,7 +29,7 @@ const nextConfig: NextConfig = {
 		removeConsole: process.env.NODE_ENV === "production",
 	},
 
-	// 🔥 IMAGES - POZOSTAJĄ BEZ ZMIAN (WordPress images jak były)
+	// 🔥 IMAGES - Tylko WordPress (bez CDN subdomain)
 	images: {
 		remotePatterns: [
 			{
@@ -37,19 +38,13 @@ const nextConfig: NextConfig = {
 				port: "",
 				pathname: "/**",
 			},
-			// 🆕 DODAJ dla /public obrazów przez CDN
-			{
-				protocol: "https",
-				hostname: "cdn.iovi-ink.pl",
-				port: "",
-				pathname: "/**",
-			},
+			// 🚫 USUNIĘTE: cdn.iovi-ink.pl (nie działa z mikr.us)
 		],
 		formats: ["image/webp", "image/avif"],
 		deviceSizes: [640, 750, 828, 1080, 1200, 1920],
 		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 		minimumCacheTTL: 31536000, // 1 rok cache
-		loader: "default", // 🔥 POZOSTAW default - bez custom loadera
+		loader: "default",
 	},
 
 	// ✅ Twoja istniejąca webpack config
@@ -131,10 +126,10 @@ const nextConfig: NextConfig = {
 		return config;
 	},
 
-	// 🔥 ROZSZERZONE HEADERS dla CDN
+	// 🔥 CACHE HEADERS - działają z głównej domeny przez Cloudflare
 	async headers() {
 		return [
-			// Next.js statyczne assety - najdłuższy cache
+			// Next.js statyczne assety - cache przez Cloudflare
 			{
 				source: "/_next/static/:path*",
 				headers: [
@@ -162,7 +157,7 @@ const nextConfig: NextConfig = {
 					},
 				],
 			},
-			// Public folder assets (ikony z /public)
+			// Public folder assets
 			{
 				source: "/icons/:path*",
 				headers: [
@@ -172,16 +167,25 @@ const nextConfig: NextConfig = {
 					},
 				],
 			},
-			// Inne statyczne pliki
+			// Fonty - z CORS headers dla Cloudflare
 			{
 				source: "/:path*.{woff,woff2,ttf,eot}",
 				headers: [
 					{
 						key: "Cache-Control",
-						value: "public, max-age=2592000, stale-while-revalidate=86400",
+						value: "public, max-age=31536000, immutable",
+					},
+					{
+						key: "Access-Control-Allow-Origin",
+						value: "*",
+					},
+					{
+						key: "Access-Control-Allow-Methods",
+						value: "GET, OPTIONS",
 					},
 				],
 			},
+			// Inne statyczne pliki
 			{
 				source: "/:path*.{ico,png,jpg,jpeg,gif,webp,svg}",
 				headers: [
