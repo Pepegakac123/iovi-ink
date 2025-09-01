@@ -115,7 +115,7 @@ const PortfolioPage = async () => {
 						<Tabs defaultValue="wszystkie" className="w-full">
 							{/* ✅ Tabs Navigation - poprawione values */}
 							<div className="flex justify-center md:justify-center mb-6 md:mb-8">
-								<TabsList className="w-full md:w-auto">
+								<TabsList className="w-full lg:w-auto">
 									<TabsTrigger value="wszystkie">
 										<span className="block md:inline">Wszystkie</span>
 										<span className="block md:inline">

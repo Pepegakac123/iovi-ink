@@ -11,7 +11,7 @@ import { images } from "@/lib/images";
 import { formatDate } from "@/lib/utils";
 import { services } from "@/lib/menuData";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import NotFound from "@/app/not-found";
 
 export async function generateMetadata({
@@ -22,6 +22,15 @@ export async function generateMetadata({
 	try {
 		const { slug } = await params;
 		const blog = await getBlogBySlug(slug);
+
+		// 🔥 SPRAWDŹ czy blog istnieje
+		if (!blog) {
+			return {
+				title: "Blog nie znaleziony - iovi-ink",
+				description: "Szukany artykuł nie istnieje.",
+				robots: "noindex, nofollow", // 🔥 WAŻNE dla SEO
+			};
+		}
 
 		return {
 			title: blog.title,
@@ -43,9 +52,11 @@ export async function generateMetadata({
 			},
 		};
 	} catch (error) {
+		console.error("Error in generateMetadata:", error);
 		return {
-			title: "Blog nie znaleziony",
+			title: "Blog nie znaleziony - iovi-ink",
 			description: "Szukany artykuł nie istnieje.",
+			robots: "noindex, nofollow",
 		};
 	}
 }
@@ -63,7 +74,7 @@ async function BlogSinglePage({
 	const { slug } = await params;
 	const blog = await getBlogBySlug(slug);
 	if (!blog) {
-		return <NotFound></NotFound>;
+		notFound();
 	}
 	return (
 		<>

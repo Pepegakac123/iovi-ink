@@ -1,5 +1,3 @@
-export const dynamicParams = false;
-
 import SectionHero from "@/components/SectionHero";
 import ServiceProcessSection from "@/components/servicePagesComponents/ServiceProcessSection";
 import ServiceDistinguishingSection from "@/components/servicePagesComponents/ServiceDistinguishingSection";
@@ -24,19 +22,21 @@ import { ServicePageProps } from "@/components/servicePagesComponents/servicePag
 import { Metadata } from "next";
 import { images } from "@/lib/images";
 import { BreadcrumbJsonLd, ImageJsonLd } from "next-seo";
+import { notFound } from "next/navigation"; // 🔥 Import notFound
 
 export async function generateMetadata({
 	params,
 }: ServicePageProps): Promise<Metadata> {
-	const { slug } = await params;
-
 	try {
+		const { slug } = await params;
 		const service = await getServiceBySlug(slug);
 
+		// 🔥 SPRAWDŹ czy service istnieje (jak w blog fix)
 		if (!service) {
 			return {
-				title: "Usługa nie została znaleziona",
+				title: "Usługa nie została znaleziona - iovi-ink",
 				description: "Przepraszamy, nie można znaleźć tej usługi tatuażu.",
+				robots: "noindex, nofollow", // Ważne dla SEO
 			};
 		}
 
@@ -95,125 +95,142 @@ export async function generateMetadata({
 	} catch (error) {
 		console.error("Error generating metadata:", error);
 		return {
-			title: "Błąd ładowania usługi",
+			title: "Błąd ładowania usługi - iovi-ink",
 			description: "Wystąpił problem z załadowaniem tej usługi tatuażu.",
+			robots: "noindex, nofollow",
 		};
 	}
 }
 
 export async function generateStaticParams() {
-	const services = await getAllServices();
-	// console.log(services);
-	return services.map((service) => ({ slug: service.slug }));
+	try {
+		const services = await getAllServices();
+		return services.map((service) => ({ slug: service.slug }));
+	} catch (error) {
+		console.error("Error in generateStaticParams:", error);
+		return []; // Zwróć pustą tablicę przy błędzie
+	}
 }
 
 async function Page({ params }: { params: Promise<{ slug: string }> }) {
-	const { slug } = await params;
-	const service = await getServiceBySlug(slug);
-	const { id, meta, title } = service;
-	const images = await mapImagesWithWordPressAlt(getServiceImages(service));
-	return (
-		<>
-			<BreadcrumbJsonLd
-				useAppDir={true}
-				itemListElements={[
-					{
-						position: 1,
-						name: "Strona główna",
-						item: "https://iovi-ink.pl",
-					},
-					{
-						position: 2,
-						name: "Usługi",
-						item: "https://iovi-ink.pl/uslugi",
-					},
-					{
-						position: 3,
-						name: title.rendered,
-						item: `https://iovi-ink.pl/uslugi/${slug}`,
-					},
-				]}
-			/>
-			<ImageJsonLd
-				useAppDir={true}
-				images={images.map((img) => ({
-					contentUrl: img.src,
-					creator: {
-						"@type": "Person",
-						name: "Jowita Potaczek",
-					},
-					creditText: "Jowita Potaczek - IOVI INK",
-					copyrightNotice: "© Jowita Potaczek",
-				}))}
-			/>
+	try {
+		const { slug } = await params;
+		const service = await getServiceBySlug(slug);
 
-			<ServiceHero
-				subTitle={meta.hero_subheadline}
-				title={meta.hero_h1}
-				description={meta.hero_intro}
-				image={images[0]}
-			></ServiceHero>
-			<TargetAudience
-				title={meta.dla_kogo_h2}
-				subtitle={meta.dla_kogo_subheadline}
-				targetAudienceDsc={meta.dla_kogo}
-				image={images[1]}
-			/>
-			<ServiceRoleSection
-				title={meta.rola_uslugi_h2}
-				subtitle={meta.rola_uslugi_subheadline}
-				roleItems={meta.rola_uslugi}
-				images={[
-					images[2] || images[0], // Trzeci obraz lub fallback
-					images[3] || images[1], // Czwarty obraz lub fallback
-				]}
-			/>
-			<ServiceBenefitsSection
-				title={meta.korzysci_h2}
-				subtitle={meta.korzysci_subheadline}
-				benefits={meta.korzysci}
-				image={images[4] || images[0]}
-			/>
-			<ServiceDistinguishingSection
-				title={meta.wyroznienie_h2}
-				subtitle={meta.wyroznienie_subheadline}
-				distinguishingItems={meta.wyroznienie}
-				bgVariant="dark"
-			/>
-			<ServiceProcessSection
-				title={meta.proces_h2}
-				subtitle={meta.proces_subheadline}
-				processSteps={meta.proces}
-			/>
-			<ServiceDistinguishingSection
-				title={meta.specjalizacja_h2}
-				subtitle={meta.specjalizacja_subheadline}
-				distinguishingItems={meta.specjalizacja_1}
-				bgVariant="light"
-			/>
-			<ServiceWhyMeSection
-				title={meta.dlaczego_ja_h2}
-				subtitle={meta.dlaczego_ja_subheadline}
-				whyMeItems={meta.dlaczego_ja}
-				image={images[5] || images[0]}
-			/>
-			<ServiceCta
-				title={meta.cta_h2}
-				subtitle={meta.cta_subheadline}
-				ctaItems={meta.cta}
-			/>
-			<motion.section
-				className="bg-foreground"
-				initial="hidden"
-				whileInView="visible"
-				viewport={{ once: true, margin: "-50px" }}
-				variants={containerVariants}
-			>
-				<Services {...servicesHome} />
-			</motion.section>
-			<CarouselSections />
-		</>
-	);
+		// 🔥 SPRAWDŹ czy service istnieje i użyj notFound()
+		if (!service) {
+			notFound(); // Proper Next.js 404 handling
+		}
+
+		const { id, meta, title } = service;
+		const images = await mapImagesWithWordPressAlt(getServiceImages(service));
+
+		return (
+			<>
+				<BreadcrumbJsonLd
+					useAppDir={true}
+					itemListElements={[
+						{
+							position: 1,
+							name: "Strona główna",
+							item: "https://iovi-ink.pl",
+						},
+						{
+							position: 2,
+							name: "Usługi",
+							item: "https://iovi-ink.pl/uslugi",
+						},
+						{
+							position: 3,
+							name: title.rendered,
+							item: `https://iovi-ink.pl/uslugi/${slug}`,
+						},
+					]}
+				/>
+				<ImageJsonLd
+					useAppDir={true}
+					images={images.map((img) => ({
+						contentUrl: img.src,
+						creator: {
+							"@type": "Person",
+							name: "Jowita Potaczek",
+						},
+						creditText: "Jowita Potaczek - IOVI INK",
+						copyrightNotice: "© Jowita Potaczek",
+					}))}
+				/>
+
+				<ServiceHero
+					subTitle={meta.hero_subheadline}
+					title={meta.hero_h1}
+					description={meta.hero_intro}
+					image={images[0]}
+				></ServiceHero>
+				<TargetAudience
+					title={meta.dla_kogo_h2}
+					subtitle={meta.dla_kogo_subheadline}
+					targetAudienceDsc={meta.dla_kogo}
+					image={images[1]}
+				/>
+				<ServiceRoleSection
+					title={meta.rola_uslugi_h2}
+					subtitle={meta.rola_uslugi_subheadline}
+					roleItems={meta.rola_uslugi}
+					images={[
+						images[2] || images[0], // Trzeci obraz lub fallback
+						images[3] || images[1], // Czwarty obraz lub fallback
+					]}
+				/>
+				<ServiceBenefitsSection
+					title={meta.korzysci_h2}
+					subtitle={meta.korzysci_subheadline}
+					benefits={meta.korzysci}
+					image={images[4] || images[0]}
+				/>
+				<ServiceDistinguishingSection
+					title={meta.wyroznienie_h2}
+					subtitle={meta.wyroznienie_subheadline}
+					distinguishingItems={meta.wyroznienie}
+					bgVariant="dark"
+				/>
+				<ServiceProcessSection
+					title={meta.proces_h2}
+					subtitle={meta.proces_subheadline}
+					processSteps={meta.proces}
+				/>
+				<ServiceDistinguishingSection
+					title={meta.specjalizacja_h2}
+					subtitle={meta.specjalizacja_subheadline}
+					distinguishingItems={meta.specjalizacja_1}
+					bgVariant="light"
+				/>
+				<ServiceWhyMeSection
+					title={meta.dlaczego_ja_h2}
+					subtitle={meta.dlaczego_ja_subheadline}
+					whyMeItems={meta.dlaczego_ja}
+					image={images[5] || images[0]}
+				/>
+				<ServiceCta
+					title={meta.cta_h2}
+					subtitle={meta.cta_subheadline}
+					ctaItems={meta.cta}
+				/>
+				<motion.section
+					className="bg-foreground"
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, margin: "-50px" }}
+					variants={containerVariants}
+				>
+					<Services {...servicesHome} />
+				</motion.section>
+				<CarouselSections />
+			</>
+		);
+	} catch (error) {
+		console.error("Error in Service Page:", error);
+		notFound(); // Fallback do 404 przy każdym błędzie
+	}
 }
 
 export default Page;
