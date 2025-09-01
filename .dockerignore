@@ -1,9 +1,0 @@
-node_modules
-.next
-.git
-.gitignore
-.DS_Store
-*.log
-.vscode
-.idea
-.env*

@@ -1,5 +1,3 @@
-export const dynamicParams = false;
-
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQPageJsonLd } from "next-seo";
 import { getAllBlogs, getBlogBySlug } from "@/lib/jetApi";
 import BlogSidebar from "@/components/blog/BlogSidebar";
@@ -13,6 +11,8 @@ import { images } from "@/lib/images";
 import { formatDate } from "@/lib/utils";
 import { services } from "@/lib/menuData";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import NotFound from "@/app/not-found";
 
 export async function generateMetadata({
 	params,
@@ -62,6 +62,9 @@ async function BlogSinglePage({
 }) {
 	const { slug } = await params;
 	const blog = await getBlogBySlug(slug);
+	if (!blog) {
+		return <NotFound></NotFound>;
+	}
 	return (
 		<>
 			<BreadcrumbJsonLd

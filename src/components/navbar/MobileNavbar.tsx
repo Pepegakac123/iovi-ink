@@ -150,7 +150,7 @@ const MobileNavbar: React.FC = () => {
 											animate={{ y: 0, opacity: 1 }}
 											transition={{ delay: 0.6, duration: 0.3 }}
 										>
-											<span className="text-lg font-primary text-foreground mb-4">
+											<span className="text-xl font-primary text-foreground mb-4">
 												Usługi
 											</span>
 											{/* Only show first 3 services to save space */}

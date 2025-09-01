@@ -85,7 +85,10 @@ const ServicesPage = async () => {
 				viewport={{ once: true, margin: "-100px" }}
 				variants={containerVariants}
 			>
-				<motion.div className="container" variants={containerVariants}>
+				<motion.div
+					className="container px-4 md:px-8"
+					variants={containerVariants}
+				>
 					{/* Services Grid - 4 kolumny na dużych ekranach + stretch items */}
 					<motion.div
 						className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch"

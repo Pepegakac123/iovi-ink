@@ -30,7 +30,7 @@ function TabsList({
 				// ✅ Brutalist shadow effect
 				"shadow-[4px_4px_0px_0px_var(--foreground)]",
 				// ✅ Responsive: vertical na mobile, horizontal na desktop
-				"flex-col md:flex-row w-full md:w-auto",
+				"flex-col lg:flex-row w-full md:w-auto",
 				className,
 			)}
 			{...props}
