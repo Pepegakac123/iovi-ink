@@ -72,22 +72,6 @@ export default function RootLayout({
 					fetchPriority="high"
 				/>
 
-				{/* ✅ CRITICAL: Preload critical fonts */}
-				<link
-					rel="preload"
-					href="/fonts/Inter-VariableFont.woff2"
-					as="font"
-					type="font/woff2"
-					crossOrigin="anonymous"
-				/>
-				<link
-					rel="preload"
-					href="/fonts/AlfaSlabOne-Regular.woff2"
-					as="font"
-					type="font/woff2"
-					crossOrigin="anonymous"
-				/>
-
 				{/* ✅ CRITICAL: DNS prefetch dla external resources */}
 				<link rel="dns-prefetch" href="//cms.iovi-ink.pl" />
 
