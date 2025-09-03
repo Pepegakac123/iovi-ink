@@ -25,7 +25,7 @@ if (!baseUrl) {
 	throw new Error("WORDPRESS_URL environment variable is not defined");
 }
 
-class JETEngineAPIError extends Error {
+export class JETEngineAPIError extends Error {
 	constructor(
 		message: string,
 		public status: number,

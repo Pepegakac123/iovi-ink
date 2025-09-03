@@ -7,6 +7,7 @@ import {
 	getAllServices,
 	getServiceBySlug,
 	getServiceImages,
+	JETEngineAPIError,
 	mapImagesWithWordPressAlt,
 } from "@/lib/jetApi";
 import ServiceBenefitsSection from "@/components/servicePagesComponents/ServiceBenefitsSection";
@@ -31,33 +32,30 @@ export async function generateMetadata({
 		const { slug } = await params;
 		const service = await getServiceBySlug(slug);
 
-		// 🔥 SPRAWDŹ czy service istnieje (jak w blog fix)
+		// jeśli jednak zwracasz null w getServiceBySlug
 		if (!service) {
 			return {
 				title: "Usługa nie została znaleziona - iovi-ink",
 				description: "Przepraszamy, nie można znaleźć tej usługi tatuażu.",
-				robots: "noindex, nofollow", // Ważne dla SEO
+				robots: "noindex, nofollow",
 			};
 		}
 
 		const { meta } = service;
 		const serviceTitle = service.title.rendered;
 
-		// Wykorzystaj gotowe SEO z CMS lub fallback
 		const seoTitle =
 			serviceTitle || `${serviceTitle} - Jowita Tatuażystka | IOVI INK`;
 		const seoDescription =
 			meta.seo_description ||
 			`${serviceTitle} - profesjonalne usługi tatuażu. Minimalistyczne i graficzne wzory dostosowane do anatomii.`;
 
-		// Keywords z CMS + dodatkowe lokalne
 		const keywords = [meta.seo_keyword, "tatuażysta", "tatuaże"];
 
 		return {
 			title: seoTitle,
 			description: seoDescription,
 			keywords: keywords,
-
 			openGraph: {
 				title: seoTitle,
 				description: seoDescription,
@@ -73,19 +71,15 @@ export async function generateMetadata({
 				],
 				siteName: "Iovi-Ink",
 			},
-
 			twitter: {
 				card: "summary_large_image",
 				title: seoTitle,
 				description: seoDescription,
 				images: images.seoBaner.src,
 			},
-
 			alternates: {
 				canonical: `https://iovi-ink.pl/uslugi/${slug}`,
 			},
-
-			// Dodatkowe meta tagi
 			other: {
 				"og:locale": "pl_PL",
 				"article:author": "Jowita Potaczek",
@@ -93,7 +87,13 @@ export async function generateMetadata({
 			},
 		};
 	} catch (error) {
-		console.error("Error generating metadata:", error);
+		if (error instanceof JETEngineAPIError && error.status === 404) {
+			return {
+				title: "Usługa nie została znaleziona - iovi-ink",
+				description: "Przepraszamy, nie można znaleźć tej usługi tatuażu.",
+				robots: "noindex, nofollow",
+			};
+		}
 		return {
 			title: "Błąd ładowania usługi - iovi-ink",
 			description: "Wystąpił problem z załadowaniem tej usługi tatuażu.",
@@ -116,12 +116,6 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 	try {
 		const { slug } = await params;
 		const service = await getServiceBySlug(slug);
-
-		// 🔥 SPRAWDŹ czy service istnieje i użyj notFound()
-		if (!service) {
-			notFound(); // Proper Next.js 404 handling
-		}
-
 		const { id, meta, title } = service;
 		const images = await mapImagesWithWordPressAlt(getServiceImages(service));
 
@@ -228,8 +222,10 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 			</>
 		);
 	} catch (error) {
-		console.error("Error in Service Page:", error);
-		notFound(); // Fallback do 404 przy każdym błędzie
+		if (error instanceof JETEngineAPIError && error.status === 404) {
+			notFound(); // ładnie przełączy na 404
+		}
+		throw error; // inne błędy -> faktyczny 500
 	}
 }
 

@@ -55,7 +55,7 @@ const ServiceSectionHero: React.FC<ServiceSectionHeroProps> = ({
 							priority={true}
 							loading="eager"
 							// ✅ Wysokiej jakość dla hero
-							quality={100}
+							quality={90}
 							// ✅ Optymalne sizes dla different viewports
 							sizes="(max-width: 640px) 700px, (max-width: 1024px) 800px, 900px"
 							className="object-cover"
