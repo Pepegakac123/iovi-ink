@@ -6,17 +6,23 @@
 @custom-variant dark (&:is(.dark *));
 
 @font-face {
-	font-family: Inter;
-	font-style: normal;
-	font-display: swap;
+	font-family: "Inter";
 	src: url("/fonts/Inter-VariableFont.woff2") format("woff2");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap; /* keep swap */
+	font-optical-sizing: auto; /* dla variable fonts */
+	ascent-override: 90%;
+	descent-override: 10%;
+	line-gap-override: 0%;
 }
-
 @font-face {
-	font-family: AlfaSlabOne;
+	font-family: "AlfaSlabOne";
+	src: url("/fonts/AlfaSlabOne-Regular.woff2") format("woff2");
+	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
-	src: url("/fonts/AlfaSlabOne-Regular.woff2") format("woff2");
+	/* możesz pominąć metrics dla display fontów jeśli nie potrzeba */
 }
 
 :root {
