@@ -51,16 +51,15 @@ const ServiceSectionHero: React.FC<ServiceSectionHeroProps> = ({
 							fill
 							src={image.src}
 							alt={image.alt}
-							// ✅ KRYTYCZNE: Priority + eager loading dla LCP
 							priority={true}
 							loading="eager"
-							// ✅ Wysokiej jakość dla hero
-							quality={90}
-							// ✅ Optymalne sizes dla different viewports
-							sizes="(max-width: 640px) 700px, (max-width: 1024px) 800px, 900px"
+							quality={65} // ← Zmniejsz z 90 na 65
+							sizes="(max-width: 768px) 100vw, (max-width: 1024px) 1024px, 1200px"
 							className="object-cover"
-							// ✅ Fetchpriority dla Chromium browsers
 							fetchPriority="high"
+							decoding="async" // ← Dodaj to
+							placeholder="blur" // ← Dodaj blur placeholder
+							blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
 						/>
 						{/* Overlay - delikatny czarny gradient liniowy 120 stopni */}
 						<div

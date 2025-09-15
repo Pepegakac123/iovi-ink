@@ -52,7 +52,7 @@ export function useGalleryModal(
 	galleryImages: GalleryImage[] = [],
 	options: UseGalleryModalOptions = {},
 ): UseGalleryModalReturn {
-	const { wrapAround = true, preloadCount = 2 } = options; // 🆕 Default to 2 for better UX
+	const { wrapAround = true, preloadCount = 5 } = options; // 🆕 Default to 2 for better UX
 
 	// ===========================================
 	// STATE MANAGEMENT (unchanged)

@@ -154,7 +154,6 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 							{currentImage && (
 								<ImageViewer
 									image={currentImage}
-									isLoading={false} // 🔧 FIXED: Uproszczone - ImageViewer sam zarządza loading
 									onNext={canGoNext ? nextImage : undefined}
 									onPrev={canGoPrev ? prevImage : undefined}
 								/>

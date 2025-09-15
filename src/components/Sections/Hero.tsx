@@ -43,36 +43,30 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 
 				{/* ✅ CRITICAL: Hero Image - Fixed positioning, no render blocking */}
 				<div
-					className="absolute left-0 right-0 bottom-0 overflow-hidden flex align-center justify-center"
+					className="absolute left-0 right-0 bottom-0"
 					style={{
-						// ✅ Fixed desktop positioning - więcej miejsca nad obrazkiem
 						top: "clamp(280px, 35vh, 420px)",
-						containIntrinsicSize: "600px 600px",
 					}}
 				>
-					<Image
-						width={600}
-						height={600}
-						src={image.src}
-						alt={image.alt}
-						// ✅ CRITICAL: Maximum priority
-						priority={true}
-						loading="eager"
-						quality={80} // Zwiększone z 70 - Load Time wzrósł, więc size może być za mały
-						sizes="(max-width: 640px) 320px, (max-width: 768px) 400px, (max-width: 1024px) 500px, 600px"
-						className="block object-cover object-top w-full h-auto max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]"
-						style={{
-							aspectRatio: "1 / 1",
-							contentVisibility: "auto",
-							backfaceVisibility: "hidden",
-							transform: "translateZ(0)",
-						}}
-						fetchPriority="high"
-						decoding="sync"
-						referrerPolicy="no-referrer"
-					/>
+					<div className="relative w-full h-full">
+						<Image
+							fill
+							src={image.src}
+							alt={image.alt}
+							priority={true}
+							loading="eager"
+							quality={70}
+							sizes="(max-width: 640px) 250px, (max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
+							style={{
+								objectFit: "contain", // Zmiana z cover na contain
+								objectPosition: "bottom center", // Przyczep do dołu i wyśrodkuj
+							}}
+							fetchPriority="high"
+							decoding="sync"
+							referrerPolicy="no-referrer"
+						/>
+					</div>
 				</div>
-
 				{/* ✅ NON-CRITICAL: Lazy loaded components */}
 				<Suspense fallback={null}>
 					<div className="hidden lg:flex flex-row gap-5 max-w-4xl justify-center align-stretch z-10">

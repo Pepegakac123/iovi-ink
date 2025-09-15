@@ -301,3 +301,50 @@
 [data-slot="dialog-content"] {
 	z-index: 9999 !important;
 }
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		--reduced-motion: 1;
+	}
+
+	/* Wyłączamy wszystkie animacje/przejścia CSS i przewijanie gładkie */
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0s !important;
+		animation-iteration-count: 1 !important;
+		animation-delay: 0s !important;
+		transition-duration: 0s !important;
+		transition-delay: 0s !important;
+		scroll-behavior: auto !important;
+		will-change: auto !important;
+	}
+}
+.no-motion *,
+.no-motion *::before,
+.no-motion *::after {
+	/* Wyłączamy CSS-owe animacje i przejścia */
+	animation-duration: 0s !important;
+	animation-iteration-count: 1 !important;
+	animation-delay: 0s !important;
+	transition-duration: 0s !important;
+	transition-delay: 0s !important;
+	/* Nie nadpisujemy transform globalnie - daje to mniejsze ryzyko łamania układu.
+Jeśli chcesz wymusić brak transform, odkomentuj poniższą linię. */
+	/* transform: none !important; */
+	scroll-behavior: auto !important;
+	will-change: auto !important;
+}
+
+/* Pozostawiamy swiper/carousel z animacjami - wyjątki */
+.no-motion .swiper,
+.no-motion .swiper *,
+.no-motion .carousel-swiper,
+.no-motion .carousel-swiper * {
+	animation-duration: initial !important;
+	animation-iteration-count: initial !important;
+	animation-delay: initial !important;
+	transition-duration: initial !important;
+	transition-delay: initial !important;
+	/* Jeśli wcześniej odkomentowałeś transform:none, upewnij się że swiper ma przywrócone transformy: */
+	transform: initial !important;
+}

@@ -1,4 +1,4 @@
-// src/components/TattooGallery.tsx - FIXED: Zmiana z masonry na grid dla poprawnego indeksowania
+// src/components/TattooGallery.tsx - FIXED for instant popup display
 
 "use client";
 
@@ -6,6 +6,7 @@ import React, { lazy, Suspense } from "react";
 import Image from "next/image";
 import { BlurFade } from "@/components/magicui/blur-fade";
 const GalleryModal = lazy(() => import("@/components/gallery/GalleryModal"));
+
 interface TattooGalleryProps {
 	images: Array<{ src: string; alt: string }>;
 	className?: string;
@@ -32,7 +33,7 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 				fallback={<div className="h-96 bg-muted animate-pulse rounded-md" />}
 			>
 				<GalleryModal images={images} wrapAround={true}>
-					{/* ✅ FIXED: Zwykły responsive grid zamiast masonry dla poprawnego indeksowania */}
+					{/* ✅ Responsive grid */}
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 						{images.map((image, index) => (
 							<BlurFade
@@ -44,12 +45,12 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 								blur="8px"
 								className="w-full"
 							>
-								{/* ✅ FIXED: data-gallery-index dla prawidłowej identyfikacji */}
+								{/* ✅ Gallery item */}
 								<div
 									data-gallery-index={index}
 									className="group relative overflow-hidden rounded-md border-2 border-foreground bg-primary-foreground transition-all duration-300 cursor-pointer hover:border-primary hover:shadow-[4px_4px_0px_0px_var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
 								>
-									{/* ✅ FIXED: Proporcje 4:5 (320px x 400px) */}
+									{/* ✅ Image container */}
 									<div
 										className="relative w-full"
 										style={{ aspectRatio: "4/5" }}
@@ -59,8 +60,17 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 											alt={image.alt}
 											fill
 											className="object-cover transition-transform duration-500 group-hover:scale-105"
-											sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-											loading="lazy"
+											// ✅ FIX #1: Preload pierwszych 16 obrazów
+											priority={index < 16}
+											loading={index < 16 ? "eager" : "lazy"}
+											// ✅ FIX #2: IDENTYCZNE sizes jak w popup - eliminuje re-fetch!
+											sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+											// ✅ FIX #3: Wysoka jakość dla cache
+											quality={90}
+											// ✅ FIX #4: Wysokie priorytety dla pierwszych
+											fetchPriority={index < 8 ? "high" : "auto"}
+											// ✅ FIX #5: Async decoding
+											decoding="async"
 										/>
 
 										{/* ✅ Overlay z alt text na hover */}
@@ -74,25 +84,6 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 												</p>
 											</div>
 										</div>
-
-										{/* ✅ Zoom indicator - subtle icon */}
-										<div className="absolute top-3 right-3 w-8 h-8 bg-background/80 backdrop-blur-sm rounded-full border border-foreground/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-											<svg
-												className="w-4 h-4 text-foreground"
-												fill="none"
-												stroke="currentColor"
-												viewBox="0 0 24 24"
-												xmlns="http://www.w3.org/2000/svg"
-												role="graphics-symbol"
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-												/>
-											</svg>
-										</div>
 									</div>
 								</div>
 							</BlurFade>
@@ -100,13 +91,6 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 					</div>
 				</GalleryModal>
 			</Suspense>
-
-			{/* ✅ Counter zdjęć */}
-			<div className="mt-6 md:mt-8 text-center">
-				<p className="text-xs md:text-sm text-muted-foreground font-primary">
-					{images.length} {images.length === 1 ? "zdjęcie" : "zdjęć"}
-				</p>
-			</div>
 		</div>
 	);
 };
