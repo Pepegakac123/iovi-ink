@@ -4,7 +4,7 @@ import React from "react";
 import SectionHero from "@/components/SectionHero";
 import TattooGallery from "@/components/TattooGallery";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { getAllTattooImages } from "@/lib/jetApi";
+import { getAllTattooImages, getZagojone } from "@/lib/jetApi";
 import * as motion from "motion/react-client";
 import { containerVariants, itemVariants } from "@/lib/variants";
 import Contact from "@/components/Sections/Contact";
@@ -61,6 +61,7 @@ export const metadata: Metadata = {
 
 const PortfolioPage = async () => {
 	const groupedImages = await getAllTattooImages();
+	const zagojone = await getZagojone();
 	return (
 		<>
 			<ImageJsonLd
@@ -147,6 +148,14 @@ const PortfolioPage = async () => {
 											({groupedImages.graficzne.length})
 										</span>
 									</TabsTrigger>
+									{zagojone && (
+										<TabsTrigger value="zagojone">
+											<span className="block md:inline">Zagojone</span>
+											<span className="block md:inline">
+												({zagojone.length})
+											</span>
+										</TabsTrigger>
+									)}
 								</TabsList>
 							</div>
 
@@ -200,6 +209,15 @@ const PortfolioPage = async () => {
 									className="animate-in fade-in-50 duration-500"
 								/>
 							</TabsContent>
+
+							{zagojone && (
+								<TabsContent
+									value="zagojone"
+									className="border-0 bg-transparent p-0 shadow-none"
+								>
+									{zagojone[0].swiezy}
+								</TabsContent>
+							)}
 						</Tabs>
 					</motion.div>
 					{/* ✅ Portfolio Stats */}

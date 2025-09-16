@@ -311,3 +311,9 @@ export interface JetHomepageProps {
 		slug: string;
 	}>;
 }
+
+export interface JetEngineZagojone {
+	swiezy: string;
+	zagojony: string;
+	nazwa?: string;
+}

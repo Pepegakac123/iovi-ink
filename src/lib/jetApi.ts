@@ -5,6 +5,7 @@ import {
 	GroupedTattooImages,
 	JetEngineUsluga,
 	JetEngineUslugiResponse,
+	JetEngineZagojone,
 	JetHomepage,
 	ProcessedBlogPost,
 	RawJetEngineUsluga,
@@ -627,6 +628,17 @@ export async function getCityHomepageBySlug(
 		[`${type}-home-${slug}`],
 	);
 	return citiesPages[0];
+}
+
+export async function getZagojone(): Promise<JetEngineZagojone[]> {
+	const zagojone = await jetEngineFetch<JetEngineZagojone[]>(
+		"/wp-json/wp/v2/zagojone",
+		{
+			_fields: "meta,slug,title",
+		},
+		["zagojone"],
+	);
+	return zagojone;
 }
 
 // ================================================================
