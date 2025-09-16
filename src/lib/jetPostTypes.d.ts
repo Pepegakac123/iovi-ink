@@ -232,6 +232,12 @@ interface BlogMeta {
 	miniaturka_bloga: string;
 	tekst_glowny: string;
 	blog_faq: BlogFAQSection; // zmienione z 'korzysci' na 'blog_faq'
+	seo_title: string;
+	seo_description: string;
+	keyword_1: string;
+	keyword_2: string;
+	keyword_3: string;
+	keyword_4: string;
 }
 
 // Interfejs dla tytułu bloga
@@ -258,6 +264,9 @@ interface ProcessedBlogPost {
 	thumbnail: string;
 	content: string;
 	faq: BlogFAQItem[];
+	seo_title: string;
+	seo_description: string;
+	keywords: string[];
 }
 
 export type JetHomepage = {

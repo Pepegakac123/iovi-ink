@@ -520,6 +520,14 @@ export async function getAllBlogs(): Promise<ProcessedBlogPost[]> {
 		thumbnail: blog.meta.miniaturka_bloga,
 		content: blog.meta.tekst_glowny,
 		faq: objectToSortedArray(blog.meta.blog_faq),
+		seo_title: blog.meta.seo_title,
+		seo_description: blog.meta.seo_description,
+		keywords: [
+			blog.meta.keyword_1,
+			blog.meta.keyword_2,
+			blog.meta.keyword_3,
+			blog.meta.keyword_4,
+		],
 	}));
 }
 export async function getFeaturedBlogs(): Promise<ProcessedBlogPost[]> {
@@ -541,6 +549,14 @@ export async function getFeaturedBlogs(): Promise<ProcessedBlogPost[]> {
 		thumbnail: blog.meta.miniaturka_bloga,
 		content: blog.meta.tekst_glowny,
 		faq: objectToSortedArray(blog.meta.blog_faq),
+		seo_title: blog.meta.seo_title,
+		seo_description: blog.meta.seo_description,
+		keywords: [
+			blog.meta.keyword_1,
+			blog.meta.keyword_2,
+			blog.meta.keyword_3,
+			blog.meta.keyword_4,
+		],
 	}));
 }
 /**
@@ -574,6 +590,14 @@ export async function getBlogBySlug(slug: string): Promise<ProcessedBlogPost> {
 		thumbnail: blog.meta.miniaturka_bloga,
 		content: blog.meta.tekst_glowny,
 		faq: objectToSortedArray(blog.meta.blog_faq),
+		seo_title: blog.meta.seo_title,
+		seo_description: blog.meta.seo_description,
+		keywords: [
+			blog.meta.keyword_1,
+			blog.meta.keyword_2,
+			blog.meta.keyword_3,
+			blog.meta.keyword_4,
+		],
 	};
 }
 
