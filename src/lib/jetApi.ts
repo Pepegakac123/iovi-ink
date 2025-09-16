@@ -514,7 +514,7 @@ export async function getAllBlogs(): Promise<ProcessedBlogPost[]> {
 
 	return rawBlogs.map((blog) => ({
 		slug: blog.slug,
-		title: blog.title.rendered,
+		title: blog.meta.original_title ?? blog.title.rendered,
 		date: blog.meta.data_bloga,
 		excerpt: blog.meta.wstep,
 		thumbnail: blog.meta.miniaturka_bloga,
@@ -543,7 +543,7 @@ export async function getFeaturedBlogs(): Promise<ProcessedBlogPost[]> {
 
 	return rawBlogs.map((blog) => ({
 		slug: blog.slug,
-		title: blog.title.rendered,
+		title: blog.meta.original_title ?? blog.title.rendered,
 		date: blog.meta.data_bloga,
 		excerpt: blog.meta.wstep,
 		thumbnail: blog.meta.miniaturka_bloga,
@@ -582,9 +582,10 @@ export async function getBlogBySlug(slug: string): Promise<ProcessedBlogPost> {
 	}
 
 	const blog = rawBlogs[0];
+	console.log(blog.meta.original_title);
 	return {
 		slug: blog.slug,
-		title: blog.title.rendered,
+		title: blog.meta.original_title ?? blog.title.rendered,
 		date: blog.meta.data_bloga,
 		excerpt: blog.meta.wstep,
 		thumbnail: blog.meta.miniaturka_bloga,

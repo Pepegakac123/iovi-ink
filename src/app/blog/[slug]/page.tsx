@@ -34,12 +34,7 @@ export async function generateMetadata({
 		return {
 			title: blog.title,
 			description: blog.excerpt,
-			keywords: [
-				"porady o tatuażach",
-				"pielęgnacja tatuaży",
-				"inspiracje tatuażowe",
-				"blog tatuażowy",
-			],
+			keywords: blog.keywords,
 			openGraph: {
 				title: blog.title,
 				description: blog.excerpt,
@@ -79,6 +74,7 @@ async function BlogSinglePage({
 	try {
 		const { slug } = await params;
 		const blog = await getBlogBySlug(slug);
+		console.log(blog.title);
 
 		return (
 			<>

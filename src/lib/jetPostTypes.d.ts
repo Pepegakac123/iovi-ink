@@ -238,11 +238,13 @@ interface BlogMeta {
 	keyword_2: string;
 	keyword_3: string;
 	keyword_4: string;
+	original_title: string;
 }
 
 // Interfejs dla tytułu bloga
 interface BlogTitle {
 	rendered: string;
+	raw?: string;
 }
 
 // Główny interfejs dla pojedynczego posta z WordPress API
