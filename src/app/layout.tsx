@@ -97,6 +97,11 @@ export default function RootLayout({
 
 				{/* ✅ Theme color dla mobile browsers */}
 				<meta name="theme-color" content="#FFEDEA" />
+
+				<meta
+					name="google-site-verification"
+					content="pgfKgu3zF-biRKDMRNuyarlDOJaE1Og1jYlP7tFj4V4"
+				/>
 			</head>
 			<body className="bg-background font-text">
 				<RecaptchaProvider>

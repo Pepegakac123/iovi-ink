@@ -1,3 +1,4 @@
+// src/components/ui/ImageComparison.tsx
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -127,7 +128,7 @@ const ImageComparisonSlider = ({
 	className,
 	children,
 }: {
-	className: string;
+	className?: string;
 	children?: React.ReactNode;
 }) => {
 	const { motionSliderPosition } = useContext(ImageComparisonContext)!;

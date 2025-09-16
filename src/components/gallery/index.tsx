@@ -9,6 +9,10 @@ export { default as GalleryModal } from "./GalleryModal";
 export { default as ImageViewer } from "./ImageViewer";
 export { default as GalleryNavigation } from "./GalleryNavigation";
 export { default as GalleryCounter } from "./GalleryCounter";
+// src/components/Gallery/index.ts
+export { default as HealedTattooGallery } from "./HealedTattooGallery";
+export { default as HealedTattooCard } from "./HealedTattooCard";
+export { default as HealedTattooHeader } from "./HealedTattoHeader";
 
 // Re-export hook types for convenience
 export type {

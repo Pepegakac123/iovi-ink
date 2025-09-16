@@ -313,7 +313,11 @@ export interface JetHomepageProps {
 }
 
 export interface JetEngineZagojone {
-	swiezy: string;
-	zagojony: string;
-	nazwa?: string;
+	slug: string;
+	title: RenderedTitle;
+	meta: {
+		swiezy: string;
+		zagojony: string;
+		nazwa?: string;
+	};
 }

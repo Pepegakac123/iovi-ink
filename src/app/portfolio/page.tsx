@@ -1,4 +1,4 @@
-// app/portfolio/page.tsx - Główna strona portfolio
+// app/portfolio/page.tsx - Główna strona portfolio z poprawioną sekcją "zagojone"
 
 import React from "react";
 import SectionHero from "@/components/SectionHero";
@@ -12,9 +12,10 @@ import { contactHome } from "@/lib/data";
 import { Metadata } from "next";
 import { images } from "@/lib/images";
 import { BreadcrumbJsonLd, ImageJsonLd } from "next-seo";
+import { HealedTattooGallery } from "@/components/gallery";
 
 export const metadata: Metadata = {
-	title: "Portfolio tatuaże", //
+	title: "Portfolio tatuaże",
 	description:
 		"Portfolio Jowity - tatuażystka specjalizująca się w delikatne tatuaże damskie i minimalistyczne wzory. Galeria prac Mszana Dolna.",
 
@@ -38,7 +39,6 @@ export const metadata: Metadata = {
 		canonical: "https://iovi-ink.pl/portfolio",
 	},
 
-	// Keywords z twojej bazy - najwyższy priority
 	keywords: [
 		"delikatne tatuaże damskie", // 8,100 vol - MEGA HIGH
 		"tatuaże minimalistyczne", // 1,300 vol - HIGH
@@ -50,18 +50,20 @@ export const metadata: Metadata = {
 		"subtelne tatuaże",
 		"tatuaże fine line",
 		"tatuażystka mszana dolna portfolio",
+		"zagojone tatuaże", // Nowe słowo kluczowe
+		"efekt gojenia tatuaży", // Nowe słowo kluczowe
 	],
 
-	// Dodatkowe informacje dla crawler
 	other: {
 		"article:section": "Portfolio",
-		"article:tag": "minimalistyczne,damskie,graficzne,kwiatowe",
+		"article:tag": "minimalistyczne,damskie,graficzne,kwiatowe,zagojone",
 	},
 };
 
 const PortfolioPage = async () => {
 	const groupedImages = await getAllTattooImages();
 	const zagojone = await getZagojone();
+
 	return (
 		<>
 			<ImageJsonLd
@@ -92,16 +94,17 @@ const PortfolioPage = async () => {
 					},
 				]}
 			/>
-			{/* ✅ Mini Hero Section */}
+
+			{/* Mini Hero Section */}
 			<SectionHero
 				subTitle="Każdy projekt to unikalna historia"
 				title="Moje Portfolio Tatuaży"
 				description="Odkryj różnorodność stylów i technik - od graficznych kompozycji po precyzyjne i subtelne tatuaże minimalistyczne. Każdy tatuaż to przemyślany projekt dostosowany do indywidualnych potrzeb i anatomii."
 			/>
 
-			{/* ✅ Main Portfolio Section */}
+			{/* Main Portfolio Section */}
 			<motion.section
-				className="w-full bg-primary-foreground "
+				className="w-full bg-primary-foreground"
 				initial="hidden"
 				whileInView="visible"
 				viewport={{ once: true, margin: "-100px" }}
@@ -111,10 +114,10 @@ const PortfolioPage = async () => {
 					className="container flex flex-col gap-12 md:gap-16"
 					variants={containerVariants}
 				>
-					{/* ✅ Tabs z Galerią */}
+					{/* Tabs z Galerią */}
 					<motion.div variants={itemVariants}>
 						<Tabs defaultValue="wszystkie" className="w-full">
-							{/* ✅ Tabs Navigation - poprawione values */}
+							{/* Tabs Navigation */}
 							<div className="flex justify-center md:justify-center mb-6 md:mb-8">
 								<TabsList className="w-full lg:w-auto">
 									<TabsTrigger value="wszystkie">
@@ -130,7 +133,7 @@ const PortfolioPage = async () => {
 										</span>
 									</TabsTrigger>
 									<TabsTrigger value="kwiatowe">
-										<span className="block md:inline">kwiatowe</span>
+										<span className="block md:inline">Kwiatowe</span>
 										<span className="block md:inline">
 											({groupedImages.kwiatowe.length})
 										</span>
@@ -141,14 +144,13 @@ const PortfolioPage = async () => {
 											({groupedImages.minimalistyczne.length})
 										</span>
 									</TabsTrigger>
-
 									<TabsTrigger value="graficzne">
 										<span className="block md:inline">Graficzne</span>
 										<span className="block md:inline">
 											({groupedImages.graficzne.length})
 										</span>
 									</TabsTrigger>
-									{zagojone && (
+									{zagojone && zagojone.length > 0 && (
 										<TabsTrigger value="zagojone">
 											<span className="block md:inline">Zagojone</span>
 											<span className="block md:inline">
@@ -159,7 +161,7 @@ const PortfolioPage = async () => {
 								</TabsList>
 							</div>
 
-							{/* ✅ Tabs Content - wszystkie kategorie */}
+							{/* Tabs Content - wszystkie kategorie */}
 							<TabsContent
 								value="wszystkie"
 								className="border-0 bg-transparent p-0 shadow-none"
@@ -210,17 +212,22 @@ const PortfolioPage = async () => {
 								/>
 							</TabsContent>
 
-							{zagojone && (
+							{/* Zagojone Tab Content - Nowy komponent */}
+							{zagojone && zagojone.length > 0 && (
 								<TabsContent
 									value="zagojone"
 									className="border-0 bg-transparent p-0 shadow-none"
 								>
-									{zagojone[0].swiezy}
+									<HealedTattooGallery
+										zagojone={zagojone}
+										className="animate-in fade-in-50 duration-500"
+									/>
 								</TabsContent>
 							)}
 						</Tabs>
 					</motion.div>
-					{/* ✅ Portfolio Stats */}
+
+					{/* Portfolio Stats */}
 					<motion.div
 						className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
 						variants={containerVariants}
@@ -295,6 +302,7 @@ const PortfolioPage = async () => {
 					</motion.div>
 				</motion.div>
 			</motion.section>
+
 			<section>
 				<Contact {...contactHome} />
 			</section>
