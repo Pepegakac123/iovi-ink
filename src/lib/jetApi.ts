@@ -47,11 +47,12 @@ const REVALIDATE_TIMES = {
 	TATUAZYSTA_HOMEPAGE_BY_SLUG: 604800,
 	ALL_SERVICES: 2592000, // 7 dni
 	SERVICE_BY_SLUG: 2592000, // 7 dni
-	PORTFOLIO_ALL: 86400, // 1 dzień (nowe prace)
+	PORTFOLIO_ALL: 2592000, // 1 dzień (nowe prace)
 	PORTFOLIO_BY_SLUG: 2592000, // 30 dni (stabilne)
+	ZAGOJONE: 2592000,
 	BLOG: 86400, // 1 dzień
 	BLOG_BY_SLUG: 604800, // 7 dni
-	CAROUSEL: 604800, // 7 dni
+	CAROUSEL: 2592000, // 7 dni
 	MEDIA_SEARCH: 2592000, // 30 dni
 } as const;
 
@@ -670,6 +671,9 @@ export const CACHE_TAGS = {
 	ALL_PORTFOLIO: "portfolio",
 	TATTOO_PORTFOLIO: "tattoo-portfolio",
 	PORTFOLIO_BY_SLUG: (slug: string) => `portfolio-${slug}`,
+
+	//Zagojone
+	ZAGOJONE: "zagojone",
 
 	// Carousel
 	ALL_CAROUSEL: "carousel",
