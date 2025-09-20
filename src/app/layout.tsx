@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import Footer from "@/components/Sections/Footer";
 import Navbar from "@/components/Navbar";
 import { images } from "@/lib/images";
+import localFont from "next/font/local";
 import ConditionalAnalytics from "@/components/GDPR/GA4ConditionalAnalytics";
 import CookieConsent from "@/components/GDPR/CookieConsent";
 export const metadata: Metadata = {
@@ -54,14 +55,24 @@ export const metadata: Metadata = {
 	category: "Art & Design",
 	classification: "Tattoo Artist",
 };
+const inter = localFont({
+	src: "../fonts/Inter-VariableFont.woff2", // <- ważne: jedna kropka + ukośnik, ścieżka RELATYWNA
+	display: "swap",
+	variable: "--font-inter",
+});
 
+const alfa = localFont({
+	src: "../fonts/AlfaSlabOne-Regular.woff2",
+	display: "swap",
+	variable: "--font-alfa",
+});
 export default function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="pl">
+		<html lang="pl" className={`${inter.variable} ${alfa.variable}`}>
 			<head>
 				{/* ✅ CRITICAL: Preload hero image dla LCP optimization */}
 				<link
@@ -72,20 +83,6 @@ export default function RootLayout({
 					fetchPriority="high"
 				/>
 
-				<link
-					rel="preload"
-					href="/fonts/Inter-VariableFont.woff2"
-					as="font"
-					type="font/woff2"
-					crossOrigin="anonymous"
-				/>
-				<link
-					rel="preload"
-					href="/fonts/AlfaSlabOne-Regular.woff2"
-					as="font"
-					type="font/woff2"
-					crossOrigin="anonymous"
-				></link>
 				{/* ✅ CRITICAL: DNS prefetch dla external resources */}
 				<link rel="dns-prefetch" href="//cms.iovi-ink.pl" />
 
@@ -108,7 +105,7 @@ export default function RootLayout({
 					<Navbar /> {/* ← DODANE: Wrapper dla reCAPTCHA */}
 					{children}
 					<Footer />
-					<CookieConsent />
+					{/* <CookieConsent /> */}
 					<Toaster
 						position="top-right"
 						duration={5000}

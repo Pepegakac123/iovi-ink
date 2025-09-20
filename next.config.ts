@@ -48,6 +48,22 @@ const nextConfig: NextConfig = {
 		unoptimized: true,
 	},
 
+	async redirects() {
+		return [
+			{
+				source: "/:path*",
+				has: [
+					{
+						type: "host",
+						value: "www.iovi-ink.pl",
+					},
+				],
+				destination: "https://iovi-ink.pl/:path*",
+				permanent: true, // 301 redirect (SEO-friendly)
+			},
+		];
+	},
+
 	// ✅ Twoja istniejąca webpack config
 	webpack: (config, { isServer }) => {
 		if (!isServer) {

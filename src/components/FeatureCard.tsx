@@ -1,52 +1,19 @@
+// src/components/FeatureCard.tsx - Wersja bez animacji (KRYTYCZNA OPTYMALIZACJA)
 import Image from "next/image";
-import * as motion from "motion/react-client";
-import { iconVariantsSimple } from "@/lib/variants";
 
 interface FeatureProps {
 	icon: string;
 	text: string;
-	delay?: number;
+	delay?: number; // Zachowane dla kompatybilności
 }
 
 const FeatureCard = ({ icon, text, delay = 0 }: FeatureProps) => {
 	return (
-		<motion.div
-			className="p-4 flex flex-row gap-4 bg-background border-foreground border-1 border-b-4 border-r-4 rounded-md cursor-pointer items-center hover:bg-muted"
-			initial={{ opacity: 0, y: 30, scale: 0.95 }}
-			animate={{ opacity: 1, y: 0, scale: 1 }}
-			whileHover={{
-				scale: 1.02,
-				y: -2,
-				boxShadow: "6px 6px 0px 0px var(--foreground)",
-			}}
-			whileTap={{ scale: 0.98 }}
-			transition={{ duration: 0.15 }}
-		>
-			{/* Ikona w stylu ProcessCard, ale mniejsza */}
-			<motion.div
-				className="w-10 h-10 md:w-14 md:h-14 flex-shrink-0"
-				variants={iconVariantsSimple}
-				initial="hidden"
-				animate="visible"
-				whileHover={{
-					scale: 1.1,
-					rotate: 5,
-					transition: { duration: 0.2 },
-				}}
-			>
-				<motion.div
-					className="w-full h-full bg-transparent border-1 border-foreground rounded-full flex items-center justify-center"
-					whileHover={{
-						boxShadow: "4px 4px 0px 0px var(--foreground)",
-						translateX: -2,
-						translateY: -2,
-						transition: { duration: 0.2 },
-					}}
-				>
-					<motion.div
-						whileHover={{ scale: 1.2 }}
-						transition={{ duration: 0.2 }}
-					>
+		<div className="p-4 flex flex-row gap-4 bg-background border-foreground border-1 border-b-4 border-r-4 rounded-md cursor-pointer items-center hover:bg-muted hover:shadow-[6px_6px_0px_0px_var(--foreground)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-150">
+			{/* Ikona - bez motion wrapper */}
+			<div className="w-10 h-10 md:w-14 md:h-14 flex-shrink-0">
+				<div className="w-full h-full bg-transparent border-1 border-foreground rounded-full flex items-center justify-center hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:scale-110 transition-all duration-200">
+					<div className="hover:scale-120 transition-transform duration-200">
 						<Image
 							src={icon}
 							alt={`${text} - ikona`}
@@ -54,23 +21,13 @@ const FeatureCard = ({ icon, text, delay = 0 }: FeatureProps) => {
 							height={24}
 							className="w-5 h-5 md:w-6 md:h-6"
 						/>
-					</motion.div>
-				</motion.div>
-			</motion.div>
+					</div>
+				</div>
+			</div>
 
-			{/* Tekst */}
-			<motion.div
-				className="paragraph-base font-text"
-				initial={{ opacity: 0, x: -10 }}
-				animate={{ opacity: 1, x: 0 }}
-				transition={{
-					duration: 0.4,
-					delay: delay + 0.1,
-				}}
-			>
-				{text}
-			</motion.div>
-		</motion.div>
+			{/* Tekst - bez motion */}
+			<div className="paragraph-base font-text">{text}</div>
+		</div>
 	);
 };
 

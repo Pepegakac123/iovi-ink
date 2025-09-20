@@ -1,6 +1,6 @@
 export const images = {
 	bab_z_maszynkom: {
-		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/Bab_z_maszynkom.webp",
+		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/09/Bab_z_maszynkom.webp",
 		alt: "Jowita - profesjonalna tatuażystka podczas pracy z maszynką do tatuażu, koncentrująca się na precyzyjnym wykonaniu wzoru",
 	},
 	zblizenie_na_twarz_patrzy_na_wprost: {

@@ -1,31 +1,19 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "../styles/typography.css";
-@import "../styles//blog.css";
+@import "../styles/blog.css";
+
+/*
+  WAŻNE:
+  - Plik @font-face został usunięty — fonty będą wczytywane i optymalizowane przy użyciu next/font (local)
+  - next/font powinien ustawić zmienne CSS: --font-inter i --font-alfa (przykład).
+  - Tutaj używamy tych zmiennych jako fallbacky, oraz stosujemy właściwości specyficzne dla variable fonts.
+*/
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-	font-family: "Inter";
-	src: url("/fonts/Inter-VariableFont.woff2") format("woff2");
-	font-weight: 100 900;
-	font-style: normal;
-	font-display: swap; /* keep swap */
-	font-optical-sizing: auto; /* dla variable fonts */
-	ascent-override: 90%;
-	descent-override: 10%;
-	line-gap-override: 0%;
-}
-@font-face {
-	font-family: "AlfaSlabOne";
-	src: url("/fonts/AlfaSlabOne-Regular.woff2") format("woff2");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-	/* możesz pominąć metrics dla display fontów jeśli nie potrzeba */
-}
-
 :root {
+	/* Kolory i design system (niezmienione) */
 	--background: oklch(0.9856 0.0084 56.3169);
 	--foreground: oklch(0.3353 0.0132 2.7676);
 	--card: oklch(1 0 0);
@@ -58,8 +46,14 @@
 	--sidebar-accent-foreground: oklch(0.3353 0.0132 2.7676);
 	--sidebar-border: oklch(0.9296 0.037 38.6868);
 	--sidebar-ring: oklch(0.7357 0.1641 34.7091);
-	--font-text: Inter, sans-serif;
-	--font-primary: AlfaSlabOne, sans-serif;
+
+	/* FONTY: Next/font będzie ustawiać --font-inter i --font-alfa. Tutaj ustawiamy bezpieczne fallbacky. */
+	--font-text:
+		var(--font-inter, Inter), system-ui, -apple-system, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, sans-serif;
+	--font-primary:
+		var(--font-alfa, "AlfaSlabOne"), "Segoe UI", Roboto, Arial, sans-serif;
+
 	--radius: 0.8rem;
 	--shadow-2xs: 0px 6px 12px -3px hsl(0 0% 0% / 0.04);
 	--shadow-xs: 0px 6px 12px -3px hsl(0 0% 0% / 0.04);
@@ -111,8 +105,11 @@
 	--sidebar-accent-foreground: oklch(0.2569 0.0169 352.4042);
 	--sidebar-border: oklch(0.3637 0.0203 342.2664);
 	--sidebar-ring: oklch(0.7357 0.1641 34.7091);
-	--font-text: Inter, sans-serif;
-	--font-primary: AlfaSlabOne, sans-serif;
+	--font-text:
+		var(--font-inter, Inter), system-ui, -apple-system, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, sans-serif;
+	--font-primary:
+		var(--font-alfa, "AlfaSlabOne"), "Segoe UI", Roboto, Arial, sans-serif;
 	--radius: 0.8rem;
 	--shadow-2xs: 0px 6px 12px -3px hsl(0 0% 0% / 0.04);
 	--shadow-xs: 0px 6px 12px -3px hsl(0 0% 0% / 0.04);
@@ -204,11 +201,20 @@
 	.grecaptcha-badge {
 		visibility: hidden;
 	}
+
+	/* Klasy fontów: używaj zmiennych ustawionych przez next/font (lokalnie) */
 	.font-primary {
-		font-family: var(--font-primary), sans-serif;
+		font-family: var(--font-primary);
+		/* Display fonty często nie potrzebują optical sizing; ale możesz dodać dodatkowe reguły tu. */
 	}
 	.font-text {
-		font-family: var(--font-text), sans-serif;
+		font-family: var(--font-text);
+		/* dla variable fonts - przydatne ustawienia */
+		font-optical-sizing: auto;
+		font-variation-settings: "wght" 400; /* neutralne domyślne ustawienie wagi */
+	}
+	.visibility-auto {
+		content-visibility: auto;
 	}
 }
 

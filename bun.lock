@@ -40,6 +40,7 @@
         "sonner": "^2.0.7",
         "swiper": "^11.2.10",
         "tailwind-merge": "^3.3.1",
+        "tailwindcss-content-visibility": "^1.0.2",
         "uuid": "^11.1.0",
         "zod": "^4.0.17",
       },
@@ -1005,6 +1006,8 @@
     "tailwind-merge": ["tailwind-merge@3.3.1", "", {}, "sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g=="],
 
     "tailwindcss": ["tailwindcss@4.1.11", "", {}, "sha512-2E9TBm6MDD/xKYe+dvJZAmg3yxIEDNRc0jwlNyDg/4Fil2QcSLjFKGVff0lAf1jjeaArlG/M75Ey/EYr/OJtBA=="],
+
+    "tailwindcss-content-visibility": ["tailwindcss-content-visibility@1.0.2", "", { "peerDependencies": { "tailwindcss": "^3.0.0" } }, "sha512-Sch6hzEstDxFIDdMrI7tdUhYCUiFLS9FjJM5RfMFbRt5y0q24UwaXRGNvepoAzoHj60IqAwoysN+274XFzT01A=="],
 
     "tapable": ["tapable@2.2.2", "", {}, "sha512-Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg=="],
 

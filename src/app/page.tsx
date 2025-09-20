@@ -81,29 +81,29 @@ export default async function Home() {
 			<Suspense fallback={<CarouselSkeleton />}>
 				<CarouselSections />
 			</Suspense>
-			<section>
+			<section className="visibility-auto">
 				<AboutMe {...aboutMeHome} />
 			</section>
-			<section className="bg-foreground mt-16">
+			<section className="bg-foreground mt-16 visibility-auto">
 				<Services {...servicesHome} />
 			</section>
-			<section className="bg-primary-foreground">
+			<section className="bg-primary-foreground visibility-auto">
 				<TargetAudienceSection {...targetAudienceHome} />
 			</section>
-			<section>
+			<section className="visibility-auto">
 				<Process {...procesHome} />
 			</section>
-			<section className="bg-foreground mt-16">
+			<section className="bg-foreground mt-16 visibility-auto">
 				<WhyMe {...whyMeHome} />
 			</section>
-			<section className="bg-primary-foreground ">
+			<section className="bg-primary-foreground visibility-auto">
 				<FeaturedBlogs {...blogHome} />
 			</section>
-			<section>
+			<section className="visibility-auto">
 				<Faq {...faqHome} />
 			</section>
 
-			<section>
+			<section className="visibility-auto">
 				<Contact {...contactHome} />
 			</section>
 		</>
