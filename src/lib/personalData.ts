@@ -33,91 +33,110 @@ export const aboutMePersonal: AboutMeProps = {
 export const experienceData: ExperienceItem[] = [
 	{
 		id: 1,
-		period: "Września 2023 - teraz",
+		period: "2024 - teraz",
 		position: "TATUAŻYSTKA",
-		company: "LEWUS INK",
-		location: "Mszana Dolna",
+		company: "Studio Lewus Ink",
 		description:
-			"Specjalizacja w tatuażach graficznych, minimalistycznych i fine line",
+			"Specjalizacja w fine line, tatuażach minimalistycznych i delikatnych projektach damskich. Praca w studio z pełną odpowiedzialnością za projekty.",
 	},
 	{
 		id: 2,
-		period: "Styczeń 2023 - Sierpień 2023",
-		position: "PRAKTYKANTKA",
-		company: "STUDIO NAUKI",
-		location: "Kraków",
-		description: "Nauka podstaw i obserwacja doświadczonych artystów",
+		period: "2023 - 2024",
+		position: "NAUKA I PIERWSZE KROKI",
+		company: "praktyka domowa",
+		description:
+			"Intensywna nauka na sztucznej skórze, pierwsze tatuaże na rodzinie. Rozwój technik fine line i projektowania autorskich kompozycji.",
 	},
 	{
 		id: 3,
-		period: "2021 - 2023",
-		position: "EDUKACJA ARTYSTYCZNA",
-		company: "PRYWATNE STUDIA",
-		location: "Kraków",
-		description: "Anatomia, kompozycja, teoria kolorów",
+		period: "Od dziecka",
+		position: "ARTYSTYCZNE PODSTAWY",
+		company: "samokształcenie",
+		description:
+			"Rysowanie i malowanie od małego. Naturalne wyczucie kompozycji, proporcji i teorii kolorów - fundament dla wszystkich późniejszych umiejętności artystycznych.",
 	},
 ];
 
 export const specializationData: SpecializationItem[] = [
 	{
 		id: 1,
-		period: "2023 - teraz",
-		name: "FINE LINE TATTOOS",
-		institution: "Specjalizacja główna",
+		name: "TATUAŻE GRAFICZNE",
 		description:
-			"Delikatne linie, precyzyjne detale, minimalistyczne podejście",
+			"Cienkie, precyzyjne linie to moja mocna strona. W tatuażach graficznych każda kreska musi być idealna - nie ma miejsca na błędy ani poprawki.",
 	},
 	{
 		id: 2,
-		period: "2023 - teraz",
-		name: "GEOMETRYCZNE WZORY",
-		institution: "Specjalizacja dodatkowa",
-		description: "Matematyczna precyzja, symetria, nowoczesne formy",
+		name: "DELIKATNE TATUAŻE DAMSKIE",
+		description:
+			"Subtelne kompozycje dopasowane do kobiecych form. Rozumiem potrzebę dyskretności i elegancji - tworzę tatuaże, które podkreślają, nie przytłaczają.",
 	},
 	{
 		id: 3,
-		period: "2022 - 2023",
-		name: "PODSTAWY TATUAŻU",
-		institution: "Kurs certyfikowany",
-		description: "Higiena, sterylizacja, techniki podstawowe, obsługa sprzętu",
+		name: "PROJEKTY MINIMALISTYCZNE",
+		description:
+			"Czyste linie, przemyślane proporcje. Mniej znaczy więcej - każdy element ma swoje miejsce i cel.",
+	},
+	{
+		id: 4,
+		name: "AUTORSKIE KOMPOZYCJE",
+		description:
+			"Każdy tatuaż projektuję od zera - tworzę unikalne kompozycje dopasowane do Twojego ciała i historii.",
+	},
+	{
+		id: 5,
+		name: "TATUAŻE KWIATOWE",
+		description:
+			"Stylizowane motywy roślinne zredukowane do najczystszej formy. Potrafię zachować rozpoznawalność kwiatu przy maksymalnej redukcji detali.",
 	},
 ];
 
 export const hobbiesData: HobbyItem[] = [
 	{
 		id: 1,
-		name: "Sketching",
+		name: "Rysowanie",
 		icon: ICONS.paletteBrush,
 	},
 	{
 		id: 2,
-		name: "Fotografia",
-		icon: ICONS.careForDetails,
+		name: "Grafika 3D",
+		icon: ICONS.cube,
 	},
 	{
 		id: 3,
 		name: "Gaming",
 		icon: ICONS.tabletGraphic,
 	},
+	{
+		id: 4,
+		name: "Fantastyka",
+		icon: ICONS.fantasyBook,
+	},
+	{
+		id: 5,
+		name: "DIY",
+		icon: ICONS.tapeMeasure,
+	},
 ];
 
 export const skillsData: SkillTag[] = [
 	// Style tatuażowe
-	{ id: 1, name: "FINE LINE", category: "style" },
-	{ id: 2, name: "MINIMALIZM", category: "style" },
-	{ id: 3, name: "GEOMETRIA", category: "style" },
-	{ id: 4, name: "BLACKWORK", category: "style" },
+	{ id: 1, name: "MINIMALISTYCZNE", category: "style" },
+	{ id: 2, name: "TATUAŻE GRAFICZNE", category: "style" },
+	{ id: 3, name: "KWIATOWE", category: "style" },
+	{ id: 4, name: "DELIKATNE DAMSKIE", category: "style" },
+	{ id: 5, name: "TATUAŻE MĘSKIE", category: "style" },
 
 	// Techniki
-	{ id: 5, name: "PRECYZYJNE LINIE", category: "technique" },
-	{ id: 6, name: "CIENIOWANIE", category: "technique" },
-	{ id: 7, name: "KOMPOZYCJA", category: "technique" },
-	{ id: 8, name: "ANATOMIA", category: "technique" },
+	{ id: 6, name: "PRECYZYJNE LINIE", category: "technique" },
+	{ id: 7, name: "CIENKIE KRESKI", category: "technique" },
+	{ id: 8, name: "KOMPOZYCJA", category: "technique" },
+	{ id: 9, name: "SZKICOWANIE", category: "technique" },
+	{ id: 10, name: "PROJEKTOWANIE", category: "technique" },
 
 	// Software/narzędzia
-	{ id: 9, name: "PROCREATE", category: "software" },
-	{ id: 10, name: "PHOTOSHOP", category: "software" },
-	{ id: 11, name: "TRADITIONAL ART", category: "software" },
+	{ id: 11, name: "PROCREATE", category: "software" },
+	{ id: 12, name: "RYSOWANIE RĘCZNE", category: "software" },
+	{ id: 13, name: "SKETCHING", category: "software" },
 ];
 
 export const quickContactData: ContactQuick[] = [

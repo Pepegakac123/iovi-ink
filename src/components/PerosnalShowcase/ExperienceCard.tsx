@@ -27,19 +27,11 @@ const ExperienceCard = ({ experience, index }: ExperienceCardProps) => (
 		</motion.h4>
 
 		<motion.p
-			className="font-primary text-sm md:text-base text-foreground mb-1"
+			className="font-text capitalize text-sm md:text-base text-foreground mb-1"
 			variants={itemVariants}
 		>
 			{experience.company}
 		</motion.p>
-
-		<motion.p
-			className="text-sm text-muted-foreground mb-2"
-			variants={itemVariants}
-		>
-			{experience.location}
-		</motion.p>
-
 		{experience.description && (
 			<motion.p className="text-sm text-foreground/80" variants={itemVariants}>
 				{experience.description}

@@ -16,25 +16,12 @@ const SpecializationCard = ({
 		variants={cardVariants}
 		custom={index}
 	>
-		<motion.div className="mb-2" variants={itemVariants}>
-			<p className="text-sm text-muted-foreground font-primary">
-				{specialization.period}
-			</p>
-		</motion.div>
-
 		<motion.h4
 			className="font-primary text-base md:text-lg text-primary mb-1"
 			variants={itemVariants}
 		>
 			{specialization.name}
 		</motion.h4>
-
-		<motion.p
-			className="font-primary text-sm md:text-base text-foreground mb-2"
-			variants={itemVariants}
-		>
-			{specialization.institution}
-		</motion.p>
 
 		<motion.p className="text-sm text-foreground/80" variants={itemVariants}>
 			{specialization.description}

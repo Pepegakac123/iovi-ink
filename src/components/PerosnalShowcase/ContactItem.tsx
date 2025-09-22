@@ -36,15 +36,14 @@ const ContactItem = ({ contact, index }: ContactItemProps) => {
 
 	if (contact.href) {
 		return (
-			<motion.a
+			<a
 				href={contact.href}
 				target="_blank"
 				rel="noopener noreferrer"
 				className="block"
-				whileHover={{ scale: 1.01 }}
 			>
 				{content}
-			</motion.a>
+			</a>
 		);
 	}
 

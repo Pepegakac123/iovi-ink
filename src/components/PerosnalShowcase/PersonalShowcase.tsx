@@ -44,7 +44,7 @@ const PersonalShowcase = () => {
 						transition: { duration: 0.3 },
 					}}
 				>
-					<SectionHeader title="Doświadczenie" />
+					<SectionHeader title="DROGA ARTYSTYCZNA" />
 					<div>
 						{experienceData.map((experience, index) => (
 							<ExperienceCard
@@ -65,7 +65,7 @@ const PersonalShowcase = () => {
 						transition: { duration: 0.3 },
 					}}
 				>
-					<SectionHeader title="Specjalizacje" />
+					<SectionHeader title="CO ROBIĘ NAJLEPIEJ" />
 					<div>
 						{specializationData.map((specialization, index) => (
 							<SpecializationCard
@@ -117,12 +117,8 @@ const PersonalShowcase = () => {
 
 				{/* Contact Section */}
 				<motion.div
-					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6"
+					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6 hover:shadow-[6px_6px_0px_0px_var(--foreground)] transition-shadow duration-300"
 					variants={cardVariants}
-					whileHover={{
-						boxShadow: "6px 6px 0px 0px var(--foreground)",
-						transition: { duration: 0.3 },
-					}}
 				>
 					<SectionHeader title="Kontakt" />
 					<div className="space-y-3">

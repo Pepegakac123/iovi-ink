@@ -82,15 +82,12 @@ export interface ExperienceItem {
 	period: string;
 	position: string;
 	company: string;
-	location: string;
 	description?: string;
 }
 
 export interface SpecializationItem {
 	id: number;
-	period: string;
 	name: string;
-	institution: string;
 	description: string;
 }
 

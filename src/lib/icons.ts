@@ -76,6 +76,11 @@ export const SERVICE_ICONS = {
 	ink: `${BASE_URL}/ink.svg`,
 } as const;
 
+export const TRAITS_ICONS = {
+	cube: `https://cms.iovi-ink.pl/wp-content/uploads/2025/09/3d-model.svg`,
+	fantasyBook:
+		"https://cms.iovi-ink.pl/wp-content/uploads/2025/09/spell-book.svg",
+} as const;
 // ===========================================
 // WSZYSTKIE IKONY W JEDNYM OBIEKCIE
 // ===========================================
@@ -134,6 +139,10 @@ export const ICONS = {
 
 	// Proces tatuowania
 	ink: SERVICE_ICONS.ink,
+
+	//Traits
+	cube: TRAITS_ICONS.cube,
+	fantasyBook: TRAITS_ICONS.fantasyBook,
 } as const;
 
 // ===========================================
