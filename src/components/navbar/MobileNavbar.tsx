@@ -40,6 +40,8 @@ const MobileNavbar: React.FC = () => {
 							className="p-3 rounded bg-muted border-2 border-foreground shadow-[0_4px_0px_0px_theme(colors.foreground)] hover:shadow-[0_6px_0px_0px_theme(colors.foreground)] hover:translate-y-[-2px] transition-all duration-200"
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
 							type="button"
+							name="mobile-menu-button"
+							aria-label="Otwórz menu mobilne"
 						>
 							{isMenuOpen ? (
 								<X className="w-6 h-6" />

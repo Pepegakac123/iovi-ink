@@ -1,4 +1,4 @@
-// components/ui/file-upload.tsx
+// components/ui/file-upload-fixed.tsx
 "use client";
 
 import * as React from "react";
@@ -12,6 +12,7 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
 	onValueChange?: (files: File[] | null) => void;
 	dropzoneOptions?: Omit<DropzoneProps, "onDrop">;
 	orientation?: "horizontal" | "vertical";
+	inputId?: string; // ✅ NOWE: Dodano prop dla accessibility
 }
 
 const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
@@ -23,6 +24,7 @@ const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
 			onValueChange,
 			orientation = "vertical",
 			children,
+			inputId, // ✅ NOWE: Prop dla accessibility
 			...props
 		},
 		ref,
@@ -44,6 +46,12 @@ const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
 			...dropzoneOptions,
 		});
 
+		// ✅ NOWE: Pobierz input props i dodaj id dla accessibility
+		const inputProps = getInputProps();
+		if (inputId) {
+			inputProps.id = inputId;
+		}
+
 		return (
 			<div
 				ref={ref}
@@ -57,7 +65,8 @@ const FileUploader = React.forwardRef<HTMLDivElement, FileUploaderProps>(
 				)}
 				{...props}
 			>
-				<input {...getInputProps()} />
+				{/* ✅ NAPRAWIONE: Input ma teraz id dla accessibility */}
+				<input {...inputProps} />
 				{children}
 			</div>
 		);
@@ -74,7 +83,7 @@ const FileInput = React.forwardRef<
 		<div
 			ref={ref}
 			className={cn(
-				"relative w-full rounded-md  px-3 py-3 text-center hover:bg-muted/25",
+				"relative w-full rounded-md px-3 py-3 text-center hover:bg-muted/25",
 				"ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
 				className,
 			)}
@@ -100,7 +109,7 @@ const FileUploaderContent = React.forwardRef<
 
 FileUploaderContent.displayName = "FileUploaderContent";
 
-// ✅ POPRAWIONY INTERFEJS
+// ✅ POPRAWIONY INTERFEJS z wszystkimi potrzebnymi props
 interface FileUploaderItemProps extends React.HTMLAttributes<HTMLDivElement> {
 	index: number;
 	onRemove?: (index: number) => void;
@@ -112,33 +121,33 @@ const FileUploaderItem = React.forwardRef<
 	FileUploaderItemProps
 >(
 	(
-		{ className, index, children, onRemove, showRemoveButton = true, ...props },
+		{ className, children, index, onRemove, showRemoveButton = true, ...props },
 		ref,
 	) => {
 		return (
 			<div
 				ref={ref}
 				className={cn(
-					"relative flex items-center justify-between gap-2 rounded-md border border-muted px-3 py-2 text-sm",
+					"relative flex items-center justify-between rounded-md bg-background p-2 pr-8",
 					className,
 				)}
 				{...props}
 			>
-				<div className="flex items-center gap-2">{children}</div>
-
-				{/* PRZYCISK USUWANIA */}
+				<div className="flex items-center gap-2 flex-1 min-w-0">{children}</div>
 				{showRemoveButton && onRemove && (
-					<button
+					<Button
 						type="button"
+						variant="ghost"
+						size="sm"
+						className="absolute right-1 top-1/2 -translate-y-1/2 h-6 w-6 p-0 hover:bg-destructive hover:text-destructive-foreground"
 						onClick={(e) => {
 							e.stopPropagation();
 							onRemove(index);
 						}}
-						className="ml-auto flex-shrink-0 w-5 h-5 rounded-full bg-destructive hover:bg-destructive/80 text-destructive-foreground flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
-						aria-label="Usuń plik"
 					>
-						<X className="w-3 h-3" />
-					</button>
+						<X className="h-3 w-3" />
+						<span className="sr-only">Usuń plik</span>
+					</Button>
 				)}
 			</div>
 		);

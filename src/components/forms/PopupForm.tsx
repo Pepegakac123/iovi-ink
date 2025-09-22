@@ -1,119 +1,119 @@
+// components/forms/PopupForm-fixed.tsx
 "use client";
+
 import React from "react";
 import * as motion from "motion/react-client";
 import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Loader2, Paperclip, Send } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
+
+// ✅ NAPRAWIONY: Import poprawionego FileUploader
 import {
-	FileInput,
 	FileUploader,
+	FileInput,
 	FileUploaderContent,
 	FileUploaderItem,
 } from "@/components/ui/file-upload";
-import { LuHardDriveUpload } from "react-icons/lu";
-import { Paperclip, Send, Loader2 } from "lucide-react";
-import { AnimatePresence } from "motion/react";
 
-// Imports from refactored structure
-import { usePopupContactForm } from "@/hooks/useContactFormField";
-import { getFormStyles, getFormMotion } from "@/lib/config/form-config";
 import {
+	FormSection,
+	AnimatedFieldWrapper,
 	NameField,
 	EmailField,
 	PhoneField,
 	DescriptionField,
-	FormSection,
-	AnimatedFieldWrapper,
 } from "@/components/forms/ContactFormField";
+
+import { usePopupContactForm } from "@/hooks/useContactFormField";
+import {
+	getFormConfig,
+	getFormStyles,
+	getFormMotion,
+} from "@/lib/config/form-config";
 import Image from "next/image";
 import { ICONS } from "@/lib/icons";
 import { socialLinks } from "@/lib/data";
 
 // ===========================================
-// POPUP FORM COMPONENT
+// POPUP FORM PROPS
 // ===========================================
 
-export default function PopupForm() {
-	// Use the refactored hook for popup variant
+interface PopupFormProps {
+	onSuccess?: (data: any) => void;
+	onError?: (error: Error) => void;
+	onComplete?: () => void; // Callback do zamknięcia popup
+	className?: string;
+}
+
+// ===========================================
+// POPUP CONTACT FORM COMPONENT
+// ===========================================
+
+const PopupForm: React.FC<PopupFormProps> = ({
+	onSuccess,
+	onError,
+	onComplete,
+	className = "",
+}) => {
+	// ✅ UŻYWAMY: Istniejący hook z projektu (popup variant)
 	const {
 		form,
-		isSubmitting,
 		files,
 		setFiles,
+		isSubmitting,
+		handleSubmit,
 		removeFile,
-		onSubmit,
 		formatPhone,
-		config,
 	} = usePopupContactForm({
 		onSuccess: (data) => {
-			console.log("Popup form submitted successfully:", data);
-			// Modal może zostać zamknięty tutaj
+			onSuccess?.(data);
+			onComplete?.(); // Zamknij popup po sukcesie
 		},
-		onError: (error) => {
-			console.error("Popup form submission failed:", error);
-		},
+		onError,
 	});
 
-	// Get styles and motion for popup variant
+	// ✅ UŻYWAMY: Istniejący system konfiguracji (popup variant)
+	const config = getFormConfig("popup");
 	const styles = getFormStyles("popup");
 	const motionPresets = getFormMotion("popup");
+
+	// ✅ NAPRAWIONE: Proper onSubmit z accessibility
+	const onSubmit = form.handleSubmit(handleSubmit);
+
+	// ✅ NAPRAWIONE: File handling z validacją (popup limits)
 	const handleFilesChange = (newFiles: File[] | null) => {
-		if (!newFiles || newFiles.length === 0) {
+		if (!newFiles) {
+			setFiles([]);
 			return;
 		}
 
-		// ✅ Sprawdź czy to są nowe pliki czy zastąpienie
-		if (!files || files.length === 0) {
-			// Pierwsza batch plików - ustaw bezpośrednio
-			setFiles(newFiles);
-			return;
-		}
+		const combinedFiles = [...(files || []), ...newFiles];
 
-		// ✅ Dodaj nowe pliki do istniejących (akumulacja)
-		const existingFiles = files || [];
-		const combinedFiles = [...existingFiles];
-
-		// Dodaj tylko te pliki, które jeszcze nie istnieją (sprawdź po nazwie i rozmiarze)
-		for (const newFile of newFiles) {
-			const isDuplicate = existingFiles.some(
-				(existingFile) =>
-					existingFile.name === newFile.name &&
-					existingFile.size === newFile.size &&
-					existingFile.lastModified === newFile.lastModified,
-			);
-
-			if (!isDuplicate) {
-				combinedFiles.push(newFile);
-			}
-		}
-
-		// ✅ Sprawdź limit plików
+		// Sprawdź limit plików (popup ma mniejszy limit)
 		if (combinedFiles.length > config.files.maxFiles) {
 			const excessCount = combinedFiles.length - config.files.maxFiles;
-			// Ogranicz do maksymalnej liczby plików (zachowaj najnowsze)
-			const limitedFiles = combinedFiles.slice(-config.files.maxFiles);
+			const limitedFiles = combinedFiles.slice(0, config.files.maxFiles);
 			setFiles(limitedFiles);
-
-			// Pokaż informację o limicie
-			if (excessCount > 0) {
-				// Można dodać toast tutaj jeśli potrzebne
-				console.warn(
-					`Maksymalnie ${config.files.maxFiles} plików. Usunięto ${excessCount} najstarszych.`,
-				);
-			}
+			console.warn(
+				`Usunięto ${excessCount} najstarszych plików. Maksymalnie ${config.files.maxFiles} plików w popup.`,
+			);
 		} else {
 			setFiles(combinedFiles);
 		}
 	};
+
 	return (
-		<div className="w-full">
+		<div className={`w-full ${className}`}>
 			<Form {...form}>
 				<motion.form
 					onSubmit={onSubmit}
 					className={styles.spacing}
-					variants={motionPresets.form.popup} // ← ZMIANA: używamy spójnego systemu
+					variants={motionPresets.form.popup}
 					initial="hidden"
 					animate="visible"
 				>
-					{/* Imię i nazwisko */}
+					{/* ✅ UŻYWAMY: Compact form fields dla popup */}
 					<motion.div variants={motionPresets.field.popup}>
 						<FormSection variant="popup">
 							<AnimatedFieldWrapper variant="popup">
@@ -122,7 +122,6 @@ export default function PopupForm() {
 						</FormSection>
 					</motion.div>
 
-					{/* Email */}
 					<motion.div variants={motionPresets.field.popup}>
 						<FormSection variant="popup">
 							<AnimatedFieldWrapper variant="popup">
@@ -131,7 +130,6 @@ export default function PopupForm() {
 						</FormSection>
 					</motion.div>
 
-					{/* Telefon */}
 					<motion.div variants={motionPresets.field.popup}>
 						<FormSection variant="popup">
 							<AnimatedFieldWrapper variant="popup">
@@ -144,7 +142,6 @@ export default function PopupForm() {
 						</FormSection>
 					</motion.div>
 
-					{/* Opis projektu */}
 					<motion.div variants={motionPresets.field.popup}>
 						<FormSection variant="popup">
 							<AnimatedFieldWrapper variant="popup">
@@ -153,9 +150,10 @@ export default function PopupForm() {
 						</FormSection>
 					</motion.div>
 
-					{/* File Upload Section */}
+					{/* ✅ NAPRAWIONE: File Upload Section z accessibility */}
 					<motion.div variants={motionPresets.field.popup}>
 						<div className="space-y-1">
+							{/* ✅ NAPRAWIONE: Label z poprawnym htmlFor */}
 							<motion.label
 								htmlFor="popupFileInput"
 								className="text-foreground font-primary text-xs font-bold uppercase inline-block"
@@ -165,47 +163,36 @@ export default function PopupForm() {
 									(Opcjonalne)
 								</span>
 							</motion.label>
+
 							<motion.div>
+								{/* ✅ NAPRAWIONE: FileUploader z inputId dla accessibility */}
 								<FileUploader
 									value={files}
 									onValueChange={handleFilesChange}
 									dropzoneOptions={config.files}
+									inputId="popupFileInput" // ✅ NOWE: id matching htmlFor
 									className="relative bg-secondary border-2 border-dashed hover:border-accent border-foreground rounded-md"
 								>
-									{/** biome-ignore lint/correctness/useUniqueElementIds: <explanation> */}
-									<FileInput id="popupFileInput" className="">
-										<div className="flex items-center justify-center flex-col p-3 w-full">
+									<FileInput>
+										<div className="flex flex-col items-center justify-center space-y-1 p-2 min-h-[80px]">
 											<motion.div
-												animate={{
-													y: [0, -4, 0],
-													scale: [1, 1.02, 1],
-												}}
-												whileHover={{
-													scale: 1.1,
-													y: -2,
-													rotate: 8,
-													transition: {
-														type: "spring",
-														stiffness: 400,
-														damping: 15,
-													},
-												}}
+												animate={{ rotate: [0, 8, -8, 0] }}
 												transition={{
 													duration: 2,
 													repeat: Infinity,
 													ease: "easeInOut",
-													repeatType: "reverse",
 												}}
 											>
-												<LuHardDriveUpload className="text-primary h-6 w-6" />
+												<Paperclip className="h-5 w-5 text-primary" />
 											</motion.div>
-											<p className="mb-1 text-xs text-foreground font-text text-center">
-												<span className="font-semibold">Kliknij</span> lub
-												przeciągnij
+											<p className="text-xs font-primary text-foreground text-center">
+												<span className="font-bold">
+													Kliknij lub przeciągnij
+												</span>
 											</p>
 											<p className="text-xs text-muted-foreground text-center">
-												Do {config.files.maxSize / (1024 * 1024)}MB, max.{" "}
-												{config.files.maxFiles} plików
+												Maks. {config.files.maxSize / (1024 * 1024)}MB,{" "}
+												{config.files.maxFiles} pliki
 											</p>
 										</div>
 									</FileInput>
@@ -216,35 +203,35 @@ export default function PopupForm() {
 												files.length > 0 &&
 												files.map((file, i) => (
 													<motion.div
-														key={`${file.name}-${i}`}
-														initial={{ opacity: 0, x: -10, scale: 0.95 }}
+														key={`popup-${file.name}-${file.size}-${i}`}
+														initial={{ opacity: 0, x: -15, scale: 0.9 }}
 														animate={{ opacity: 1, x: 0, scale: 1 }}
 														exit={{
 															opacity: 0,
-															x: 10,
-															scale: 0.95,
+															x: 15,
+															scale: 0.9,
 															height: 0,
 															marginTop: 0,
 															transition: {
-																duration: 0.15,
+																duration: 0.2,
 																ease: "easeInOut",
 															},
 														}}
 														transition={{
 															type: "spring",
-															stiffness: 250,
+															stiffness: 300,
 															damping: 25,
 														}}
 													>
 														<FileUploaderItem
 															index={i}
 															onRemove={removeFile}
-															className="bg-background border border-foreground hover:bg-accent/20 transition-all duration-150 rounded text-xs py-1 px-2"
+															className="bg-background border border-foreground hover:bg-accent/20 transition-all duration-200 rounded-sm py-1"
 														>
 															<motion.div
-																animate={{ rotate: [0, 2, -2, 0] }}
+																animate={{ rotate: [0, 3, -3, 0] }}
 																transition={{
-																	duration: 1.2,
+																	duration: 2,
 																	repeat: Infinity,
 																	ease: "easeInOut",
 																}}
@@ -253,6 +240,9 @@ export default function PopupForm() {
 															</motion.div>
 															<span className="font-text text-foreground text-xs font-medium truncate">
 																{file.name}
+																<span className="text-xs text-muted-foreground ml-1">
+																	({(file.size / 1024 / 1024).toFixed(1)}MB)
+																</span>
 															</span>
 														</FileUploaderItem>
 													</motion.div>
@@ -352,14 +342,24 @@ export default function PopupForm() {
 						</motion.a>
 
 						<motion.p
-							className="text-xs text-muted-foreground text-center mt-1"
-							variants={motionPresets.field.popup}
+							className="text-xs text-muted-foreground text-center max-w-md mx-auto leading-relaxed"
+							variants={motionPresets.field.main}
 						>
-							Odpowiem w ciągu 24 godzin!
+							Wysyłając formularz wyrażasz zgodę na przetwarzanie danych
+							osobowych zgodnie z{" "}
+							<a
+								href="/polityka-prywatnosci"
+								className="text-primary hover:text-accent underline"
+							>
+								polityką prywatności
+							</a>
+							. Strona jest chroniona przez reCAPTCHA Google.
 						</motion.p>
 					</motion.div>
 				</motion.form>
 			</Form>
 		</div>
 	);
-}
+};
+
+export default PopupForm;

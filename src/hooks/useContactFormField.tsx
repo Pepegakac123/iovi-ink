@@ -1,112 +1,75 @@
-import React, { useState, useCallback } from "react";
+// hooks/useContactFormField.tsx (POPRAWIONY)
+"use client";
+
+import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useRecaptcha } from "@/hooks/useRecaptcha";
 import {
+	ContactFormData,
 	contactFormSchema,
 	defaultFormValues,
-	type ContactFormData,
 } from "@/lib/schemas/contact-form-schema";
 import {
 	submitContactForm,
-	prepareSubmissionData,
-	formatApiError,
-	getSuccessMessage,
-	getProcessingMessage,
-	type ContactApiError,
+	ContactSubmissionData,
 } from "@/lib/services/contact-api";
+import { getFormConfig, FormVariant } from "@/lib/config/form-config";
 import { formatPhoneNumber } from "@/lib/utils";
-import { FormVariant, getFormConfig } from "@/lib/config/form-config";
 
 // ===========================================
-// HOOK TYPES
+// HOOK CONFIGURATION TYPES
 // ===========================================
 
-export interface UseContactFormOptions {
-	variant?: FormVariant;
+interface ContactFormOptions {
 	onSuccess?: (data: ContactFormData) => void;
-	onError?: (error: ContactApiError) => void;
+	onError?: (error: Error) => void;
+	variant?: FormVariant; // ✅ DODANE: Obsługa wariantów
 }
 
-export interface UseContactFormReturn {
-	// Form state
+interface ContactFormReturn {
 	form: ReturnType<typeof useForm<ContactFormData>>;
+	files: File[] | null;
+	setFiles: (files: File[] | null) => void;
 	isSubmitting: boolean;
-
-	// File handling - FIXED: Nie może być null
-	files: File[];
-	setFiles: (files: File[]) => void;
+	handleSubmit: (data: ContactFormData) => Promise<void>;
 	removeFile: (index: number) => void;
-
-	// Form actions
-	onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
-	resetForm: () => void;
-
-	// Utilities
 	formatPhone: (value: string) => string;
-	config: ReturnType<typeof getFormConfig>;
+	resetForm: () => void;
 }
+
 // ===========================================
-// MAIN HOOK
+// POPRAWIONY CONTACT FORM HOOK
 // ===========================================
 
 /**
- * Hook do zarządzania formularzem kontaktowym
- * Zawiera całą business logic, validation i API calls
+ * Hook obsługujący formularze kontaktowe z accessibility support
  */
-export function useContactForm(
-	options: UseContactFormOptions = {},
-): UseContactFormReturn {
-	const { variant = "main", onSuccess, onError } = options;
-
-	// ===========================================
-	// STATE MANAGEMENT
-	// ===========================================
-
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [files, setFiles] = useState<File[]>([]);
-	// Form configuration based on variant
+export const useContactFormField = ({
+	onSuccess,
+	onError,
+	variant = "main", // ✅ DODANE: Default variant
+}: ContactFormOptions): ContactFormReturn => {
+	// ✅ Konfiguracja dla wariantu
 	const config = getFormConfig(variant);
 
-	// ReCAPTCHA hook
-	const { executeRecaptcha } = useRecaptcha();
-
-	// ===========================================
-	// FORM SETUP
-	// ===========================================
-
+	// ✅ Form setup z react-hook-form (ZACHOWANE)
 	const form = useForm<ContactFormData>({
 		resolver: zodResolver(contactFormSchema),
 		defaultValues: defaultFormValues,
-		mode: "onChange", // Validate on change for better UX
+		mode: "onChange",
 	});
 
-	// ===========================================
-	// FILE HANDLING
-	// ===========================================
+	// ✅ State management (ZACHOWANE)
+	const [files, setFiles] = useState<File[] | null>(null);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
-	/**
-	 * Usuwa plik z listy uploadowanych plików
-	 */
-	const removeFile = useCallback(
-		(indexToRemove: number) => {
-			if (!files || files.length === 0) return;
-
-			const updatedFiles = files.filter((_, index) => index !== indexToRemove);
-
-			// ✅ FIXED: Ustaw na pustą tablicę zamiast null jeśli nie ma plików
-			setFiles(updatedFiles.length > 0 ? updatedFiles : []);
-
-			toast.info("Plik został usunięty", {
-				duration: 2000,
-			});
-		},
-		[files],
-	);
+	// ✅ reCAPTCHA hook (ZACHOWANE)
+	const { executeRecaptcha } = useRecaptcha();
 
 	// ===========================================
-	// FORM UTILITIES
+	// UTILITY FUNCTIONS (ZACHOWANE I POPRAWIONE)
 	// ===========================================
 
 	/**
@@ -117,27 +80,123 @@ export function useContactForm(
 	}, []);
 
 	/**
+	 * Usuwa plik z listy z toast notification
+	 */
+	const removeFile = useCallback(
+		(index: number) => {
+			if (!files) return;
+
+			const updatedFiles = files.filter((_, i) => i !== index);
+			setFiles(updatedFiles.length > 0 ? updatedFiles : null);
+
+			toast.info("Plik został usunięty", {
+				duration: 2000,
+			});
+		},
+		[files],
+	);
+
+	/**
 	 * Resetuje formularz i wszystkie stany
 	 */
 	const resetForm = useCallback(() => {
 		form.reset(defaultFormValues);
-		setFiles([]); // ✅ FIXED: Pusta tablica zamiast null
+		setFiles(null);
 		setIsSubmitting(false);
 	}, [form]);
 
 	// ===========================================
-	// FORM SUBMISSION
+	// MESSAGE HELPERS (POPRAWIONE)
+	// ===========================================
+
+	const getProcessingMessage = useCallback((fileCount: number) => {
+		if (fileCount === 1) {
+			return {
+				title: "Przetwarzam plik...",
+				description: "Konwertuję obraz na format WebP",
+			};
+		}
+		return {
+			title: `Przetwarzam ${fileCount} plików...`,
+			description: "Konwertuję obrazy na format WebP",
+		};
+	}, []);
+
+	const getSuccessMessage = useCallback((filesProcessed: number) => {
+		const baseMessage = "Wiadomość została wysłana! 🎉";
+
+		if (filesProcessed === 0) {
+			return {
+				title: baseMessage,
+				description: "Odpiszę najszybciej jak to możliwe.",
+			};
+		}
+
+		if (filesProcessed === 1) {
+			return {
+				title: baseMessage,
+				description: "Plik został przesłany i skonwertowany na WebP.",
+			};
+		}
+
+		return {
+			title: baseMessage,
+			description: `${filesProcessed} plików zostało przesłanych i skonwertowanych.`,
+		};
+	}, []);
+
+	const formatApiError = useCallback(
+		(error: Error): string => {
+			if (error.message.includes("reCAPTCHA")) {
+				return "Błąd weryfikacji bezpieczeństwa. Odśwież stronę i spróbuj ponownie.";
+			}
+
+			if (error.message.includes("rozmiar")) {
+				const maxSizeMB = config.files.maxSize / (1024 * 1024);
+				return `Niektóre pliki są za duże. Maksymalny rozmiar to ${maxSizeMB}MB.`;
+			}
+
+			if (error.message.includes("format")) {
+				return "Nieobsługiwany format pliku. Użyj JPG, PNG, WebP lub PDF.";
+			}
+
+			if (error.message.includes("sieć") || error.message.includes("network")) {
+				return "Problem z połączeniem internetowym. Sprawdź połączenie i spróbuj ponownie.";
+			}
+
+			return "Wystąpił błąd podczas wysyłania. Spróbuj ponownie za chwilę.";
+		},
+		[config.files.maxSize],
+	);
+
+	const prepareSubmissionData = useCallback(
+		(
+			data: ContactFormData,
+			recaptchaToken: string,
+			files?: File[],
+		): ContactSubmissionData => {
+			return {
+				...data,
+				recaptcha_token: recaptchaToken,
+				files: files || undefined,
+			};
+		},
+		[],
+	);
+
+	// ===========================================
+	// MAIN FORM SUBMISSION (POPRAWIONE)
 	// ===========================================
 
 	/**
-	 * Główna funkcja wysyłania formularza
+	 * Główna funkcja wysyłania formularza z obsługą wariantów
 	 */
 	const handleSubmit = useCallback(
 		async (data: ContactFormData) => {
 			setIsSubmitting(true);
 
 			try {
-				// 1. Sprawdź limity plików dla danego wariantu
+				// 1. ✅ POPRAWIONE: Sprawdź limity dla konkretnego wariantu
 				if (files && files.length > config.files.maxFiles) {
 					throw new Error(`Maksymalnie ${config.files.maxFiles} plików`);
 				}
@@ -162,8 +221,17 @@ export function useContactForm(
 					});
 				}
 
-				// 4. Wykonaj reCAPTCHA
-				const recaptchaToken = await executeRecaptcha("contact_form");
+				// 4. ✅ POPRAWIONE: Wykonaj reCAPTCHA z custom hook
+				// biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
+				let recaptchaToken;
+				try {
+					recaptchaToken = await executeRecaptcha("contact_form");
+				} catch (recaptchaError) {
+					console.error("reCAPTCHA error:", recaptchaError);
+					throw new Error(
+						"Błąd weryfikacji reCAPTCHA. Odśwież stronę i spróbuj ponownie.",
+					);
+				}
 
 				// 5. Przygotuj dane do wysłania
 				const submissionData = prepareSubmissionData(
@@ -176,7 +244,7 @@ export function useContactForm(
 				const result = await submitContactForm(submissionData);
 
 				// 7. Pokaż sukces
-				const successMsg = getSuccessMessage(result.filesProcessed);
+				const successMsg = getSuccessMessage(result.filesProcessed || 0);
 				toast.success(successMsg.title, {
 					description: successMsg.description,
 					duration: 5000,
@@ -190,98 +258,72 @@ export function useContactForm(
 			} catch (error) {
 				console.error("Form submission error:", error);
 
-				// Formatuj błąd do user-friendly message
 				const errorMessage =
 					error instanceof Error
 						? formatApiError(error)
 						: "Wystąpił nieoczekiwany błąd";
 
-				// Pokaż toast błędu
-				toast.error("Błąd wysyłania 😞", {
+				// ✅ POPRAWIONE: Różne komunikaty dla różnych wariantów
+				const errorTitle =
+					variant === "popup" ? "Błąd wysyłania" : "Błąd wysyłania 😞";
+
+				toast.error(errorTitle, {
 					description: errorMessage,
 					duration: 5000,
 				});
 
-				// Wywołaj callback błędu
 				if (error instanceof Error) {
-					onError?.(error as ContactApiError);
+					onError?.(error);
 				}
 			} finally {
 				setIsSubmitting(false);
 			}
 		},
-		[files, config, executeRecaptcha, resetForm, onSuccess, onError],
+		[
+			files,
+			config,
+			variant,
+			executeRecaptcha,
+			getProcessingMessage,
+			getSuccessMessage,
+			prepareSubmissionData,
+			formatApiError,
+			resetForm,
+			onSuccess,
+			onError,
+		],
 	);
 
-	// ===========================================
-	// RETURN HOOK INTERFACE
-	// ===========================================
-
 	return {
-		// Form state
 		form,
-		isSubmitting,
-
-		// File handling
 		files,
 		setFiles,
+		isSubmitting,
+		handleSubmit,
 		removeFile,
-
-		// Form actions
-		onSubmit: form.handleSubmit(handleSubmit), // Fixed: use handleSubmit here
-		resetForm,
-
-		// Utilities
 		formatPhone,
-		config,
+		resetForm,
 	};
-}
+};
 
 // ===========================================
-// SPECIALIZED HOOKS
+// CONVENIENCE FUNCTIONS (DODANE)
 // ===========================================
 
 /**
  * Hook dla głównego formularza kontaktowego
  */
-export function useMainContactForm(
-	options?: Omit<UseContactFormOptions, "variant">,
-) {
-	return useContactForm({ ...options, variant: "main" });
-}
+export const useMainContactForm = (
+	options: Omit<ContactFormOptions, "variant">,
+) => {
+	return useContactFormField({ ...options, variant: "main" });
+};
 
 /**
- * Hook dla formularza popup
+ * Hook dla popup formularza kontaktowego
  */
-export function usePopupContactForm(
-	options?: Omit<UseContactFormOptions, "variant">,
-) {
-	return useContactForm({ ...options, variant: "popup" });
-}
-
-// ===========================================
-// VALIDATION HELPERS
-// ===========================================
-
-/**
- * Hook do sprawdzania czy formularz jest prawidłowy w czasie rzeczywistym
- */
-export function useFormValidation() {
-	const validateField = useCallback(
-		(fieldName: keyof ContactFormData, value: string) => {
-			try {
-				const fieldSchema = contactFormSchema.shape[fieldName];
-				fieldSchema.parse(value);
-				return { isValid: true, error: null };
-			} catch (error) {
-				if (error instanceof Error) {
-					return { isValid: false, error: error.message };
-				}
-				return { isValid: false, error: "Nieprawidłowa wartość" };
-			}
-		},
-		[],
-	);
-
-	return { validateField };
-}
+export const usePopupContactForm = (
+	options: Omit<ContactFormOptions, "variant">,
+) => {
+	return useContactFormField({ ...options, variant: "popup" });
+};

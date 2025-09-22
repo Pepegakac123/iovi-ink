@@ -1,114 +1,102 @@
-// src/components/forms/ContactForm.tsx - FIXED: Akumulacja plików zamiast zastępowania
-
+// components/forms/ContactForm-fixed.tsx
 "use client";
+
 import React from "react";
 import * as motion from "motion/react-client";
 import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Loader2, Paperclip, Send } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
+
+// ✅ NAPRAWIONY: Import poprawionego FileUploader
 import {
-	FileInput,
 	FileUploader,
+	FileInput,
 	FileUploaderContent,
 	FileUploaderItem,
 } from "@/components/ui/file-upload";
-import { LuHardDriveUpload } from "react-icons/lu";
-import { Paperclip, Send, Loader2, X } from "lucide-react";
-import { AnimatePresence } from "motion/react";
-import InstagramBtn from "../buttons/InstragramBtn";
 
-// Imports from refactored structure
-import { useMainContactForm } from "@/hooks/useContactFormField";
-import { getFormStyles, getFormMotion } from "@/lib/config/form-config";
 import {
+	FormSection,
+	AnimatedFieldWrapper,
 	NameField,
 	EmailField,
 	PhoneField,
 	DescriptionField,
-	FormSection,
-	AnimatedFieldWrapper,
 } from "@/components/forms/ContactFormField";
-import FloatingElements from "../FloatingElements";
+
+import { useMainContactForm } from "@/hooks/useContactFormField";
+import {
+	getFormConfig,
+	getFormStyles,
+	getFormMotion,
+} from "@/lib/config/form-config";
+import InstagramBtn from "../buttons/InstragramBtn";
 import { socialLinks } from "@/lib/data";
+
+// ===========================================
+// CONTACT FORM PROPS
+// ===========================================
+
+interface ContactFormProps {
+	onSuccess?: (data: any) => void;
+	onError?: (error: Error) => void;
+	className?: string;
+}
 
 // ===========================================
 // MAIN CONTACT FORM COMPONENT
 // ===========================================
 
-export default function ContactForm() {
-	// Use the refactored hook for all business logic
+const ContactForm: React.FC<ContactFormProps> = ({
+	onSuccess,
+	onError,
+	className = "",
+}) => {
+	// ✅ UŻYWAMY: Istniejący hook z projektu
 	const {
 		form,
-		isSubmitting,
 		files,
 		setFiles,
+		isSubmitting,
+		handleSubmit,
 		removeFile,
-		onSubmit,
 		formatPhone,
-		config,
-	} = useMainContactForm({
-		onSuccess: (data) => {
-			console.log("Form submitted successfully:", data);
-		},
-		onError: (error) => {
-			console.error("Form submission failed:", error);
-		},
-	});
+	} = useMainContactForm({ onSuccess, onError });
 
-	// Get styles and motion for main variant
+	// ✅ UŻYWAMY: Istniejący system konfiguracji
+	const config = getFormConfig("main");
 	const styles = getFormStyles("main");
 	const motionPresets = getFormMotion("main");
 
+	// ✅ NAPRAWIONE: Proper onSubmit z accessibility
+	const onSubmit = form.handleSubmit(handleSubmit);
+
+	// ✅ NAPRAWIONE: File handling z validacją
 	const handleFilesChange = (newFiles: File[] | null) => {
-		if (!newFiles || newFiles.length === 0) {
+		if (!newFiles) {
+			setFiles([]);
 			return;
 		}
 
-		// ✅ Sprawdź czy to są nowe pliki czy zastąpienie
-		if (!files || files.length === 0) {
-			// Pierwsza batch plików - ustaw bezpośrednio
-			setFiles(newFiles);
-			return;
-		}
+		const combinedFiles = [...(files || []), ...newFiles];
 
-		// ✅ Dodaj nowe pliki do istniejących (akumulacja)
-		const existingFiles = files || [];
-		const combinedFiles = [...existingFiles];
-
-		// Dodaj tylko te pliki, które jeszcze nie istnieją (sprawdź po nazwie i rozmiarze)
-		for (const newFile of newFiles) {
-			const isDuplicate = existingFiles.some(
-				(existingFile) =>
-					existingFile.name === newFile.name &&
-					existingFile.size === newFile.size &&
-					existingFile.lastModified === newFile.lastModified,
-			);
-
-			if (!isDuplicate) {
-				combinedFiles.push(newFile);
-			}
-		}
-
-		// ✅ Sprawdź limit plików
+		// Sprawdź limit plików
 		if (combinedFiles.length > config.files.maxFiles) {
 			const excessCount = combinedFiles.length - config.files.maxFiles;
-			// Ogranicz do maksymalnej liczby plików (zachowaj najnowsze)
-			const limitedFiles = combinedFiles.slice(-config.files.maxFiles);
+			const limitedFiles = combinedFiles.slice(0, config.files.maxFiles);
 			setFiles(limitedFiles);
-
-			// Pokaż informację o limicie
-			if (excessCount > 0) {
-				// Można dodać toast tutaj jeśli potrzebne
-				console.warn(
-					`Maksymalnie ${config.files.maxFiles} plików. Usunięto ${excessCount} najstarszych.`,
-				);
-			}
+			console.warn(
+				`Usunięto ${excessCount} najstarszych plików. Maksymalnie ${config.files.maxFiles} plików.`,
+			);
 		} else {
 			setFiles(combinedFiles);
 		}
 	};
 
 	return (
-		<div className="w-full mx-auto">
-			{/* Brutal Design Form Container */}
+		<div className={`w-full mx-auto ${className}`}>
+			{/* ✅ UŻYWAMY: Istniejący brutal design container */}
 			<motion.div
 				className={styles.container}
 				initial={motionPresets.container.main.hidden}
@@ -123,7 +111,7 @@ export default function ContactForm() {
 						initial="hidden"
 						animate="visible"
 					>
-						{/* Header Row: Name, Email, Phone */}
+						{/* ✅ UŻYWAMY: Istniejące form fields z accessibility */}
 						<motion.div variants={motionPresets.field.main}>
 							<FormSection variant="main">
 								<AnimatedFieldWrapper variant="main">
@@ -146,15 +134,18 @@ export default function ContactForm() {
 								</motion.div>
 							</FormSection>
 						</motion.div>
-						{/* Large Text Area */}
+
+						{/* ✅ UŻYWAMY: Istniejący textarea field */}
 						<motion.div variants={motionPresets.field.main}>
 							<DescriptionField form={form} variant="main" rows={6} />
 						</motion.div>
-						{/* ✅ FIXED: File Upload Section z poprawnym handlingiem */}
+
+						{/* ✅ NAPRAWIONE: File Upload Section z accessibility */}
 						<motion.div variants={motionPresets.field.main}>
 							<div className="space-y-2">
+								{/* ✅ NAPRAWIONE: Label z poprawnym htmlFor */}
 								<motion.label
-									htmlFor="fileInput"
+									htmlFor="mainFileInput"
 									className="text-foreground font-primary text-sm font-bold uppercase inline-block"
 								>
 									Prześlij wzór
@@ -165,48 +156,34 @@ export default function ContactForm() {
 								</motion.label>
 
 								<motion.div>
+									{/* ✅ NAPRAWIONE: FileUploader z inputId dla accessibility */}
 									<FileUploader
 										value={files}
 										onValueChange={handleFilesChange}
 										dropzoneOptions={config.files}
-										className="relative bg-secondary border-3 border-dashed hover:border-accent border-foreground rounded-md"
+										inputId="mainFileInput" // ✅ NOWE: id matching htmlFor
+										className="relative bg-secondary border-2 border-dashed hover:border-accent border-foreground rounded-md"
 									>
-										{/** biome-ignore lint/correctness/useUniqueElementIds: <explanation> */}
-										<FileInput id="fileInput" className="">
-											<div className="flex items-center justify-center flex-col p-8 w-full">
+										<FileInput>
+											<div className="flex flex-col items-center justify-center space-y-2 p-4 min-h-[120px]">
 												<motion.div
-													animate={{
-														y: [0, -8, 0],
-														scale: [1, 1.05, 1],
-													}}
-													whileHover={{
-														scale: 1.2,
-														y: -4,
-														rotate: 12,
-														transition: {
-															type: "spring",
-															stiffness: 400,
-															damping: 15,
-														},
-													}}
+													animate={{ rotate: [0, 10, -10, 0] }}
 													transition={{
-														duration: 2.5,
+														duration: 2,
 														repeat: Infinity,
 														ease: "easeInOut",
-														repeatType: "reverse",
 													}}
 												>
-													<LuHardDriveUpload className="text-primary h-10 w-10" />
+													<Paperclip className="h-8 w-8 text-primary" />
 												</motion.div>
-												<p className="mb-2 text-sm text-foreground font-text text-center">
-													<span className="font-semibold">
-														Kliknij aby wybrać
-													</span>{" "}
-													lub przeciągnij i upuść
+												<p className="text-sm font-primary text-foreground text-center">
+													<span className="font-bold">
+														Kliknij lub przeciągnij
+													</span>
 												</p>
 												<p className="text-xs text-muted-foreground text-center">
-													(Max. {config.files.maxSize / (1024 * 1024)}MB, do{" "}
-													{config.files.maxFiles} plików)
+													Maks. {config.files.maxSize / (1024 * 1024)}MB, do{" "}
+													{config.files.maxFiles} plików
 												</p>
 											</div>
 										</FileInput>
@@ -217,7 +194,7 @@ export default function ContactForm() {
 													files.length > 0 &&
 													files.map((file, i) => (
 														<motion.div
-															key={`${file.name}-${file.size}-${i}`} // ✅ Lepszy key
+															key={`${file.name}-${file.size}-${i}`}
 															initial={{ opacity: 0, x: -20, scale: 0.8 }}
 															animate={{ opacity: 1, x: 0, scale: 1 }}
 															exit={{
@@ -267,21 +244,8 @@ export default function ContactForm() {
 								</motion.div>
 							</div>
 						</motion.div>
-						{/* Privacy & reCAPTCHA Notice */}
-						<motion.p
-							className="text-xs text-muted-foreground text-center max-w-md mx-auto leading-relaxed"
-							variants={motionPresets.field.main}
-						>
-							Wysyłając formularz wyrażasz zgodę na przetwarzanie danych
-							osobowych zgodnie z{" "}
-							<a
-								href="/polityka-prywatnosci"
-								className="text-primary hover:text-accent underline"
-							>
-								polityką prywatności
-							</a>
-							. Strona jest chroniona przez reCAPTCHA Google.
-						</motion.p>
+
+						{/* ✅ UŻYWAMY: Istniejący submit button */}
 						{/* Submit Section */}
 						<motion.div
 							className="flex gap-4 flex-col w-full items-center justify-center pt-6"
@@ -348,16 +312,26 @@ export default function ContactForm() {
 							</motion.div>
 
 							{/* Footer Text */}
-							<motion.p className="paragraph-small-muted text-center max-w-md">
-								Otrzymasz odpowiedź w ciągu 24 godzin. Pierwsza konsultacja jest{" "}
-								<span className="text-primary font-semibold">bezpłatna</span>.
+							<motion.p
+								className="text-xs text-muted-foreground text-center max-w-md mx-auto leading-relaxed"
+								variants={motionPresets.field.main}
+							>
+								Wysyłając formularz wyrażasz zgodę na przetwarzanie danych
+								osobowych zgodnie z{" "}
+								<a
+									href="/polityka-prywatnosci"
+									className="text-primary hover:text-accent underline"
+								>
+									polityką prywatności
+								</a>
+								. Strona jest chroniona przez reCAPTCHA Google.
 							</motion.p>
 						</motion.div>
-						{/* Floating Elements */}
-						<FloatingElements variant="section" />
 					</motion.form>
 				</Form>
 			</motion.div>
 		</div>
 	);
-}
+};
+
+export default ContactForm;
