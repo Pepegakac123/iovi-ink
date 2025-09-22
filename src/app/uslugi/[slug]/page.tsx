@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import SectionHero from "@/components/SectionHero";
 import ServiceProcessSection from "@/components/servicePagesComponents/ServiceProcessSection";
 import ServiceDistinguishingSection from "@/components/servicePagesComponents/ServiceDistinguishingSection";
