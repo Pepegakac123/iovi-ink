@@ -15,6 +15,7 @@ import {
 } from "./jetPostTypes";
 import { objectToSortedArray, transformServiceData } from "./utils";
 import { p } from "framer-motion/client";
+import { getCDNUrl, convertImagesToCDN } from "./cdnHelper";
 
 // ================================================================
 // SETUP & ERROR HANDLING
@@ -463,7 +464,13 @@ export async function getImageWithAltText(
 export async function mapImagesWithWordPressAlt(
 	imageUrls: string[],
 ): Promise<Array<{ src: string; alt: string }>> {
-	const promises = imageUrls.map((url) => getImageWithAltText(url));
+	const promises = imageUrls.map(async (url) => {
+		const result = await getImageWithAltText(url);
+		return {
+			src: getCDNUrl(result.src), // ✅ Automatyczna konwersja!
+			alt: result.alt,
+		};
+	});
 	return Promise.all(promises);
 }
 

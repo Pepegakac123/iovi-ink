@@ -1,4 +1,6 @@
-export const images = {
+import { getCDNUrl } from "./cdnHelper";
+
+export const wpImages = {
 	bab_z_maszynkom: {
 		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/09/Bab_z_maszynkom.webp",
 		alt: "Jowita - profesjonalna tatuażystka podczas pracy z maszynką do tatuażu, koncentrująca się na precyzyjnym wykonaniu wzoru",
@@ -100,4 +102,134 @@ export const images = {
 		src: "https://cms.iovi-ink.pl/wp-content/uploads/2025/08/SEO-BANER-1.png",
 		alt: "Jowita - iovi-ink - Artystka tatuażu specjalizująca się w tatuażach graficznych i minimalistycznych",
 	},
+} as const;
+
+// Typy
+type SimpleImage = { src: string; alt: string };
+type ResponsiveImage = { mobile: string; desktop: string; alt: string };
+
+type ProcessImages = {
+	proces_1: ResponsiveImage;
+	proces_2: ResponsiveImage;
+	proces_3: ResponsiveImage;
+	proces_4: ResponsiveImage;
+	proces_5: ResponsiveImage;
 };
+
+// ✅ Precyzyjny typ dla images - każdy klucz ma konkretny typ
+type Images = {
+	bab_z_maszynkom: SimpleImage;
+	zblizenie_na_twarz_patrzy_na_wprost: SimpleImage;
+	karty_tatuazy: SimpleImage;
+	karty_rysunki_1: SimpleImage;
+	karty_rysunki_2: SimpleImage;
+	bab_stoi: SimpleImage;
+	bab_z_tabletem: SimpleImage;
+	bab_z_telefonem: SimpleImage;
+	bab_z_zaruwkom: SimpleImage;
+	bab_wpatrzona_w_telefon: SimpleImage;
+	bab_z_szescianem: SimpleImage;
+	bab_sie_rozciaga: SimpleImage;
+	bab_szkicuje: SimpleImage;
+	proces: ProcessImages;
+	plain_proces_card: SimpleImage;
+	logo: SimpleImage;
+	seoBaner: SimpleImage;
+};
+
+// Konwersja z bardziej precyzyjnym typowaniem
+const convertedImages: Images = {
+	bab_z_maszynkom: {
+		src: getCDNUrl(wpImages.bab_z_maszynkom.src),
+		alt: wpImages.bab_z_maszynkom.alt,
+	},
+	zblizenie_na_twarz_patrzy_na_wprost: {
+		src: getCDNUrl(wpImages.zblizenie_na_twarz_patrzy_na_wprost.src),
+		alt: wpImages.zblizenie_na_twarz_patrzy_na_wprost.alt,
+	},
+	karty_tatuazy: {
+		src: getCDNUrl(wpImages.karty_tatuazy.src),
+		alt: wpImages.karty_tatuazy.alt,
+	},
+	karty_rysunki_1: {
+		src: getCDNUrl(wpImages.karty_rysunki_1.src),
+		alt: wpImages.karty_rysunki_1.alt,
+	},
+	karty_rysunki_2: {
+		src: getCDNUrl(wpImages.karty_rysunki_2.src),
+		alt: wpImages.karty_rysunki_2.alt,
+	},
+	bab_stoi: {
+		src: getCDNUrl(wpImages.bab_stoi.src),
+		alt: wpImages.bab_stoi.alt,
+	},
+	bab_z_tabletem: {
+		src: getCDNUrl(wpImages.bab_z_tabletem.src),
+		alt: wpImages.bab_z_tabletem.alt,
+	},
+	bab_z_telefonem: {
+		src: getCDNUrl(wpImages.bab_z_telefonem.src),
+		alt: wpImages.bab_z_telefonem.alt,
+	},
+	bab_z_zaruwkom: {
+		src: getCDNUrl(wpImages.bab_z_zaruwkom.src),
+		alt: wpImages.bab_z_zaruwkom.alt,
+	},
+	bab_wpatrzona_w_telefon: {
+		src: getCDNUrl(wpImages.bab_wpatrzona_w_telefon.src),
+		alt: wpImages.bab_wpatrzona_w_telefon.alt,
+	},
+	bab_z_szescianem: {
+		src: getCDNUrl(wpImages.bab_z_szescianem.src),
+		alt: wpImages.bab_z_szescianem.alt,
+	},
+	bab_sie_rozciaga: {
+		src: getCDNUrl(wpImages.bab_sie_rozciaga.src),
+		alt: wpImages.bab_sie_rozciaga.alt,
+	},
+	bab_szkicuje: {
+		src: getCDNUrl(wpImages.bab_szkicuje.src),
+		alt: wpImages.bab_szkicuje.alt,
+	},
+	proces: {
+		proces_1: {
+			mobile: getCDNUrl(wpImages.proces.proces_1.mobile),
+			desktop: getCDNUrl(wpImages.proces.proces_1.desktop),
+			alt: wpImages.proces.proces_1.alt,
+		},
+		proces_2: {
+			mobile: getCDNUrl(wpImages.proces.proces_2.mobile),
+			desktop: getCDNUrl(wpImages.proces.proces_2.desktop),
+			alt: wpImages.proces.proces_2.alt,
+		},
+		proces_3: {
+			mobile: getCDNUrl(wpImages.proces.proces_3.mobile),
+			desktop: getCDNUrl(wpImages.proces.proces_3.desktop),
+			alt: wpImages.proces.proces_3.alt,
+		},
+		proces_4: {
+			mobile: getCDNUrl(wpImages.proces.proces_4.mobile),
+			desktop: getCDNUrl(wpImages.proces.proces_4.desktop),
+			alt: wpImages.proces.proces_4.alt,
+		},
+		proces_5: {
+			mobile: getCDNUrl(wpImages.proces.proces_5.mobile),
+			desktop: getCDNUrl(wpImages.proces.proces_5.desktop),
+			alt: wpImages.proces.proces_5.alt,
+		},
+	},
+	plain_proces_card: {
+		src: getCDNUrl(wpImages.plain_proces_card.src),
+		alt: wpImages.plain_proces_card.alt,
+	},
+	logo: {
+		src: getCDNUrl(wpImages.logo.src),
+		alt: wpImages.logo.alt,
+	},
+	seoBaner: {
+		src: getCDNUrl(wpImages.seoBaner.src),
+		alt: wpImages.seoBaner.alt,
+	},
+};
+
+export const images = convertedImages;

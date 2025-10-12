@@ -6,6 +6,8 @@ import Image from "next/image";
 import * as motion from "motion/react-client";
 import { cn } from "@/lib/utils";
 import { type GalleryImage } from "@/hooks/useGalleryModal";
+import { RefreshCw, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // ===========================================
 // TYPES
@@ -19,14 +21,9 @@ interface ImageViewerProps {
 }
 
 // ===========================================
-// SIMPLIFIED IMAGE VIEWER - NO LOADING LOGIC
+// IMAGE VIEWER WITH ERROR HANDLING
 // ===========================================
 
-/**
- * ✅ SIMPLIFIED: Next.js Image handles loading automatically
- * ✅ FASTER: No artificial loading states
- * ✅ CLEANER: Minimal state management
- */
 const ImageViewer: React.FC<ImageViewerProps> = ({
 	image,
 	onNext,
@@ -34,16 +31,37 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 	className = "",
 }) => {
 	// ===========================================
-	// MINIMAL STATE - ONLY WHAT'S NEEDED
+	// STATE
 	// ===========================================
 
 	const [imageError, setImageError] = useState(false);
+	const [retryKey, setRetryKey] = useState(0);
 	const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
 		null,
 	);
 	const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(
 		null,
 	);
+
+	// ===========================================
+	// ERROR HANDLING
+	// ===========================================
+
+	const handleImageError = useCallback(() => {
+		console.error(`Failed to load image: ${image.src}`);
+		setImageError(true);
+	}, [image.src]);
+
+	const handleRetry = useCallback(() => {
+		setImageError(false);
+		setRetryKey((prev) => prev + 1); // Force re-render with new key
+	}, []);
+
+	// Reset error state when image changes
+	React.useEffect(() => {
+		setImageError(false);
+		setRetryKey(0);
+	}, [image.src]);
 
 	// ===========================================
 	// TOUCH HANDLING
@@ -76,67 +94,98 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 			}
 		}
 
-		// Clear touch states
 		setTouchStart(null);
 		setTouchEnd(null);
 	}, [touchStart, touchEnd, onNext, onPrev]);
 
 	// ===========================================
-	// ERROR HANDLING
-	// ===========================================
-
-	const handleImageError = useCallback(() => {
-		setImageError(true);
-	}, []);
-
-	// ===========================================
-	// RENDER LOGIC - SIMPLIFIED
+	// RENDER
 	// ===========================================
 
 	return (
 		<motion.div
-			className={cn(
-				"relative w-full h-full flex items-center justify-center overflow-hidden",
-				"bg-background",
-				className,
-			)}
-			initial={{ opacity: 0, scale: 0.95 }}
-			animate={{ opacity: 1, scale: 1 }}
-			exit={{ opacity: 0, scale: 0.95 }}
-			transition={{ duration: 0.3, ease: "easeOut" }}
+			className={cn("relative w-full h-full", className)}
 			onTouchStart={handleTouchStart}
 			onTouchMove={handleTouchMove}
 			onTouchEnd={handleTouchEnd}
 		>
-			{/* Error State */}
-			{imageError && (
+			{/* ✅ ERROR STATE */}
+			{imageError ? (
 				<motion.div
-					className="absolute inset-0 flex flex-col items-center justify-center bg-muted/50"
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
+					className={cn(
+						"relative w-full h-full flex flex-col items-center justify-center gap-6",
+						"p-8 md:p-12",
+					)}
+					initial={{ opacity: 0, scale: 0.9 }}
+					animate={{ opacity: 1, scale: 1 }}
+					transition={{ duration: 0.3 }}
 				>
-					<div className="text-center p-4">
-						<div className="w-16 h-16 mx-auto mb-4 bg-destructive/20 rounded-full flex items-center justify-center">
-							<span className="text-2xl text-destructive">⚠</span>
-						</div>
-						<h3 className="heading-secondary-large mb-2 text-destructive">
-							Błąd ładowania
-						</h3>
-						<p className="paragraph-small-muted">
+					{/* Error Icon */}
+					<motion.div
+						className={cn(
+							"w-20 h-20 rounded-full",
+							"bg-destructive/10 border-2 border-destructive",
+							"flex items-center justify-center",
+						)}
+						initial={{ rotate: -10 }}
+						animate={{ rotate: 0 }}
+						transition={{ duration: 0.5, type: "spring" }}
+					>
+						<AlertCircle className="w-10 h-10 text-destructive" />
+					</motion.div>
+
+					{/* Error Message */}
+					<div className="text-center space-y-2">
+						<h3 className="font-primary text-lg md:text-xl text-foreground">
 							Nie udało się załadować zdjęcia
+						</h3>
+						<p className="text-sm text-muted-foreground max-w-md">
+							Wystąpił problem podczas ładowania obrazu. Sprawdź połączenie z
+							internetem i spróbuj ponownie.
 						</p>
 					</div>
-				</motion.div>
-			)}
 
-			{/* Main Image - Simplified */}
-			{!imageError && (
+					{/* Retry Button */}
+					<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+						<Button
+							variant="outline"
+							size="lg"
+							onClick={handleRetry}
+							className={cn(
+								"flex items-center gap-3 px-6 py-3",
+								"border-2 border-foreground font-primary uppercase",
+								"bg-background text-foreground",
+								"hover:bg-accent hover:shadow-[4px_4px_0px_0px_var(--foreground)]",
+								"hover:translate-x-[-2px] hover:translate-y-[-2px]",
+								"transition-all duration-200",
+							)}
+						>
+							<RefreshCw className="h-5 w-5" />
+							Spróbuj ponownie
+						</Button>
+					</motion.div>
+
+					{/* Navigation Hint */}
+					{(onNext || onPrev) && (
+						<p className="text-xs text-muted-foreground mt-4">
+							Możesz przejść do{" "}
+							{onNext && onPrev
+								? "poprzedniego lub następnego"
+								: onNext
+									? "następnego"
+									: "poprzedniego"}{" "}
+							zdjęcia
+						</p>
+					)}
+				</motion.div>
+			) : (
+				/* ✅ NORMAL STATE - IMAGE DISPLAY */
 				<motion.div
 					className={cn(
 						"relative w-full h-full flex items-center justify-center",
 						"p-4 md:p-6 lg:p-8",
 					)}
-					key={image.src} // Force re-animation when image changes
+					key={`${image.src}-${retryKey}`} // Force re-render on retry
 					initial={{ opacity: 0, x: 20 }}
 					animate={{ opacity: 1, x: 0 }}
 					exit={{ opacity: 0, x: -20 }}
@@ -161,15 +210,14 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 								"rounded-md border-2 border-foreground",
 								"shadow-[4px_4px_0px_0px_var(--foreground)]",
 							)}
-							// ✅ POPUP IMAGES: Always priority for instant display
 							priority={true}
 							loading="eager"
 							quality={90}
 							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
 							onError={handleImageError}
-							// ✅ Additional optimizations
 							fetchPriority="high"
 							decoding="async"
+							unoptimized={false}
 						/>
 					</div>
 				</motion.div>

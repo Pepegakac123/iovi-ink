@@ -5,14 +5,13 @@ const wordpressHostname = new URL(wordpressUrl).hostname;
 
 // 🔥 MIKR.US CONFIG: Główna domena z Cloudflare cache
 const isProd = process.env.NODE_ENV === "production";
-// 🚫 WYŁĄCZONE - mikr.us nie obsługuje subdomains (Error 521)
-const cdnDomain = undefined;
+
+const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL || "";
+const cdnHostname = cdnUrl ? new URL(cdnUrl).hostname : null;
 
 const nextConfig: NextConfig = {
 	// output: "standalone", // Uncomment jeśli chcesz standalone
 
-	// 🚫 CDN subdomain wyłączony dla mikr.us
-	assetPrefix: cdnDomain,
 
 	experimental: {
 		optimizePackageImports: [
@@ -32,20 +31,32 @@ const nextConfig: NextConfig = {
 	// 🔥 IMAGES - Tylko WordPress (bez CDN subdomain)
 	images: {
 		remotePatterns: [
+			// ✅ Cloudflare R2 CDN (PRIORYTET!)
+			...(cdnHostname
+				? [
+						{
+							protocol: "https" as const,
+							hostname: cdnHostname, // cdn.iovi-ink.pl
+							port: "",
+							pathname: "/**",
+						},
+					]
+				: []),
+			// WordPress (backup/fallback podczas migracji)
 			{
-				protocol: "https",
-				hostname: wordpressHostname, // cms.iovi-ink.pl
+				protocol: "https" as const,
+				hostname: wordpressHostname,
 				port: "",
 				pathname: "/**",
 			},
-			// 🚫 USUNIĘTE: cdn.iovi-ink.pl (nie działa z mikr.us)
 		],
 		formats: ["image/webp", "image/avif"],
 		deviceSizes: [640, 750, 828, 1080, 1200, 1920],
 		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-		minimumCacheTTL: 31536000, // 1 rok cache
-		loader: "default",
-		unoptimized: true,
+		minimumCacheTTL: 31536000, // 1 rok
+		
+		// 🎉 WŁĄCZONA OPTYMALIZACJA!
+		unoptimized: false, // ✅ ZMIENIONE z true na false!
 	},
 
 	async redirects() {
