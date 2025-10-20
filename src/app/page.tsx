@@ -1,14 +1,7 @@
 import Hero from "@/components/Sections/Hero";
-import AboutMe from "@/components/Sections/AboutMe";
-import Services from "@/components/Sections/Services";
-import TargetAudienceSection from "@/components/Sections/TargetAudienceSection";
-import Process from "@/components/Sections/Process";
-import WhyMe from "@/components/Sections/WhyMe";
-import Faq from "@/components/Sections/Faq";
-import Contact from "@/components/Sections/Contact";
+
 import * as motion from "motion/react-client";
 import { images } from "@/lib/images";
-import { lazy, Suspense } from "react";
 import {
 	aboutMeHome,
 	blogHome,
@@ -23,9 +16,53 @@ import {
 import { BreadcrumbJsonLd, FAQPageJsonLd, SocialProfileJsonLd } from "next-seo";
 import FeaturedBlogs from "@/components/FeaturedBlogs";
 import CarouselSkeleton from "@/components/skeletons/CarouselSkeleton";
-const CarouselSections = lazy(
+import dynamic from "next/dynamic";
+
+// Załóżmy, że masz też prosty szkielet dla bloku
+const SectionSkeleton = () => <div className="h-96 w-full bg-muted/50" />;
+
+const DynamicCarousel = dynamic(
 	() => import("@/components/Sections/CarouselSections"),
+	{
+		// Użyj swojego szkieletu karuzeli
+		loading: () => <CarouselSkeleton />,
+		// Opcjonalnie: nie ładuj na serwerze, jeśli to tylko klient
+		// ssr: false,
+	},
 );
+
+const DynamicFaq = dynamic(() => import("@/components/Sections/Faq"), {
+	loading: () => <SectionSkeleton />,
+});
+
+const DynamicFeaturedBlogs = dynamic(
+	() => import("@/components/FeaturedBlogs"),
+	{
+		loading: () => <SectionSkeleton />,
+	},
+);
+
+const DynamicContact = dynamic(() => import("@/components/Sections/Contact"), {
+	loading: () => <SectionSkeleton />,
+});
+
+const DynamicAboutMe = dynamic(() => import("@/components/Sections/AboutMe"), {
+	loading: () => <SectionSkeleton />,
+});
+const DynamicServices = dynamic(
+	() => import("@/components/Sections/Services"),
+	{ loading: () => <SectionSkeleton /> },
+);
+const DynamicTargetAudience = dynamic(
+	() => import("@/components/Sections/TargetAudienceSection"),
+	{ loading: () => <SectionSkeleton /> },
+);
+const DynamicProcess = dynamic(() => import("@/components/Sections/Process"), {
+	loading: () => <SectionSkeleton />,
+});
+const DynamicWhyMe = dynamic(() => import("@/components/Sections/WhyMe"), {
+	loading: () => <SectionSkeleton />,
+});
 
 export default async function Home() {
 	return (
@@ -78,33 +115,31 @@ export default async function Home() {
 				}
 				image={images.bab_z_maszynkom}
 			/>
-			<Suspense fallback={<CarouselSkeleton />}>
-				<CarouselSections />
-			</Suspense>
+			<DynamicCarousel />
 			<section className="visibility-auto">
-				<AboutMe {...aboutMeHome} />
+				<DynamicAboutMe {...aboutMeHome} />
 			</section>
 			<section className="bg-foreground mt-16 visibility-auto">
-				<Services {...servicesHome} />
+				<DynamicServices {...servicesHome} />
 			</section>
 			<section className="bg-primary-foreground visibility-auto">
-				<TargetAudienceSection {...targetAudienceHome} />
+				<DynamicTargetAudience {...targetAudienceHome} />
 			</section>
 			<section className="visibility-auto">
-				<Process {...procesHome} />
+				<DynamicProcess {...procesHome} />
 			</section>
 			<section className="bg-foreground mt-16 visibility-auto">
-				<WhyMe {...whyMeHome} />
+				<DynamicWhyMe {...whyMeHome} />
 			</section>
 			<section className="bg-primary-foreground visibility-auto">
-				<FeaturedBlogs {...blogHome} />
+				<DynamicFeaturedBlogs {...blogHome} />
 			</section>
 			<section className="visibility-auto">
-				<Faq {...faqHome} />
+				<DynamicFaq {...faqHome} />
 			</section>
 
 			<section className="visibility-auto">
-				<Contact {...contactHome} />
+				<DynamicContact {...contactHome} />
 			</section>
 		</>
 	);

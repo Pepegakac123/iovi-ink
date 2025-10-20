@@ -66,6 +66,9 @@ const alfa = localFont({
 	display: "swap",
 	variable: "--font-alfa",
 });
+
+const heroImageSrc = images.bab_z_maszynkom.src;
+const preloadUrl = `https://iovi-ink.pl/cdn-cgi/image/width=640,quality=80,format=auto/${heroImageSrc}`;
 export default function RootLayout({
 	children,
 }: {
@@ -75,13 +78,7 @@ export default function RootLayout({
 		<html lang="pl" className={`${inter.variable} ${alfa.variable}`}>
 			<head>
 				{/* ✅ CRITICAL: Preload hero image dla LCP optimization */}
-				<link
-					rel="preload"
-					as="image"
-					href={images.bab_z_maszynkom.src} // Zastąp rzeczywistą ścieżką
-					imageSizes="(max-width: 640px) 320px, (max-width: 768px) 400px, (max-width: 1024px) 500px, 600px"
-					fetchPriority="high"
-				/>
+				<link rel="preload" as="image" href={preloadUrl} fetchPriority="high" />
 
 				{/* ✅ CRITICAL: DNS prefetch dla external resources */}
 				<link rel="dns-prefetch" href="//cms.iovi-ink.pl" />

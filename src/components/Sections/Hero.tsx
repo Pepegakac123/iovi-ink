@@ -51,7 +51,7 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 							fill
 							src={image.src}
 							alt={image.alt}
-							priority={true}
+							priority
 							quality={70}
 							sizes="(max-width: 640px) 250px, (max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
 							style={{
