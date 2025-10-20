@@ -64,7 +64,7 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 											priority={index < 16}
 											loading={index < 16 ? "eager" : "lazy"}
 											// ✅ FIX #2: IDENTYCZNE sizes jak w popup - eliminuje re-fetch!
-											sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+											sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
 											// ✅ FIX #3: Wysoka jakość dla cache
 											quality={90}
 											// ✅ FIX #4: Wysokie priorytety dla pierwszych

@@ -70,7 +70,7 @@ const Faq = ({ subheadline, questions }: FaqProps) => {
 							width={380}
 							height={380}
 							className="object-cover rounded-md max-w-[380px] h-auto"
-							sizes="(min-width: 1024px) 380px, 0px"
+							sizes="380px"
 						/>
 					</motion.div>
 				</motion.div>

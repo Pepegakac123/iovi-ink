@@ -39,7 +39,7 @@ const BlogContent: React.FC<BlogContentProps> = async ({ content, image }) => {
 					alt={imageWithAlt.alt}
 					fill
 					className="object-cover transition-transform duration-500 group-hover:scale-105"
-					sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 90vw, 600px"
+					sizes="(max-width: 1024px) 100vw, 828px"
 					loading="lazy"
 					quality={95}
 				/>

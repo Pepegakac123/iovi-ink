@@ -12,7 +12,6 @@ const cdnHostname = cdnUrl ? new URL(cdnUrl).hostname : null;
 const nextConfig: NextConfig = {
 	// output: "standalone", // Uncomment jeśli chcesz standalone
 
-
 	experimental: {
 		optimizePackageImports: [
 			"lucide-react",
@@ -30,6 +29,9 @@ const nextConfig: NextConfig = {
 
 	// 🔥 IMAGES - Tylko WordPress (bez CDN subdomain)
 	images: {
+		loader: "custom",
+		loaderFile: "./src/lib/cloudflare-loader.ts",
+		unoptimized: false,
 		remotePatterns: [
 			// ✅ Cloudflare R2 CDN (PRIORYTET!)
 			...(cdnHostname
@@ -54,9 +56,6 @@ const nextConfig: NextConfig = {
 		deviceSizes: [640, 750, 828, 1080, 1200, 1920],
 		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 		minimumCacheTTL: 31536000, // 1 rok
-		
-		// 🎉 WŁĄCZONA OPTYMALIZACJA!
-		unoptimized: false, // ✅ ZMIENIONE z true na false!
 	},
 
 	async redirects() {
