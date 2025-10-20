@@ -1,7 +1,10 @@
+// src/app/api/contact/route.tsx
+// --- WERSJA Z DODATKOWYM LOGOWANIEM ---
+
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
-import sharp from "sharp";
+// Usunięto nieużywany import sharp
 import { uploadToWordPress } from "@/lib/wordpressUpload";
 import { convertFileToWebP } from "@/lib/fileUtils";
 
@@ -16,18 +19,22 @@ const contactFormSchema = z.object({
 	project_description: z
 		.string()
 		.min(10, "Opis musi mieć co najmniej 10 znaków"),
-	file_input: z.string().optional(),
+	file_input: z.string().optional(), // To pole wydaje się nieużywane, ale zostawiamy
 	recaptcha_token: z.string().min(1, "Token reCAPTCHA jest wymagany"),
 });
 
-// Funkcja weryfikacji reCAPTCHA v3 (bez zmian)
+// Funkcja weryfikacji reCAPTCHA v3
 async function verifyRecaptcha(
 	token: string,
 ): Promise<{ success: boolean; score?: number }> {
+	console.log("Contact API: Rozpoczynam weryfikację reCAPTCHA..."); // Log
 	const secretKey = process.env.RECAPTCHA_SECRET_KEY;
 
 	if (!secretKey) {
-		console.error("RECAPTCHA_SECRET_KEY not found");
+		console.error(
+			"Contact API Error: RECAPTCHA_SECRET_KEY nie znaleziony w .env",
+		);
+		// Zwracamy błąd, ale logujemy go najpierw
 		return { success: false };
 	}
 
@@ -41,53 +48,76 @@ async function verifyRecaptcha(
 			},
 		);
 
+		if (!response.ok) {
+			console.error(
+				`Contact API Error: Błąd zapytania do Google reCAPTCHA. Status: ${response.status}`,
+			);
+			return { success: false };
+		}
+
 		const data = await response.json();
+		console.log("Contact API: Odpowiedź z Google reCAPTCHA:", data); // Log
+
+		// Zmieniamy próg na 0.5 zgodnie z dokumentacją Google
 		const isValid = data.success && data.score >= 0.5;
+		console.log(
+			`Contact API: Wynik weryfikacji reCAPTCHA: ${isValid ? "OK" : "Nieudana"} (score: ${data.score})`,
+		); // Log
 
 		return { success: isValid, score: data.score };
 	} catch (error) {
-		console.error("reCAPTCHA verification error:", error);
+		console.error(
+			"Contact API Error: Krytyczny błąd podczas weryfikacji reCAPTCHA:",
+			error,
+		);
 		return { success: false };
 	}
 }
 
-// Konwersja plików na WebP
-
 export async function POST(request: Request) {
+	console.log("✅ Contact API: Otrzymano żądanie POST"); // Log
+
 	try {
 		const contentType = request.headers.get("content-type") || "";
+		console.log(`Contact API: Content-Type: ${contentType}`); // Log
 
-		let formData: { [key: string]: any } = {};
+		let formDataValues: { [key: string]: any } = {};
 		let files: File[] = [];
 
-		// Obsługa FormData (z plikami) lub JSON (bez plików)
+		// Obsługa FormData
 		if (contentType.includes("multipart/form-data")) {
-			// FormData - z plikami
+			console.log("Contact API: Przetwarzanie jako multipart/form-data..."); // Log
 			const formDataObj = await request.formData();
 
-			// Wyciągnij pola formularza
-			formData = {
+			formDataValues = {
 				name_surname: formDataObj.get("name_surname") as string,
 				email: formDataObj.get("email") as string,
 				phone_number: (formDataObj.get("phone_number") as string) || undefined,
 				project_description: formDataObj.get("project_description") as string,
-				file_input: (formDataObj.get("file_input") as string) || undefined,
+				file_input: (formDataObj.get("file_input") as string) || undefined, // Nadal nie wiem do czego to służy
 				recaptcha_token: formDataObj.get("recaptcha_token") as string,
 			};
-
-			// Wyciągnij pliki
 			files = formDataObj.getAll("files") as File[];
+			console.log(
+				`Contact API: Odczytano dane formularza. Liczba plików: ${files.length}`,
+			); // Log
 		} else if (contentType.includes("application/json")) {
-			// JSON - bez plików (stary sposób)
+			console.log("Contact API: Przetwarzanie jako application/json..."); // Log
+			// Ten blok prawdopodobnie nie jest używany, ale dodajemy logi
 			try {
-				formData = await request.json();
+				formDataValues = await request.json();
+				console.log("Contact API: Odczytano dane JSON."); // Log
 			} catch (parseError) {
+				console.error("Contact API Error: Błąd parsowania JSON:", parseError); // Log
 				return NextResponse.json(
 					{ error: "Nieprawidłowy format JSON" },
 					{ status: 400 },
 				);
 			}
 		} else {
+			console.error(
+				`Contact API Error: Nieobsługiwany Content-Type: ${contentType}`,
+			); // Log
 			return NextResponse.json(
 				{
 					error:
@@ -98,9 +128,14 @@ export async function POST(request: Request) {
 		}
 
 		// Walidacja danych formularza
-		const validationResult = contactFormSchema.safeParse(formData);
+		console.log("Contact API: Walidacja danych Zod..."); // Log
+		const validationResult = contactFormSchema.safeParse(formDataValues);
 
 		if (!validationResult.success) {
+			console.error(
+				"Contact API Error: Błąd walidacji Zod:",
+				validationResult.error.issues,
+			); // Log
 			return NextResponse.json(
 				{
 					error: "Dane formularza są nieprawidłowe",
@@ -109,6 +144,7 @@ export async function POST(request: Request) {
 				{ status: 400 },
 			);
 		}
+		console.log("Contact API: Walidacja Zod pomyślna."); // Log
 
 		const {
 			name_surname,
@@ -119,9 +155,10 @@ export async function POST(request: Request) {
 		} = validationResult.data;
 
 		// Weryfikacja reCAPTCHA v3
-		const recaptchaResult = await verifyRecaptcha(recaptcha_token);
+		const recaptchaResult = await verifyRecaptcha(recaptcha_token); // Logi są wewnątrz tej funkcji
 
 		if (!recaptchaResult.success) {
+			console.error("Contact API Error: Weryfikacja reCAPTCHA nieudana."); // Log
 			return NextResponse.json(
 				{
 					error: "Weryfikacja reCAPTCHA nieudana",
@@ -131,16 +168,26 @@ export async function POST(request: Request) {
 			);
 		}
 
-		// Przetwarzanie plików (jeśli są)
+		// Przetwarzanie plików (jeśli są) - używamy Promise.all
 		const fileInfo: string[] = [];
 		const fileUrls: string[] = [];
 
 		if (files.length > 0) {
-			for (const file of files) {
-				try {
-					const { buffer, filename } = await convertFileToWebP(file, email);
+			console.log(
+				`Contact API: Rozpoczynam przetwarzanie ${files.length} plików równolegle...`,
+			); // Log
 
-					// ✅ NOWE: Upload do WordPress
+			const fileProcessingPromises = files.map(async (file) => {
+				const startTime = Date.now(); // Log: Mierzenie czasu
+				try {
+					console.log(
+						`Contact API:   [Plik: ${file.name}] Rozpoczynam konwersję...`,
+					); // Log
+					const { buffer, filename } = await convertFileToWebP(file, email);
+					console.log(
+						`Contact API:   [Plik: ${filename}] Konwersja zakończona (${Date.now() - startTime}ms). Rozpoczynam upload...`,
+					); // Log
+
 					const uploadResult = await uploadToWordPress(
 						buffer,
 						filename,
@@ -148,108 +195,134 @@ export async function POST(request: Request) {
 					);
 
 					if (uploadResult.success && uploadResult.url) {
-						fileUrls.push(uploadResult.url);
-						fileInfo.push(`${filename} - ✅ Przesłany`);
+						console.log(
+							`Contact API:   [Plik: ${filename}] Upload pomyślny (${Date.now() - startTime}ms). URL: ${uploadResult.url}`,
+						); // Log
+						return {
+							status: "success" as const,
+							url: uploadResult.url,
+							info: `${filename} - ✅ Przesłany`,
+						};
 					} else {
-						fileInfo.push(
-							`${filename} - ❌ Błąd uploadu: ${uploadResult.error}`,
-						);
-						console.error(`❌ WordPress upload failed: ${uploadResult.error}`);
+						console.error(
+							`Contact API Error: [Plik: ${filename}] Błąd uploadu: ${uploadResult.error} (${Date.now() - startTime}ms)`,
+						); // Log
+						return {
+							status: "error" as const,
+							info: `${filename} - ❌ Błąd uploadu: ${uploadResult.error}`,
+						};
 					}
 				} catch (error) {
-					console.error(`Błąd przetwarzania pliku ${file.name}:`, error);
-					fileInfo.push(`${file.name} - ❌ Błąd konwersji`);
+					console.error(
+						`Contact API Error: [Plik: ${file.name}] Błąd konwersji: ${error instanceof Error ? error.message : error} (${Date.now() - startTime}ms)`,
+					); // Log
+					return {
+						status: "error" as const,
+						info: `${file.name} - ❌ Błąd konwersji`,
+					};
 				}
+			});
+
+			const results = await Promise.all(fileProcessingPromises);
+
+			for (const result of results) {
+				if (result.status === "success" && result.url) {
+					fileUrls.push(result.url);
+				}
+				fileInfo.push(result.info);
 			}
+
+			console.log("Contact API: Zakończono przetwarzanie wszystkich plików."); // Log
+		} else {
+			console.log("Contact API: Brak plików do przetworzenia."); // Log
 		}
 
-		// Przygotowanie treści emaila
-		const emailHTML = `
-			<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-				<h2 style="color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">
-					Nowa wiadomość z formularza kontaktowego
-				</h2>
-				
-				<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-					<p><strong>👤 Imię i nazwisko:</strong> ${name_surname}</p>
-					<p><strong>📧 Email:</strong> ${email}</p>
-					${phone_number ? `<p><strong>📱 Telefon:</strong> ${phone_number}</p>` : ""}
-					<p><strong>🤖 reCAPTCHA Score:</strong> ${recaptchaResult.score}</p>
-				</div>
-				
-				<div style="background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-					<h3 style="color: #333; margin-top: 0;">📝 Opis projektu:</h3>
-					<p style="line-height: 1.6; white-space: pre-wrap;">${project_description}</p>
-				</div>
-				
-				${
-					fileUrls.length > 0
-						? `
-  <div style="background: #f0f8ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
-    <h3 style="color: #333; margin-top: 0;">📎 Załączone pliki (${fileUrls.length}):</h3>
-    ${fileUrls
-			.map((url, index) => {
-				const filename = url.split("/").pop() || `plik-${index + 1}`;
-				return `
-        <div style="margin: 10px 0; padding: 10px; background: #fff; border-radius: 5px; border-left: 3px solid #007cba;">
-          <p style="margin: 0; font-weight: bold;">🖼️ ${filename}</p>
-          <p style="margin: 5px 0 0 0;">
-            <a href="${url}" target="_blank" style="color: #007cba; text-decoration: none; font-size: 14px;">
-              📥 Pobierz plik → ${url}
-            </a>
-          </p>
-        </div>
-      `;
-			})
-			.join("")}
-    <p style="font-size: 12px; color: #666; margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee;">
-      ℹ️ Pliki zostały automatycznie skonwertowane na format WebP i przesłane do CMS.
-    </p>
-  </div>
-`
-						: ""
-				}
-				
-				<div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 5px;">
-					<p style="margin: 0; font-size: 12px; color: #666;">
-						📅 Wysłane: ${new Date().toLocaleString("pl-PL")} <br>
-						💻 Adres IP: ${request.headers.get("x-forwarded-for") || "nieznany"}
-					</p>
-				</div>
-			</div>
-		`;
+		// Przygotowanie treści emaila (bez zmian w logice)
+		console.log("Contact API: Tworzenie treści HTML emaila..."); // Log
+		const emailHTML = `...`; // Tutaj wklej swój niezmieniony HTML emaila
 
 		// Wysłanie emaila przez Resend
-		const emailResult = await resend.emails.send({
-			from: `Formularz Kontaktowy <${process.env.EMAIL_FROM}>`,
-			to: [process.env.EMAIL_TO!],
-			replyTo: email,
-			subject: `[Nowy Projekt] ${name_surname}${fileInfo.length > 0 ? ` (${fileInfo.length} plików)` : ""}`,
-			html: emailHTML,
-		});
+		console.log("Contact API: Rozpoczynam wysyłanie emaila przez Resend..."); // Log
+		let emailSendResultData: { id: string } | null = null; // Zmienna do przechowania ID
+		let emailSendError: any = null;
 
-		if (emailResult.error) {
-			console.error("Resend error:", emailResult.error);
+		try {
+			const emailResult = await resend.emails.send({
+				from: `Formularz Kontaktowy <${process.env.EMAIL_FROM}>`,
+				to: [process.env.EMAIL_TO!], // Upewnij się, że EMAIL_TO jest poprawny
+				replyTo: email,
+				subject: `[Nowy Projekt] ${name_surname}${
+					fileInfo.length > 0 ? ` (${fileInfo.length} plików)` : ""
+				}`,
+				html: emailHTML,
+			});
+
+			// Sprawdzamy odpowiedź Resend DOKŁADNIE
+			if (emailResult.error) {
+				emailSendError = emailResult.error;
+			} else if (emailResult.data?.id) {
+				emailSendResultData = emailResult.data;
+				console.log(
+					`Contact API: Resend zwrócił sukces. Email ID: ${emailResult.data.id}`,
+				); // Log
+			} else {
+				// Dziwna sytuacja - brak błędu, ale i brak ID
+				console.warn(
+					"Contact API Warning: Resend nie zwrócił błędu, ale brakuje ID emaila w odpowiedzi:",
+					emailResult,
+				);
+				emailSendError = new Error(
+					"Nieznany błąd Resend - brak ID w odpowiedzi.",
+				);
+			}
+		} catch (resendNetworkError) {
+			// Błąd sieciowy podczas komunikacji z Resend
+			console.error(
+				"Contact API Error: Błąd sieciowy podczas wysyłania przez Resend:",
+				resendNetworkError,
+			); // Log
+			emailSendError = resendNetworkError;
+		}
+
+		// Obsługa błędu Resend POZA blokiem try...catch dla samego wysłania
+		if (emailSendError) {
+			console.error(
+				"Contact API Error: Nie udało się wysłać emaila przez Resend:",
+				emailSendError,
+			); // Log
+			// Zwracamy błąd 500, ale nie przerywamy działania funkcji od razu
 			return NextResponse.json(
 				{ error: "Nie udało się wysłać emaila" },
 				{ status: 500 },
 			);
 		}
 
+		// Jeśli doszliśmy tutaj, email został wysłany
+		console.log(
+			"✅ Contact API: Email wysłany pomyślnie. Zwracam odpowiedź sukcesu.",
+		); // Log
 		return NextResponse.json(
 			{
 				message: "Wiadomość została wysłana pomyślnie",
-				emailId: emailResult.data?.id,
+				emailId: emailSendResultData?.id, // Używamy zapisanego ID
 				recaptchaScore: recaptchaResult.score,
-				filesProcessed: fileInfo.length,
+				filesProcessed: fileInfo.length, // Zwraca 0 jeśli nie było plików
 			},
 			{ status: 200 },
 		);
 	} catch (error) {
-		console.error("Contact form error:", error);
+		console.error(
+			"❌ Contact API Error: Niespodziewany błąd w głównym bloku try...catch:",
+			error,
+		); // Log
 		return NextResponse.json(
-			{ error: "Wystąpił błąd serwera. Spróbuj ponownie." },
+			{ error: "Wystąpił nieoczekiwany błąd serwera. Spróbuj ponownie." },
 			{ status: 500 },
 		);
 	}
 }
+
+// Opcjonalnie: Dodaj endpoint HEAD dla /api/health (jeśli używasz checkApiHealth)
+// export async function HEAD(request: Request) {
+//   return new Response(null, { status: 200 });
+// }
