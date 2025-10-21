@@ -40,10 +40,7 @@ const StudioRatingCard: React.FC<StudioRatingCardProps> = ({
 	};
 
 	return (
-		<a
-			href={socialLinks.lewus.googleMaps}
-			target="_blank"
-			rel="noopener noreferrer"
+		<div
 			className={`p-2 md:p-4 flex flex-row gap-4 bg-background border-foreground border-1 border-b-4 border-r-4 rounded-md cursor-pointer items-center hover:bg-muted hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-150 ${className}`}
 		>
 			{/* Ikona Google z SYSTEM_ICONS */}
@@ -136,7 +133,7 @@ const StudioRatingCard: React.FC<StudioRatingCardProps> = ({
 					</span>
 				</p>
 			</div>
-		</a>
+		</div>
 	);
 };
 
