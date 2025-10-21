@@ -239,7 +239,60 @@ export async function POST(request: Request) {
 
 		// Przygotowanie treści emaila (bez zmian w logice)
 		console.log("Contact API: Tworzenie treści HTML emaila..."); // Log
-		const emailHTML = `...`; // Tutaj wklej swój niezmieniony HTML emaila
+		const emailHTML = `
+			<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+				<h2 style="color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">
+					Nowa wiadomość z formularza kontaktowego
+				</h2>
+				
+				<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+					<p><strong>👤 Imię i nazwisko:</strong> ${name_surname}</p>
+					<p><strong>📧 Email:</strong> ${email}</p>
+					${phone_number ? `<p><strong>📱 Telefon:</strong> ${phone_number}</p>` : ""}
+					<p><strong>🤖 reCAPTCHA Score:</strong> ${recaptchaResult.score}</p>
+				</div>
+				
+				<div style="background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+					<h3 style="color: #333; margin-top: 0;">📝 Opis projektu:</h3>
+					<p style="line-height: 1.6; white-space: pre-wrap;">${project_description}</p>
+				</div>
+				
+				${
+					fileUrls.length > 0
+						? `
+  <div style="background: #f0f8ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3 style="color: #333; margin-top: 0;">📎 Załączone pliki (${fileUrls.length}):</h3>
+    ${fileUrls
+			.map((url, index) => {
+				const filename = url.split("/").pop() || `plik-${index + 1}`;
+				return `
+        <div style="margin: 10px 0; padding: 10px; background: #fff; border-radius: 5px; border-left: 3px solid #007cba;">
+          <p style="margin: 0; font-weight: bold;">🖼️ ${filename}</p>
+          <p style="margin: 5px 0 0 0;">
+            <a href="${url}" target="_blank" style="color: #007cba; text-decoration: none; font-size: 14px;">
+              📥 Pobierz plik → ${url}
+            </a>
+          </p>
+        </div>
+      `;
+			})
+			.join("")}
+    <p style="font-size: 12px; color: #666; margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee;">
+      ℹ️ Pliki zostały automatycznie skonwertowane na format WebP i przesłane do CMS.
+    </p>
+  </div>
+`
+						: ""
+				}
+				
+				<div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 5px;">
+					<p style="margin: 0; font-size: 12px; color: #666;">
+						📅 Wysłane: ${new Date().toLocaleString("pl-PL")} <br>
+						💻 Adres IP: ${request.headers.get("x-forwarded-for") || "nieznany"}
+					</p>
+				</div>
+			</div>
+		`;
 
 		// Wysłanie emaila przez Resend
 		console.log("Contact API: Rozpoczynam wysyłanie emaila przez Resend..."); // Log
