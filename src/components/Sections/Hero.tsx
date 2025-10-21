@@ -1,10 +1,11 @@
-// src/components/Sections/Hero.tsx - Wersja bez animacji
+// src/components/Sections/Hero.tsx - Wersja ze zintegrowaną oceną studia
 import Image from "next/image";
 import { Suspense, lazy } from "react";
 import Subheadline from "../Subheadline";
 import { ICONS } from "@/lib/icons";
 import FeatureCard from "../FeatureCard";
 import FloatingElements from "../FloatingElements";
+import StudioRatingCard from "../StudioRatingCard";
 
 interface HeroProps {
 	subTitle: string;
@@ -65,7 +66,6 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 				</div>
 
 				{/* Non-critical: Lazy loaded components */}
-
 				<div className="hidden lg:flex flex-row gap-5 max-w-4xl justify-center align-stretch z-10">
 					<FeatureCard
 						text="Precyzyjne linie i przemyślane detale"
@@ -82,6 +82,10 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 						icon={ICONS.biceps}
 						delay={0}
 					/>
+				</div>
+				{/* Dodany komponent oceny studia - widoczny na wszystkich rozmiarach ekranów */}
+				<div className="w-fit-content max-w-md mx-auto z-10">
+					<StudioRatingCard />
 				</div>
 				<FloatingElements variant="hero" />
 			</div>

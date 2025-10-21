@@ -8,6 +8,7 @@ import { images } from "@/lib/images";
 import localFont from "next/font/local";
 import ConditionalAnalytics from "@/components/GDPR/GA4ConditionalAnalytics";
 import CookieConsent from "@/components/GDPR/CookieConsent";
+import { InstagramGlimpse } from "@/components/ui/InstagramGlimpse";
 export const metadata: Metadata = {
 	title: {
 		template: "%s - bezpłatna konsultacja - iovi-ink",
@@ -151,6 +152,7 @@ export default function RootLayout({
 					/>
 				</RecaptchaProvider>
 				<ConditionalAnalytics />
+				<InstagramGlimpse variant="fixed" />
 			</body>
 		</html>
 	);

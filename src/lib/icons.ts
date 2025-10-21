@@ -7,6 +7,9 @@ const BASE_URL = "https://cms.iovi-ink.pl/wp-content/uploads/2025/08";
 export const SYSTEM_ICONS = {
 	// Najczęściej używane
 	instagram: `${BASE_URL}/instagram_ikona.svg`,
+	google: "https://cms.iovi-ink.pl/wp-content/uploads/2025/10/google.svg",
+	googleAccent:
+		"https://cms.iovi-ink.pl/wp-content/uploads/2025/10/google-accent.svg",
 	tabletGraphic: `${BASE_URL}/Tablet-Graficzny.svg`,
 	careForDetails: `${BASE_URL}/dbalosc_o-Detale_ikonka.svg`,
 
@@ -89,6 +92,8 @@ export const ICONS = {
 	// Instagram - używane w 6+ miejscach
 	instagram: SYSTEM_ICONS.instagram,
 	instagramAccent: SYSTEM_ICONS.instagramAccent,
+	google: SYSTEM_ICONS.google,
+	googleAccent: SYSTEM_ICONS.googleAccent,
 
 	// Tablet/Design - używane w 3+ miejscach
 	tabletGraphic: SYSTEM_ICONS.tabletGraphic,

@@ -1,4 +1,4 @@
-// src/components/navbar/MobileNavbar.tsx - Wersja bez animacji
+// src/components/navbar/MobileNavbar.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -8,6 +8,7 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import NavPrimaryBtn from "../buttons/NavPrimaryBtn";
 import { menuItems, services, MenuItem, ServiceItem } from "@/lib/menuData";
 import { images } from "@/lib/images";
+import { InstagramGlimpse } from "../ui/InstagramGlimpse";
 
 const MobileNavbar: React.FC = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,6 +50,11 @@ const MobileNavbar: React.FC = () => {
 								<HiOutlineMenuAlt2 className="w-6 h-6" />
 							)}
 						</button>
+
+						{/* Instagram Glimpse (Mobile Variant) - zintegrowany z navbarem */}
+						<div className="rounded bg-transparent">
+							<InstagramGlimpse variant="mobile" />
+						</div>
 
 						{/* Logo */}
 						<a href="/" className="flex items-center group">
