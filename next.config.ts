@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 
+// 💡 Dodajemy import dla analizatora paczek
+// Pamiętaj, aby go zainstalować: npm install @next/bundle-analyzer -D
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+	enabled: process.env.ANALYZE === "true",
+});
+
 const wordpressUrl = process.env.WORDPRESS_URL || "https://cms.iovi-ink.pl/";
 const wordpressHostname = new URL(wordpressUrl).hostname;
 
@@ -74,81 +80,17 @@ const nextConfig: NextConfig = {
 		];
 	},
 
-	// ✅ Twoja istniejąca webpack config
+	// ✅ NAJLEPSZA PRAKTYKA: Zaufaj domyślnej strategii Next.js
 	webpack: (config, { isServer }) => {
-		if (!isServer) {
-			config.optimization.splitChunks = {
-				chunks: "all",
-				minSize: 0,
-				maxSize: 244000,
-				cacheGroups: {
-					framework: {
-						chunks: "all",
-						name: "framework",
-						test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-subscription)[\\/]/,
-						priority: 50,
-						enforce: true,
-						reuseExistingChunk: true,
-					},
-					motion: {
-						name: "motion",
-						test: /[\\/]node_modules[\\/](motion|framer-motion)[\\/]/,
-						chunks: "all",
-						priority: 40,
-						reuseExistingChunk: true,
-					},
-					swiper: {
-						name: "swiper",
-						test: /[\\/]node_modules[\\/](swiper|swiper\/react)[\\/]/,
-						chunks: "all",
-						priority: 35,
-						reuseExistingChunk: true,
-					},
-					ui: {
-						name: "ui-radix",
-						test: /[\\/]node_modules[\\/](@radix-ui)[\\/]/,
-						chunks: "all",
-						priority: 30,
-						reuseExistingChunk: true,
-					},
-					icons: {
-						name: "icons",
-						test: /[\\/]node_modules[\\/](lucide-react|react-icons)[\\/]/,
-						chunks: "all",
-						priority: 25,
-						reuseExistingChunk: true,
-					},
-					seo: {
-						name: "seo",
-						test: /[\\/]node_modules[\\/](next-seo)[\\/]/,
-						chunks: "all",
-						priority: 20,
-						reuseExistingChunk: true,
-					},
-					vendor: {
-						name: "vendor",
-						test: /[\\/]node_modules[\\/]/,
-						chunks: "all",
-						priority: 15,
-						minChunks: 2,
-						reuseExistingChunk: true,
-						maxSize: 100000,
-					},
-					commons: {
-						name: "commons",
-						chunks: "all",
-						minChunks: 2,
-						priority: 10,
-						reuseExistingChunk: true,
-						maxSize: 50000,
-					},
-				},
-			};
+		// W 99% przypadków domyślna strategia Next.js 'splitChunks'
+		// jest bardziej wydajna niż ręczne dzielenie paczek.
+		// Usuwamy całą niestandardową logikę 'config.optimization'.
 
-			config.optimization.mergeDuplicateChunks = true;
-			config.optimization.removeAvailableModules = true;
-			config.optimization.removeEmptyChunks = true;
-		}
+		// Optymalizacje takie jak 'mergeDuplicateChunks' czy 'removeEmptyChunks'
+		// są już domyślnie włączone w trybie produkcyjnym przez Next.js.
+
+		// Jeśli w przyszłości będziesz chciał dodać coś specyficznego,
+		// np. obsługę SVG, zrób to tutaj. Na razie zostawiamy czysto.
 
 		return config;
 	},
@@ -238,4 +180,5 @@ const nextConfig: NextConfig = {
 	poweredByHeader: false,
 };
 
-export default nextConfig;
+// 💡 Zawijamy cały eksport w 'withBundleAnalyzer'
+export default withBundleAnalyzer(nextConfig);
