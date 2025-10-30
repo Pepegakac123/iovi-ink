@@ -17,6 +17,7 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, SocialProfileJsonLd } from "next-seo";
 import FeaturedBlogs from "@/components/FeaturedBlogs";
 import CarouselSkeleton from "@/components/skeletons/CarouselSkeleton";
 import dynamic from "next/dynamic";
+import { JsonLd } from "next-seo/lib/jsonld/jsonld";
 
 // Załóżmy, że masz też prosty szkielet dla bloku
 const SectionSkeleton = () => <div className="h-96 w-full bg-muted/50" />;
@@ -67,13 +68,31 @@ const DynamicWhyMe = dynamic(() => import("@/components/Sections/WhyMe"), {
 export default async function Home() {
 	return (
 		<>
-			<SocialProfileJsonLd
+			<JsonLd
 				useAppDir={true}
-				type="Person"
-				name="Jowita Potaczek"
-				url="https://www.iovi-ink.pl"
-				sameAs={[socialLinks.iovi.instagram]}
+				// 👇 TO JEST KLUCZOWA POPRAWKA, KTÓREJ ZABRAKŁO
+				scriptKey="person-schema"
+				json={{
+					"@context": "https://schema.org",
+					"@type": "Person",
+					name: "Jowita Potaczek",
+					jobTitle: "Tatuażysta",
+					url: "https://www.iovi-ink.pl",
+					sameAs: [
+						socialLinks.iovi.instagram, // Zakładając, że masz 'socialLinks' zaimportowane
+					],
+					worksFor: {
+						"@type": "Organization",
+						name: "Lewus Lewus INK Tattoo&Piercing Mszana Dolna",
+						address: {
+							"@type": "PostalAddress",
+							streetAddress: "Piłsudskiego 8, 34-730",
+							addressLocality: "Mszana Dolna",
+						},
+					},
+				}}
 			/>
+
 			<BreadcrumbJsonLd
 				useAppDir={true}
 				itemListElements={[

@@ -26,6 +26,7 @@ import { Metadata } from "next";
 import { images } from "@/lib/images";
 import { BreadcrumbJsonLd, ImageJsonLd } from "next-seo";
 import { notFound } from "next/navigation"; // 🔥 Import notFound
+import { JsonLd } from "next-seo/lib/jsonld/jsonld";
 
 export async function generateMetadata({
 	params,
@@ -143,6 +144,29 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 						},
 					]}
 				/>
+				<JsonLd
+					useAppDir={true}
+					scriptKey="service-schema"
+					json={{
+						"@context": "https://schema.org",
+						"@type": "Service",
+						name: title.rendered, // <-- POPRAWKA
+						description: meta.seo_description, // <-- POPRAWKA
+						provider: {
+							"@type": "Person",
+							name: "Jowita Potaczek",
+							url: "https://www.iovi-ink.pl",
+						},
+						areaServed: {
+							"@type": "Place",
+							address: {
+								"@type": "PostalAddress",
+								addressLocality: "Mszana Dolna",
+							},
+						},
+					}}
+				/>
+
 				<ImageJsonLd
 					useAppDir={true}
 					images={images.map((img) => ({

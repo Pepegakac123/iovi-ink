@@ -10,6 +10,7 @@ import type { Metadata } from "next";
 import { images } from "@/lib/images";
 
 import { BreadcrumbJsonLd } from "next-seo";
+import { JsonLd } from "next-seo/lib/jsonld/jsonld";
 
 export const metadata: Metadata = {
 	title: "Usługi tatuażu", // zostanie: "Usługi tatuażystka - bezpłatna konsultacja - iovi-ink"
@@ -70,6 +71,7 @@ const ServicesPage = async () => {
 					},
 				]}
 			/>
+
 			{/* ✅ Mini Hero Section */}
 			<SectionHero
 				subTitle="Profesjonalne usługi tatuażu"
