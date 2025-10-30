@@ -7,8 +7,6 @@ import PersonalShowcase from "@/components/PerosnalShowcase";
 import { Metadata } from "next";
 import { images } from "@/lib/images";
 import { BreadcrumbJsonLd } from "next-seo";
-import { socialLinks } from "@/lib/data";
-import { JsonLd } from "next-seo/lib/jsonld/jsonld";
 
 export const metadata: Metadata = {
 	title: "O mnie",
@@ -75,30 +73,6 @@ const AboutMePage: React.FC = () => {
 					},
 				]}
 			></BreadcrumbJsonLd>
-			<JsonLd
-				useAppDir={true}
-				// 👇 TO JEST KLUCZOWA POPRAWKA, KTÓREJ ZABRAKŁO
-				scriptKey="person-schema"
-				json={{
-					"@context": "https://schema.org",
-					"@type": "Person",
-					name: "Jowita Potaczek",
-					jobTitle: "Tatuażysta",
-					url: "https://www.iovi-ink.pl",
-					sameAs: [
-						socialLinks.iovi.instagram, // Zakładając, że masz 'socialLinks' zaimportowane
-					],
-					worksFor: {
-						"@type": "Organization",
-						name: "Lewus Lewus INK Tattoo&Piercing Mszana Dolna",
-						address: {
-							"@type": "PostalAddress",
-							streetAddress: "Piłsudskiego 8, 34-730",
-							addressLocality: "Mszana Dolna",
-						},
-					},
-				}}
-			/>
 			{/* Hero Section */}
 			<SectionHero
 				subTitle="Poznaj mnie bliżej"
