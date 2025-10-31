@@ -78,7 +78,13 @@ const ServicesPage = async () => {
 						"Autorskie projekty tatuaży - minimalistyczne, graficzne, fine line. Każdy wzór dostosowany do Twojej anatomii.",
 					url: "https://www.iovi-ink.pl/uslugi",
 					image: images.seoBaner.src,
-
+					address: {
+						"@type": "PostalAddress",
+						streetAddress: "Piłsudskiego 8",
+						addressLocality: "Mszana Dolna",
+						addressRegion: "Małopolskie",
+						addressCountry: "PL",
+					},
 					// Provider
 					provider: {
 						"@type": "Person",
