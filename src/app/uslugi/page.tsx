@@ -5,11 +5,11 @@ import ServicesCard from "@/components/ServicesCard";
 import Contact from "@/components/Sections/Contact";
 import { getServicesWithAltText } from "@/lib/jetApi";
 import { containerVariants, itemVariants } from "@/lib/variants";
-import { contactHome, procesHome } from "@/lib/data";
+import { contactHome, procesHome, socialLinks } from "@/lib/data";
 import type { Metadata } from "next";
 import { images } from "@/lib/images";
 
-import { BreadcrumbJsonLd } from "next-seo";
+import { BreadcrumbJsonLd, JsonLdScript } from "next-seo";
 
 export const metadata: Metadata = {
 	title: "Usługi tatuażu", // zostanie: "Usługi tatuażystka - bezpłatna konsultacja - iovi-ink"
@@ -66,6 +66,92 @@ const ServicesPage = async () => {
 						item: "https://iovi-ink.pl/uslugi",
 					},
 				]}
+			/>
+			<JsonLdScript
+				scriptKey="services-collection-schema"
+				data={{
+					"@context": "https://schema.org",
+					"@type": "ProfessionalService",
+					name: "Usługi Tatuażu - IOVI INK",
+					alternateName: "Profesjonalne Tatuaże Jowita Potaczek",
+					description:
+						"Autorskie projekty tatuaży - minimalistyczne, graficzne, fine line. Każdy wzór dostosowany do Twojej anatomii.",
+					url: "https://www.iovi-ink.pl/uslugi",
+					image: images.seoBaner.src,
+
+					// Provider
+					provider: {
+						"@type": "Person",
+						name: "Jowita Potaczek",
+						url: "https://www.iovi-ink.pl",
+						image: images.zblizenie_na_twarz_patrzy_na_wprost?.src,
+						jobTitle: "Tatuażystka",
+						sameAs: [socialLinks.iovi.instagram],
+					},
+
+					// Obszar obsługi
+					areaServed: [
+						// ✅ Najbliższe okolice (10-20 km)
+						{ "@type": "City", name: "Mszana Dolna" },
+						{ "@type": "City", name: "Limanowa" },
+						{ "@type": "City", name: "Dobra" },
+						{ "@type": "City", name: "Kamienica" },
+
+						// ✅ Średnia odległość (20-40 km)
+						{ "@type": "City", name: "Nowy Targ" },
+						{ "@type": "City", name: "Rabka-Zdrój" },
+						{ "@type": "City", name: "Jordanów" },
+						{ "@type": "City", name: "Myślenice" },
+
+						// ✅ Większe miasta (40-100 km) - jeśli faktycznie stamtąd przyjeżdżają
+						{ "@type": "City", name: "Nowy Sącz" },
+						{ "@type": "City", name: "Kraków" },
+
+						// ✅ Cały region
+						{ "@type": "State", name: "Małopolskie" },
+
+						// Polska
+						{ "@type": "Country", name: "Polska" },
+					],
+					// Fizyczna lokalizacja
+					serviceLocation: {
+						"@type": "Place",
+						name: "Lewus INK Tattoo&Piercing Mszana Dolna",
+						address: {
+							"@type": "PostalAddress",
+							streetAddress: "Piłsudskiego 8",
+							addressLocality: "Mszana Dolna",
+							addressRegion: "Małopolskie",
+							addressCountry: "PL",
+						},
+					},
+
+					// Lista oferowanych usług
+					hasOfferCatalog: {
+						"@type": "OfferCatalog",
+						name: "Katalog Usług Tatuażu",
+						itemListElement: services.map((service, index) => ({
+							"@type": "Offer",
+							position: index + 1,
+							itemOffered: {
+								"@type": "Service",
+								name: service.title,
+								description: service.meta.hero_intro,
+								url: `https://www.iovi-ink.pl/uslugi/${service.slug}`,
+							},
+						})),
+					},
+
+					// Kanał kontaktu
+					availableChannel: {
+						"@type": "ServiceChannel",
+						serviceUrl: "https://www.iovi-ink.pl/kontakt",
+						availableLanguage: {
+							"@type": "Language",
+							name: "Polish",
+						},
+					},
+				}}
 			/>
 			{/* ✅ Mini Hero Section */}
 			<SectionHero
