@@ -11,7 +11,7 @@ import * as motion from "motion/react-client";
 import { images } from "@/lib/images";
 import { ICONS, PROCESS_ICONS } from "@/lib/icons";
 import { socialLinks } from "@/lib/data";
-import { BreadcrumbJsonLd, FAQPageJsonLd, SocialProfileJsonLd } from "next-seo";
+import { BreadcrumbJsonLd, FAQJsonLd } from "next-seo";
 import FeaturedBlogs from "@/components/FeaturedBlogs";
 import {
 	getAllHomepageCites,
@@ -232,30 +232,25 @@ export default async function TatuazystaPage({
 		return (
 			<>
 				<BreadcrumbJsonLd
-					useAppDir={true}
-					itemListElements={[
+					items={[
 						{
-							position: 1,
 							name: "Strona główna",
 							item: "https://iovi-ink.pl",
 						},
 						{
-							position: 2,
 							name: "Tatuażysta",
 							item: "https://iovi-ink.pl/tatuazysta",
 						},
 						{
-							position: 3,
 							name: title.rendered,
 							item: `https://iovi-ink.pl/tatuazysta/${slug}`,
 						},
 					]}
 				/>
-				<FAQPageJsonLd
-					useAppDir={true}
-					mainEntity={faqData.questions.map(({ question, answer }) => ({
-						questionName: question,
-						acceptedAnswerText: answer,
+				<FAQJsonLd
+					questions={faqData.questions.map(({ question, answer }) => ({
+						question: question,
+						answer: answer,
 					}))}
 				/>
 

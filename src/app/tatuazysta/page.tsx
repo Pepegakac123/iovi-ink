@@ -11,7 +11,7 @@ import * as motion from "motion/react-client";
 import { images } from "@/lib/images";
 import { ICONS, PROCESS_ICONS } from "@/lib/icons";
 import { socialLinks } from "@/lib/data";
-import { BreadcrumbJsonLd, FAQPageJsonLd, SocialProfileJsonLd } from "next-seo";
+import { BreadcrumbJsonLd, FAQJsonLd, ProfilePageJsonLd } from "next-seo";
 import FeaturedBlogs from "@/components/FeaturedBlogs";
 import { Metadata } from "next";
 
@@ -149,33 +149,30 @@ export default async function TatuazystaPage() {
 
 	return (
 		<>
-			<SocialProfileJsonLd
-				useAppDir={true}
-				type="Person"
-				name="Jowita Potaczek"
-				url="https://www.iovi-ink.pl"
-				sameAs={[socialLinks.iovi.instagram]}
+			<ProfilePageJsonLd
+				mainEntity={{
+					"@type": "Person",
+					name: "Jowita Potaczek",
+					url: "https://www.iovi-ink.pl",
+					sameAs: [socialLinks.iovi.instagram],
+				}}
 			/>
 			<BreadcrumbJsonLd
-				useAppDir={true}
-				itemListElements={[
+				items={[
 					{
-						position: 1,
 						name: "Strona główna",
 						item: "https://iovi-ink.pl",
 					},
 					{
-						position: 2,
 						name: "Tatuażysta",
 						item: "https://iovi-ink.pl/tatuazysta",
 					},
 				]}
 			/>
-			<FAQPageJsonLd
-				useAppDir={true}
-				mainEntity={faqData.questions.map(({ question, answer }) => ({
-					questionName: question,
-					acceptedAnswerText: answer,
+			<FAQJsonLd
+				questions={faqData.questions.map(({ question, answer }) => ({
+					question: question,
+					answer: answer,
 				}))}
 			/>
 

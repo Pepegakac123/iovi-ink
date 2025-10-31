@@ -67,7 +67,6 @@ const PortfolioPage = async () => {
 	return (
 		<>
 			<ImageJsonLd
-				useAppDir={true}
 				images={groupedImages.allImages.slice(0, 10).map((img) => ({
 					contentUrl: img.src,
 					creator: {
@@ -78,30 +77,24 @@ const PortfolioPage = async () => {
 					copyrightNotice: "© Jowita Potaczek",
 				}))}
 			/>
-
 			<BreadcrumbJsonLd
-				useAppDir={true}
-				itemListElements={[
+				items={[
 					{
-						position: 1,
 						name: "Strona główna",
 						item: "https://iovi-ink.pl",
 					},
 					{
-						position: 2,
 						name: "Portfolio",
 						item: "https://iovi-ink.pl/portfolio",
 					},
 				]}
 			/>
-
 			{/* Mini Hero Section */}
 			<SectionHero
 				subTitle="Każdy projekt to unikalna historia"
 				title="Moje Portfolio Tatuaży"
 				description="Odkryj różnorodność stylów i technik - od graficznych kompozycji po precyzyjne i subtelne tatuaże minimalistyczne. Każdy tatuaż to przemyślany projekt dostosowany do indywidualnych potrzeb i anatomii."
 			/>
-
 			{/* Main Portfolio Section */}
 			<motion.section
 				className="w-full bg-primary-foreground"
@@ -302,7 +295,6 @@ const PortfolioPage = async () => {
 					</motion.div>
 				</motion.div>
 			</motion.section>
-
 			<section>
 				<Contact {...contactHome} />
 			</section>

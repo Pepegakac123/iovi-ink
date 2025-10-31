@@ -13,7 +13,13 @@ import {
 	targetAudienceHome,
 	whyMeHome,
 } from "@/lib/data";
-import { BreadcrumbJsonLd, FAQPageJsonLd, SocialProfileJsonLd } from "next-seo";
+import {
+	BreadcrumbJsonLd,
+	FAQJsonLd,
+	JsonLdScript,
+	processors,
+	ProfilePageJsonLd,
+} from "next-seo";
 import FeaturedBlogs from "@/components/FeaturedBlogs";
 import CarouselSkeleton from "@/components/skeletons/CarouselSkeleton";
 import dynamic from "next/dynamic";
@@ -67,28 +73,58 @@ const DynamicWhyMe = dynamic(() => import("@/components/Sections/WhyMe"), {
 export default async function Home() {
 	return (
 		<>
-			<SocialProfileJsonLd
-				useAppDir={true}
-				type="Person"
-				name="Jowita Potaczek"
-				url="https://www.iovi-ink.pl"
-				sameAs={[socialLinks.iovi.instagram]}
+			<ProfilePageJsonLd
+				mainEntity={{
+					"@type": "Person",
+					name: "Jowita Potaczek",
+					url: "https://www.iovi-ink.pl",
+					sameAs: [socialLinks.iovi.instagram],
+				}}
+			/>
+			<JsonLdScript
+				scriptKey="person-detailed-schema"
+				data={{
+					"@context": "https://schema.org",
+					"@type": "Person",
+					name: "Jowita Potaczek",
+					alternateName: "Jowita - iovi.ink",
+					jobTitle: "Tatuażystka",
+					description:
+						"Tatuażystka specjalizująca się w delikatnych tatuażach damskich, minimalistycznych i graficznych wzorach.",
+					url: "https://www.iovi-ink.pl",
+					image: images.zblizenie_na_twarz_patrzy_na_wprost.src,
+					sameAs: [socialLinks.iovi.instagram, "https://www.iovi-ink.pl"],
+					worksFor: {
+						"@type": "LocalBusiness",
+						name: "Lewus INK Tattoo&Piercing Mszana Dolna",
+						url: socialLinks.lewus.googleMaps,
+						address: processors.processAddress({
+							"@type": "PostalAddress",
+							streetAddress: "Piłsudskiego 8",
+							addressLocality: "Mszana Dolna",
+							addressRegion: "Małopolskie",
+							addressCountry: "PL",
+						}),
+					},
+					knowsAbout: [
+						"Tatuaże minimalistyczne",
+						"Fine line tattoo",
+						"Delikatne tatuaże damskie",
+					],
+				}}
 			/>
 			<BreadcrumbJsonLd
-				useAppDir={true}
-				itemListElements={[
+				items={[
 					{
-						position: 1,
 						name: "Strona główna",
 						item: "https://iovi-ink.pl",
 					},
 				]}
 			/>
-			<FAQPageJsonLd
-				useAppDir={true}
-				mainEntity={faqHome.questions.map(({ question, answer }) => ({
-					questionName: question,
-					acceptedAnswerText: answer,
+			<FAQJsonLd
+				questions={faqHome.questions.map(({ question, answer }) => ({
+					question: question,
+					answer: answer,
 				}))}
 			/>
 			<Hero

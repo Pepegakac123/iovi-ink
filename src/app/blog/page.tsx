@@ -55,15 +55,12 @@ const BlogPage = async () => {
 	return (
 		<>
 			<BreadcrumbJsonLd
-				useAppDir={true}
-				itemListElements={[
+				items={[
 					{
-						position: 1,
 						name: "Strona główna",
 						item: "https://iovi-ink.pl",
 					},
 					{
-						position: 2,
 						name: "Blog",
 						item: "https://iovi-ink.pl/blog",
 					},

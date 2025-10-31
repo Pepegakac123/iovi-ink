@@ -8,7 +8,7 @@ import { containerVariants, itemVariants } from "@/lib/variants";
 import SectionHero from "@/components/SectionHero";
 import { Metadata } from "next";
 import { images } from "@/lib/images";
-import { BreadcrumbJsonLd } from "next-seo";
+import { BreadcrumbJsonLd, JsonLdScript } from "next-seo";
 
 export const metadata: Metadata = {
 	title: "Kontakt",
@@ -53,20 +53,35 @@ const ContactPage: React.FC = () => {
 	return (
 		<>
 			<BreadcrumbJsonLd
-				useAppDir={true}
-				itemListElements={[
+				items={[
 					{
-						position: 1,
 						name: "Strona główna",
 						item: "https://iovi-ink.pl",
 					},
 					{
-						position: 2,
 						name: "Kontakt",
 						item: "https://iovi-ink.pl/kontakt",
 					},
 				]}
 			/>
+			<JsonLdScript
+				scriptKey="contact-point-schema"
+				data={{
+					"@context": "https://schema.org",
+					"@type": "Person",
+					name: "Jowita Potaczek",
+					url: "https://www.iovi-ink.pl",
+					contactPoint: {
+						"@type": "ContactPoint",
+						contactType: "Bookings and Consultations",
+						email: process.env.EMAIL_TO,
+						url: "https://www.iovi-ink.pl/kontakt",
+						availableLanguage: ["Polish"],
+						areaServed: "PL",
+					},
+				}}
+			/>
+
 			<SectionHero
 				subTitle="Napisz – pogadamy o szczegółach"
 				title="Skontaktuj się z nami"

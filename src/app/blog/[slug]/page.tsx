@@ -1,4 +1,4 @@
-import { ArticleJsonLd, BreadcrumbJsonLd, FAQPageJsonLd } from "next-seo";
+import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from "next-seo";
 import { getAllBlogs, getBlogBySlug, JETEngineAPIError } from "@/lib/jetApi";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import Contact from "@/components/Sections/Contact";
@@ -79,44 +79,40 @@ async function BlogSinglePage({
 		return (
 			<>
 				<BreadcrumbJsonLd
-					useAppDir={true}
-					itemListElements={[
+					items={[
 						{
-							position: 1,
 							name: "Strona główna",
 							item: "https://iovi-ink.pl",
 						},
 						{
-							position: 2,
 							name: "Blog",
 							item: "https://iovi-ink.pl/blog",
 						},
 						{
-							position: 3,
 							name: blog.title,
 							item: `https://iovi-ink.pl/blog/${slug}`,
 						},
 					]}
 				/>
 				{blog.faq && blog.faq.length > 0 && (
-					<FAQPageJsonLd
-						useAppDir={true}
-						mainEntity={blog.faq.map((item) => ({
-							questionName: item.pytanie,
-							acceptedAnswerText: item.odpowiedz,
+					<FAQJsonLd
+						questions={blog.faq.map((item) => ({
+							question: item.pytanie,
+							answer: item.odpowiedz,
 						}))}
 					/>
 				)}
 				<ArticleJsonLd
-					useAppDir={true}
 					url={`https://iovi-ink.pl/blog/${slug}`}
-					title={blog.title}
-					images={[blog.thumbnail]}
+					headline={blog.title}
+					image={[blog.thumbnail]}
 					datePublished={blog.date}
 					dateModified={blog.date}
-					authorName="Jowita Potaczek"
-					publisherName="IOVI INK"
-					publisherLogo={images.logo.src}
+					author="Jowita Potaczek"
+					publisher={{
+						name: "IOVI INK",
+						logo: images.logo.src,
+					}}
 					description={blog.excerpt}
 					isAccessibleForFree={true}
 				/>
