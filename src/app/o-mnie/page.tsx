@@ -6,7 +6,8 @@ import { aboutMePersonal } from "@/lib/personalData";
 import PersonalShowcase from "@/components/PerosnalShowcase";
 import { Metadata } from "next";
 import { images } from "@/lib/images";
-import { BreadcrumbJsonLd } from "next-seo";
+import { BreadcrumbJsonLd, JsonLdScript } from "next-seo";
+import { socialLinks } from "@/lib/data";
 
 export const metadata: Metadata = {
 	title: "O mnie",
@@ -59,20 +60,42 @@ const AboutMePage: React.FC = () => {
 	return (
 		<>
 			<BreadcrumbJsonLd
-				useAppDir={true}
-				itemListElements={[
+				items={[
 					{
-						position: 1,
 						name: "Strona główna",
 						item: "https://iovi-ink.pl",
 					},
 					{
-						position: 2,
 						name: "O mnie",
 						item: "https://iovi-ink.pl/o-mnie",
 					},
 				]}
-			></BreadcrumbJsonLd>
+			/>
+			<JsonLdScript
+				scriptKey="person-detailed-schema"
+				data={{
+					"@context": "https://schema.org",
+					"@type": "Person",
+					name: "Jowita Potaczek",
+					alternateName: "Jowita - iovi.ink",
+					jobTitle: "Tatuażystka",
+					description:
+						"Tatuażystka specjalizująca się w delikatnych tatuażach damskich, minimalistycznych i graficznych wzorach.",
+					url: "https://www.iovi-ink.pl",
+					image: images.zblizenie_na_twarz_patrzy_na_wprost.src,
+					sameAs: [socialLinks.iovi.instagram],
+					worksFor: {
+						"@type": "Organization",
+						name: "Lewus INK Tattoo&Piercing Mszana Dolna",
+						url: socialLinks.lewus.googleMaps,
+					},
+					knowsAbout: [
+						"Tatuaże minimalistyczne",
+						"Fine line tattoo",
+						"Delikatne tatuaże damskie",
+					],
+				}}
+			/>
 			{/* Hero Section */}
 			<SectionHero
 				subTitle="Poznaj mnie bliżej"

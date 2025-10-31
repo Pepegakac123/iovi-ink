@@ -16,15 +16,12 @@ const PrivacyPolicyPage: React.FC = () => {
 	return (
 		<>
 			<BreadcrumbJsonLd
-				useAppDir={true}
-				itemListElements={[
+				items={[
 					{
-						position: 1,
 						name: "Strona główna",
 						item: "https://iovi-ink.pl",
 					},
 					{
-						position: 2,
 						name: "Polityka prywatności",
 						item: "https://iovi-ink.pl/polityka-prywatnosci",
 					},

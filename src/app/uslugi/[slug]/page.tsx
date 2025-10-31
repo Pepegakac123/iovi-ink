@@ -24,7 +24,7 @@ import ServiceHero from "@/components/servicePagesComponents/ServiceHero";
 import { ServicePageProps } from "@/components/servicePagesComponents/servicePage";
 import { Metadata } from "next";
 import { images } from "@/lib/images";
-import { BreadcrumbJsonLd, ImageJsonLd } from "next-seo";
+import { BreadcrumbJsonLd, ImageJsonLd, JsonLdScript } from "next-seo";
 import { notFound } from "next/navigation"; // 🔥 Import notFound
 
 export async function generateMetadata({
@@ -124,27 +124,22 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 		return (
 			<>
 				<BreadcrumbJsonLd
-					useAppDir={true}
-					itemListElements={[
+					items={[
 						{
-							position: 1,
 							name: "Strona główna",
 							item: "https://iovi-ink.pl",
 						},
 						{
-							position: 2,
 							name: "Usługi",
 							item: "https://iovi-ink.pl/uslugi",
 						},
 						{
-							position: 3,
 							name: title.rendered,
 							item: `https://iovi-ink.pl/uslugi/${slug}`,
 						},
 					]}
 				/>
 				<ImageJsonLd
-					useAppDir={true}
 					images={images.map((img) => ({
 						contentUrl: img.src,
 						creator: {
@@ -155,7 +150,60 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 						copyrightNotice: "© Jowita Potaczek",
 					}))}
 				/>
+				<JsonLdScript
+					scriptKey="service-schema"
+					data={{
+						"@context": "https://schema.org",
+						"@type": "Service",
+						name: title.rendered,
+						description: meta.seo_description,
+						serviceType: "Tattoo Services",
+						image: images[0]?.src,
+						provider: {
+							"@type": "Person",
+							name: "Jowita Potaczek",
+							url: "https://www.iovi-ink.pl",
+						},
+						areaServed: [
+							// ✅ Najbliższe okolice (10-20 km)
+							{ "@type": "City", name: "Mszana Dolna" },
+							{ "@type": "City", name: "Limanowa" },
+							{ "@type": "City", name: "Dobra" },
+							{ "@type": "City", name: "Kamienica" },
 
+							// ✅ Średnia odległość (20-40 km)
+							{ "@type": "City", name: "Nowy Targ" },
+							{ "@type": "City", name: "Rabka-Zdrój" },
+							{ "@type": "City", name: "Jordanów" },
+							{ "@type": "City", name: "Myślenice" },
+
+							// ✅ Większe miasta (40-100 km) - jeśli faktycznie stamtąd przyjeżdżają
+							{ "@type": "City", name: "Nowy Sącz" },
+							{ "@type": "City", name: "Kraków" },
+
+							// ✅ Cały region
+							{ "@type": "State", name: "Małopolskie" },
+
+							// Polska
+							{ "@type": "Country", name: "Polska" },
+						],
+						availableChannel: {
+							"@type": "ServiceChannel",
+							serviceUrl: "https://www.iovi-ink.pl/kontakt",
+						},
+						serviceLocation: {
+							"@type": "Place",
+							name: "Lewus INK Tattoo&Piercing Mszana Dolna",
+							address: {
+								"@type": "PostalAddress",
+								streetAddress: "Piłsudskiego 8",
+								addressLocality: "Mszana Dolna",
+								addressRegion: "Małopolskie",
+								addressCountry: "PL",
+							},
+						},
+					}}
+				/>
 				<ServiceHero
 					subTitle={meta.hero_subheadline}
 					title={meta.hero_h1}
