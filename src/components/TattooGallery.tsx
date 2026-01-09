@@ -16,6 +16,15 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 	images,
 	className = "",
 }) => {
+	const [blurAmount, setBlurAmount] = React.useState("0px"); // Domyślnie brak blura dla wydajności LCP
+
+	React.useEffect(() => {
+		// Włącz blur tylko na mocniejszych urządzeniach (desktop)
+		if (window.matchMedia("(min-width: 768px)").matches) {
+			setBlurAmount("8px");
+		}
+	}, []);
+
 	if (!images || images.length === 0) {
 		return (
 			<div className="text-center py-12">
@@ -42,7 +51,7 @@ const TattooGallery: React.FC<TattooGalleryProps> = ({
 								duration={0.6}
 								direction="up"
 								offset={20}
-								blur="8px"
+								blur={blurAmount} // ✅ Używamy dynamicznego blura
 								className="w-full"
 							>
 								{/* ✅ Gallery item */}

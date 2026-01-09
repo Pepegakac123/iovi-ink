@@ -11,8 +11,8 @@ export const containerVariants = {
 	visible: {
 		opacity: 1,
 		transition: {
-			staggerChildren: 0.05, // ZREDUKOWANE z 0.1 na 0.05
-			delayChildren: 0.1, // ZREDUKOWANE z 0.2 na 0.1
+			staggerChildren: 0.02, // ZREDUKOWANE DLA MOBILE (było 0.05)
+			delayChildren: 0.05, // ZREDUKOWANE (było 0.1)
 		},
 	},
 } as Variants;

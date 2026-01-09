@@ -141,13 +141,15 @@ const sectionVariant = () => {
 };
 
 const FloatingElements = ({ variant }: FloatingElementsProps) => {
-	if (variant === "hero") {
-		return heroVariant();
-	} else if (variant === "section") {
-		return sectionVariant(); // ✅ Nowy wariant
-	} else {
-		return cardVariant();
-	}
+	// ✅ OPTYMALIZACJA: Ukryj na mobile (hidden), pokaż na desktopie (lg:block)
+	// Oszczędza CPU/baterię na telefonach
+	return (
+		<div className="hidden lg:block pointer-events-none">
+			{variant === "hero" && heroVariant()}
+			{variant === "section" && sectionVariant()}
+			{variant === "card" && cardVariant()}
+		</div>
+	);
 };
 
 export default FloatingElements;
