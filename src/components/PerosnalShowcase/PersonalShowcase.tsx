@@ -37,12 +37,8 @@ const PersonalShowcase = () => {
 			>
 				{/* Experience Section */}
 				<motion.div
-					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6"
+					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6 transition-all duration-300 lg:hover:shadow-[6px_6px_0px_0px_var(--foreground)]"
 					variants={cardVariants}
-					whileHover={{
-						boxShadow: "6px 6px 0px 0px var(--foreground)",
-						transition: { duration: 0.3 },
-					}}
 				>
 					<SectionHeader title="DROGA ARTYSTYCZNA" />
 					<div>
@@ -58,12 +54,8 @@ const PersonalShowcase = () => {
 
 				{/* Specializations Section */}
 				<motion.div
-					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6"
+					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6 transition-all duration-300 lg:hover:shadow-[6px_6px_0px_0px_var(--foreground)]"
 					variants={cardVariants}
-					whileHover={{
-						boxShadow: "6px 6px 0px 0px var(--foreground)",
-						transition: { duration: 0.3 },
-					}}
 				>
 					<SectionHeader title="CO ROBIĘ NAJLEPIEJ" />
 					<div>
@@ -79,12 +71,8 @@ const PersonalShowcase = () => {
 
 				{/* Hobbies Section */}
 				<motion.div
-					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6"
+					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6 transition-all duration-300 lg:hover:shadow-[6px_6px_0px_0px_var(--foreground)]"
 					variants={cardVariants}
-					whileHover={{
-						boxShadow: "6px 6px 0px 0px var(--foreground)",
-						transition: { duration: 0.3 },
-					}}
 				>
 					<SectionHeader title="Hobby" />
 					<div className="grid grid-cols-3 gap-4">
@@ -96,16 +84,11 @@ const PersonalShowcase = () => {
 
 				{/* Skills Section - spans 2 columns on larger screens */}
 				<motion.div
-					className="md:col-span-2 bg-background border-2 border-foreground rounded-md p-4 md:p-6"
+					className="md:col-span-2 bg-background border-2 border-foreground rounded-md p-4 md:p-6 transition-all duration-300 lg:hover:shadow-[6px_6px_0px_0px_var(--foreground)]"
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6, ease: "easeOut" }}
 					viewport={{ once: true }}
-					whileHover={{
-						boxShadow: "6px 6px 0px 0px var(--foreground)",
-						transition: { duration: 0.3 },
-						// Tylko boxShadow - bez scale żeby nie wpływać na dzieci
-					}}
 				>
 					<SectionHeader title="Umiejętności" />
 					<div className="flex flex-wrap gap-2 md:gap-3">
@@ -117,7 +100,7 @@ const PersonalShowcase = () => {
 
 				{/* Contact Section */}
 				<motion.div
-					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6 hover:shadow-[6px_6px_0px_0px_var(--foreground)] transition-shadow duration-300"
+					className="bg-background border-2 border-foreground rounded-md p-4 md:p-6 transition-shadow duration-300 lg:hover:shadow-[6px_6px_0px_0px_var(--foreground)]"
 					variants={cardVariants}
 				>
 					<SectionHeader title="Kontakt" />

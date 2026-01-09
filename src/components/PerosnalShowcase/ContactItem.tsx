@@ -11,15 +11,9 @@ import { ContactItemProps } from "@/lib/dataTypes";
 const ContactItem = ({ contact, index }: ContactItemProps) => {
 	const content = (
 		<motion.div
-			className="flex items-center gap-3 p-3 bg-background border-2 border-foreground rounded-md hover:bg-muted transition-colors"
+			className="flex items-center gap-3 p-3 bg-background border-2 border-foreground rounded-md hover:bg-muted transition-all duration-200 lg:hover:scale-[1.02] lg:hover:shadow-[3px_3px_0px_0px_var(--accent)] lg:hover:-translate-x-[1px] lg:hover:-translate-y-[1px]"
 			variants={cardVariants}
 			custom={index}
-			whileHover={{
-				scale: 1.02,
-				boxShadow: "3px 3px 0px 0px var(--accent)",
-				translateX: -1,
-				translateY: -1,
-			}}
 		>
 			<Image
 				src={contact.icon}

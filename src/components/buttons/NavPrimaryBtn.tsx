@@ -14,9 +14,7 @@ const NavPrimaryBtn = () => {
     <Dialog>
       <DialogTrigger asChild>
         <motion.button
-          className="cursor-pointer bg-primary border-4 border-foreground text-primary-foreground px-6 py-3 rounded-md font-primary uppercase hover:bg-accent hover:shadow-[6px_6px_0px_0px_theme(colors.foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-200 shadow-[4px_4px_0px_0px_theme(colors.foreground)]"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          className="cursor-pointer bg-primary border-4 border-foreground text-primary-foreground px-6 py-3 rounded-md font-primary uppercase shadow-[4px_4px_0px_0px_theme(colors.foreground)] transition-all duration-200 hover:bg-accent lg:hover:scale-[1.02] lg:hover:shadow-[6px_6px_0px_0px_theme(colors.foreground)] lg:hover:-translate-y-0.5 lg:hover:-translate-x-0.5 active:scale-98"
         >
           Bezpłatna Konsultacja
         </motion.button>

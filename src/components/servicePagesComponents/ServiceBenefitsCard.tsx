@@ -18,47 +18,21 @@ const ServiceBenefitsCard = ({
 }: ServiceBenefitsCardProps) => {
 	return (
 		<motion.div
-			className="w-full h-full flex flex-col relative bg-gradient-to-r from-background/20 to-accent/20 border-2 border-foreground border-b-4 border-r-4 rounded-md overflow-hidden group cursor-default"
+			className="w-full h-full flex flex-col relative bg-gradient-to-r from-background/20 to-accent/20 border-2 border-foreground border-b-4 border-r-4 rounded-md overflow-hidden group cursor-default transition-all duration-200 ease-out lg:hover:scale-[1.02] lg:hover:-translate-y-1 lg:hover:shadow-[6px_6px_0px_0px_var(--foreground)] active:scale-98"
 			variants={cardVariantsProcess}
-			whileHover={{
-				scale: 1.02,
-				y: -4,
-				boxShadow: "6px 6px 0px 0px var(--foreground)",
-				transition: { duration: 0.2, ease: "easeOut" },
-			}}
-			whileTap={{
-				scale: 0.98,
-				transition: { duration: 0.1 },
-			}}
 		>
 			{/* Content */}
 			<div className="relative z-10 flex flex-col p-4 md:p-8">
 				{/* Icon Badge */}
 				<motion.div
-					className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6 flex-shrink-0"
+					className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6 flex-shrink-0 transition-transform duration-200 lg:group-hover:scale-110 lg:group-hover:rotate-6"
 					initial={{ scale: 0.8, rotate: -10 }}
 					whileInView={{ scale: 1, rotate: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.5, ease: "easeOut" }}
-					whileHover={{
-						scale: 1.1,
-						rotate: 5,
-						transition: { duration: 0.2 },
-					}}
 				>
-					<motion.div
-						className="w-full h-full bg-background border-1 border-foreground rounded-full flex items-center justify-center"
-						whileHover={{
-							boxShadow: "4px 4px 0px 0px var(--foreground)",
-							translateX: -2,
-							translateY: -2,
-							transition: { duration: 0.2 },
-						}}
-					>
-						<motion.div
-							whileHover={{ scale: 1.2 }}
-							transition={{ duration: 0.2 }}
-						>
+					<div className="w-full h-full bg-background border-1 border-foreground rounded-full flex items-center justify-center transition-all duration-200 lg:group-hover:shadow-[4px_4px_0px_0px_var(--foreground)] lg:group-hover:-translate-x-0.5 lg:group-hover:-translate-y-0.5">
+						<div className="transition-transform duration-200 lg:group-hover:scale-120">
 							<Image
 								src={ikona || ICONS.heart}
 								alt={`${title} - ikona`}
@@ -66,23 +40,19 @@ const ServiceBenefitsCard = ({
 								height={24}
 								className="w-6 h-6 md:w-8 md:h-8"
 							/>
-						</motion.div>
-					</motion.div>
+						</div>
+					</div>
 				</motion.div>
 
 				{/* Content */}
 				<motion.div variants={contentVariants}>
 					{/* Title */}
 					<motion.h3
-						className="heading-secondary-large mb-3 md:mb-4 leading-tight"
+						className="heading-secondary-large mb-3 md:mb-4 leading-tight transition-transform duration-200 lg:group-hover:scale-102"
 						initial={{ opacity: 0, y: 10 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
 						transition={{ delay: 0.2, duration: 0.4 }}
-						whileHover={{
-							scale: 1.02,
-							transition: { duration: 0.2 },
-						}}
 					>
 						{title}
 					</motion.h3>
@@ -101,14 +71,8 @@ const ServiceBenefitsCard = ({
 			</div>
 
 			{/* Hover indicator */}
-			<motion.div
-				className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent"
-				initial={{ scaleX: 0 }}
-				whileHover={{
-					scaleX: 1,
-					transition: { duration: 0.3, ease: "easeOut" },
-				}}
-				style={{ transformOrigin: "left" }}
+			<div
+				className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent origin-left transform scale-x-0 transition-transform duration-300 ease-out lg:group-hover:scale-x-100"
 			/>
 		</motion.div>
 	);

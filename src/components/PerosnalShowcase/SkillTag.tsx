@@ -26,17 +26,10 @@ const getTagColor = (category: SkillTagType["category"]) => {
 
 const SkillTag = ({ skill, index }: SkillTagProps) => (
 	<motion.span
-		className={`inline-block px-3 py-1 rounded-md border-2 text-sm font-primary ${getTagColor(skill.category)}`}
+		className={`inline-block px-3 py-1 rounded-md border-2 text-sm font-primary ${getTagColor(skill.category)} transition-all duration-200 lg:hover:scale-105 lg:hover:shadow-[2px_2px_0px_0px_var(--foreground)] lg:hover:-translate-x-[1px] lg:hover:-translate-y-[1px]`}
 		initial={{ opacity: 0, y: 20 }}
 		animate={{ opacity: 1, y: 0 }}
 		transition={{ duration: 0.5, delay: index * 0.05 }}
-		whileHover={{
-			scale: 1.05,
-			boxShadow: "2px 2px 0px 0px var(--foreground)",
-			translateX: -1,
-			translateY: -1,
-			transition: { duration: 0.2 },
-		}}
 	>
 		{skill.name}
 	</motion.span>

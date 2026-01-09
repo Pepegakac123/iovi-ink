@@ -27,27 +27,10 @@ const InstagramBtn = ({ text, link, className = "" }: InstagramBtnProps) => {
 			>
 				<motion.button
 					type="button"
-					className="bg-secondary hover:bg-muted cursor-pointer text-foreground font-primary text-base md:text-lg w-full px-4 md:px-8 py-4 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-3 group transition-colors duration-200"
-					whileHover={{
-						scale: 1.05,
-						boxShadow: "4px 4px 0px 0px var(--foreground)",
-					}}
-					whileTap={{
-						scale: 0.98,
-					}}
-					transition={{
-						duration: 0.2,
-					}}
+					className="bg-secondary hover:bg-muted cursor-pointer text-foreground font-primary text-base md:text-lg w-full px-4 md:px-8 py-4 uppercase border-2 border-foreground rounded-md flex items-center justify-center gap-3 group transition-all duration-200 lg:hover:scale-105 lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)] active:scale-98"
 				>
 					<span>{text}</span>
-					<motion.div
-						className="flex items-center justify-center"
-						whileHover={{
-							rotate: 10,
-							scale: 1.1,
-							transition: { duration: 0.2 },
-						}}
-					>
+					<div className="flex items-center justify-center transition-transform duration-200 lg:group-hover:rotate-12 lg:group-hover:scale-110">
 						<Image
 							src={ICONS.instagram}
 							alt="Instagram"
@@ -55,7 +38,7 @@ const InstagramBtn = ({ text, link, className = "" }: InstagramBtnProps) => {
 							height={32}
 							className="group-hover:filter group-hover:brightness-110"
 						/>
-					</motion.div>
+					</div>
 				</motion.button>
 			</motion.a>
 		</motion.div>

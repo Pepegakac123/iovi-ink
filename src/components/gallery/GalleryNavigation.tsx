@@ -55,7 +55,7 @@ const GalleryNavigation: React.FC<GalleryNavigationProps> = ({
 			transition={{ duration: 0.3 }}
 		>
 			{/* Previous Button */}
-			<motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+			<div>
 				<Button
 					variant="outline"
 					size="lg"
@@ -65,9 +65,10 @@ const GalleryNavigation: React.FC<GalleryNavigationProps> = ({
 						"flex items-center gap-2 px-6 py-3",
 						"border-2 border-foreground font-primary uppercase",
 						"bg-background text-foreground",
-						"hover:bg-accent hover:shadow-[4px_4px_0px_0px_var(--foreground)]",
-						"hover:translate-x-[-2px] hover:translate-y-[-2px]",
 						"transition-all duration-200",
+						"lg:hover:bg-accent lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)]",
+						"lg:hover:-translate-x-0.5 lg:hover:-translate-y-0.5",
+						"active:scale-98 active:shadow-none active:translate-x-0 active:translate-y-0",
 						"disabled:opacity-50 disabled:cursor-not-allowed",
 						"disabled:hover:transform-none disabled:hover:shadow-none",
 					)}
@@ -76,7 +77,7 @@ const GalleryNavigation: React.FC<GalleryNavigationProps> = ({
 					<ChevronLeft className="h-4 w-4" />
 					<span className="hidden sm:inline">Poprzednie</span>
 				</Button>
-			</motion.div>
+			</div>
 
 			{/* Progress Indicator */}
 			<motion.div
@@ -103,8 +104,10 @@ const GalleryNavigation: React.FC<GalleryNavigationProps> = ({
 								className={cn(
 									"w-2 h-2 rounded-full transition-all duration-200",
 									isActive ? "bg-primary w-3 h-3" : "bg-muted-foreground/40",
+									isActive
+										? "lg:hover:scale-125"
+										: "lg:hover:scale-110 lg:hover:bg-primary/50",
 								)}
-								whileHover={isActive ? { scale: 1.2 } : { scale: 1.1 }}
 								initial={{ scale: 0 }}
 								animate={{ scale: 1 }}
 								transition={{ delay: 0.2 + index * 0.05 }}
@@ -125,7 +128,7 @@ const GalleryNavigation: React.FC<GalleryNavigationProps> = ({
 			</motion.div>
 
 			{/* Next Button */}
-			<motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+			<div>
 				<Button
 					variant="outline"
 					size="lg"
@@ -135,9 +138,10 @@ const GalleryNavigation: React.FC<GalleryNavigationProps> = ({
 						"flex items-center gap-2 px-6 py-3",
 						"border-2 border-foreground font-primary uppercase",
 						"bg-background text-foreground",
-						"hover:bg-accent hover:shadow-[4px_4px_0px_0px_var(--foreground)]",
-						"hover:translate-x-[-2px] hover:translate-y-[-2px]",
 						"transition-all duration-200",
+						"lg:hover:bg-accent lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)]",
+						"lg:hover:-translate-x-0.5 lg:hover:-translate-y-0.5",
+						"active:scale-98 active:shadow-none active:translate-x-0 active:translate-y-0",
 						"disabled:opacity-50 disabled:cursor-not-allowed",
 						"disabled:hover:transform-none disabled:hover:shadow-none",
 					)}
@@ -146,7 +150,7 @@ const GalleryNavigation: React.FC<GalleryNavigationProps> = ({
 					<span className="hidden sm:inline">Następne</span>
 					<ChevronRight className="h-4 w-4" />
 				</Button>
-			</motion.div>
+			</div>
 		</motion.div>
 	);
 };

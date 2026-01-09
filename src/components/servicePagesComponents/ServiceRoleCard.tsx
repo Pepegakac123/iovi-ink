@@ -16,34 +16,22 @@ interface ServiceRoleCardProps {
 const ServiceRoleCard = ({ title, content, image }: ServiceRoleCardProps) => {
 	return (
 		<motion.div
-			className="w-full h-full bg-background border-2 border-accent rounded-md overflow-hidden group cursor-default"
+			className="w-full h-full bg-background border-2 border-accent rounded-md overflow-hidden group cursor-default transition-all duration-200 lg:hover:scale-[1.02] lg:hover:shadow-[6px_6px_0px_0px_var(--accent)] active:scale-98"
 			variants={cardVariantsFast}
-			whileHover={{
-				scale: 1.02,
-				boxShadow: "6px 6px 0px 0px var(--accent)",
-				transition: { duration: 0.2 },
-			}}
-			whileTap={{ scale: 0.98 }}
 		>
 			{/* Image Section */}
 			<div className="w-full h-[250px] md:h-[300px] relative overflow-hidden">
-				<motion.div
-					className="relative w-full h-full"
-					whileHover={{
-						scale: 1.05,
-						transition: { duration: 0.4, ease: "easeOut" },
-					}}
-				>
+				<div className="relative w-full h-full transition-transform duration-400 ease-out lg:group-hover:scale-105">
 					<Image
 						src={image.src}
 						alt={image.alt}
 						fill
-						className="object-cover transition-transform duration-300 group-hover:scale-105"
+						className="object-cover"
 						sizes="(max-width: 1024px) 100vw, 828px"
 						loading="lazy"
 						quality={95}
 					/>
-				</motion.div>
+				</div>
 			</div>
 
 			{/* Content Section */}

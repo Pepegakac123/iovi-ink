@@ -17,17 +17,10 @@ const ServicesCard = ({
 	return (
 		<motion.div
 			key={service.id}
-			className="w-full h-full  bg-background border-2 border-foreground rounded-md overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+			className="w-full h-full bg-background border-2 border-foreground rounded-md overflow-hidden shadow-lg transition-all duration-300 group cursor-default lg:hover:shadow-[6px_6px_0px_0px_var(--foreground)] lg:hover:scale-[1.02] lg:hover:-translate-y-1 active:scale-98"
 			variants={cardVariantsFast}
-			whileHover={{
-				scale: 1.02,
-				y: -4,
-				boxShadow: "6px 6px 0px 0px var(--foreground)",
-				transition: { duration: 0.2 },
-			}}
-			whileTap={{ scale: 0.98 }}
 		>
-			<div className="w-full h-[200px] relative overflow-hidden group">
+			<div className="w-full h-[200px] relative overflow-hidden">
 				<Image
 					src={service.imageWithAlt.src}
 					alt={service.imageWithAlt.alt}

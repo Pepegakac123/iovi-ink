@@ -31,17 +31,10 @@ const ContactItem: React.FC<ContactItemProps> = ({ contact, index }) => {
 
 	const content = (
 		<motion.div
-			className="bg-background border-2 border-foreground rounded-md p-4 md:p-6 hover:bg-muted transition-colors"
+			className="bg-background border-2 border-foreground rounded-md p-4 md:p-6 hover:bg-muted transition-all duration-300 ease-in-out lg:hover:scale-[1.02] lg:hover:-translate-y-0.5 lg:hover:shadow-[4px_4px_0px_0px_var(--accent)] active:scale-98"
 			variants={cardVariants}
-			whileHover={{
-				scale: 1.02,
-				y: -2,
-				boxShadow: "4px 4px 0px 0px var(--accent)",
-				transition: { duration: 0.3, ease: "easeInOut" },
-			}}
-			whileTap={isClickable ? { scale: 0.98 } : {}}
 		>
-			<div className="flex items-center gap-4">
+			<div className="flex items-center gap-4 group">
 				{/* Icon */}
 				<motion.div
 					className="flex-shrink-0"
@@ -91,7 +84,7 @@ const ContactItem: React.FC<ContactItemProps> = ({ contact, index }) => {
 				{/* External Link Indicator */}
 				{isClickable && (
 					<motion.div
-						className="flex-shrink-0 text-primary"
+						className="flex-shrink-0 text-primary transition-transform duration-200 lg:group-hover:scale-110 lg:group-hover:translate-x-1"
 						initial={{ opacity: 0, scale: 0 }}
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{
@@ -131,7 +124,6 @@ const ContactItem: React.FC<ContactItemProps> = ({ contact, index }) => {
 						}
 					: {})}
 				className="block group"
-				whileHover={{ scale: 1.01 }}
 			>
 				{content}
 			</motion.a>

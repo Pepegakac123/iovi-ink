@@ -64,38 +64,34 @@ const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
 					variants={itemVariants}
 				>
 					{/* Open in Google Maps */}
-					<motion.a
+					<a
 						href={googleMapsConfig.linkUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="group inline-block"
-						whileHover={{ scale: 1.05 }}
-						whileTap={{ scale: 0.98 }}
+						className="group inline-block transition-transform duration-200 lg:hover:scale-105 active:scale-98"
 					>
-						<motion.button
+						<button
 							type="button"
-							className="bg-primary text-primary-foreground font-primary px-6 py-3 rounded-md border-2 border-foreground uppercase hover:bg-accent hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-200 cursor-pointer w-full sm:w-fit"
+							className="bg-primary text-primary-foreground font-primary px-6 py-3 rounded-md border-2 border-foreground uppercase transition-all duration-200 cursor-pointer w-full sm:w-fit lg:hover:bg-accent lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)] lg:hover:-translate-x-0.5 lg:hover:-translate-y-0.5"
 						>
 							Otwórz w Google Maps
-						</motion.button>
-					</motion.a>
+						</button>
+					</a>
 
 					{/* Get Directions */}
-					<motion.a
+					<a
 						href={`https://www.google.com/maps/dir//${encodeURIComponent("Studio Tatuażu LewusInk, Mszana Dolna")}`}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="group inline-block"
-						whileHover={{ scale: 1.05 }}
-						whileTap={{ scale: 0.98 }}
+						className="group inline-block transition-transform duration-200 lg:hover:scale-105 active:scale-98"
 					>
-						<motion.button
+						<button
 							type="button"
-							className="bg-secondary text-foreground font-primary px-6 py-3 rounded-md border-2 border-foreground uppercase hover:bg-muted hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-200 cursor-pointer w-full sm:w-fit"
+							className="bg-secondary text-foreground font-primary px-6 py-3 rounded-md border-2 border-foreground uppercase transition-all duration-200 cursor-pointer w-full sm:w-fit lg:hover:bg-muted lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)] lg:hover:-translate-x-0.5 lg:hover:-translate-y-0.5"
 						>
 							Wyznacz trasę
-						</motion.button>
-					</motion.a>
+						</button>
+					</a>
 				</motion.div>
 
 				{/* Contact Info Below Map - Static (PPR) */}

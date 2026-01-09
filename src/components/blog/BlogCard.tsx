@@ -16,15 +16,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 
 	return (
 		<motion.article
-			className="w-full h-full bg-background border-2 border-accent rounded-md overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group"
+			className="w-full h-full bg-background border-2 border-accent rounded-md overflow-hidden shadow-lg transition-all duration-300 group cursor-pointer lg:hover:shadow-[6px_6px_0px_0px_var(--accent)] lg:hover:scale-[1.02] lg:hover:-translate-y-1 active:scale-98"
 			variants={cardVariantsFast}
-			whileHover={{
-				scale: 1.02,
-				y: -4,
-				boxShadow: "6px 6px 0px 0px var(--accent)",
-				transition: { duration: 0.2 },
-			}}
-			whileTap={{ scale: 0.98 }}
 		>
 			<Link href={`/blog/${blog.slug}`} className="block h-full">
 				{/* Image Section with Date Badge */}
@@ -41,13 +34,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 						</span>
 					</motion.div>
 
-					<motion.div
-						className="relative w-full h-full"
-						whileHover={{
-							scale: 1.05,
-							transition: { duration: 0.4, ease: "easeOut" },
-						}}
-					>
+					<div className="relative w-full h-full">
 						<Image
 							src={blog.thumbnail}
 							alt={blog.title}
@@ -57,7 +44,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 							loading="lazy"
 							quality={95}
 						/>
-					</motion.div>
+					</div>
 				</div>
 
 				{/* Content Section */}
@@ -100,13 +87,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 					>
 						<div className="text-primary font-text text-sm uppercase font-semibold group-hover:text-accent transition-colors duration-200 flex items-center gap-2">
 							Czytaj więcej
-							<motion.span
-								className="inline-block"
-								whileHover={{ x: 2 }}
-								transition={{ duration: 0.2 }}
-							>
+							<span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
 								→
-							</motion.span>
+							</span>
 						</div>
 					</motion.div>
 				</motion.div>

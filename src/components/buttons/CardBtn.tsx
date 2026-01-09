@@ -13,21 +13,12 @@ const CardBtn = ({ text, slug }: { text: string; slug: string }) => {
 			<Link href={`/uslugi/${slug}`}>
 				<motion.button
 					type="button"
-					className="uppercase cursor-pointer font-primary text-sm md:text-base w-full bg-primary text-primary-foreground py-3 px-4 rounded-md font-medium border-2 border-foreground hover:bg-accent transition-colors duration-200 shadow-[2px_2px_0px_0px_theme(colors.foreground)]"
+					className="uppercase cursor-pointer font-primary text-sm md:text-base w-full bg-primary text-primary-foreground py-3 px-4 rounded-md font-medium border-2 border-foreground hover:bg-accent transition-all duration-200 shadow-[2px_2px_0px_0px_theme(colors.foreground)] lg:hover:scale-105 lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)] active:scale-98"
 					initial={{ opacity: 0, scale: 0.9 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{
 						duration: 0.4,
 						ease: "easeOut",
-					}}
-					whileHover={{
-						scale: 1.05,
-						boxShadow: "4px 4px 0px 0px var(--foreground)",
-						transition: { duration: 0.2 },
-					}}
-					whileTap={{
-						scale: 0.98,
-						transition: { duration: 0.1 },
 					}}
 				>
 					{text}

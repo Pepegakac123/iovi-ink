@@ -16,17 +16,8 @@ const ServiceDistinguishingCard = ({
 }: ServiceDistinguishingCardProps) => {
 	return (
 		<motion.div
-			className={`w-full h-full bg-background rounded-md p-6 md:p-8 group cursor-default 
-        border-2 ${variant === "dark" ? "border-accent" : "border-foreground"}`}
-			whileHover={{
-				scale: 1.02,
-				boxShadow:
-					variant === "dark"
-						? "6px 6px 0px 0px var(--accent)"
-						: "6px 6px 0px 0px var(--foreground)",
-				transition: { duration: 0.2 },
-			}}
-			whileTap={{ scale: 0.98 }}
+			className={`w-full h-full bg-background rounded-md p-6 md:p-8 group cursor-default border-2 transition-all duration-200 lg:hover:scale-[1.02] active:scale-98
+        ${variant === "dark" ? "border-accent lg:hover:shadow-[6px_6px_0px_0px_var(--accent)]" : "border-foreground lg:hover:shadow-[6px_6px_0px_0px_var(--foreground)]"}`}
 		>
 			<motion.h3
 				className="heading-secondary mb-4"

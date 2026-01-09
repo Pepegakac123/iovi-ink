@@ -146,7 +146,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 					</div>
 
 					{/* Retry Button */}
-					<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+					<div>
 						<Button
 							variant="outline"
 							size="lg"
@@ -155,15 +155,16 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 								"flex items-center gap-3 px-6 py-3",
 								"border-2 border-foreground font-primary uppercase",
 								"bg-background text-foreground",
-								"hover:bg-accent hover:shadow-[4px_4px_0px_0px_var(--foreground)]",
-								"hover:translate-x-[-2px] hover:translate-y-[-2px]",
 								"transition-all duration-200",
+								"lg:hover:bg-accent lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)]",
+								"lg:hover:scale-105 lg:hover:-translate-x-0.5 lg:hover:-translate-y-0.5",
+								"active:scale-95",
 							)}
 						>
 							<RefreshCw className="h-5 w-5" />
 							Spróbuj ponownie
 						</Button>
-					</motion.div>
+					</div>
 
 					{/* Navigation Hint */}
 					{(onNext || onPrev) && (
