@@ -41,18 +41,20 @@ const StudioRatingCard: React.FC<StudioRatingCardProps> = ({
 
 	return (
 		<div
-			className={`p-2 md:p-4 flex flex-row gap-4 bg-background border-foreground border-1 border-b-4 border-r-4 rounded-md cursor-pointer items-center lg:hover:bg-muted lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)] lg:hover:scale-[1.02] lg:hover:-translate-y-0.5 transition-all duration-150 ${className}`}
+			className={`group p-2 md:p-4 flex flex-row gap-4 bg-background border-foreground border-1 border-b-4 border-r-4 rounded-md cursor-pointer items-center lg:hover:bg-muted lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)] lg:hover:scale-[1.02] lg:hover:-translate-y-0.5 transition-all duration-150 ${className}`}
 		>
 			{/* Ikona Google z SYSTEM_ICONS */}
 			<div className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
-				<div className="w-full h-full bg-transparent border-1 border-foreground rounded-full flex items-center justify-center lg:hover:shadow-[4px_4px_0px_0px_var(--foreground)] lg:hover:-translate-x-0.5 lg:hover:-translate-y-0.5 lg:hover:scale-110 transition-all duration-200">
-					<Image
-						src={SYSTEM_ICONS.google}
-						alt="Google"
-						width={24}
-						height={24}
-						className="w-6 h-6"
-					/>
+				<div className="w-full h-full bg-transparent border-1 border-foreground rounded-full flex items-center justify-center transition-all duration-200 lg:group-hover:shadow-[4px_4px_0px_0px_var(--foreground)] lg:group-hover:-translate-x-0.5 lg:group-hover:-translate-y-0.5 lg:group-hover:scale-110">
+					<div className="transition-transform duration-200 lg:group-hover:scale-120">
+						<Image
+							src={SYSTEM_ICONS.google}
+							alt="Google"
+							width={24}
+							height={24}
+							className="w-6 h-6"
+						/>
+					</div>
 				</div>
 			</div>
 
