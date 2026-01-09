@@ -6,6 +6,7 @@ import {
 } from "@/lib/jetApi";
 import Subheadline from "../Subheadline";
 import CTASection from "./CTASection";
+import { LazyLoadWrapper } from "@/components/ui/LazyLoadWrapper";
 
 // Lazy load carousel - nie jest krytyczny na początku
 const CardCarousel = lazy(() =>
@@ -34,17 +35,19 @@ export default async function CarouselSections() {
 				</p>
 			</div>
 
-			<Suspense
-				fallback={
-					<div className="h-96 bg-muted animate-pulse rounded-md mx-auto max-w-6xl" />
-				}
-			>
-				<CardCarousel
-					images={images}
-					autoplayDelay={2000}
-					showPagination={true}
-				/>
-			</Suspense>
+			<LazyLoadWrapper minHeight="400px" rootMargin="300px">
+				<Suspense
+					fallback={
+						<div className="h-96 bg-muted animate-pulse rounded-md mx-auto max-w-6xl" />
+					}
+				>
+					<CardCarousel
+						images={images}
+						autoplayDelay={2000}
+						showPagination={true}
+					/>
+				</Suspense>
+			</LazyLoadWrapper>
 
 			<div>
 				<CTASection />
