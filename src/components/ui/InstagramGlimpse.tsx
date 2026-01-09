@@ -28,7 +28,11 @@ const InstagramGlimpse: React.FC<InstagramGlimpseProps> = ({
 
 	// Efekt animacji ruchu poziomego samej ikonki
 	useEffect(() => {
-		if (!iconRef.current) return;
+		if (!iconRef.current || typeof window === "undefined") return;
+
+		// Nie uruchamiaj animacji na mobile (oszczędność TBT)
+		const isMobile = window.innerWidth < 1024;
+		if (isMobile && variant === "fixed") return;
 
 		const animateIcon = () => {
 			if (!isHovered && iconRef.current) {
@@ -47,7 +51,7 @@ const InstagramGlimpse: React.FC<InstagramGlimpseProps> = ({
 		const interval = setInterval(animateIcon, 2000);
 
 		return () => clearInterval(interval);
-	}, [isHovered]);
+	}, [isHovered, variant]);
 
 	// Klasy dla wersji fixed (widocznej na dużych ekranach)
 	const fixedClasses = "fixed bottom-8 left-8 z-40 hidden! lg:flex!";

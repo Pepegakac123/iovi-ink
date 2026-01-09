@@ -35,7 +35,7 @@ export const RecaptchaProvider: React.FC<RecaptchaProviderProps> = ({
 			<Script
 				id="google-recaptcha-script" // Unikalne ID dla skryptu
 				src={`https://www.google.com/recaptcha/api.js?render=${siteKey}`}
-				strategy="beforeInteractive"
+				strategy="afterInteractive"
 				onLoad={() => {
 					console.log("✅ Skrypt Google reCAPTCHA załadowany pomyślnie.");
 				}}

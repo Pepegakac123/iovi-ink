@@ -80,21 +80,6 @@ const nextConfig: NextConfig = {
 		];
 	},
 
-	// ✅ NAJLEPSZA PRAKTYKA: Zaufaj domyślnej strategii Next.js
-	webpack: (config, { isServer }) => {
-		// W 99% przypadków domyślna strategia Next.js 'splitChunks'
-		// jest bardziej wydajna niż ręczne dzielenie paczek.
-		// Usuwamy całą niestandardową logikę 'config.optimization'.
-
-		// Optymalizacje takie jak 'mergeDuplicateChunks' czy 'removeEmptyChunks'
-		// są już domyślnie włączone w trybie produkcyjnym przez Next.js.
-
-		// Jeśli w przyszłości będziesz chciał dodać coś specyficznego,
-		// np. obsługę SVG, zrób to tutaj. Na razie zostawiamy czysto.
-
-		return config;
-	},
-
 	// 🔥 CACHE HEADERS - działają z głównej domeny przez Cloudflare
 	async headers() {
 		return [
