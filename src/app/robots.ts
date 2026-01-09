@@ -23,7 +23,6 @@ export default function robots(): MetadataRoute.Robots {
 					"/api/", // API endpoints - prywatne
 					"/_next/", // Next.js internals
 					"/admin/", // Jeśli masz admin panel
-					"/*?*", // Query parameters (opcional - może być za restrykcyjne)
 					"/search*", // Search results (jeśli masz)
 					"/thank-you/", // Thank you pages (jeśli masz)
 					"/404/",

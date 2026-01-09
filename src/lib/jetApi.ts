@@ -42,19 +42,19 @@ export class JETEngineAPIError extends Error {
 const REVALIDATE_TIMES = {
 	FEATURED_SERVICES: 86400, // 1 dzień
 	MAIN_SERVICES: 86400, // 1 dzień
-	TATUAZYSTA_HOMEPAGE: 2592000,
-	TATUAZE_HOMEPAGE: 2592000,
-	TATUAZE_HOMEPAGE_BY_SLUG: 604800,
-	TATUAZYSTA_HOMEPAGE_BY_SLUG: 604800,
-	ALL_SERVICES: 2592000, // 7 dni
-	SERVICE_BY_SLUG: 2592000, // 7 dni
-	PORTFOLIO_ALL: 2592000, // 1 dzień (nowe prace)
-	PORTFOLIO_BY_SLUG: 2592000, // 30 dni (stabilne)
-	ZAGOJONE: 2592000,
-	BLOG: 86400, // 1 dzień
-	BLOG_BY_SLUG: 604800, // 7 dni
-	CAROUSEL: 2592000, // 7 dni
-	MEDIA_SEARCH: 2592000, // 30 dni
+	TATUAZYSTA_HOMEPAGE: 604800, // 7 dni (landing pages - rzadkie zmiany)
+	TATUAZE_HOMEPAGE: 604800, // 7 dni (landing pages - rzadkie zmiany)
+	TATUAZE_HOMEPAGE_BY_SLUG: 86400, // 1 dzień
+	TATUAZYSTA_HOMEPAGE_BY_SLUG: 86400, // 1 dzień
+	ALL_SERVICES: 86400, // 1 dzień
+	SERVICE_BY_SLUG: 86400, // 1 dzień
+	PORTFOLIO_ALL: 3600, // 1 godzina (dla świeżości nowych prac)
+	PORTFOLIO_BY_SLUG: 86400, // 1 dzień
+	ZAGOJONE: 86400, // 1 dzień
+	BLOG: 3600, // 1 godzina (częste aktualizacje listy)
+	BLOG_BY_SLUG: 86400, // 1 dzień
+	CAROUSEL: 86400, // 1 dzień
+	MEDIA_SEARCH: 86400, // 1 dzień
 } as const;
 
 // ================================================================

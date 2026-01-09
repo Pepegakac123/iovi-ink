@@ -31,6 +31,7 @@ export async function GET(request: NextRequest) {
 
 		tagsList.forEach((tag) => {
 			console.log(`Revalidating: ${tag.trim()}`);
+			// @ts-expect-error - Next.js 16 type mismatch workaround
 			revalidateTag(tag.trim());
 		});
 		revalidatePath("/sitemap.xml");
