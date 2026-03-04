@@ -29,11 +29,16 @@ export async function GET(request: NextRequest) {
 		const tagsList = tags.split(",");
 		console.log("🔄 Revalidating tags:", tagsList);
 
-		tagsList.forEach((tag) => {
-			console.log(`Revalidating: ${tag.trim()}`);
-			// @ts-expect-error - Next.js 16 type mismatch workaround
-			revalidateTag(tag.trim());
-		});
+		// Revalidating tags concurrently
+		await Promise.all(
+			tagsList.map(async (tag) => {
+				const trimmedTag = tag.trim();
+				console.log(`Revalidating: ${trimmedTag}`);
+				// In Next.js 15+ revalidateTag is async and requires type option
+				revalidateTag(trimmedTag, "tag");
+			}),
+		);
+
 		revalidatePath("/sitemap.xml");
 		console.log("✅ Revalidation complete");
 		return NextResponse.json({

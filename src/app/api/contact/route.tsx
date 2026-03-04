@@ -181,17 +181,17 @@ export async function POST(request: Request) {
 				const startTime = Date.now(); // Log: Mierzenie czasu
 				try {
 					console.log(
-						`Contact API:   [Plik: ${file.name}] Rozpoczynam konwersję...`,
+						`Contact API:   [Plik: ${file.name}] Rozpoczynam przetwarzanie...`,
 					); // Log
-					const { buffer, filename } = await convertFileToWebP(file, email);
+					const { buffer, filename, mimeType } = await convertFileToWebP(file, email);
 					console.log(
-						`Contact API:   [Plik: ${filename}] Konwersja zakończona (${Date.now() - startTime}ms). Rozpoczynam upload...`,
+						`Contact API:   [Plik: ${filename}] Przetwarzanie zakończone (${Date.now() - startTime}ms). Rozpoczynam upload...`,
 					); // Log
 
 					const uploadResult = await uploadToWordPress(
 						buffer,
 						filename,
-						"image/webp",
+						mimeType,
 					);
 
 					if (uploadResult.success && uploadResult.url) {

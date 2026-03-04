@@ -23,13 +23,29 @@ export async function uploadToWordPress(
 		formData.append("caption", `Plik od klienta: ${filename}`);
 
 		// Basic Auth z Application Password
-		const auth = Buffer.from(
-			`${process.env.WP_USERNAME}:${process.env.WP_APP_PASSWORD}`,
-		).toString("base64");
+		const username = process.env.WP_USERNAME;
+		const appPassword = process.env.WP_APP_PASSWORD;
+		const wpBaseUrl = process.env.WORDPRESS_URL;
+
+		if (!username || !appPassword || !wpBaseUrl) {
+			console.error("Missing WordPress credentials or URL in environment variables");
+			return {
+				success: false,
+				error: "Missing WordPress configuration",
+			};
+		}
+
+		const auth = Buffer.from(`${username}:${appPassword}`).toString("base64");
+
+		// Upewnij się, że URL kończy się slashem
+		const normalizedWpUrl = wpBaseUrl.endsWith("/") ? wpBaseUrl : `${wpBaseUrl}/`;
+		const apiUrl = `${normalizedWpUrl}wp-json/wp/v2/media`;
+
+		console.log(`Attempting to upload to: ${apiUrl}`);
 
 		// Upload do WordPress REST API
 		const response = await fetch(
-			`${process.env.WORDPRESS_URL}wp-json/wp/v2/media`,
+			apiUrl,
 			{
 				method: "POST",
 				headers: {

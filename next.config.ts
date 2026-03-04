@@ -80,6 +80,10 @@ const nextConfig: NextConfig = {
 		];
 	},
 
+	// ✅ NAJLEPSZA PRAKTYKA: Zaufaj domyślnej strategii Next.js
+	// Next.js 16 używa Turbopacka domyślnie.
+	turbopack: {},
+
 	// 🔥 CACHE HEADERS - działają z głównej domeny przez Cloudflare
 	async headers() {
 		return [

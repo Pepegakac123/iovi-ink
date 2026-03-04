@@ -113,12 +113,12 @@ export const useContactFormField = ({
 		if (fileCount === 1) {
 			return {
 				title: "Przetwarzam plik...",
-				description: "Konwertuję obraz na format WebP",
+				description: "Zmniejszam rozmiar Twojego zdjęcia, aby wysłać je szybciej.",
 			};
 		}
 		return {
 			title: `Przetwarzam ${fileCount} plików...`,
-			description: "Konwertuję obrazy na format WebP",
+			description: "Optymalizuję Twoje zdjęcia dla szybszego przesyłania.",
 		};
 	}, []);
 
@@ -135,13 +135,13 @@ export const useContactFormField = ({
 		if (filesProcessed === 1) {
 			return {
 				title: baseMessage,
-				description: "Plik został przesłany i skonwertowany na WebP.",
+				description: "Zdjęcie zostało zoptymalizowane i wysłane.",
 			};
 		}
 
 		return {
 			title: baseMessage,
-			description: `${filesProcessed} plików zostało przesłanych i skonwertowanych.`,
+			description: `${filesProcessed} plików zostało pomyślnie wysłanych.`,
 		};
 	}, []);
 
