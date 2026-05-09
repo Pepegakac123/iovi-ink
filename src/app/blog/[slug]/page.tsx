@@ -118,7 +118,7 @@ async function BlogSinglePage({
 				/>
 
 				{/* ✅ Main Blog Layout */}
-				<motion.main
+				<motion.div
 					className="w-full py-16 md:py-20"
 					initial="hidden"
 					whileInView="visible"
@@ -228,7 +228,7 @@ async function BlogSinglePage({
 							</motion.article>
 						</div>
 					</div>
-				</motion.main>
+				</motion.div>
 
 				{/* ✅ Contact Section */}
 				<section>

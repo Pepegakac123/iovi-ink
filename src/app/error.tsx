@@ -32,7 +32,7 @@ const GlobalError: React.FC<GlobalErrorProps> = ({ error, reset }) => {
 	}, [error]);
 
 	return (
-		<motion.main
+		<motion.div
 			className="min-h-screen bg-background flex items-center justify-center py-20"
 			initial="hidden"
 			animate="visible"
@@ -265,7 +265,7 @@ const GlobalError: React.FC<GlobalErrorProps> = ({ error, reset }) => {
 					</div>
 				</motion.div>
 			</motion.div>
-		</motion.main>
+		</motion.div>
 	);
 };
 

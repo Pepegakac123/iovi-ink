@@ -37,7 +37,7 @@ export const FloatingContactBtn = () => {
               whileTap={{ scale: 0.95 }}
               // ✅ ZMIANA: bottom-32 na mobile i tablet (żeby być NAD navbarem), cursor-pointer
               className="fixed bottom-32 right-4 lg:bottom-8 lg:right-8 z-50 group flex items-center justify-center cursor-pointer"
-              aria-label="Otwórz formularz kontaktowy"
+              aria-label="Masz pomysł?"
             >
               {/* Dymek z tekstem (tylko desktop) */}
               <motion.div

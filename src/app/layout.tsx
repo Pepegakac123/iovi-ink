@@ -69,8 +69,6 @@ const alfa = localFont({
   variable: "--font-alfa",
 });
 
-const heroImageSrc = images.bab_z_maszynkom.src;
-const preloadUrl = `https://iovi-ink.pl/cdn-cgi/image/width=640,quality=80,format=auto/${heroImageSrc}`;
 export default function RootLayout({
   children,
 }: {
@@ -79,9 +77,6 @@ export default function RootLayout({
   return (
     <html lang="pl" className={`${inter.variable} ${alfa.variable}`}>
       <head>
-        {/* ✅ CRITICAL: Preload hero image dla LCP optimization */}
-        <link rel="preload" as="image" href={preloadUrl} fetchPriority="high" />
-
         {/* ✅ CRITICAL: DNS prefetch dla external resources */}
         <link rel="dns-prefetch" href="//cms.iovi-ink.pl" />
 
@@ -106,7 +101,7 @@ export default function RootLayout({
       <body className="bg-background font-text">
         <RecaptchaProvider>
           <Navbar /> {/* ← DODANE: Wrapper dla reCAPTCHA */}
-          {children}
+          <main id="main-content">{children}</main>
           <Footer />
           {/* <CookieConsent /> */}
           <Toaster

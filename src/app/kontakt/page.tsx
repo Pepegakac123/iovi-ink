@@ -88,7 +88,7 @@ const ContactPage: React.FC = () => {
 				description="Marzysz o unikalnym tatuażu? Jestem tutaj, żeby tchnąć życie w Twoje pomysły. Pierwsza rozmowa jest zawsze bezpłatna."
 			/>
 			{/* Main Contact Section */}
-			<motion.main
+			<motion.div
 				className="min-h-screen py-20"
 				initial="hidden"
 				animate="visible"
@@ -136,7 +136,7 @@ const ContactPage: React.FC = () => {
 						</div>
 					</motion.section>
 				</div>
-			</motion.main>
+			</motion.div>
 
 			{/* Google Maps Section */}
 			<GoogleMapsEmbed className="bg-primary-foreground" />

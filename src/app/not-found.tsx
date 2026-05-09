@@ -17,7 +17,7 @@ import {
 
 const NotFound: React.FC = () => {
 	return (
-		<motion.main
+		<motion.div
 			className="min-h-screen bg-background flex items-center justify-center py-20"
 			initial="hidden"
 			animate="visible"
@@ -222,7 +222,7 @@ const NotFound: React.FC = () => {
 					</p>
 				</motion.div>
 			</motion.div>
-		</motion.main>
+		</motion.div>
 	);
 };
 

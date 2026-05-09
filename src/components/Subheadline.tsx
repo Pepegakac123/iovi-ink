@@ -21,9 +21,9 @@ const Subheadline: React.FC<SubheadlineProps> = ({
         ${className}
       `}
 		>
-			<h3 className="text-base md:text-xl font-primary text-center text-foreground">
+			<span className="text-base md:text-xl font-primary text-center text-foreground">
 				{title}
-			</h3>
+			</span>
 		</div>
 	);
 };

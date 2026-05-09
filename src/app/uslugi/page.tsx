@@ -167,7 +167,7 @@ const ServicesPage = async () => {
 			/>
 
 			{/* ✅ Main Services Section */}
-			<motion.main
+			<motion.div
 				className="w-full bg-primary-foreground py-16 md:py-20"
 				initial="hidden"
 				whileInView="visible"
@@ -197,7 +197,7 @@ const ServicesPage = async () => {
 						))}
 					</motion.div>
 				</motion.div>
-			</motion.main>
+			</motion.div>
 
 			{/* ✅ Process Section */}
 			<section>
