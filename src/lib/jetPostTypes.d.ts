@@ -1,8 +1,8 @@
 // Base content section interface - used in multiple meta fields
 /**
- * Typ dla surowych danych z API (przed transformacją)
+ * Typ dla surowych danych z API (przed transformacją) - STARY SYSTEM
  */
-interface RawUslugiMeta {
+export interface RawUslugiMeta {
   type: string;
   name: string;
   seo_title: string;
@@ -60,16 +60,115 @@ interface RawUslugiMeta {
 }
 
 /**
+ * Nowy System - Surowe dane z API (Płaska struktura)
+ */
+export interface RawNewUslugiMeta {
+  // SEO (RankMath fields if present, else fallback)
+  rank_math_title?: string;
+  rank_math_description?: string;
+  rank_math_focus_keyword?: string;
+
+  // Pola podstawowe
+  usluga: string;
+  miasto: string;
+  seo_line: string;
+  seo_description: string;
+
+  // Sekcja 1 (Hero)
+  "1_naglowek": string;
+  "1_akapit_1": string;
+
+  // Sekcja 2 (Dla kogo)
+  "2_naglowek": string;
+  "2_tytul_akapitu_1": string;
+  "2_akapit_1": string;
+  "2_tytul_akapitu_2": string;
+  "2_akapit_2": string;
+  "2_tytul_akapitu_3": string;
+  "2_akapit_3": string;
+
+  // Sekcja 3 (Zakres / Rola)
+  "3_naglowek": string;
+  "3_tytul_akapitu_1": string;
+  "3_akapit_1": string;
+  "3_tytul_akapitu_2": string;
+  "3_akapit_2": string;
+
+  // Sekcja 4 (Zalety - Repeater)
+  "4_naglowek": string;
+  "4_repeater": Array<{ title: string; icon: string; akapit: string }>;
+
+  // Sekcja 5 (Problemy / Wyróżnienie)
+  "5_naglowek": string;
+  "5_tytul_akapitu_1": string;
+  "5_akapit_1": string;
+  "5_tytul_akapitu_2": string;
+  "5_akapit_2": string;
+
+  // Sekcja 6 (Etapy - Repeater)
+  "6_naglowek": string;
+  "6_repeater": Array<{ title: string; number: string | number; akapit: string }>;
+
+  // Sekcja 7 (Efekty / Specjalizacja)
+  "7_naglowek": string;
+  "7_tytul_akapitu_1": string;
+  "7_akapit_1": string;
+  "7_tytul_akapitu_2": string;
+  "7_akapit_2": string;
+
+  // Sekcja 8 (Doświadczenie / Dlaczego ja)
+  "8_naglowek": string;
+  "8_tytul_akapitu_1": string;
+  "8_akapit_1": string;
+  "8_tytul_akapitu_2": string;
+  "8_akapit_2": string;
+  "8_tytul_akapitu_3": string;
+  "8_akapit_3": string;
+
+  // Sekcja 9 (CTA)
+  "9_naglowek": string;
+  "9_tytul_akapitu_1": string;
+  "9_akapit_1": string;
+  "9_tytul_akapitu_2": string;
+  "9_akapit_2": string;
+
+  // Zdjęcia (Max 5)
+  "1_zdjecie": string;
+  "2_zdjecie": string;
+  "3_zdjecie": string;
+  "4_zdjecie": string;
+  "5_zdjecie": string;
+}
+
+/**
+ * Nowy System - Surowe dane dla Keyword Homepage (tatuazysta-home, tatuaze-home)
+ */
+export interface RawNewKeywordHomeMeta {
+  rank_math_title?: string;
+  rank_math_description?: string;
+  rank_math_focus_keyword?: string;
+
+  "1_akapit": string;
+  "2_akapit": string;
+  "3_akapit": string;
+  "4_akapit": string;
+}
+
+/**
  * Surowa odpowiedź z API (przed transformacją)
  */
-interface RawJetEngineUsluga {
+export type RawJetEngineResponse<T> = {
   id: number;
   slug: string;
   type: string;
   title: RenderedTitle;
-  meta: RawUslugiMeta;
+  meta: T;
   attributes?: number;
-}
+};
+
+export type RawJetEngineUsluga = RawJetEngineResponse<RawUslugiMeta | RawNewUslugiMeta>;
+export type RawJetEngineKeywordHome = RawJetEngineResponse<RawNewKeywordHomeMeta>;
+
 interface ContentSection {
   h3: string;
   content: string;

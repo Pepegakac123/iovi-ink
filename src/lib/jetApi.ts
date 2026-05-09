@@ -14,7 +14,11 @@ import {
   TattooTypes,
   WordPressBlogResponse,
 } from "./jetPostTypes";
-import { objectToSortedArray, transformServiceData } from "./utils";
+import {
+  objectToSortedArray,
+  transformKeywordHomeData,
+  transformServiceData,
+} from "./utils";
 import { p } from "framer-motion/client";
 import { getCDNUrl, convertImagesToCDN } from "./cdnHelper";
 
@@ -633,7 +637,7 @@ export async function getCityHomepageBySlug(
   slug: string,
   type: "tatuaze | tatuazysta",
 ): Promise<JetHomepage> {
-  const citiesPages = await jetEngineFetch<JetHomepage[]>(
+  const citiesPages = await jetEngineFetch<any[]>(
     `/wp-json/wp/v2/${type}-home`,
     {
       slug: slug,
@@ -641,7 +645,14 @@ export async function getCityHomepageBySlug(
     },
     [`${type}-home-${slug}`],
   );
-  return citiesPages[0];
+  if (citiesPages.length === 0) {
+    throw new JETEngineAPIError(
+      `Homepage with slug "${slug}" not found`,
+      404,
+      `/wp-json/wp/v2/${type}-home?slug=${slug}`,
+    );
+  }
+  return transformKeywordHomeData(citiesPages[0]);
 }
 
 export async function getZagojone(): Promise<JetEngineZagojone[]> {

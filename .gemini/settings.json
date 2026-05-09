@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "jetengine_ioviink": {
+      "httpUrl": "https://cms.iovi-ink.pl/wp-json/jet-engine/v1/mcp/",
+      "headers": {
+        "Authorization": "${WP_TOKEN}"
+      },
+      "timeout": 30000
+    },
+    "jetengine_template": {
+      "httpUrl": "https://jet-bulk-test.kacperadamczyk.pl/wp-json/jet-engine/v1/mcp/",
+      "headers": {
+        "Authorization": "${WP_TEMPLATE_TOKEN}"
+      },
+      "timeout": 30000
+    }
+  }
+}

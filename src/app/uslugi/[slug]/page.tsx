@@ -117,7 +117,17 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 		const { slug } = await params;
 		const service = await getServiceBySlug(slug);
 		const { id, meta, title } = service;
-		const images = await mapImagesWithWordPressAlt(getServiceImages(service));
+		const cmsImages = await mapImagesWithWordPressAlt(getServiceImages(service));
+
+		// Globalny fallback dla obrazów
+		const fallbackImage = {
+			src: images.seoBaner.src,
+			alt: title.rendered,
+		};
+
+		// Upewnij się, że mamy przynajmniej jeden obraz, nawet jeśli CMS jest pusty
+		const safeImages =
+			cmsImages.length > 0 ? cmsImages : [fallbackImage, fallbackImage];
 
 		return (
 			<>
@@ -138,7 +148,7 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 					]}
 				/>
 				<ImageJsonLd
-					images={images.map((img) => ({
+					images={safeImages.map((img) => ({
 						contentUrl: img.src,
 						creator: {
 							"@type": "Person",
@@ -156,7 +166,7 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 						name: title.rendered,
 						description: meta.seo_description,
 						serviceType: "Tattoo Services",
-						image: images[0]?.src,
+						image: safeImages[0]?.src,
 						provider: {
 							"@type": "Person",
 							name: "Jowita Potaczek",
@@ -203,58 +213,58 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 					}}
 				/>
 				<ServiceHero
-					subTitle={meta.hero_subheadline}
+					subTitle={meta.hero_subheadline || meta.name}
 					title={meta.hero_h1}
 					description={meta.hero_intro}
-					image={images[0]}
+					image={safeImages[0]}
 				></ServiceHero>
 				<TargetAudience
 					title={meta.dla_kogo_h2}
-					subtitle={meta.dla_kogo_subheadline}
+					subtitle={meta.dla_kogo_subheadline || "Dla kogo"}
 					targetAudienceDsc={meta.dla_kogo}
-					image={images[1]}
+					image={safeImages[1] || safeImages[0]}
 				/>
 				<ServiceRoleSection
 					title={meta.rola_uslugi_h2}
-					subtitle={meta.rola_uslugi_subheadline}
+					subtitle={meta.rola_uslugi_subheadline || "O usłudze"}
 					roleItems={meta.rola_uslugi}
 					images={[
-						images[2] || images[0], // Trzeci obraz lub fallback
-						images[3] || images[1], // Czwarty obraz lub fallback
+						safeImages[2] || safeImages[0], // Trzeci obraz lub fallback
+						safeImages[3] || safeImages[1] || safeImages[0], // Czwarty obraz lub fallback
 					]}
 				/>
 				<ServiceBenefitsSection
 					title={meta.korzysci_h2}
-					subtitle={meta.korzysci_subheadline}
+					subtitle={meta.korzysci_subheadline || "Twoje korzyści"}
 					benefits={meta.korzysci}
-					image={images[4] || images[0]}
+					image={safeImages[4] || safeImages[0]}
 				/>
 				<ServiceDistinguishingSection
 					title={meta.wyroznienie_h2}
-					subtitle={meta.wyroznienie_subheadline}
+					subtitle={meta.wyroznienie_subheadline || "Nasze wyróżnienie"}
 					distinguishingItems={meta.wyroznienie}
 					bgVariant="dark"
 				/>
 				<ServiceProcessSection
 					title={meta.proces_h2}
-					subtitle={meta.proces_subheadline}
+					subtitle={meta.proces_subheadline || "Etapy współpracy"}
 					processSteps={meta.proces}
 				/>
 				<ServiceDistinguishingSection
 					title={meta.specjalizacja_h2}
-					subtitle={meta.specjalizacja_subheadline}
+					subtitle={meta.specjalizacja_subheadline || "Specjalizacja"}
 					distinguishingItems={meta.specjalizacja_1}
 					bgVariant="light"
 				/>
 				<ServiceWhyMeSection
 					title={meta.dlaczego_ja_h2}
-					subtitle={meta.dlaczego_ja_subheadline}
+					subtitle={meta.dlaczego_ja_subheadline || "Dlaczego ja"}
 					whyMeItems={meta.dlaczego_ja}
-					image={images[5] || images[0]}
+					image={safeImages[5] || safeImages[0]}
 				/>
 				<ServiceCta
 					title={meta.cta_h2}
-					subtitle={meta.cta_subheadline}
+					subtitle={meta.cta_subheadline || "Umów się"}
 					ctaItems={meta.cta}
 				/>
 				<motion.section

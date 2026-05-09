@@ -255,7 +255,7 @@ export default async function TatuazystaPage({
 				/>
 
 				<Hero
-					subTitle={meta.hero_subtitle}
+					subTitle={meta.hero_subtitle || "Profesjonalne tatuaże z charakterem"}
 					title={meta.hero_title}
 					description={meta.hero_description}
 					image={{
@@ -268,44 +268,44 @@ export default async function TatuazystaPage({
 
 				<section>
 					<AboutMe
-						title={meta.about_me_title}
-						subheadline={meta.about_me_subheadline}
+						title={meta.about_me_title || "Moja Droga jako Tatuażysta"}
+						subheadline={meta.about_me_subheadline || "2 lata praktyki i ciągłego rozwoju"}
 						image={images.zblizenie_na_twarz_patrzy_na_wprost}
 						description={[
 							meta.about_me_description_1,
 							meta.about_me_description_2,
 							meta.about_me_description_3,
-						]}
+						].filter(Boolean)}
 					/>
 				</section>
 
 				<section className="bg-foreground mt-16">
 					<Services
 						servicesType="featured"
-						title={meta.services_title}
-						subheadline={meta.services_subheadline}
+						title={meta.services_title || "Czym zajmuje się tatuażysta?"}
+						subheadline={meta.services_subheadline || "Moje specjalizacje"}
 						description={meta.services_description}
 					/>
 				</section>
 
 				<section className="bg-primary-foreground">
 					<TargetAudienceSection
-						title={meta.target_audience_title}
+						title={meta.target_audience_title || "Dla Kogo Pracuję Jako Tatuażysta"}
 						image={images.karty_tatuazy}
 						targetAudienceDsc={[
 							{
-								title: meta.target_audience_item_1_title,
-								description: meta.target_audience_item_1_description,
+								title: meta.target_audience_item_1_title || "Osoby szukające profesjonalizmu",
+								description: meta.target_audience_item_1_description || "",
 							},
 							{
-								title: meta.target_audience_item_2_title,
-								description: meta.target_audience_item_2_description,
+								title: meta.target_audience_item_2_title || "Miłośnicy przemyślanego designu",
+								description: meta.target_audience_item_2_description || "",
 							},
 							{
-								title: meta.target_audience_item_3_title,
-								description: meta.target_audience_item_3_description,
+								title: meta.target_audience_item_3_title || "Klienci z konkretną wizją",
+								description: meta.target_audience_item_3_description || "",
 							},
-						]}
+						].filter((i) => i.description || i.title)}
 					/>
 				</section>
 
@@ -351,9 +351,9 @@ export default async function TatuazystaPage({
 				</section>
 				<section className="bg-primary-foreground ">
 					<FeaturedBlogs
-						title={meta.blog_title}
-						subheadline={meta.blog_subheadline}
-						description={meta.blog_description}
+						title={meta.blog_title || "Tatuażysta - Porady i inspiracje"}
+						subheadline={meta.blog_subheadline || "2 lata doświadczenia"}
+						description={meta.blog_description || ""}
 					/>
 				</section>
 				<section>
@@ -362,8 +362,8 @@ export default async function TatuazystaPage({
 
 				<section>
 					<Contact
-						subheadline={meta.contact_subheadline}
-						title={meta.contact_title}
+						subheadline={meta.contact_subheadline || "Szukasz profesjonalnego tatuażysty?"}
+						title={meta.contact_title || "Porozmawiajmy o Twoim Projekcie"}
 						description={meta.contact_description}
 					/>
 				</section>
