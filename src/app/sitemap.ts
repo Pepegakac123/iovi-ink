@@ -62,10 +62,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		const services = await getAllServices();
 		const blogs = await getAllBlogs();
 		const homePageCities1 = await getAllHomepageCites(
-			"tatuazysta" as "tatuaze | tatuazysta",
+			"tatuazysta" as "tatuaze" | "tatuazysta",
 		);
 		const homePageCities2 = await getAllHomepageCites(
-			"tatuaze" as "tatuaze | tatuazysta",
+			"tatuaze" as "tatuaze" | "tatuazysta",
 		);
 		const servicePages: MetadataRoute.Sitemap = services.map((service) => ({
 			url: `${baseUrl}/uslugi/${service.slug}`,

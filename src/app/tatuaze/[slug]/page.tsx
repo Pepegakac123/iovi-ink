@@ -25,7 +25,7 @@ import { notFound } from "next/navigation"; // 🔥 Import notFound
 export async function generateStaticParams() {
 	try {
 		const type = "tatuaze";
-		const cities = await getAllHomepageCites(type as "tatuaze | tatuazysta");
+		const cities = await getAllHomepageCites(type as "tatuaze" | "tatuazysta");
 		console.log(cities);
 		return cities.map((cities) => ({ slug: cities.slug }));
 	} catch (error) {
@@ -41,7 +41,8 @@ export async function generateMetadata({
 		const { slug } = await params;
 		const service = await getCityHomepageBySlug(
 			slug,
-			"tatuaze" as "tatuaze | tatuazysta",
+			"tatuaze" as "tatuaze" | "tatuazysta",
+
 		);
 
 		// jeśli jednak zwracasz null w getCityHomepageBySlug
@@ -125,7 +126,8 @@ export default async function TatuazePage({
 		const { slug } = await params;
 		const service = await getCityHomepageBySlug(
 			slug,
-			"tatuaze" as "tatuaze | tatuazysta",
+			"tatuaze" as "tatuaze" | "tatuazysta",
+
 		);
 
 		if (!service) {
