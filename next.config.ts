@@ -38,6 +38,7 @@ const nextConfig: NextConfig = {
 		loader: "custom",
 		loaderFile: "./src/lib/cloudflare-loader.ts",
 		unoptimized: false,
+		qualities: [65, 70, 75, 90, 95],
 		remotePatterns: [
 			// ✅ Cloudflare R2 CDN (PRIORYTET!)
 			...(cdnHostname

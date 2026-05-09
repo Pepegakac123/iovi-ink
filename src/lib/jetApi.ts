@@ -51,8 +51,8 @@ const REVALIDATE_TIMES = {
   TATUAZE_HOMEPAGE: 604800, // 7 dni (landing pages - rzadkie zmiany)
   TATUAZE_HOMEPAGE_BY_SLUG: 86400, // 1 dzień
   TATUAZYSTA_HOMEPAGE_BY_SLUG: 86400, // 1 dzień
-  ALL_SERVICES: 86400, // 1 dzień
-  SERVICE_BY_SLUG: 86400, // 1 dzień
+  ALL_SERVICES: 3600, // Zmniejszono z 86400 (1h)
+  SERVICE_BY_SLUG: 3600, // Zmniejszono z 86400 (1h)
   PORTFOLIO_ALL: 3600, // 1 godzina (dla świeżości nowych prac)
   PORTFOLIO_BY_SLUG: 86400, // 1 dzień
   ZAGOJONE: 86400, // 1 dzień

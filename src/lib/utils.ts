@@ -45,12 +45,15 @@ export const formatDate = (dateString: string) => {
 	}
 };
 
-export function objectToSortedArray<T>(obj: Record<string, T>): T[] {
-	if (!obj || typeof obj !== "object") {
+export function objectToSortedArray<T>(obj: any): T[] {
+	if (!obj) {
 		return [];
 	}
 	if (Array.isArray(obj)) {
-		return obj;
+		return obj as T[];
+	}
+	if (typeof obj !== "object") {
+		return [];
 	}
 	return Object.keys(obj)
 		.filter((key) => key.startsWith("item-"))
@@ -68,7 +71,8 @@ export function transformServiceData(
 	const rawMeta = rawData.meta;
 
 	// Funkcja pomocnicza do sprawdzania czy to nowy system
-	const isNewSystem = "1_naglowek" in rawMeta;
+	// Nowy system ma wypełnione pole "1_naglowek"
+	const isNewSystem = "1_naglowek" in rawMeta && !!rawMeta["1_naglowek"];
 
 	let transformedMeta: UslugiMeta;
 
@@ -105,7 +109,7 @@ export function transformServiceData(
 			// Sekcja 4 -> Korzyści (Zachowany repeater)
 			korzysci_subheadline: "",
 			korzysci_h2: newMeta["4_naglowek"],
-			korzysci: (newMeta["4_repeater"] || []).map((item) => ({
+			korzysci: objectToSortedArray(newMeta["4_repeater"] || []).map((item: any) => ({
 				h3: item.title,
 				description: item.akapit,
 				ikona: item.icon,
@@ -130,7 +134,7 @@ export function transformServiceData(
 			// Sekcja 6 -> Proces (Zachowany repeater)
 			proces_subheadline: "",
 			proces_h2: newMeta["6_naglowek"],
-			proces: (newMeta["6_repeater"] || []).map((item) => ({
+			proces: objectToSortedArray(newMeta["6_repeater"] || []).map((item: any) => ({
 				number: String(item.number),
 				title: item.title,
 				description: item.akapit,
@@ -233,7 +237,8 @@ export function transformKeywordHomeData(
 	rawData: RawJetEngineKeywordHome,
 ): JetHomepage {
 	const rawMeta = rawData.meta;
-	const isNewSystem = "1_akapit" in rawMeta;
+	// Nowy system ma wypełnione pole "1_akapit"
+	const isNewSystem = "1_akapit" in rawMeta && !!rawMeta["1_akapit"];
 
 	if (isNewSystem) {
 		const newMeta = rawMeta as RawNewKeywordHomeMeta;

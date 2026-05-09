@@ -35,8 +35,8 @@ export const FloatingContactBtn = () => {
               exit={{ x: 100, opacity: 0 }}
               whileHover={{ scale: 1.05, x: -5 }}
               whileTap={{ scale: 0.95 }}
-              // ✅ ZMIANA: bottom-32 na mobile (żeby być NAD navbarem), cursor-pointer
-              className="fixed bottom-32 right-4 md:bottom-8 md:right-8 z-50 group flex items-center justify-center cursor-pointer"
+              // ✅ ZMIANA: bottom-32 na mobile i tablet (żeby być NAD navbarem), cursor-pointer
+              className="fixed bottom-32 right-4 lg:bottom-8 lg:right-8 z-50 group flex items-center justify-center cursor-pointer"
               aria-label="Otwórz formularz kontaktowy"
             >
               {/* Dymek z tekstem (tylko desktop) */}

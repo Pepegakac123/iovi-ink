@@ -50,7 +50,9 @@ export async function generateMetadata({
 			meta.seo_description ||
 			`${serviceTitle} - profesjonalne usługi tatuażu. Minimalistyczne i graficzne wzory dostosowane do anatomii.`;
 
-		const keywords = [meta.seo_keyword, "tatuażysta", "tatuaże"];
+		const keywords = [meta.seo_keyword, "tatuażysta", "tatuaże"].filter(
+			Boolean,
+		);
 
 		return {
 			title: seoTitle,
@@ -83,7 +85,7 @@ export async function generateMetadata({
 			other: {
 				"og:locale": "pl_PL",
 				"article:author": "Jowita Potaczek",
-				"article:section": "Tatuaże",
+				"article:section": serviceTitle,
 			},
 		};
 	} catch (error) {

@@ -98,6 +98,10 @@ export default function RootLayout({
           name="google-site-verification"
           content="pgfKgu3zF-biRKDMRNuyarlDOJaE1Og1jYlP7tFj4V4"
         />
+        <meta
+          name="google-site-verification"
+          content="cKay78S3sYCdW3fJkNMcV_BYrFZrFyBRTbgdzmQIuas"
+        />
       </head>
       <body className="bg-background font-text">
         <RecaptchaProvider>

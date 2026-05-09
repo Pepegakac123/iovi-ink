@@ -44,4 +44,5 @@ next-env.d.ts
 .vscode
 
 wordpress-uploads
-wp_uploadstemplateData/
+wp_uploads
+templateData/

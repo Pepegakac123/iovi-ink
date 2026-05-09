@@ -96,7 +96,7 @@ export interface RawNewUslugiMeta {
 
   // Sekcja 4 (Zalety - Repeater)
   "4_naglowek": string;
-  "4_repeater": Array<{ title: string; icon: string; akapit: string }>;
+  "4_repeater": any;
 
   // Sekcja 5 (Problemy / Wyróżnienie)
   "5_naglowek": string;
@@ -107,7 +107,7 @@ export interface RawNewUslugiMeta {
 
   // Sekcja 6 (Etapy - Repeater)
   "6_naglowek": string;
-  "6_repeater": Array<{ title: string; number: string | number; akapit: string }>;
+  "6_repeater": any;
 
   // Sekcja 7 (Efekty / Specjalizacja)
   "7_naglowek": string;
