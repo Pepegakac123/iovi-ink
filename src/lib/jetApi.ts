@@ -164,7 +164,7 @@ async function jetEngineFetch<T>(
  * Cache tags: ["jet-engine", "uslugi", "uslugi-all", "uslugi-basic-fields"]
  */
 export async function getAllServices(): Promise<JetEngineUslugiResponse> {
-  return jetEngineFetch<JetEngineUslugiResponse>(
+  const rawServices = await jetEngineFetch<JetEngineUslugiResponse>(
     "/wp-json/wp/v2/uslugi",
     {
       _fields: "slug",
@@ -172,6 +172,15 @@ export async function getAllServices(): Promise<JetEngineUslugiResponse> {
     },
     ["uslugi-all"], // Specific tag dla wszystkich usług
   );
+
+  const uniqueServices = new Map<string, any>();
+  for (const service of rawServices) {
+    if (!uniqueServices.has(service.slug)) {
+      uniqueServices.set(service.slug, service);
+    }
+  }
+
+  return Array.from(uniqueServices.values());
 }
 
 /**
@@ -531,23 +540,31 @@ export async function getAllBlogs(): Promise<ProcessedBlogPost[]> {
     ["blogs-all"],
   );
 
-  return rawBlogs.map((blog) => ({
-    slug: blog.slug,
-    title: blog.meta.original_title ?? blog.title.rendered,
-    date: blog.meta.data_bloga,
-    excerpt: blog.meta.wstep,
-    thumbnail: blog.meta.miniaturka_bloga,
-    content: blog.meta.tekst_glowny,
-    faq: objectToSortedArray(blog.meta.blog_faq),
-    seo_title: blog.meta.seo_title,
-    seo_description: blog.meta.seo_description,
-    keywords: [
-      blog.meta.keyword_1,
-      blog.meta.keyword_2,
-      blog.meta.keyword_3,
-      blog.meta.keyword_4,
-    ],
-  }));
+  const uniqueBlogs = new Map<string, ProcessedBlogPost>();
+
+  for (const blog of rawBlogs) {
+    if (!uniqueBlogs.has(blog.slug)) {
+      uniqueBlogs.set(blog.slug, {
+        slug: blog.slug,
+        title: blog.meta.original_title ?? blog.title.rendered,
+        date: blog.meta.data_bloga,
+        excerpt: blog.meta.wstep,
+        thumbnail: blog.meta.miniaturka_bloga,
+        content: blog.meta.tekst_glowny,
+        faq: objectToSortedArray(blog.meta.blog_faq),
+        seo_title: blog.meta.seo_title,
+        seo_description: blog.meta.seo_description,
+        keywords: [
+          blog.meta.keyword_1,
+          blog.meta.keyword_2,
+          blog.meta.keyword_3,
+          blog.meta.keyword_4,
+        ],
+      });
+    }
+  }
+
+  return Array.from(uniqueBlogs.values());
 }
 export async function getFeaturedBlogs(): Promise<ProcessedBlogPost[]> {
   const rawBlogs = await jetEngineFetch<WordPressBlogResponse>(
@@ -560,23 +577,31 @@ export async function getFeaturedBlogs(): Promise<ProcessedBlogPost[]> {
     ["blogs-featured"],
   );
 
-  return rawBlogs.map((blog) => ({
-    slug: blog.slug,
-    title: blog.meta.original_title ?? blog.title.rendered,
-    date: blog.meta.data_bloga,
-    excerpt: blog.meta.wstep,
-    thumbnail: blog.meta.miniaturka_bloga,
-    content: blog.meta.tekst_glowny,
-    faq: objectToSortedArray(blog.meta.blog_faq),
-    seo_title: blog.meta.seo_title,
-    seo_description: blog.meta.seo_description,
-    keywords: [
-      blog.meta.keyword_1,
-      blog.meta.keyword_2,
-      blog.meta.keyword_3,
-      blog.meta.keyword_4,
-    ],
-  }));
+  const uniqueBlogs = new Map<string, ProcessedBlogPost>();
+
+  for (const blog of rawBlogs) {
+    if (!uniqueBlogs.has(blog.slug)) {
+      uniqueBlogs.set(blog.slug, {
+        slug: blog.slug,
+        title: blog.meta.original_title ?? blog.title.rendered,
+        date: blog.meta.data_bloga,
+        excerpt: blog.meta.wstep,
+        thumbnail: blog.meta.miniaturka_bloga,
+        content: blog.meta.tekst_glowny,
+        faq: objectToSortedArray(blog.meta.blog_faq),
+        seo_title: blog.meta.seo_title,
+        seo_description: blog.meta.seo_description,
+        keywords: [
+          blog.meta.keyword_1,
+          blog.meta.keyword_2,
+          blog.meta.keyword_3,
+          blog.meta.keyword_4,
+        ],
+      });
+    }
+  }
+
+  return Array.from(uniqueBlogs.values());
 }
 /**
  * Pobiera pojedynczy blog po slug z przetworzonymi danymi
@@ -622,9 +647,9 @@ export async function getBlogBySlug(slug: string): Promise<ProcessedBlogPost> {
 }
 
 export async function getAllHomepageCites(
-  type: "tatuaze | tatuazysta",
+  type: "tatuaze" | "tatuazysta",
 ): Promise<JetHomepage[]> {
-  return jetEngineFetch<JetHomepage[]>(
+  const rawCites = await jetEngineFetch<JetHomepage[]>(
     `/wp-json/wp/v2/${type}-home`,
     {
       _fields: "slug",
@@ -632,10 +657,19 @@ export async function getAllHomepageCites(
     },
     [`${type}-home`], // Specific tag dla wszystkich usług
   );
+
+  const uniqueCites = new Map<string, JetHomepage>();
+  for (const cite of rawCites) {
+    if (!uniqueCites.has(cite.slug)) {
+      uniqueCites.set(cite.slug, cite);
+    }
+  }
+
+  return Array.from(uniqueCites.values());
 }
 export async function getCityHomepageBySlug(
   slug: string,
-  type: "tatuaze | tatuazysta",
+  type: "tatuaze" | "tatuazysta",
 ): Promise<JetHomepage> {
   const citiesPages = await jetEngineFetch<any[]>(
     `/wp-json/wp/v2/${type}-home`,
@@ -656,18 +690,26 @@ export async function getCityHomepageBySlug(
 }
 
 export async function getZagojone(): Promise<JetEngineZagojone[]> {
-  const zagojone = await jetEngineFetch<JetEngineZagojone[]>(
+  const rawZagojone = await jetEngineFetch<JetEngineZagojone[]>(
     "/wp-json/wp/v2/zagojone",
     {
       _fields: "meta,slug,title",
     },
     ["zagojone"],
   );
-  return zagojone;
+
+  const uniqueZagojone = new Map<string, JetEngineZagojone>();
+  for (const item of rawZagojone) {
+    if (!uniqueZagojone.has(item.slug)) {
+      uniqueZagojone.set(item.slug, item);
+    }
+  }
+
+  return Array.from(uniqueZagojone.values());
 }
 
 export async function getAllOpinie(): Promise<JetEngineOpinie[]> {
-  return jetEngineFetch<JetEngineOpinie[]>(
+  const rawOpinie = await jetEngineFetch<JetEngineOpinie[]>(
     "/wp-json/wp/v2/opinie",
     {
       _fields: "id,slug,title,meta",
@@ -675,6 +717,15 @@ export async function getAllOpinie(): Promise<JetEngineOpinie[]> {
     },
     ["opinie"],
   );
+
+  const uniqueOpinie = new Map<string, JetEngineOpinie>();
+  for (const item of rawOpinie) {
+    if (!uniqueOpinie.has(item.slug)) {
+      uniqueOpinie.set(item.slug, item);
+    }
+  }
+
+  return Array.from(uniqueOpinie.values());
 }
 // ================================================================
 // CACHE REVALIDATION HELPERS
