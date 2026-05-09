@@ -30,8 +30,7 @@ export default function cloudflareLoader({
 	// 3. Budowanie parametrów transformacji
 	const params = [
 		`width=${width}`,
-		// 🔥 ZMIANA: Używamy globalnej jakości zamiast 'quality || 75'
-		`quality=${GLOBAL_QUALITY}`,
+		`quality=${quality || GLOBAL_QUALITY}`,
 		"format=auto",
 	];
 

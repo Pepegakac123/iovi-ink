@@ -23,7 +23,7 @@ const AboutMe = ({ title, description, image, subheadline }: AboutMeProps) => {
 			<motion.div
 				className="bg-transparent border-1 border-foreground rounded-md px-4 pt-4 lg:py-8 lg:px-8 flex flex-col lg:flex-row gap-4 w-full lg:items-center relative overflow-hidden"
 				whileHover={{
-					boxShadow: "6px 6px 0px 0px var(--foreground)",
+					scale: 1.005,
 					transition: { duration: 0.3 },
 				}}
 				variants={contentVariants}

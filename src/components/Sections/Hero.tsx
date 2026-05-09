@@ -53,7 +53,7 @@ const Hero = ({ subTitle, title, description, image }: HeroProps) => {
 							src={image.src}
 							alt={image.alt}
 							priority
-							quality={70}
+							quality={65}
 							sizes="(max-width: 640px) 90vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 500px"
 							style={{
 								objectFit: "contain",

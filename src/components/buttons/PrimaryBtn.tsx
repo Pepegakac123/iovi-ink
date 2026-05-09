@@ -13,11 +13,12 @@ const PrimaryBtn = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <motion.button
+        <button
+          type="button"
           className="cursor-pointer bg-primary border-1 border-foreground text-primary-foreground text-base md:text-lg w-full md:w-fit px-4 md:px-8 py-4 rounded-md font-primary uppercase hover:bg-accent transition-all duration-200 flex items-center justify-center gap-3 group lg:hover:scale-[1.02] lg:hover:shadow-[6px_6px_0px_0px_theme(colors.foreground)] lg:hover:-translate-y-0.5 lg:hover:-translate-x-0.5 active:scale-98"
         >
           Bezpłatna Konsultacja
-        </motion.button>
+        </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-3xl border-2 border-foreground rounded-md shadow-[8px_8px_0px_0px_theme(colors.foreground)] bg-background">
         <DialogHeader>

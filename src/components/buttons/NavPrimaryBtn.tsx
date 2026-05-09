@@ -13,11 +13,12 @@ const NavPrimaryBtn = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <motion.button
+        <button
+          type="button"
           className="cursor-pointer bg-primary border-4 border-foreground text-primary-foreground px-6 py-3 rounded-md font-primary uppercase shadow-[4px_4px_0px_0px_theme(colors.foreground)] transition-all duration-200 hover:bg-accent lg:hover:scale-[1.02] lg:hover:shadow-[6px_6px_0px_0px_theme(colors.foreground)] lg:hover:-translate-y-0.5 lg:hover:-translate-x-0.5 active:scale-98"
         >
           Bezpłatna Konsultacja
-        </motion.button>
+        </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-3xl border-2 border-foreground rounded-md shadow-[8px_8px_0px_0px_theme(colors.foreground)] bg-background">
         <DialogHeader>
