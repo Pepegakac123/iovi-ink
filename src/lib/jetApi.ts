@@ -226,12 +226,17 @@ export async function getServicesWithAltText(
     type === "main" ? await getMainServices() : await getFeaturedServices();
 
   // Pobierz alt text dla wszystkich obrazów równolegle
+  // Usługi w CMS mają nowy układ pól (1_zdjecie, 1_akapit_1…) — bez transformacji karty
+  // dostawały puste image_1 / hero_intro (brak zdjęć i zastępczy opis).
   const servicesWithAltText = await Promise.all(
-    services.map(async (service) => {
-      const imageWithAlt = await getImageWithAltText(service.meta.image_1);
+    services.map(async (raw) => {
+      const service = transformServiceData(raw as unknown as RawJetEngineUsluga);
+      const imageWithAlt = service.meta.image_1
+        ? await getImageWithAltText(service.meta.image_1)
+        : { src: "", alt: service.title.rendered };
       return {
         ...service,
-        imageWithAlt,
+        imageWithAlt: { src: getCDNUrl(imageWithAlt.src), alt: imageWithAlt.alt },
       };
     }),
   );
