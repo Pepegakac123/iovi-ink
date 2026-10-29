@@ -81,7 +81,7 @@ const AboutMePage: React.FC = () => {
 					jobTitle: "Tatuażystka",
 					description:
 						"Tatuażystka specjalizująca się w delikatnych tatuażach damskich, minimalistycznych i graficznych wzorach.",
-					url: "https://www.iovi-ink.pl",
+					url: "https://iovi-ink.pl",
 					image: images.zblizenie_na_twarz_patrzy_na_wprost.src,
 					sameAs: [socialLinks.iovi.instagram],
 					worksFor: {

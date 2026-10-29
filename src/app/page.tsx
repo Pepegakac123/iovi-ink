@@ -23,6 +23,13 @@ import {
 import FeaturedBlogs from "@/components/FeaturedBlogs";
 import CarouselSkeleton from "@/components/skeletons/CarouselSkeleton";
 import dynamic from "next/dynamic";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	alternates: {
+		canonical: "https://iovi-ink.pl",
+	},
+};
 
 // Załóżmy, że masz też prosty szkielet dla bloku
 const SectionSkeleton = () => <div className="h-96 w-full bg-muted/50" />;
@@ -77,7 +84,7 @@ export default async function Home() {
 				mainEntity={{
 					"@type": "Person",
 					name: "Jowita Potaczek",
-					url: "https://www.iovi-ink.pl",
+					url: "https://iovi-ink.pl",
 					sameAs: [socialLinks.iovi.instagram],
 				}}
 			/>
@@ -91,9 +98,9 @@ export default async function Home() {
 					jobTitle: "Tatuażystka",
 					description:
 						"Tatuażystka specjalizująca się w delikatnych tatuażach damskich, minimalistycznych i graficznych wzorach.",
-					url: "https://www.iovi-ink.pl",
+					url: "https://iovi-ink.pl",
 					image: images.zblizenie_na_twarz_patrzy_na_wprost.src,
-					sameAs: [socialLinks.iovi.instagram, "https://www.iovi-ink.pl"],
+					sameAs: [socialLinks.iovi.instagram, "https://iovi-ink.pl"],
 					worksFor: {
 						"@type": "LocalBusiness",
 						name: "Lewus INK Tattoo&Piercing Mszana Dolna",

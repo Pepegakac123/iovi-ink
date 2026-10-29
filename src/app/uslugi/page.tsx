@@ -76,7 +76,7 @@ const ServicesPage = async () => {
 					alternateName: "Profesjonalne Tatuaże Jowita Potaczek",
 					description:
 						"Autorskie projekty tatuaży - minimalistyczne, graficzne, fine line. Każdy wzór dostosowany do Twojej anatomii.",
-					url: "https://www.iovi-ink.pl/uslugi",
+					url: "https://iovi-ink.pl/uslugi",
 					image: images.seoBaner.src,
 					address: {
 						"@type": "PostalAddress",
@@ -89,7 +89,7 @@ const ServicesPage = async () => {
 					provider: {
 						"@type": "Person",
 						name: "Jowita Potaczek",
-						url: "https://www.iovi-ink.pl",
+						url: "https://iovi-ink.pl",
 						image: images.zblizenie_na_twarz_patrzy_na_wprost?.src,
 						jobTitle: "Tatuażystka",
 						sameAs: [socialLinks.iovi.instagram],
@@ -143,7 +143,7 @@ const ServicesPage = async () => {
 								"@type": "Service",
 								name: service.title,
 								description: service.meta.hero_intro,
-								url: `https://www.iovi-ink.pl/uslugi/${service.slug}`,
+								url: `https://iovi-ink.pl/uslugi/${service.slug}`,
 							},
 						})),
 					},
@@ -151,7 +151,7 @@ const ServicesPage = async () => {
 					// Kanał kontaktu
 					availableChannel: {
 						"@type": "ServiceChannel",
-						serviceUrl: "https://www.iovi-ink.pl/kontakt",
+						serviceUrl: "https://iovi-ink.pl/kontakt",
 						availableLanguage: {
 							"@type": "Language",
 							name: "Polish",

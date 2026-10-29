@@ -15,6 +15,51 @@ const isProd = process.env.NODE_ENV === "production";
 const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL || "";
 const cdnHostname = cdnUrl ? new URL(cdnUrl).hostname : null;
 
+// Usługi, które kiedyś miały warianty z miastem w slugu (np. tatuaze-damskie-krakow).
+// Warianty "-mszana-dolna" nadal istnieją w CMS, więc nie ma ich na liście miast.
+const REMOVED_SERVICE_BASES = [
+	"delikatne-tatuaze-damskie",
+	"male-tatuaze-damskie",
+	"tatuaz-kwiaty",
+	"tatuaze-bransoletki",
+	"tatuaze-damskie-na-rece",
+	"tatuaze-damskie",
+	"tatuaze-dla-kobiet",
+	"tatuaze-dla-par",
+	"tatuaze-kwiatowe",
+	"tatuaze-meskie-na-reke",
+	"tatuaze-meskie",
+	"tatuaze-minimalistyczne",
+	"tatuaze-na-rece",
+	"tatuaze-subtelne",
+];
+const REMOVED_SERVICE_CITIES = [
+	"dobczyce",
+	"dobra",
+	"gdow",
+	"jordanow",
+	"kamienica",
+	"krakow",
+	"laskowa",
+	"limanowa",
+	"lubien",
+	"makow-podhalanski",
+	"myslenice",
+	"nowy-sacz",
+	"nowysacz",
+	"nowy-targ",
+	"pcim",
+	"raba-wyzna",
+	"rabka",
+	"sidzina",
+	"siepraw",
+	"slopnice",
+	"spytkowice",
+	"sukowice",
+	"sulkowice",
+	"tokarnia",
+];
+
 const nextConfig: NextConfig = {
 	// output: "standalone", // Uncomment jeśli chcesz standalone
 
@@ -67,6 +112,30 @@ const nextConfig: NextConfig = {
 
 	async redirects() {
 		return [
+			// Usunięte strony usługa×miasto (GSC: ~150 URL-i z noindex) → strona usługi
+			{
+				source: `/uslugi/:base(${REMOVED_SERVICE_BASES.join("|")})-:city(${REMOVED_SERVICE_CITIES.join("|")})`,
+				destination: "/uslugi/:base",
+				permanent: true,
+			},
+			// Stare / błędne adresy z 404 w GSC
+			{ source: "/tatuaze", destination: "/", permanent: true },
+			{ source: "/porttfolio", destination: "/portfolio", permanent: true },
+			{
+				source: "/pielegnacja-tatuazu",
+				destination: "/blog/pielegnacja-tatuazu",
+				permanent: true,
+			},
+			{
+				source: "/fine-line-vs-linework",
+				destination: "/blog/fine-line-vs-linework",
+				permanent: true,
+			},
+			{
+				source: "/blog/tatuaze-bransolek-kompletny-przewodnik-wzory-ceny",
+				destination: "/blog/tatuaze-bransoletki-kompletny-przewodnik-wzory-ceny",
+				permanent: true,
+			},
 			{
 				source: "/:path*",
 				has: [

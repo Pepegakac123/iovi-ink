@@ -172,7 +172,7 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 						provider: {
 							"@type": "Person",
 							name: "Jowita Potaczek",
-							url: "https://www.iovi-ink.pl",
+							url: "https://iovi-ink.pl",
 						},
 						areaServed: [
 							// ✅ Najbliższe okolice (10-20 km)
@@ -199,7 +199,7 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
 						],
 						availableChannel: {
 							"@type": "ServiceChannel",
-							serviceUrl: "https://www.iovi-ink.pl/kontakt",
+							serviceUrl: "https://iovi-ink.pl/kontakt",
 						},
 						serviceLocation: {
 							"@type": "Place",

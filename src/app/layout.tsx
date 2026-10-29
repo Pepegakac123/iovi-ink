@@ -12,8 +12,8 @@ import { InstagramGlimpse } from "@/components/ui/InstagramGlimpse";
 import { FloatingContactBtn } from "@/components/buttons/FloatingContactBtn";
 export const metadata: Metadata = {
   title: {
-    template: "%s - bezpłatna konsultacja - iovi-ink",
-    default: "Tatuaże - bezpłatna konsultacja - iovi-ink",
+    template: "%s | iovi-ink",
+    default: "Tatuaże fine line i minimalistyczne – Mszana Dolna | iovi-ink",
   },
   description:
     "Tatuaże graficzne i minimalistyczne w Mszanie Dolnej. Autorskie projekty, precyzja wykonania, - Bezpłatna konsultacja",
@@ -44,14 +44,22 @@ export const metadata: Metadata = {
     "geo.placename": "Mszana Dolna",
     "geo.position": "49.6754860;20.0798428", // Współrzędne Lewus Ink
     ICBM: "49.6754860, 20.0798428",
-    robots: "index, follow, max-image-preview:large, max-snippet:140",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 
   // Canonical URL
+  // Canonical ustawia każda strona osobno — globalny canonical w layoutcie
+  // dziedziczyły strony 404/błędów i wskazywały na stronę główną.
   metadataBase: new URL("https://iovi-ink.pl"),
-  alternates: {
-    canonical: "https://iovi-ink.pl",
-  },
 
   // Additional meta tags
   category: "Art & Design",

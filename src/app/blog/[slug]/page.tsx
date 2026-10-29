@@ -31,13 +31,17 @@ export async function generateMetadata({
 			};
 		}
 
+		// seo_title z CMS jest już przycięty pod SERP (~60 znaków) — bez doklejania szablonu
+		const seoTitle = blog.seo_title || blog.title;
+		const seoDescription = blog.seo_description || blog.excerpt;
+
 		return {
-			title: blog.title,
-			description: blog.excerpt,
+			title: blog.seo_title ? { absolute: blog.seo_title } : blog.title,
+			description: seoDescription,
 			keywords: blog.keywords,
 			openGraph: {
-				title: blog.title,
-				description: blog.excerpt,
+				title: seoTitle,
+				description: seoDescription,
 				url: `https://iovi-ink.pl/blog/${slug}`,
 				type: "article",
 			},
@@ -74,7 +78,6 @@ async function BlogSinglePage({
 	try {
 		const { slug } = await params;
 		const blog = await getBlogBySlug(slug);
-		console.log(blog.title);
 
 		return (
 			<>
@@ -118,28 +121,16 @@ async function BlogSinglePage({
 				/>
 
 				{/* ✅ Main Blog Layout */}
-				<motion.div
-					className="w-full py-16 md:py-20"
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-100px" }}
-					variants={containerVariants}
-				>
+				<div className="w-full py-16 md:py-20">
 					<div className="container px-4 md:px-8">
 						<div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
 							{/* ✅ Left Sidebar - Sticky */}
-							<motion.aside
-								className="w-full lg:w-1/3 lg:sticky lg:top-[120px] lg:self-start order-1"
-								variants={itemVariants}
-							>
+							<aside className="w-full lg:w-1/3 lg:sticky lg:top-[120px] lg:self-start order-1">
 								<BlogSidebar title={blog.title} date={formatDate(blog.date)} />
-							</motion.aside>
+							</aside>
 
 							{/* ✅ Right Content */}
-							<motion.article
-								className="w-full lg:w-2/3 order-2 space-y-8 md:space-y-12"
-								variants={itemVariants}
-							>
+							<article className="w-full lg:w-2/3 order-2 space-y-8 md:space-y-12">
 								{/* Main Blog Content */}
 								<BlogContent content={blog.content} image={blog.thumbnail} />
 
@@ -147,7 +138,10 @@ async function BlogSinglePage({
 								<BlogFAQSection faq={blog.faq} />
 								<motion.div
 									className="bg-background border-2 border-accent rounded-md p-6 md:p-8 block lg:hidden"
-									variants={itemVariants}
+									initial="hidden"
+									whileInView="visible"
+									viewport={{ once: true, margin: "-50px" }}
+									variants={containerVariants}
 									whileHover={{
 										boxShadow: "4px 4px 0px 0px var(--accent)",
 										transition: { duration: 0.2 },
@@ -225,10 +219,10 @@ async function BlogSinglePage({
 										</Link>
 									</motion.div>
 								</motion.div>
-							</motion.article>
+							</article>
 						</div>
 					</div>
-				</motion.div>
+				</div>
 
 				{/* ✅ Contact Section */}
 				<section>

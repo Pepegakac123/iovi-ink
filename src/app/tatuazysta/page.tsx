@@ -153,7 +153,7 @@ export default async function TatuazystaPage() {
 				mainEntity={{
 					"@type": "Person",
 					name: "Jowita Potaczek",
-					url: "https://www.iovi-ink.pl",
+					url: "https://iovi-ink.pl",
 					sameAs: [socialLinks.iovi.instagram],
 				}}
 			/>

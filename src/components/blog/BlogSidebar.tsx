@@ -25,9 +25,9 @@ const BlogSidebar: React.FC<BlogSidebarProps> = ({ title, date }) => {
     <motion.div
       className="space-y-8"
       variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
+      // Sidebar zawiera H1 — bez animacji wejścia, żeby był widoczny od razu w SSR
+      initial={false}
+      animate="visible"
     >
       {/* ✅ Blog Info Card */}
       <motion.div

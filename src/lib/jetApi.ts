@@ -536,6 +536,7 @@ export async function getAllBlogs(): Promise<ProcessedBlogPost[]> {
     "/wp-json/wp/v2/blog",
     {
       _fields: "id,slug,title,meta",
+      per_page: 100, // domyślnie WP zwraca tylko 10 wpisów
     },
     ["blogs-all"],
   );
