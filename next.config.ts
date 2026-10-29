@@ -62,7 +62,7 @@ const REMOVED_SERVICE_CITIES = [
 ];
 
 const nextConfig: NextConfig = {
-	// output: "standalone", // Uncomment jeśli chcesz standalone
+	output: "standalone", // produkcja (mikrus): PM2 uruchamia .next/standalone/server.js
 
 	experimental: {
 		optimizePackageImports: [
@@ -132,6 +132,22 @@ const nextConfig: NextConfig = {
 			{
 				source: "/fine-line-vs-linework",
 				destination: "/blog/fine-line-vs-linework",
+				permanent: true,
+			},
+			// Scalone wpisy o tym samym temacie (kanibalizacja) — w CMS jako szkice
+			{
+				source: "/blog/:slug(delikatne-tatuaze-damskie|delikatne-tatuaze-damskie-wzory-i-inspiracje-na-2025)",
+				destination: "/blog/delikatne-tatuaze-damskie-2",
+				permanent: true,
+			},
+			{
+				source: "/blog/tatuaze-minimalistyczne",
+				destination: "/blog/minimalistyczne-tatuaze-kompletny-przewodnik",
+				permanent: true,
+			},
+			{
+				source: "/blog/tatuaze-bransoletki-na-reke",
+				destination: "/blog/tatuaze-bransoletki-kompletny-przewodnik-wzory-ceny",
 				permanent: true,
 			},
 			{
