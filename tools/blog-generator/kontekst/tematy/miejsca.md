@@ -1,0 +1,14 @@
+# Miejsca na ciele (wiedza ogólna tatuatorska — do potwierdzenia przez Jowitę)
+- Wzór projektuję pod anatomię konkretnego miejsca: linie mają współgrać z kształtem ciała, a proporcje z wielkością miejsca.
+- Nadgarstek i przedramię: popularne pod małe i delikatne wzory (np. bransoletki, napisy, kwiaty); widoczne na co dzień, narażone na słońce, więc potrzebują filtra po wygojeniu.
+- Palce: skóra szybko się odnawia i często pracuje, więc tatuaże na palcach szybciej blakną i mogą wymagać poprawki; wzór musi być prosty, bez drobnych detali.
+- Za uchem: miejsce dyskretne, pod małe motywy; skóra cienka, blisko kości.
+- Kostka i stopa: cienka skóra przy kości, tarcie butów i skarpet utrudnia gojenie.
+- Żebra: wymagające miejsce przy tatuowaniu, dobre pod pionowe, smukłe kompozycje.
+- Bardzo drobne detale w małym rozmiarze z czasem mogą się zlewać — dlatego przy małych tatuażach upraszczam wzór.
+- Przedramię: dużo płaskiej powierzchni, dobre pod podłużne kompozycje, napisy i gałązki; zewnętrzna strona boli zwykle mniej niż wewnętrzna.
+- Plecy i kręgosłup: pod pionowe, smukłe wzory wzdłuż kręgosłupa albo kompozycje na łopatce; okolice kręgosłupa bywają bardziej wrażliwe.
+- Obojczyk: miejsce eksponowane przy dekolcie, skóra cienka przy kości; dobre pod linie i napisy biegnące wzdłuż obojczyka.
+- Ramię: łatwe do zakrycia i odsłonięcia, dobre pod pierwszy tatuaż.
+- Między piersiami / pod biustem (mostek): kompozycje symetryczne i ornamentalne; okolica kości, więc bardziej wrażliwa; wzór projektuję tak, żeby pasował do linii ciała w różnych pozycjach.
+- Stopa: tarcie butów, cienka skóra; linie mogą się szybciej rozmywać, gojenie wymaga luźnego obuwia.

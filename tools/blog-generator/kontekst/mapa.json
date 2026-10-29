@@ -1,0 +1,112 @@
+{
+  "cena": [
+    "cena",
+    "ceny",
+    "koszt",
+    "kosztuje",
+    "wycen",
+    "ile zapłac"
+  ],
+  "pielegnacja": [
+    "pielęgn",
+    "pielegn",
+    "gojen",
+    "goi",
+    "dbać",
+    "dbac",
+    "świeży",
+    "swiezy",
+    "smarow",
+    "strup",
+    "goi się",
+    "jak długo"
+  ],
+  "przygotowanie": [
+    "przygotow",
+    "pierwsz",
+    "wizyt",
+    "konsultac",
+    "przed tatuaż"
+  ],
+  "bol": [
+    "boli",
+    "ból",
+    "bol ",
+    "bolesn",
+    "znieczul"
+  ],
+  "miejsca": [
+    "nadgarst",
+    "palc",
+    "palec",
+    "za uchem",
+    "kostc",
+    "kostk",
+    "żebr",
+    "przedramien",
+    "przedramię",
+    "rękę",
+    "ręce",
+    "łydc",
+    "obojczyk",
+    "na stopie",
+    "na szyi",
+    "plecach",
+    "plecy",
+    "kręgosłup",
+    "obojczyk",
+    "ramieniu",
+    "ramię",
+    "piersi",
+    "stopie",
+    "żebrach",
+    "kostce"
+  ],
+  "style": [
+    "fine line",
+    "linework",
+    "minimal",
+    "graficzn",
+    "napis",
+    "subteln",
+    "delikatn"
+  ],
+  "motywy": [
+    "kwiat",
+    "róż",
+    "łapk",
+    "lapk",
+    "zwierz",
+    "kot",
+    "pies",
+    "psa",
+    "napis",
+    "symbol",
+    "data",
+    "imię",
+    "motyl",
+    "lotos",
+    "serce",
+    "słońce",
+    "gór",
+    "koliber",
+    "średnik",
+    "róża wiatrów"
+  ],
+  "blizny": [
+    "blizn",
+    "cover",
+    "zakry",
+    "przykry"
+  ],
+  "okazje": [
+    "mamy",
+    "mama",
+    "przyjaci",
+    "siostr",
+    "córk",
+    "imion",
+    "dzieci",
+    "rodzin"
+  ]
+}

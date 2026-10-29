@@ -1,0 +1,63 @@
+name: Blog — automatyczny wpis (1 na tydzień)
+
+# Jeden wpis na uruchomienie (tools/blog-generator/auto.py):
+# - fraza z kolejka.txt, której nie ma jeszcze w tytułach wpisów WP,
+# - czysty wpis -> zaplanowany (future) w losowym dniu roboczym 8-18,
+# - wpis z flagami (ceny, procenty, < 800 słów, styl) -> szkic + czerwony run (mail).
+#
+# Wyłącznik: zmienna repozytorium BLOG_AUTO_ENABLED=true (Settings -> Variables).
+# Sekrety: OPENAI_API_KEY_BLOGS, WP_APP_PASSWORD (opcjonalnie NANOBANANA_PRO_KEY); zmienne: WP_SITE, WP_USER.
+
+on:
+  schedule:
+    - cron: '17 5 * * 1'   # poniedziałek ~7:17 czasu PL; dzień i godzinę publikacji losuje auto.py
+    # Zapasowy: GitHub potrafi pominąć zaplanowany przebieg (26.10 poniedziałkowy się nie odpalił).
+    # Z --zapasowy auto.py kończy od razu, jeśli poniedziałkowy już zostawił wpis.
+    - cron: '43 6 * * 3'   # środa ~8:43 czasu PL
+  workflow_dispatch:
+
+concurrency:
+  group: blog-auto
+  cancel-in-progress: false
+
+jobs:
+  wpis:
+    if: vars.BLOG_AUTO_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: tools/blog-generator
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: tools/blog-generator/requirements*.txt
+
+      - name: Zależności
+        run: pip install -r requirements-dev.txt
+
+      - name: Testy maszynki (bez sieci)
+        run: pytest -q
+
+      - name: Napisz i zaplanuj wpis
+        env:
+          OPENAI_API_KEY_BLOGS: ${{ secrets.OPENAI_API_KEY_BLOGS }}
+          NANOBANANA_PRO_KEY: ${{ secrets.NANOBANANA_PRO_KEY }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          WP_SITE: ${{ vars.WP_SITE }}
+          WP_USER: ${{ vars.WP_USER }}
+          BLOG_SAVE_DIR: var/data/blogs
+        run: python -u run.py auto ${{ github.event.schedule == '43 6 * * 3' && '--zapasowy' || '' }}
+
+      - name: Zapisz wygenerowany wpis (JSON)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wpis-${{ github.run_id }}
+          path: tools/blog-generator/var/data/blogs/*.json
+          if-no-files-found: ignore
+          retention-days: 90

@@ -1,0 +1,7 @@
+openai>=1.30
+aiohttp
+requests
+beautifulsoup4
+python-dotenv
+pytz
+pillow

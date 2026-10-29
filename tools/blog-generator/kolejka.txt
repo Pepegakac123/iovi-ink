@@ -1,0 +1,53 @@
+# Kolejka fraz dla trybu auto (jedna na linię, kolejność = priorytet; fraza musi trafić do tytułu wpisu).
+# Źródło: DataForSEO Labs keyword_suggestions ("tatuaż", "tatuaże"), PL, 2026-10-29. W nawiasie: wolumen/mies.
+# Pominięte celowo: tematy z istniejącą stroną usługi lub wpisem (za uchem, nadgarstek, palec, bransoletki,
+# dla par, kwiaty ogólnie, pielęgnacja, delikatne/małe damskie, minimalistyczne, męskie) — te podbijamy
+# na istniejących stronach, nie nowym wpisem. Pominięte style spoza oferty (tribal, rękaw, realizm, tymczasowe).
+ile kosztuje tatuaż
+# (1900; intencja zakupowa — wpis "od czego zależy cena", bez kwot)
+tatuaż na przedramieniu damski
+# (1900 + "tatuaże damskie na przedramieniu" 1600)
+tatuaż dla mamy z imionami dzieci
+# (1900 + "tatuaż z imionami dzieci" 1600, "tatuaż dla mamy" 880)
+tatuaż motyl
+# (1900 + "co oznacza tatuaż motyla" 1300)
+tatuaż dla przyjaciółek
+# (1900 + "tatuaż dla przyjaciółki" 1900)
+ile goi się tatuaż
+# (1600 + "jak długo goi się tatuaż" 590; linkuje do /blog/pielegnacja-tatuazu)
+tatuaż na plecach damski
+# (1900 + "tatuaż na kręgosłupie damski" 1000)
+tatuaż róża
+# (1600 + "tatuaż różyczka" 1600)
+tatuaż na obojczyku
+# (1600 + "tatuaż na obojczyku damski" 880)
+tatuaż góry
+# (1300; lokalny kąt: Gorce i Beskid Wyspowy wokół Mszany Dolnej)
+tatuaż na kostce damski delikatny
+# (1300 + "tatuaż na kostce" 1000)
+kwiat lotosu tatuaż
+# (1900)
+tatuaż dla siostry
+# (1300 + "tatuaż dla sióstr")
+czy tatuaż boli
+# (480; intencja przed decyzją)
+tatuaż na ramieniu damski
+# (1600)
+tatuaż między piersiami
+# (1600 + "tatuaż pod piersiami" 880)
+tatuaż serce
+# (1300)
+tatuaż na stopie
+# (1600)
+tatuaż słońce
+# (1300)
+tatuaż dla mamy i córki
+# (720 + "tatuaż mama córka" 480)
+tatuaż na żebrach
+# (880)
+róża wiatrów tatuaż
+# (880)
+tatuaż koliber znaczenie
+# (590)
+co oznacza tatuaż średnik
+# (720)
