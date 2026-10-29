@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { cityRedirects } from "./src/lib/cityHubs";
 
 // 💡 Dodajemy import dla analizatora paczek
 // Pamiętaj, aby go zainstalować: npm install @next/bundle-analyzer -D
@@ -118,6 +119,8 @@ const nextConfig: NextConfig = {
 				destination: "/uslugi/:base",
 				permanent: true,
 			},
+			// Strony miast: 6 hubów, reszta i /tatuazysta/* → najbliższy hub
+			...cityRedirects(),
 			// Stare / błędne adresy z 404 w GSC
 			{ source: "/tatuaze", destination: "/", permanent: true },
 			{ source: "/porttfolio", destination: "/portfolio", permanent: true },

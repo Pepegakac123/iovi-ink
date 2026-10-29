@@ -21,13 +21,16 @@ import {
 import { JetHomepageProps } from "@/lib/jetPostTypes";
 import { Metadata } from "next";
 import { notFound } from "next/navigation"; // 🔥 Import notFound
+import { CITY_HUBS, HUB_SLUGS } from "@/lib/cityHubs";
+import CityTravel from "@/components/Sections/CityTravel";
 
 export async function generateStaticParams() {
 	try {
 		const type = "tatuaze";
 		const cities = await getAllHomepageCites(type as "tatuaze" | "tatuazysta");
-		console.log(cities);
-		return cities.map((cities) => ({ slug: cities.slug }));
+		return cities
+			.filter((city) => HUB_SLUGS.includes(city.slug.replace(/^tatuaze-/, "")))
+			.map((city) => ({ slug: city.slug }));
 	} catch (error) {
 		console.error("Error in generateStaticParams:", error);
 		return []; // Zwróć pustą tablicę przy błędzie
@@ -360,6 +363,10 @@ export default async function TatuazePage({
 				<section>
 					<Faq {...faqData} />
 				</section>
+
+				{CITY_HUBS[slug.replace(/^tatuaze-/, "")] && (
+					<CityTravel hub={CITY_HUBS[slug.replace(/^tatuaze-/, "")]} />
+				)}
 
 				<section>
 					<Contact

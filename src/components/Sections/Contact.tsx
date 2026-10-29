@@ -8,6 +8,7 @@ import {
 	stickyContentVariants,
 } from "@/lib/variants";
 import { ContactProps } from "@/lib/dataTypes";
+import { socialLinks } from "@/lib/data";
 
 const Contact = ({ title, subheadline, description }: ContactProps) => {
 	return (
@@ -103,6 +104,16 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 								>
 									{description}
 								</motion.p>
+
+								{/* Najszybsza ścieżka kontaktu dla klientek: DM zamiast formularza */}
+								<a
+									href={socialLinks.iovi.instagram}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="inline-flex items-center gap-2 font-primary uppercase text-base border-1 border-foreground rounded-md px-4 py-3 bg-background hover:bg-secondary transition-colors w-fit"
+								>
+									Napisz na Instagramie @iovi.ink
+								</a>
 							</motion.div>
 						</div>
 					</motion.div>

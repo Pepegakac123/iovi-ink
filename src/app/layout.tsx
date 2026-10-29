@@ -111,7 +111,7 @@ export default function RootLayout({
           <Navbar /> {/* ← DODANE: Wrapper dla reCAPTCHA */}
           <main id="main-content">{children}</main>
           <Footer />
-          {/* <CookieConsent /> */}
+          <CookieConsent />
           <Toaster
             position="top-right"
             duration={5000}
