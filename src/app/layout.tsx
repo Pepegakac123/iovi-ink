@@ -10,6 +10,7 @@ import ConditionalAnalytics from "@/components/GDPR/GA4ConditionalAnalytics";
 import CookieConsent from "@/components/GDPR/CookieConsent";
 import { InstagramGlimpse } from "@/components/ui/InstagramGlimpse";
 import { FloatingContactBtn } from "@/components/buttons/FloatingContactBtn";
+import ContactClickTracker from "@/components/analytics/ContactClickTracker";
 export const metadata: Metadata = {
   title: {
     template: "%s | iovi-ink",
@@ -161,6 +162,7 @@ export default function RootLayout({
           <FloatingContactBtn />
         </RecaptchaProvider>
         <ConditionalAnalytics />
+        <ContactClickTracker />
         <InstagramGlimpse variant="fixed" />
       </body>
     </html>

@@ -80,6 +80,6 @@ def test_create_post_uses_blog_cpt_and_no_rank_math(monkeypatch):
         def json(self):
             return {"id": 7, "meta": {}}
 
-    monkeypatch.setattr(blog_upload.requests, "post", lambda url, **kw: calls.append(url) or Resp())
+    monkeypatch.setattr(blog_upload.WP_HTTP, "post", lambda url, **kw: calls.append(url) or Resp())
     blog_upload.create_blog_post("https://x.pl", "u", "p", _payload())
     assert calls == ["https://x.pl/wp-json/wp/v2/blog"]

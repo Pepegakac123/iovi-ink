@@ -34,8 +34,9 @@ export async function GET(request: NextRequest) {
 			tagsList.map(async (tag) => {
 				const trimmedTag = tag.trim();
 				console.log(`Revalidating: ${trimmedTag}`);
-				// In Next.js 15+ revalidateTag is async and requires type option
-				revalidateTag(trimmedTag, "tag");
+				// Next 16: drugi argument to profil cacheLife; { expire: 0 } = dane wygasają od razu
+				// (wcześniejsze "tag" nie jest profilem i odświeżanie po cichu nie działało).
+				revalidateTag(trimmedTag, { expire: 0 });
 			}),
 		);
 

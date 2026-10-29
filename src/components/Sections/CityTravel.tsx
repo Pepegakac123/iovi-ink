@@ -45,6 +45,7 @@ const CityTravel = ({ hub }: { hub: CityHub }) => {
 					<PrimaryBtn />
 					<a
 						href={socialLinks.iovi.instagram}
+						data-track-placement="city_travel"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="font-primary uppercase text-base underline underline-offset-4 hover:text-primary"

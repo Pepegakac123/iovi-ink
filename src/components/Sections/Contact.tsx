@@ -108,6 +108,7 @@ const Contact = ({ title, subheadline, description }: ContactProps) => {
 								{/* Najszybsza ścieżka kontaktu dla klientek: DM zamiast formularza */}
 								<a
 									href={socialLinks.iovi.instagram}
+									data-track-placement="contact_section"
 									target="_blank"
 									rel="noopener noreferrer"
 									className="inline-flex items-center gap-2 font-primary uppercase text-base border-1 border-foreground rounded-md px-4 py-3 bg-background hover:bg-secondary transition-colors w-fit"

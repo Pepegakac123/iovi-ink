@@ -48,6 +48,7 @@ const Footer = () => {
 						{/* Instagram Button */}
 						<motion.a
 							href={socialLinks.iovi.instagram}
+							data-track-placement="footer"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="inline-block w-full"
@@ -160,6 +161,7 @@ const Footer = () => {
 							{/* Instagram Profile */}
 							<motion.a
 								href={socialLinks.iovi.instagram}
+								data-track-placement="footer"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex items-center gap-3 text-background/80 hover:text-secondary transition-colors duration-300 group"

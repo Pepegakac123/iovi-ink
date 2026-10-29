@@ -143,6 +143,7 @@ const InstagramGlimpse: React.FC<InstagramGlimpseProps> = ({
 
 					<a
 						href={socialLinks.iovi.instagram}
+						data-track-placement="instagram_widget"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="mt-2 bg-primary text-primary-foreground border-2 border-foreground font-primary text-sm py-2 px-3 rounded-md text-center uppercase hover:bg-accent hover:shadow-[2px_2px_0px_0px_var(--foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all duration-200"

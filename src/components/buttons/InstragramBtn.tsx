@@ -21,6 +21,7 @@ const InstagramBtn = ({ text, link, className = "" }: InstagramBtnProps) => {
 		>
 			<motion.a
 				href={link}
+				data-track-placement="contact_form"
 				target="_blank"
 				rel="noopener noreferrer"
 				className="inline-block w-full"

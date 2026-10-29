@@ -290,6 +290,7 @@ const PopupForm: React.FC<PopupFormProps> = ({
               {/* Przycisk Instagram */}
               <motion.a
                 href={socialLinks.iovi.instagram}
+                data-track-placement="popup_form"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block w-full"

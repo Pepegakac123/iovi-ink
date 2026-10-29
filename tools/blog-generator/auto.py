@@ -16,6 +16,8 @@ from datetime import datetime, timedelta, timezone
 import pytz
 import requests
 
+from wp_http import WP_HTTP
+
 WARSAW = pytz.timezone("Europe/Warsaw")
 QUEUE_FILE = os.path.join(os.path.dirname(__file__), "kolejka.txt")
 EXIT_DRAFT = 2
@@ -71,7 +73,7 @@ def fetch_posts(site: str, user: str, password: str) -> list[dict]:
     """Wpisy we wszystkich stanach (opublikowane, zaplanowane, szkice): tytuł, status, daty GMT."""
     posts, page = [], 1
     while True:
-        resp = requests.get(
+        resp = WP_HTTP.get(
             f"{site.rstrip('/')}/wp-json/wp/v2/{os.getenv('WP_POST_TYPE', 'blog')}",
             params={"status": "publish,future,draft,pending,private", "per_page": 100, "page": page,
                     "context": "edit", "_fields": "title,status,date_gmt,modified_gmt"},

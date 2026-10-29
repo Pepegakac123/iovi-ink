@@ -13,6 +13,7 @@ load_dotenv()
 
 import blog_writing
 import kontekst
+from wp_http import WP_HTTP
 
 BLOGS_DIR = os.getenv("BLOG_SAVE_DIR", "var/data/blogs")
 
@@ -305,7 +306,7 @@ def upload_cover_to_wp(site_url: str, username: str, password: str, image_bytes:
     }
     auth = (username, password)
 
-    resp = requests.post(media_url, data=webp_bytes, headers=headers, auth=auth, timeout=30)
+    resp = WP_HTTP.post(media_url, data=webp_bytes, headers=headers, auth=auth, timeout=30)
     if resp.status_code not in (200, 201):
         raise RuntimeError(f"Upload cover failed: {resp.status_code} {resp.text}")
     media = resp.json()
@@ -318,10 +319,10 @@ def upload_cover_to_wp(site_url: str, username: str, password: str, image_bytes:
             update_payload = {"alt_text": blog_title}
             # PATCH zwykle jest poprawnym wyborem dla aktualizacji media w WP REST
             try:
-                requests.patch(u, json=update_payload, auth=auth, timeout=10)
+                WP_HTTP.patch(u, json=update_payload, auth=auth, timeout=10)
             except Exception:
                 # Fallback do POST, jeśli środowisko blokuje PATCH
-                requests.post(u, json=update_payload, auth=auth, timeout=10)
+                WP_HTTP.post(u, json=update_payload, auth=auth, timeout=10)
         except Exception as exc:
             print(f"⚠️ Nie udało się ustawić ALT dla okładki: {exc}")
 
@@ -343,7 +344,7 @@ def get_all_photos(per_page=100):
 
         for headers in BROTLI_HEADER_VARIANTS:
             try:
-                response = requests.get(api_url, auth=auth, headers=headers)
+                response = WP_HTTP.get(api_url, auth=auth, headers=headers)
                 if response.status_code != 200:
                     break
                 media_items = response.json()
@@ -503,7 +504,7 @@ def generate_faq_questions(article, count=3, max_retries: int = 3, initial_delay
 def create_blog_post(site_url, username, password, post_data):
     auth = (username, password)
 
-    response = requests.post(
+    response = WP_HTTP.post(
         f'{site_url}/wp-json/wp/v2/{WP_POST_TYPE}',
         json=post_data,
         auth=auth,
@@ -628,6 +629,8 @@ def load_and_post_blog(keyword, title, headers, descriptions, publish_in_days, s
         Opis trafia do wyników Google i jako wstęp wpisu. Zacznij od frazy: {keyword} dokładnie w takiej formie i użyj jej tylko raz.
         NIE PISZ WIĘCEJ NIŻ 155 ZNAKÓW'''
     )
+
+    short_description = blog_writing.fix_title(short_description)  # model zaczyna od frazy małą literą
 
     html_content = build_html_content(headers, descriptions, photos, keyword)
 

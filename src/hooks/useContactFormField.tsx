@@ -5,7 +5,7 @@ import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { sendGAEvent } from "@next/third-parties/google";
+import { trackLead } from "@/lib/trackLead";
 import { useRecaptcha } from "@/hooks/useRecaptcha";
 import {
 	ContactFormData,
@@ -251,15 +251,10 @@ export const useContactFormField = ({
 					duration: 5000,
 				});
 
-				// Konwersja do GA4 (oznacz generate_lead jako kluczowe zdarzenie w panelu GA).
-				// Bez zgody na cookies GA nie jest załadowany i dataLayer nie istnieje.
-				if ("dataLayer" in window) {
-					sendGAEvent("event", "generate_lead", {
-						form_variant: variant,
-						page_path: window.location.pathname,
-						with_files: (result.filesProcessed || 0) > 0,
-					});
-				}
+				// Lead: licznik w panelu WP + mail, a w GA4 generate_lead (oznacz jako kluczowe zdarzenie).
+				trackLead("formularz", variant === "popup" ? "popup_form" : "contact_form", {
+					with_files: (result.filesProcessed || 0) > 0,
+				});
 
 				// 8. Reset formularza
 				resetForm();

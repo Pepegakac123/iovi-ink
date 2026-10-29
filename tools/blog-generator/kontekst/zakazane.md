@@ -19,3 +19,8 @@
 - "Wyobraź sobie…", "Tatuaż to coś więcej niż…", "Tatuaż to forma wyrażenia siebie" jako otwarcie
 - odsyłanie do konsultacji w każdej sekcji — tylko zakończenie
 - zdania-morały na końcu sekcji
+
+## Dopisane po 1. próbce (2026-10-29, "ile kosztuje tatuaż")
+- Zdań, które zdradzają zasady pisania: "To opis praktyki branżowej, a nie moich warunków", "nie podaję tu kwot", "zgodnie z zasadami".
+- Sztucznych konstrukcji "W branży rozróżniam…", "Rozdzielam więc dwa pytania…" — pisz naturalnie, jak w rozmowie z klientką.
+- Rozdmuchiwania wątków pobocznych (np. modele rozliczeń studiów) — max 2–3 zdania; więcej miejsca na to, co klientka zrobi z tą wiedzą.
